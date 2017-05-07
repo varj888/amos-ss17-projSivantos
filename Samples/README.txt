@@ -1,0 +1,1 @@
+The code contained in ./helloworld and ./lcddisplay is solely the changed MainPage.xaml.cs
