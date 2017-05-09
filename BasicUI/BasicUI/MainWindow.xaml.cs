@@ -32,6 +32,7 @@ namespace BasicUI
         }
 
         public string IPaddress { get; set; }
+        public string DeviceName { get; set; }
 
         private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
@@ -70,6 +71,36 @@ namespace BasicUI
                 Debug.WriteLine("connection Test failed");
             }
            
+        }
+
+        private void vcSlider_DragStarted(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void vcSlider_DragCompleted(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void vcSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
+
+        private void soundSlider_DragStarted(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void soundSlider_DragCompleted(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void soundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
         }
     }
 }
