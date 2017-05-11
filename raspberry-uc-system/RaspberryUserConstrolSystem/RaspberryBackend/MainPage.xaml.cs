@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Serialization.Json;
+using System.Xml.Serialization;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.Foundation;
@@ -15,6 +17,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Runtime.Serialization;
+using System.Xml;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -45,6 +49,7 @@ namespace HelloWorld
 
             this.InitializeComponent();
             createListenerAsync();
+           
         }
 
         /// <summary>
@@ -64,7 +69,7 @@ namespace HelloWorld
             try
             {
                 //Start listening for incoming TCP connections on the specified port
-                await socketListener.BindServiceNameAsync("7777");
+                await socketListener.BindServiceNameAsync("13370");
                 Debug.WriteLine("created Listener");
             }
             catch (Exception e)
@@ -74,23 +79,29 @@ namespace HelloWorld
         }
 
         /// <summary>
-        /// trys to read a string from the socket and send it back
+        /// 1. reads a string from the socket
+        /// 2. prints the string on debug
+        /// 3. deserializes the string into an object of type Request
+        /// 4. prints variables of the request object on debug
         /// </summary>
         private async void SocketListener_ConnectionReceived(Windows.Networking.Sockets.StreamSocketListener sender,
             Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs args)
         {
+
+   
+
             //Read line from the remote client.
             Stream inStream = args.Socket.InputStream.AsStreamForRead();
             StreamReader reader = new StreamReader(inStream);
             string request = await reader.ReadLineAsync();
 
-            Debug.WriteLine("request: " + request);
+            Debug.WriteLine(request);
 
-            //Send the line back to the remote client.
-            Stream outStream = args.Socket.OutputStream.AsStreamForWrite();
-            StreamWriter writer = new StreamWriter(outStream);
-            await writer.WriteLineAsync(request);
-            await writer.FlushAsync();
+            //Deserialize the received string into an object of Type Request
+            Request r = (Request) Serializer.Deserialize(request, typeof(Request));
+
+            Debug.WriteLine(r.methodName);
+            Debug.WriteLine(r.parameter);
         }
 
         private void Timer_Tick(object sender, object e)
@@ -137,4 +148,79 @@ namespace HelloWorld
             System.Diagnostics.Debug.WriteLine("Pin {0} changed to {1}",sender.PinNumber, sender.Read());
         }
     }
+}
+
+
+/// <summary>
+/// helper class to serialize and deserialize
+/// it uses strings as the result of serialization
+/// </summary>
+public class Serializer
+{
+    /// <summary>
+    /// serializes a object into a string
+    /// </summary>
+    /// <param name="obj">
+    /// the object to serialize
+    /// </param>
+    /// <returns>
+    /// the serialized object
+    /// </returns>
+    public static string Serialize(object obj)
+    {
+        using (MemoryStream memoryStream = new MemoryStream())
+        using (StreamReader reader = new StreamReader(memoryStream))
+        {
+            DataContractSerializer serializer = new DataContractSerializer(obj.GetType());
+            serializer.WriteObject(memoryStream, obj);
+            memoryStream.Position = 0;
+            return reader.ReadToEnd();
+        }
+    }
+
+    /// <summary>
+    /// deserializes a an object from a string
+    /// </summary>
+    /// <param name="xml">
+    /// the string to deserialize
+    /// </param>
+    /// <param name="toType">
+    /// the type of the object, that you want to get as a result by deserialization
+    /// </param>
+    /// <returns>
+    /// the deserialized string
+    /// </returns>
+    public static object Deserialize(string xml, Type toType)
+    {
+        using (Stream stream = new MemoryStream())
+        {
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(xml);
+            stream.Write(data, 0, data.Length);
+            stream.Position = 0;
+            DataContractSerializer deserializer = new DataContractSerializer(toType);
+            return deserializer.ReadObject(stream);
+        }
+    }
+}
+
+
+/// <summary>
+/// Unit of transfer by the RequestConnClient Class
+/// is only as a container for the two variables methodName and parameter
+/// note: this class uses the default contract namespace
+/// </summary>
+[DataContract]
+public class Request
+{
+    public Request(string methodName, Object parameter)
+    {
+        this.methodName = methodName;
+        this.parameter = parameter;
+    }
+
+    [DataMember]
+    public string methodName;
+
+    [DataMember]
+    public Object parameter;
 }

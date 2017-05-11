@@ -16,6 +16,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
+using System.Xml;
 
 namespace BasicUI
 {
@@ -28,7 +30,10 @@ namespace BasicUI
         public MainWindow()
         {
             InitializeComponent();
-            connectionTest("minwinpc");
+
+            //test for the class RequestConnClient
+            RequestConnClient clientConnection = new RequestConnClient("minwinpc");
+            clientConnection.send(new Request("lightLED", 1));
         }
 
         public string IPaddress { get; set; }
@@ -37,40 +42,6 @@ namespace BasicUI
         private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
             //TODO:add functionality here
-        }
-
-        /// <summary>
-        /// 1. creates a TCP connection the the echoserver
-        /// 2. sends string "test" to the echoserver
-        /// 3. trys to receive a string from the echoserver
-        /// 4. writes the received string on debug
-        /// </summary>
-        /// <param name="hostname">name of the echoserver to connect to</param>
-        public void connectionTest(string hostname)
-        {
-            try
-            {
-                //connect to the server
-                int port = 7777;
-                TcpClient client = new TcpClient(hostname, port);
-
-                NetworkStream stream = client.GetStream();
-                StreamReader reader = new StreamReader(stream);
-                StreamWriter writer = new StreamWriter(stream) { AutoFlush = true };
-
-                //send string test to the echoserver
-                writer.WriteLine("test");
-
-                //receive a string from the echoserver
-                string lineReceived = reader.ReadLine();
-
-                //write the received string on debug
-                Debug.WriteLine("Received from server: " + lineReceived);
-            }catch(Exception e)
-            {
-                Debug.WriteLine("connection Test failed");
-            }
-           
         }
 
         private void vcSlider_DragStarted(object sender, RoutedEventArgs e)
@@ -103,4 +74,112 @@ namespace BasicUI
 
         }
     }
+
+    /// <summary>
+    /// This class allows to send objects of type Request to raspberryPis
+    /// </summary>
+    public class RequestConnClient{
+
+        public RequestConnClient(string hostname)
+        {
+            connect(hostname);
+        }
+
+        private StreamWriter writer;
+
+        /// <summary>
+        /// sets up a TCP connection to the raspberry pi on port 13370
+        /// </summary>
+        /// <param name="hostname">
+        /// name of the raspberry to connect to
+        /// </param>
+        private void connect(string hostname)
+        {
+            TcpClient client = new TcpClient(hostname, 13370);
+            writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
+        }
+
+        /// <summary>
+        /// 1. serializes a request into a string
+        /// 2. sends the string to the raspberry Pi
+        /// </summary>
+        /// <param name="request"></param>
+        public void send(Request request)
+        {
+            writer.WriteLine(Serializer.Serialize(request));
+        }
+}
+
+/// <summary>
+/// helper class to serialize and deserialize
+/// it uses strings as the result of serialization
+/// </summary>
+public class Serializer
+{
+        /// <summary>
+        /// serializes a object into a string
+        /// </summary>
+        /// <param name="obj">
+        /// the object to serialize
+        /// </param>
+        /// <returns>
+        /// the serialized object
+        /// </returns>
+        public static string Serialize(object obj)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            using (StreamReader reader = new StreamReader(memoryStream))
+            {
+                DataContractSerializer serializer = new DataContractSerializer(obj.GetType());
+                serializer.WriteObject(memoryStream, obj);
+                memoryStream.Position = 0;
+                return reader.ReadToEnd();
+            }
+        }
+
+        /// <summary>
+        /// deserializes a string into a object
+        /// </summary>
+        /// <param name="xml">
+        /// the string to deserialize
+        /// </param>
+        /// <param name="toType">
+        /// the type of the object, that you want to get as a result by deserialization
+        /// </param>
+        /// <returns>
+        /// the deserialized string
+        /// </returns>
+        public static object Deserialize(string xml, Type toType)
+        {
+            using (Stream stream = new MemoryStream())
+            {
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(xml);
+                stream.Write(data, 0, data.Length);
+                stream.Position = 0;
+                DataContractSerializer deserializer = new DataContractSerializer(toType);
+                return deserializer.ReadObject(stream);
+            }
+        }
+    }
+}
+
+/// <summary>
+/// Unit of transfer by the RequestConnClient Class
+/// it is only as a container for the two variables methodName and parameter
+/// note: this class uses the default contract namespace
+/// </summary>
+[DataContract]
+public class Request
+{
+    public Request(string methodName, Object parameter)
+    {
+        this.methodName = methodName;
+        this.parameter = parameter;
+    }
+
+    [DataMember]
+    public string methodName;
+
+    [DataMember]
+    public Object parameter;
 }

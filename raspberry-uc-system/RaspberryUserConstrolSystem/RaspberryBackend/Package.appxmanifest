@@ -1,56 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
-  IgnorableNamespaces="uap mp iot">
-
-  <Identity
-    Name="RaspberryBackend-uwp"
-    Publisher="CN=danie"
-    Version="1.0.0.0" />
-
-  <mp:PhoneIdentity PhoneProductId="03b29d61-2ca2-4aa2-b595-b8fe94a5202f" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="56593ec6-170d-4d9e-8d1f-9f1aee36c272" Publisher="CN=RaspberryPi" Version="1.0.0.0" />
+  <mp:PhoneIdentity PhoneProductId="56593ec6-170d-4d9e-8d1f-9f1aee36c272" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>RaspberryBackend</DisplayName>
-    <PublisherDisplayName>danie</PublisherDisplayName>
+    <DisplayName>HelloWorld</DisplayName>
+    <PublisherDisplayName>RaspberryPi</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App">
-      <uap:VisualElements
-        DisplayName="RaspberryBackend"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="RaspberryBackend"
-        BackgroundColor="transparent"
-        AppListEntry="none">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HelloWorld.App">
+      <uap:VisualElements DisplayName="HelloWorld" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="HelloWorld" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
-      <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="RaspberryBackend.StartupTask">
-          <BackgroundTasks>
-            <iot:Task Type="startup" />
-          </BackgroundTasks>
-        </Extension>
-      </Extensions>
     </Application>
   </Applications>
-
   <Capabilities>
     <Capability Name="internetClient" />
+    <Capability Name="privateNetworkClientServer" />
+    <Capability Name="internetClientServer" />
   </Capabilities>
 </Package>
