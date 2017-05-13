@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Request.cs" />
+    <Compile Include="RequestConnClient.cs" />
+    <Compile Include="Serializer.cs" />
+    <Compile Include="StatusConnClient.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

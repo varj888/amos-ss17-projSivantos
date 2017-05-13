@@ -103,7 +103,7 @@ namespace HelloWorld
         //<summary>
         //Read from a pin (will read last input if pin is configured as input
         //</summary>
-        public readPin( UInt16 id )
+        public GpioPinValue readPin( UInt16 id )
         {
             return pins[id].Read();
         }
