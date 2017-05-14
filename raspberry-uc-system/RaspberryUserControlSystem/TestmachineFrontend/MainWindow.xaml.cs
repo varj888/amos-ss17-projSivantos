@@ -33,7 +33,7 @@ namespace TestmachineFrontend
 
             //test for the class RequestConnClient
             //RequestConnClient clientConnection = new RequestConnClient("minwinpc");
-            //clientConnection.send(new Request("lightLED", 1));
+            //clientConnection.send(new Request("LightLED", 1));
         }
 
         public string IPaddress { get; set; }

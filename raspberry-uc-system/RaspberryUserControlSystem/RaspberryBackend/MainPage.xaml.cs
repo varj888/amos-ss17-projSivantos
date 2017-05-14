@@ -51,7 +51,7 @@ namespace HelloWorld
             createListenerAsync();
 
             //Test for the RequestHandler
-            RequestController.handleRequest(new Request("LightLED", 1));
+            //RequestController.handleRequest(new Request("LightLED", 1));
 
         }
 
@@ -105,6 +105,9 @@ namespace HelloWorld
 
             Debug.WriteLine(r.command);
             Debug.WriteLine(r.parameter);
+            //Process Request
+            RequestController.handleRequest(r);
+
         }
 
         private void Timer_Tick(object sender, object e)

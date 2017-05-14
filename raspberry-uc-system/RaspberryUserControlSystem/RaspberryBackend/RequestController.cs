@@ -27,10 +27,10 @@ namespace HelloWorld
                     Assembly executingAssembly = typeof(LightLED).GetTypeInfo().Assembly;
                     Type commandType = executingAssembly.GetType(command);
                     Command com = (Command)Activator.CreateInstance(commandType);
-                    //com 
 
                     // execute the requested command
-                    Debug.WriteLine("Found the following type in Request: " + com != null ? com.GetType().FullName : "none");
+                    Debug.Write("Found the following type in Request: ");
+                    Debug.WriteLine(com != null ? com.GetType().FullName : "none");
                     com.execute(r.parameter);
                 }
                 catch (ArgumentNullException an)
