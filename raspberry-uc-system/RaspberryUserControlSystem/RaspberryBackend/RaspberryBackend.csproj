@@ -97,6 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Gpio.cs" />
+    <Compile Include="RequestController.cs" />
     <Compile Include="Serializer.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="MainPage.xaml.cs">
