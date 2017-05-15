@@ -12,11 +12,9 @@ namespace RaspberryBackend
     {
         private static readonly RequestController _instance = new RequestController();
         protected static GPIOinterface gpioInterface;
-
-        private static object syncLock = new object();
         
-
-        public RequestController()
+        // following singleton pattern this is private
+        private RequestController()
         {
             gpioInterface = new GPIOinterface();
         }
@@ -28,7 +26,6 @@ namespace RaspberryBackend
                 return _instance;
             }
         }
-
 
         public void handleRequest(Request r)
         {
@@ -62,10 +59,6 @@ namespace RaspberryBackend
             }
         }
 
-        internal static object getInstance()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public interface Command
