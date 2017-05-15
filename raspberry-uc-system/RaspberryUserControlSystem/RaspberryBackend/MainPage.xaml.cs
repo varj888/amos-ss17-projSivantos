@@ -42,14 +42,17 @@ namespace HelloWorld
             timer.Interval = TimeSpan.FromMilliseconds(500);
             timer.Tick += Timer_Tick;
             InitGpio();
-            if(pin1 != null || pin2 != null)
+            if (pin1 != null || pin2 != null)
             {
                 timer.Start();
             }
 
             this.InitializeComponent();
             createListenerAsync();
-           
+
+            //Test for the RequestHandler
+            //RequestController.handleRequest(new Request("LightLED", 1));
+
         }
 
         /// <summary>
@@ -88,7 +91,7 @@ namespace HelloWorld
             Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs args)
         {
 
-   
+
 
             //Read line from the remote client.
             Stream inStream = args.Socket.InputStream.AsStreamForRead();
@@ -98,10 +101,13 @@ namespace HelloWorld
             Debug.WriteLine(request);
 
             //Deserialize the received string into an object of Type Request
-            Request r = (Request) Serializer.Deserialize(request, typeof(Request));
+            Request r = (Request)Serializer.Deserialize(request, typeof(Request));
 
-            Debug.WriteLine(r.methodName);
+            Debug.WriteLine(r.command);
             Debug.WriteLine(r.parameter);
+            //Process Request
+            RequestController.handleRequest(r);
+
         }
 
         private void Timer_Tick(object sender, object e)
@@ -127,7 +133,7 @@ namespace HelloWorld
         {
             var gpio = GpioController.GetDefault();
 
-            if(gpio == null)
+            if (gpio == null)
             {
                 pin1 = null;
                 pin2 = null;
@@ -145,7 +151,7 @@ namespace HelloWorld
 
         private void val_changed(GpioPin sender, GpioPinValueChangedEventArgs args)
         {
-            System.Diagnostics.Debug.WriteLine("Pin {0} changed to {1}",sender.PinNumber, sender.Read());
+            System.Diagnostics.Debug.WriteLine("Pin {0} changed to {1}", sender.PinNumber, sender.Read());
         }
     }
 }

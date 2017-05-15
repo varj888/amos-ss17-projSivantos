@@ -51,6 +51,8 @@ namespace HelloWorld
                 stream.Position = 0;
                 DataContractSerializer deserializer = new DataContractSerializer(toType);
                 return deserializer.ReadObject(stream);
+                //throws exception after return : 
+                //"Exception thrown: 'System.Runtime.Serialization.SerializationException' in System.Private.DataContractSerialization.dll"
             }
         }
     }
