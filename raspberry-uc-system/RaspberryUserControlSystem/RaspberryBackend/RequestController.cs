@@ -93,14 +93,19 @@ namespace RaspberryBackend
         {
             string par = parameter.ToString();
 
+
             if (par.Equals("1"))
             {
                 //Execute appropiate method in GPIOinterface like e.g. gpio.led(1)
+                gpio.setToOutput(5);
+                gpio.setToInput(6);
+                gpio.writePin(5, 1);
                 Debug.WriteLine("LED switched On");
             }
 
             else if (par.Equals("0"))
             {
+                //gpio.writePin(6, 0);
                 //Execute appropiate method in GPIOinterface like e.g. gpio.led(0);
                 Debug.WriteLine("LED switched Off");
             }
