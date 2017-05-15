@@ -6,14 +6,31 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HelloWorld
+namespace RaspberryBackend
 {
     class RequestController
     {
-        //GPIOinterface == Singleton? GPIOinterface needs to be only one instance
-        protected static GPIOinterface gpio = new GPIOinterface();
+        private static readonly RequestController _instance = new RequestController();
+        protected static GPIOinterface gpioInterface;
 
-        public static void handleRequest(Request r)
+        private static object syncLock = new object();
+        
+
+        public RequestController()
+        {
+            gpioInterface = new GPIOinterface();
+        }
+
+        public static RequestController Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
+
+        public void handleRequest(Request r)
         {
             if (r != null)
             {
@@ -44,6 +61,11 @@ namespace HelloWorld
 
             }
         }
+
+        internal static object getInstance()
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public interface Command
@@ -53,10 +75,16 @@ namespace HelloWorld
         void undo();
     }
 
-    class LightLED : RequestController, Command
+    class LightLED : Command
     {
         //Suggestion: A instance variable which helds the last known state in order to revert it
         //private static Object lastState;
+        GPIOinterface gpioInterface;
+
+        public LightLED(GPIOinterface gpioInterface)
+        {
+            this.gpioInterface = gpioInterface;
+        }
 
         public void execute(Object parameter)
         {

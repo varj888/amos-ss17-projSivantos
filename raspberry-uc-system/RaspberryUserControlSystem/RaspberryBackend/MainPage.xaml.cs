@@ -22,7 +22,7 @@ using System.Xml;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace HelloWorld
+namespace RaspberryBackend
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -105,8 +105,9 @@ namespace HelloWorld
 
             Debug.WriteLine(r.command);
             Debug.WriteLine(r.parameter);
+
             //Process Request
-            RequestController.handleRequest(r);
+            RequestController.Instance.handleRequest(r);
 
         }
 
