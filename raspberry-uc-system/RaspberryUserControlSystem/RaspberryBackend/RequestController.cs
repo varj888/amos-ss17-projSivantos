@@ -16,7 +16,7 @@ namespace RaspberryBackend
         private static object syncLock = new object();
         
 
-        public RequestController()
+        private RequestController()
         {
             gpioInterface = new GPIOinterface();
         }
@@ -34,37 +34,36 @@ namespace RaspberryBackend
         {
             if (r != null)
             {
+                Debug.WriteLine("Got Request, setting pins.");
+                gpioInterface.setToInput(5);
+                gpioInterface.setToInput(6);
+                gpioInterface.writePin(5, 1);
+                gpioInterface.writePin(6, 1);
+                //string command = "RaspberryBackend." + r.command;
 
-                string command = "HelloWorld." + r.command;
 
+                //try
+                //{
+                //    // Create dynamically an instance of the requested Command type 
+                //    Assembly executingAssembly = typeof(LightLED).GetTypeInfo().Assembly;
+                //    Type commandType = executingAssembly.GetType(command);
+                //    Command com = (Command)Activator.CreateInstance(commandType);
 
-                try
-                {
-                    // Create dynamically an instance of the requested Command type 
-                    Assembly executingAssembly = typeof(LightLED).GetTypeInfo().Assembly;
-                    Type commandType = executingAssembly.GetType(command);
-                    Command com = (Command)Activator.CreateInstance(commandType);
-
-                    // execute the requested command
-                    Debug.Write("Found the following type in Request: ");
-                    Debug.WriteLine(com != null ? com.GetType().FullName : "none");
-                    com.execute(r.parameter);
-                }
-                catch (ArgumentNullException an)
-                {
-                    Debug.WriteLine("The requestet command was not found:" + an.Message);
-                }
-                catch (Exception)
-                {
-                    Debug.WriteLine("Something went wrong :( ");
-                }
+                //    // execute the requested command
+                //    Debug.Write("Found the following type in Request: ");
+                //    Debug.WriteLine(com != null ? com.GetType().FullName : "none");
+                //    com.execute(r.parameter);
+                //}
+                //catch (ArgumentNullException an)
+                //{
+                //    Debug.WriteLine("The requestet command was not found:" + an.Message);
+                //}
+                //catch (Exception)
+                //{
+                //    Debug.WriteLine("Something went wrong :( ");
+                //}
 
             }
-        }
-
-        internal static object getInstance()
-        {
-            throw new NotImplementedException();
         }
     }
 
@@ -77,7 +76,11 @@ namespace RaspberryBackend
 
     public abstract class Command : ICommand
     {
-        public static readonly GPIOinterface gpio=new GPIOinterface();
+        public GPIOinterface gpio;
+        public Command(GPIOinterface gpioInterface)
+        {
+            gpio = gpioInterface;
+        }
 
         public abstract void execute(object parameter);
         public abstract void undo();
@@ -86,6 +89,8 @@ namespace RaspberryBackend
 
     class LightLED : Command
     {
+        public LightLED(GPIOinterface gpioInterface) : base(gpioInterface) {    }
+
         //Suggestion: A instance variable which helds the last known state in order to revert it
         //private static Object lastState
 

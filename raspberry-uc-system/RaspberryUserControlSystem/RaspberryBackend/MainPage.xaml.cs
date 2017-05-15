@@ -29,23 +29,9 @@ namespace RaspberryBackend
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        const int LED_PIN_5 = 5;
-        const int LED_PIN_6 = 6;
-        DispatcherTimer timer;
-        GpioPinValue pinValue1;
-        GpioPinValue pinValue2;
-        GpioPin pin1;
-        GpioPin pin2;
         public MainPage()
         {
-            timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromMilliseconds(500);
-            timer.Tick += Timer_Tick;
-            InitGpio();
-            if (pin1 != null || pin2 != null)
-            {
-                timer.Start();
-            }
+           
 
             this.InitializeComponent();
             createListenerAsync();
@@ -109,50 +95,6 @@ namespace RaspberryBackend
             //Process Request
             RequestController.Instance.handleRequest(r);
 
-        }
-
-        private void Timer_Tick(object sender, object e)
-        {
-            //System.Diagnostics.Debug.WriteLine(pin1.Read());
-            //System.Diagnostics.Debug.WriteLine(pin2.Read());
-            //return;
-            /*if (pinValue == GpioPinValue.High)
-            {
-                pinValue = GpioPinValue.Low;
-                pin.Write(pinValue);
-                //LED.Fill = redBrush;
-            }
-            else
-            {
-                pinValue = GpioPinValue.High;
-                pin.Write(pinValue);
-                //LED.Fill = grayBrush;
-            }*/
-        }
-
-        private void InitGpio()
-        {
-            var gpio = GpioController.GetDefault();
-
-            if (gpio == null)
-            {
-                pin1 = null;
-                pin2 = null;
-                return;
-            }
-            pin1 = gpio.OpenPin(LED_PIN_5);
-            pin2 = gpio.OpenPin(LED_PIN_6);
-            //pinValue = GpioPinValue.High;
-            //pin.Write(pinValue);
-            pin1.SetDriveMode(GpioPinDriveMode.InputPullDown);
-            pin2.SetDriveMode(GpioPinDriveMode.InputPullDown);
-            pin1.ValueChanged += val_changed;
-            pin2.ValueChanged += val_changed;
-        }
-
-        private void val_changed(GpioPin sender, GpioPinValueChangedEventArgs args)
-        {
-            System.Diagnostics.Debug.WriteLine("Pin {0} changed to {1}", sender.PinNumber, sender.Read());
         }
     }
 }

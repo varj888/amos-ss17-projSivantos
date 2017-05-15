@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace RaspberryBackend
         private Dictionary<UInt16, GpioPin> pins = new Dictionary<UInt16, GpioPin>();
         private const GpioPinValue PIN_HIGH = GpioPinValue.High;
         private const GpioPinValue PIN_LOW = GpioPinValue.Low;
+        private GpioController gpio = GpioController.GetDefault();
 
         public GPIOinterface()
         {
@@ -44,6 +46,12 @@ namespace RaspberryBackend
             pin_ids["PIN_25"] = 25;  //PullDown
             pin_ids["PIN_26"] = 26;  //PullDown
             pin_ids["PIN_27"] = 27;  //PullDown
+
+            foreach(var pin in pin_ids.Keys)
+            {
+                pins[pin_ids[pin]] = gpio.OpenPin(pin_ids[pin]);
+            }
+
         }
 
         //<summary>
