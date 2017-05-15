@@ -5,8 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestmachineFrontend
-{
+
     /// <summary>
     /// Unit of transfer by the RequestConnClient Class
     /// it is only as a container for the two variables methodName and parameter
@@ -28,4 +27,4 @@ namespace TestmachineFrontend
         public Object parameter;
     }
 
-}
+

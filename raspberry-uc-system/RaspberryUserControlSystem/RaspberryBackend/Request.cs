@@ -5,8 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace RaspberryBackend
-{
+
     /// <summary>
     /// Unit of transfer by the RequestConnClient Class
     /// is only as a container for the two variables methodName and parameter
@@ -27,4 +26,3 @@ namespace RaspberryBackend
         [DataMember]
         public Object parameter;
     }
-}
