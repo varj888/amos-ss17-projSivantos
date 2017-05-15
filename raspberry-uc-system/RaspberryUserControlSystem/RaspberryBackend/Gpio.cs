@@ -11,7 +11,7 @@ namespace RaspberryBackend
     //<summary>
     //Interface to access GPIO pin_ids on a raspberry pi
     //</summary>
-    class GPIOinterface
+    public class GPIOinterface
     {
         private Dictionary<string, UInt16> pin_ids = new Dictionary<string, UInt16>();
         private Dictionary<UInt16, GpioPin> pins = new Dictionary<UInt16, GpioPin>();

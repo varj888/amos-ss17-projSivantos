@@ -12,9 +12,11 @@ namespace RaspberryBackend
     {
         private static readonly RequestController _instance = new RequestController();
         protected static GPIOinterface gpioInterface;
+
+        private static object syncLock = new object();
         
-        // following singleton pattern this is private
-        private RequestController()
+
+        public RequestController()
         {
             gpioInterface = new GPIOinterface();
         }
@@ -26,6 +28,7 @@ namespace RaspberryBackend
                 return _instance;
             }
         }
+
 
         public void handleRequest(Request r)
         {
@@ -59,33 +62,40 @@ namespace RaspberryBackend
             }
         }
 
+        internal static object getInstance()
+        {
+            throw new NotImplementedException();
+        }
     }
 
-    public interface Command
+    public interface ICommand
     {
         void execute(Object parameter);
 
         void undo();
     }
 
+    public abstract class Command : ICommand
+    {
+        public static readonly GPIOinterface gpio=new GPIOinterface();
+
+        public abstract void execute(object parameter);
+        public abstract void undo();
+    }
+
+
     class LightLED : Command
     {
         //Suggestion: A instance variable which helds the last known state in order to revert it
-        //private static Object lastState;
-        GPIOinterface gpioInterface;
+        //private static Object lastState
 
-        public LightLED(GPIOinterface gpioInterface)
-        {
-            this.gpioInterface = gpioInterface;
-        }
-
-        public void execute(Object parameter)
+        public override void execute(Object parameter)
         {
             string par = parameter.ToString();
 
             if (par.Equals("1"))
             {
-                //Execute appropiate method in GPIOinterface like e.g. gpio.led(1);
+                //Execute appropiate method in GPIOinterface like e.g. gpio.led(1)
                 Debug.WriteLine("LED switched On");
             }
 
@@ -101,7 +111,7 @@ namespace RaspberryBackend
             }
         }
 
-        public void undo()
+        public override void undo()
         {
             throw new NotImplementedException();
         }
