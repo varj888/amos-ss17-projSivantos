@@ -27,13 +27,27 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private string hostname = "192.168.137.193";
+
         public MainWindow()
         {
             InitializeComponent();
 
+            RequestConnClient clientConnection = null;
             //test for the class RequestConnClient
-            //RequestConnClient clientConnection = new RequestConnClient("minwinpc");
-            //clientConnection.send(new Request("LightLED", 1));
+            try
+            {
+                clientConnection = new RequestConnClient(hostname);
+                Debug.WriteLine("Connection to " + hostname + " established.");
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.WriteLine("Connection to " + hostname + " failed.");
+            }
+            
+            clientConnection.send(new Request("LightLED", 1));
         }
 
         public string IPaddress { get; set; }
