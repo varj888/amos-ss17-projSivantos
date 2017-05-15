@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.Foundation;
 
-namespace HelloWorld
+namespace RaspberryBackend
 {
     //<summary>
     //Interface to access GPIO pin_ids on a raspberry pi

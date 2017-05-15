@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace HelloWorld
+namespace RaspberryBackend
 {
     /// <summary>
     /// Unit of transfer by the RequestConnClient Class

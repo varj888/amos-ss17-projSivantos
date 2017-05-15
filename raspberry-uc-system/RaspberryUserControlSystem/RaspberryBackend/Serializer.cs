@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 /// helper class to serialize and deserialize
 /// it uses strings as the result of serialization
 /// </summary>
-namespace HelloWorld
+namespace RaspberryBackend
 {
     public class Serializer
     {
