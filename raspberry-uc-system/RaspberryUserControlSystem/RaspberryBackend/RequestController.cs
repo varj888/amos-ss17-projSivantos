@@ -32,10 +32,11 @@ namespace RaspberryBackend
 
         public void handleRequest(Request r)
         {
+            Debug.WriteLine(r);
             if (r != null)
             {
                 UInt16 id = 0;
-                if(r.parameter.GetType() == typeof(int))
+                if(r.parameter.GetType() == typeof(UInt16))
                 {
                     id = (UInt16) r.parameter;
                 } else
@@ -45,14 +46,19 @@ namespace RaspberryBackend
 
                 if( r.command == "read"  )
                 {
+                    Debug.WriteLine("Received read command!");
                     gpioInterface.setToInput(id);
-                    gpioInterface.readPin(id);
+                    var a = gpioInterface.readPin(id);
+                    Debug.WriteLine(a);
                 } else if(r.command == "write")
                 {
+                    Debug.WriteLine("Received write command!");
                     gpioInterface.setToOutput(id);
                     gpioInterface.writePin(id, 1);
+                    Debug.WriteLine(gpioInterface.readPin(id));
                 } else if( r.command == "reset" )
                 {
+                    Debug.WriteLine("Received reset command!");
                     gpioInterface.setToOutput(id);
                     gpioInterface.writePin(id, 0);
                 }

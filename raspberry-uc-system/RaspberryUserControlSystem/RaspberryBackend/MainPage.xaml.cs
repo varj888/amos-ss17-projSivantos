@@ -78,23 +78,24 @@ namespace RaspberryBackend
         {
 
 
+            while(true) {
+                //Read line from the remote client.
+                Stream inStream = args.Socket.InputStream.AsStreamForRead();
+                StreamReader reader = new StreamReader(inStream);
+                string request = await reader.ReadLineAsync();
 
-            //Read line from the remote client.
-            Stream inStream = args.Socket.InputStream.AsStreamForRead();
-            StreamReader reader = new StreamReader(inStream);
-            string request = await reader.ReadLineAsync();
+                Debug.WriteLine(request);
 
-            Debug.WriteLine(request);
+                //Deserialize the received string into an object of Type Request
+                Request r = (Request)Serializer.Deserialize(request, typeof(Request));
 
-            //Deserialize the received string into an object of Type Request
-            Request r = (Request)Serializer.Deserialize(request, typeof(Request));
+                Debug.WriteLine(r.command);
+                Debug.WriteLine(r.parameter);
 
-            Debug.WriteLine(r.command);
-            Debug.WriteLine(r.parameter);
+                //Process Request
+                RequestController.Instance.handleRequest(r);
 
-            //Process Request
-            RequestController.Instance.handleRequest(r);
-
+            }
         }
     }
 }
