@@ -49,7 +49,7 @@
                         Margin="156.5,77.5,34,116"
                         Content="Write pin" Grid.Row="1" Click="writePin_button_Click"/>
                     <TextBox Grid.Column="1" Margin="38.5,134.5,34,60" 
-                             Grid.Row="1"></TextBox>
+                             Grid.Row="1" Text="{Binding PinID}"></TextBox>
                 </Grid>
             </TabItem>
             

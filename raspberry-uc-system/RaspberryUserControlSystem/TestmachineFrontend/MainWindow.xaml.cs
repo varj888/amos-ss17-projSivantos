@@ -29,12 +29,11 @@ namespace TestmachineFrontend
     {
 
         private string hostname = "192.168.137.193";
+        private RequestConnClient clientConnection;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            RequestConnClient clientConnection = null;
             //test for the class RequestConnClient
             try
             {
@@ -47,9 +46,11 @@ namespace TestmachineFrontend
                 Debug.WriteLine("Connection to " + hostname + " failed.");
             }
             
-            clientConnection.send(new Request("LightLED", 1));
+            //clientConnection.send(new Request("LightLED", 1));
+            this.DataContext = this;
         }
 
+        public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
         public string DeviceName { get; set; }
 
@@ -90,12 +91,12 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-
+            clientConnection.send(new Request("read", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
-
+            clientConnection.send(new Request("write", PinID));
         }
     }
 
