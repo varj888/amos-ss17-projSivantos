@@ -87,6 +87,16 @@ namespace TestmachineFrontend
         {
 
         }
+
+        private void readPin_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void writePin_button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 
 }
