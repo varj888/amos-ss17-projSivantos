@@ -34,11 +34,36 @@ namespace RaspberryBackend
         {
             if (r != null)
             {
-                Debug.WriteLine("Got Request, setting pins.");
-                gpioInterface.setToInput(5);
-                gpioInterface.setToInput(6);
-                gpioInterface.writePin(5, 1);
-                gpioInterface.writePin(6, 1);
+                UInt16 id = 0;
+                if(r.parameter.GetType() == typeof(int))
+                {
+                    id = (UInt16) r.parameter;
+                } else
+                {
+                    return;
+                }
+
+                if( r.command == "read"  )
+                {
+                    gpioInterface.setToInput(id);
+                    gpioInterface.readPin(id);
+                } else if(r.command == "write")
+                {
+                    gpioInterface.setToOutput(id);
+                    gpioInterface.writePin(id, 1);
+                } else if( r.command == "reset" )
+                {
+                    gpioInterface.setToOutput(id);
+                    gpioInterface.writePin(id, 0);
+                }
+
+
+                //Debug.WriteLine("Got Request, setting pins.");
+                //gpioInterface.setToInput(5);
+                //gpioInterface.setToInput(6);
+                //gpioInterface.writePin(5, 1);
+                //gpioInterface.writePin(6, 1);
+                
                 //string command = "RaspberryBackend." + r.command;
 
 
