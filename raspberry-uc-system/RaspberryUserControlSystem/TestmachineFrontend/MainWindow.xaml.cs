@@ -98,6 +98,11 @@ namespace TestmachineFrontend
         {
             clientConnection.send(new Request("write", PinID));
         }
+
+        private void reset_button_Click(object sender, RoutedEventArgs e)
+        {
+            clientConnection.send(new Request("reset", PinID));
+        }
     }
 
 }
