@@ -27,7 +27,8 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        private List<RequestConnClient> connections = new List<RequestConnClient>();
+        //private List<RequestConnClient> connections = new List<RequestConnClient>();
+        private RequestConnClient clientConnection;
 
         public MainWindow()
         {
@@ -38,16 +39,33 @@ namespace TestmachineFrontend
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
         public string DeviceName { get; set; }
-        public List<RequestConnClient> Connections { get => connections; set => connections = value; }
+        // public List<RequestConnClient> Connections { get => connections; set => connections = value; }
 
         private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
+            //try
+            //{
+            //    Connections.Add(new RequestConnClient(IPaddress));
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.debug.Items.Add(new DebugContent { origin = "TCP Connection", text = "Couldn't establish connection" });
+            //}
+            connectToBackend();
+
+        }
+
+        private void connectToBackend()
+        {
             try
             {
-                Connections.Add(new RequestConnClient(IPaddress));
-            } catch(Exception ex)
+                clientConnection = new RequestConnClient(IPaddress);
+                Debug.WriteLine("Connection to " + IPaddress + " established.");
+            }
+            catch (Exception e)
             {
-                this.debug.Items.Add(new DebugContent{ origin = "TCP Connection", text = "Couldn't establish connection" });
+                Debug.WriteLine(e);
+                Debug.WriteLine("Connection to " + IPaddress + " failed.");
             }
         }
 
@@ -83,17 +101,27 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-            Connections[0].send(new Request("read", PinID));
+            //Connections[0].send(new Request("read", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
-            Connections[0].send(new Request("write", PinID));
+            //Connections[0].send(new Request("write", PinID));
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
         {
-            Connections[0].send(new Request("reset", PinID));
+            //Connections[0].send(new Request("reset", PinID));
+        }
+
+        private void ledOFF_button_Click(object sender, RoutedEventArgs e)
+        {
+            clientConnection.send(new Request("LightLED", 0));
+        }
+
+        private void ledON_button_Click(object sender, RoutedEventArgs e)
+        {
+            clientConnection.send(new Request("LightLED", 1));
         }
     }
 }

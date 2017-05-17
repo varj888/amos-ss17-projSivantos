@@ -7,14 +7,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RaspberryBackend
-{
+{  /// <summary>
+   /// Controlls received Requests from the Frontend by e.g. saving all Request, executing or reset them. 
+   /// </summary>
     class RequestController
     {
+
         private static readonly RequestController _instance = new RequestController();
         protected static GPIOinterface gpioInterface;
 
         private static object syncLock = new object();
-        
+
 
         private RequestController()
         {
@@ -29,132 +32,47 @@ namespace RaspberryBackend
             }
         }
 
-
-        public void handleRequest(Request r)
+        /// <summary>
+        /// handles received Requests from the Frontend by executing them. 
+        /// </summary>
+        public void handleRequest(Request request)
         {
-            Debug.WriteLine(r);
-            if (r != null)
+            Debug.WriteLine(request);
+            if (request != null)
             {
-                UInt16 id = 0;
-                if(r.parameter.GetType() == typeof(UInt16))
+
+                try
                 {
-                    id = (UInt16) r.parameter;
-                } else
+                    Command command = getANDinstanciateCommand(gpioInterface, request);
+
+                    Debug.Write("Found the following Command in Request: " + command != null ? command.GetType().FullName : "none");
+
+                    command.execute(request.parameter);
+                }
+                catch (ArgumentNullException an)
                 {
-                    return;
+                    Debug.WriteLine("The requestet command was not found:" + an.Message);
+                }
+                catch (Exception e)
+                {
+                    Debug.Write("Something went wrong :( :" + e.Message);
+
                 }
 
-                if( r.command == "read"  )
-                {
-                    Debug.WriteLine("Received read command!");
-                    gpioInterface.setToInput(id);
-                    var a = gpioInterface.readPin(id);
-                    Debug.WriteLine(a);
-                } else if(r.command == "write")
-                {
-                    Debug.WriteLine("Received write command!");
-                    gpioInterface.setToOutput(id);
-                    gpioInterface.writePin(id, 1);
-                    Debug.WriteLine(gpioInterface.readPin(id));
-                } else if( r.command == "reset" )
-                {
-                    Debug.WriteLine("Received reset command!");
-                    gpioInterface.setToOutput(id);
-                    gpioInterface.writePin(id, 0);
-                }
-
-
-                //Debug.WriteLine("Got Request, setting pins.");
-                //gpioInterface.setToInput(5);
-                //gpioInterface.setToInput(6);
-                //gpioInterface.writePin(5, 1);
-                //gpioInterface.writePin(6, 1);
-                
-                //string command = "RaspberryBackend." + r.command;
-
-
-                //try
-                //{
-                //    // Create dynamically an instance of the requested Command type 
-                //    Assembly executingAssembly = typeof(LightLED).GetTypeInfo().Assembly;
-                //    Type commandType = executingAssembly.GetType(command);
-                //    Command com = (Command)Activator.CreateInstance(commandType);
-
-                //    // execute the requested command
-                //    Debug.Write("Found the following type in Request: ");
-                //    Debug.WriteLine(com != null ? com.GetType().FullName : "none");
-                //    com.execute(r.parameter);
-                //}
-                //catch (ArgumentNullException an)
-                //{
-                //    Debug.WriteLine("The requestet command was not found:" + an.Message);
-                //}
-                //catch (Exception)
-                //{
-                //    Debug.WriteLine("Something went wrong :( ");
-                //}
-
-            }
-        }
-    }
-
-    public interface ICommand
-    {
-        void execute(Object parameter);
-
-        void undo();
-    }
-
-    public abstract class Command : ICommand
-    {
-        public GPIOinterface gpio;
-        public Command(GPIOinterface gpioInterface)
-        {
-            gpio = gpioInterface;
-        }
-
-        public abstract void execute(object parameter);
-        public abstract void undo();
-    }
-
-
-    class LightLED : Command
-    {
-        public LightLED(GPIOinterface gpioInterface) : base(gpioInterface) {    }
-
-        //Suggestion: A instance variable which helds the last known state in order to revert it
-        //private static Object lastState
-
-        public override void execute(Object parameter)
-        {
-            string par = parameter.ToString();
-
-
-            if (par.Equals("1"))
-            {
-                //Execute appropiate method in GPIOinterface like e.g. gpio.led(1)
-                gpio.setToOutput(5);
-                gpio.setToInput(6);
-                gpio.writePin(5, 1);
-                Debug.WriteLine("LED switched On");
-            }
-
-            else if (par.Equals("0"))
-            {
-                //gpio.writePin(6, 0);
-                //Execute appropiate method in GPIOinterface like e.g. gpio.led(0);
-                Debug.WriteLine("LED switched Off");
-            }
-
-            else
-            {
-                Debug.WriteLine("no valid parameter");
             }
         }
 
-        public override void undo()
+        /// <summary>
+        /// Creates dynamically an instance of the requested Command type and returns it
+        /// </summary>
+        private Command getANDinstanciateCommand(GPIOinterface gpioInterface, Request request)
         {
-            throw new NotImplementedException();
+            string command = "RaspberryBackend." + request.command;
+
+            Assembly executingAssembly = typeof(LightLED).GetTypeInfo().Assembly;
+            Type commandType = executingAssembly.GetType(command);
+
+            return (Command)Activator.CreateInstance(commandType, gpioInterface);
         }
     }
 }
