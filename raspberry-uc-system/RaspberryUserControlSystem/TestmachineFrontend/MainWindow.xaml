@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TestmachineFrontend"
         mc:Ignorable="d"
-        Title="{Binding DeviceName}" Height="400" Width="550"
-        MaxHeight="400" MaxWidth="550">
-    <Grid>
+        Title="{Binding DeviceName}" Height="500" Width="550"
+        MaxHeight="500" MaxWidth="550">
+    <Grid Height="472" VerticalAlignment="Top">
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" 
                     Height="337" Margin="14,10,0,0" 
                     VerticalAlignment="Top" Width="513">
@@ -55,7 +55,7 @@
                         Content="Reset" Grid.Row="1" Click="reset_button_Click"/>
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="User Controls">
                 <Grid Background="AliceBlue" Margin="5,5,5,5">
                     <Grid.RowDefinitions>
@@ -134,5 +134,14 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <ListView x:Name="debug" HorizontalAlignment="Left"
+                              Height="95" Margin="14,352,0,0" 
+                  VerticalAlignment="Top" Width="513">
+            <ListView.View>
+                <GridView>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>
