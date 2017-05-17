@@ -10,7 +10,7 @@ namespace RaspberryBackend
     {
         public LightLED(GPIOinterface gpioInterface) : base(gpioInterface)
         {
-            //RequestController.Instance.addRequestetCommand("LightLED", this);
+            RequestController.Instance.addRequestetCommand("LightLED", this);
         }
 
         //Suggestion: A instance variable which helds the last known state in order to revert it

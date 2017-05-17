@@ -12,7 +12,7 @@ namespace RaspberryBackend
    /// </summary>
     class RequestController
     {
-
+        private static Dictionary<String, Command> requestetCommands = new Dictionary<String, Command>();
         private static readonly RequestController _instance = new RequestController();
         protected static GPIOinterface gpioInterface;
 
@@ -40,14 +40,20 @@ namespace RaspberryBackend
             Debug.WriteLine(request);
             if (request != null)
             {
-
+                Command command;
                 try
                 {
-                    Command command = getANDinstanciateCommand(gpioInterface, request);
+                    if (!requestetCommands.TryGetValue(request.command, out command))
+                    {
+                        Debug.WriteLine("Looking up requested Command.....");
+                        command = getANDinstanciateCommand(gpioInterface, request);
 
-                    Debug.Write("Found the following Command in Request: " + command != null ? command.GetType().FullName : "none");
+                        Debug.Write("Found the following Command in Request: " + command != null ? command.GetType().FullName : "none");
+
+                    }
 
                     command.execute(request.parameter);
+
                 }
                 catch (ArgumentNullException an)
                 {
@@ -73,6 +79,11 @@ namespace RaspberryBackend
             Type commandType = executingAssembly.GetType(command);
 
             return (Command)Activator.CreateInstance(commandType, gpioInterface);
+        }
+
+        public void addRequestetCommand(String commandName, Command command)
+        {
+            requestetCommands.Add(commandName, command);
         }
     }
 }
