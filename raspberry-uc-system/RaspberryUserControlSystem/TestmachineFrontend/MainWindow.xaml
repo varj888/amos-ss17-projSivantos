@@ -33,7 +33,7 @@
                  Click="connectIP_button_Click" Margin="38.5,92,34,190"
                             Grid.RowSpan="2">Connect</Button>
                     <ListView x:Name="listView" HorizontalAlignment="Left" 
-                              Height="267" Margin="24,29,0,0" VerticalAlignment="Top" 
+                              Height="267" Margin="24,31,0,0" VerticalAlignment="Top" 
                               Width="204" Grid.RowSpan="2">
                         <ListView.View>
                             <GridView>
@@ -139,7 +139,8 @@
                   VerticalAlignment="Top" Width="513">
             <ListView.View>
                 <GridView>
-
+                    <GridViewColumn Width="100" Header="origin" DisplayMemberBinding="{Binding Path=origin}"/>
+                    <GridViewColumn Width="450" Header="text" DisplayMemberBinding="{Binding Path=text}"/>
                 </GridView>
             </ListView.View>
         </ListView>
