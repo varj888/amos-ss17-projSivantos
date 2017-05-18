@@ -32,7 +32,6 @@ namespace RaspberryBackend
         public MainPage()
         {
            
-
             this.InitializeComponent();
             createListenerAsync();
 
@@ -55,46 +54,39 @@ namespace RaspberryBackend
             socketListener.ConnectionReceived += SocketListener_ConnectionReceived;
             Debug.WriteLine("create Listener");
 
-            try
-            {
-                //Start listening for incoming TCP connections on the specified port
-                await socketListener.BindServiceNameAsync("13370");
-                Debug.WriteLine("created Listener");
-            }
-            catch (Exception e)
-            {
-                //Handle exception.
-            }
+            //Start listening for incoming TCP connections on the specified port
+            await socketListener.BindServiceNameAsync("13370");
+            Debug.WriteLine("created Listener");
         }
 
         /// <summary>
-        /// 1. reads a string from the socket
-        /// 2. prints the string on debug
-        /// 3. deserializes the string into an object of type Request
-        /// 4. prints variables of the request object on debug
+        /// Reads Requests in a Loop from the Connection and handles them by the RequestController
         /// </summary>
         private async void SocketListener_ConnectionReceived(Windows.Networking.Sockets.StreamSocketListener sender,
             Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs args)
         {
+            Stream inStream = args.Socket.InputStream.AsStreamForRead();
+            StreamReader reader = new StreamReader(inStream);
+            while (true) {
+                try
+                {
+                    //Read line from the remote client.
+                    string request = await reader.ReadLineAsync();
 
+                    Debug.WriteLine(request);
 
-            while(true) {
-                //Read line from the remote client.
-                Stream inStream = args.Socket.InputStream.AsStreamForRead();
-                StreamReader reader = new StreamReader(inStream);
-                string request = await reader.ReadLineAsync();
+                    //Deserialize the received string into an object of Type Request
+                    Request r = (Request)Serializer.Deserialize(request, typeof(Request));
 
-                Debug.WriteLine(request);
+                    Debug.WriteLine(r.command);
+                    Debug.WriteLine(r.parameter);
 
-                //Deserialize the received string into an object of Type Request
-                Request r = (Request)Serializer.Deserialize(request, typeof(Request));
-
-                Debug.WriteLine(r.command);
-                Debug.WriteLine(r.parameter);
-
-                //Process Request
-                RequestController.Instance.handleRequest(r);
-
+                    //Process Request
+                    //RequestController.Instance.handleRequest(r);
+                }catch(Exception e)
+                {
+                    return;
+                }
             }
         }
     }

@@ -28,7 +28,7 @@ namespace TestmachineFrontend
     public partial class MainWindow : Window
     {
 
-        private string hostname = "192.168.137.193";
+        private string hostname = "minwinpc";
         private RequestConnClient clientConnection;
 
         public MainWindow()

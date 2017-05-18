@@ -13,25 +13,19 @@ namespace TestmachineFrontend
     /// </summary>
     public class RequestConnClient
     {
-
-        public RequestConnClient(string hostname)
-        {
-            connect(hostname);
-        }
-
-        private StreamWriter writer;
+        ObjConnClient<Request> conn;
 
         /// <summary>
-        /// sets up a TCP connection to the raspberry pi on port 13370
+        /// connects to the raspberry pi on port 13370
         /// </summary>
         /// <param name="hostname">
-        /// name of the raspberry to connect to
+        /// hostname or IP-Address of the raspberry pi to connect to
         /// </param>
-        private void connect(string hostname)
+        public RequestConnClient(string hostname)
         {
-            TcpClient client = new TcpClient(hostname, 13370);
-            writer = new StreamWriter(client.GetStream()) { AutoFlush = true };
+            conn = new ObjConnClient<Request>(hostname, 13370);
         }
+
 
         /// <summary>
         /// 1. serializes a request into a string
@@ -40,7 +34,7 @@ namespace TestmachineFrontend
         /// <param name="request"></param>
         public void send(Request request)
         {
-            writer.WriteLine(Serializer.Serialize(request));
+            conn.sendObject(request);
         }
     }
 }
