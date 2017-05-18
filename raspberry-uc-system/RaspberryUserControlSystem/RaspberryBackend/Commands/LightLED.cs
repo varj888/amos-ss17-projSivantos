@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using Windows.Devices.Gpio;
 
 namespace RaspberryBackend
 {
@@ -8,36 +9,48 @@ namespace RaspberryBackend
     /// </summary>
     class LightLED : Command
     {
+        private const uint ON = 1;
+        private const uint OFF = 0;
+        private const UInt16 PIN_ID = 6;
+
+        public GpioPinValue lastStateOnRequest;
+        public GpioPinValue currentState;
+
+
         public LightLED(GPIOinterface gpioInterface) : base(gpioInterface)
         {
             RequestController.Instance.addRequestetCommand("LightLED", this);
+            lastStateOnRequest = _gpioInterface.readPin(PIN_ID);
         }
 
-        //Suggestion: A instance variable which helds the last known state in order to revert it
-        //private static Object lastState
 
         public override void execute(Object parameter)
         {
-            string requesParameter = parameter.ToString();
+            string requestedParameter = parameter.ToString();
 
-            UInt16 id = 6;
-
-
-            if (requesParameter.Equals("1"))
+            if (requestedParameter.Equals("1"))
             {
-                Debug.WriteLine("Received write command!");
-                _gpioInterface.setToOutput(id);
-                _gpioInterface.writePin(id, 1);
-                Debug.WriteLine(_gpioInterface.readPin(id));
+                Debug.WriteLine("Received command LightLED On!");
+                currentState = switch_LED_ToState(PIN_ID, ON);
+
             }
-            else if (requesParameter.Equals("0"))
+            else if (requestedParameter.Equals("0"))
             {
-                Debug.WriteLine("Received reset command!");
-                _gpioInterface.setToOutput(id);
-                _gpioInterface.writePin(id, 0);
+                Debug.WriteLine("Received command LightLED Off!");
+                currentState = switch_LED_ToState(PIN_ID, OFF);
             }
 
+            Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2}",
+                PIN_ID, currentState, lastStateOnRequest));
 
+        }
+
+        private GpioPinValue switch_LED_ToState(ushort pinID, uint targetState)
+        {
+            _gpioInterface.setToOutput(pinID);
+            _gpioInterface.writePin(pinID, targetState);
+
+            return _gpioInterface.readPin(PIN_ID);
         }
 
         public override void undo()
@@ -46,25 +59,3 @@ namespace RaspberryBackend
         }
     }
 }
-
-
-//if (parameter.Equals("1"))
-//           {
-//               //Execute appropiate method in GPIOinterface like e.g. gpio.led(1)
-//               gpio.setToOutput(5);
-//               gpio.setToInput(6);
-//               gpio.writePin(5, 1);
-//               Debug.WriteLine("LED switched On");
-//           }
-
-//           else if (parameter.Equals("0"))
-//           {
-//               //gpio.writePin(6, 0);
-//               //Execute appropiate method in GPIOinterface like e.g. gpio.led(0);
-//               Debug.WriteLine("LED switched Off");
-//           }
-
-//           else
-//           {
-//               Debug.WriteLine("no valid parameter");
-//           }
