@@ -75,7 +75,12 @@ namespace RaspberryBackend
         {
             string command = "RaspberryBackend." + request.command;
 
-            Assembly executingAssembly = typeof(LightLED).GetTypeInfo().Assembly;
+            //gets the current running Assembly where ICommand (and all other programm classes) can be found. 
+            //-- typeof() gets metadato of ICommand e.g. Assembly information
+            //-- GetTypeInfo() extracts the Assembly information
+            //-- assembly returns the referenced assembly
+            Assembly executingAssembly = typeof(ICommand).GetTypeInfo().Assembly;
+
             Type commandType = executingAssembly.GetType(command);
 
             return (Command)Activator.CreateInstance(commandType, gpioInterface);
