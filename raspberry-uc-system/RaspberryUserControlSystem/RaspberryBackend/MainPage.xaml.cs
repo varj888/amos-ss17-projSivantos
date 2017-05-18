@@ -31,13 +31,10 @@ namespace RaspberryBackend
     {
         public MainPage()
         {
-           
+
 
             this.InitializeComponent();
             createListenerAsync();
-
-            //Test for the RequestHandler
-            //RequestController.handleRequest(new Request("LightLED", 1));
 
         }
 
@@ -63,7 +60,7 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                //Handle exception.
+                Debug.WriteLine(e.Message);//Handle exception.
             }
         }
 
@@ -77,23 +74,21 @@ namespace RaspberryBackend
             Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs args)
         {
 
-
-            while(true) {
+            while (true)
+            {
                 //Read line from the remote client.
                 Stream inStream = args.Socket.InputStream.AsStreamForRead();
                 StreamReader reader = new StreamReader(inStream);
-                string request = await reader.ReadLineAsync();
+                string requestAsString = await reader.ReadLineAsync();
 
-                Debug.WriteLine(request);
+                Debug.WriteLine(string.Format("received Request '{0}' ", requestAsString));
 
                 //Deserialize the received string into an object of Type Request
-                Request r = (Request)Serializer.Deserialize(request, typeof(Request));
-
-                Debug.WriteLine(r.command);
-                Debug.WriteLine(r.parameter);
+                Request request = (Request)Serializer.Deserialize(requestAsString, typeof(Request));
+                Debug.WriteLine(string.Format("with content : command= {0} and paramater= {1}", request.command, request.parameter));
 
                 //Process Request
-                RequestController.Instance.handleRequest(r);
+                RequestController.Instance.handleRequest(request);
 
             }
         }
