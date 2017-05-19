@@ -12,6 +12,5 @@
         }
 
         public abstract void execute(object parameter);
-        public abstract void undo();
     }
 }

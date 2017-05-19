@@ -51,7 +51,7 @@ namespace RaspberryBackend
                     {
                         Debug.WriteLine("Looking up requested Command.....");
                         command = getANDinstanciateCommand(gpioInterface, request);
-                        Debug.Write("Found the following Command in Request: " + command != null ? command.GetType().FullName : "none");
+                        Debug.Write(string.Format("Found the following Command in Request: " + command != null ? command.GetType().FullName : "none"));
                     }
                     //then, execute command
                     command.execute(request.parameter);

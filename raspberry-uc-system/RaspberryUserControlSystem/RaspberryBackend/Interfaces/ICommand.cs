@@ -6,6 +6,5 @@ namespace RaspberryBackend
     {
         void execute(Object parameter);
 
-        void undo();
     }
 }
