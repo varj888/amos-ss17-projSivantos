@@ -55,7 +55,8 @@ namespace RaspberryBackend
                 }
             }
             catch (Exception e)
-            {
+            {   
+                Debug.WriteLine(e.Message);//Handle exception.
                 return;
             }
         }

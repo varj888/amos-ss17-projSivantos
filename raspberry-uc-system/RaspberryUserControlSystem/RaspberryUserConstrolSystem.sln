@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.4
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestmachineFrontend", "TestmachineFrontend\TestmachineFrontend.csproj", "{DD11F37E-6DF9-444D-8800-8416524B2366}"
 EndProject
@@ -97,6 +97,26 @@ Global
 		{F99E92A3-C4F6-4538-ABFA-6EA537245CBC}.Release|x64.Build.0 = Release|Any CPU
 		{F99E92A3-C4F6-4538-ABFA-6EA537245CBC}.Release|x86.ActiveCfg = Release|Any CPU
 		{F99E92A3-C4F6-4538-ABFA-6EA537245CBC}.Release|x86.Build.0 = Release|Any CPU
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|ARM.ActiveCfg = Debug|ARM
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|ARM.Build.0 = Debug|ARM
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|ARM.Deploy.0 = Debug|ARM
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|x64.ActiveCfg = Debug|x64
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|x64.Build.0 = Debug|x64
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|x64.Deploy.0 = Debug|x64
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|x86.ActiveCfg = Debug|x86
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|x86.Build.0 = Debug|x86
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Debug|x86.Deploy.0 = Debug|x86
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|Any CPU.ActiveCfg = Release|x86
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|ARM.ActiveCfg = Release|ARM
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|ARM.Build.0 = Release|ARM
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|ARM.Deploy.0 = Release|ARM
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|x64.ActiveCfg = Release|x64
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|x64.Build.0 = Release|x64
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|x64.Deploy.0 = Release|x64
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|x86.ActiveCfg = Release|x86
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|x86.Build.0 = Release|x86
+		{249985B4-0D0E-47C2-8F17-2422FBE90754}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

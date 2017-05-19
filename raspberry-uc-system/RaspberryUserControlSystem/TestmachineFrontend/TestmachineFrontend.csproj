@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Status.cs" />
     <Compile Include="ObjConn.cs" />
+    <Compile Include="DebugContent.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="ClientConn.cs" />
     <Compile Include="Serializer.cs" />

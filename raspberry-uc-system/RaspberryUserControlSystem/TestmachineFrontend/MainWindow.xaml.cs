@@ -27,13 +27,13 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-
         private string hostname = "minwinpc";
         private ClientConn<Request> clientConnection;
 
         public MainWindow()
         {
             InitializeComponent();
+
             //test for the class RequestConnClient
             try
             {
@@ -53,11 +53,7 @@ namespace TestmachineFrontend
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
         public string DeviceName { get; set; }
-
-        private void connectIP_button_Click(object sender, RoutedEventArgs e)
-        {
-            //TODO:add functionality here
-        }
+        // public List<RequestConnClient> Connections { get => connections; set => connections = value; }
 
         private void vcSlider_DragStarted(object sender, RoutedEventArgs e)
         {
@@ -104,5 +100,4 @@ namespace TestmachineFrontend
             clientConnection.sendObject(new Request("reset", PinID));
         }
     }
-
 }

@@ -30,10 +30,10 @@
                  Text="{Binding IPaddress}"/>
                     <!--Button for establishing connection to device-->
                     <Button Grid.Column="1" x:Name="connectIP_button"
-                 Click="connectIP_button_Click" Margin="38.5,92,34,190"
+                  Margin="38.5,92,34,190"
                             Grid.RowSpan="2">Connect</Button>
                     <ListView x:Name="listView" HorizontalAlignment="Left" 
-                              Height="267" Margin="24,29,0,0" VerticalAlignment="Top" 
+                              Height="267" Margin="24,31,0,0" VerticalAlignment="Top" 
                               Width="204" Grid.RowSpan="2">
                         <ListView.View>
                             <GridView>
@@ -53,6 +53,13 @@
                     <Button Grid.Column="1" x:Name="reset_button"
                         Margin="165.5,77.5,34,116"
                         Content="Reset" Grid.Row="1" Click="reset_button_Click"/>
+
+                    <Button Grid.Column="1" x:Name="ledON_button"
+                        Margin="38.6,182.2,157,11.6"
+                        Content="LED ON" Grid.Row="1"     />
+                    <Button Grid.Column="1" x:Name="ledOFF_button"
+                        Margin="101.6,181.2,93,11.6"
+                        Content="LED OFF" Grid.Row="1"   />
                 </Grid>
             </TabItem>
 
@@ -139,7 +146,8 @@
                   VerticalAlignment="Top" Width="513">
             <ListView.View>
                 <GridView>
-
+                    <GridViewColumn Width="100" Header="origin" DisplayMemberBinding="{Binding Path=origin}"/>
+                    <GridViewColumn Width="450" Header="text" DisplayMemberBinding="{Binding Path=text}"/>
                 </GridView>
             </ListView.View>
         </ListView>
