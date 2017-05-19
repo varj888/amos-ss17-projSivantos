@@ -27,7 +27,8 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string hostname = "minwinpc";
+        //private string hostname = "minwinpc";
+       // private List<ClientConn<Request>> connections = new List<ClientConn<Request>>();
         private ClientConn<Request> clientConnection;
 
         public MainWindow()
@@ -55,7 +56,7 @@ namespace TestmachineFrontend
         public string DeviceName { get; set; }
 
 
-        // public List<RequestConnClient> Connections { get => connections; set => connections = value; }
+        //public List<ClientConn<Request>> Connections { get => connections; set => connections = value; }
 
         private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
