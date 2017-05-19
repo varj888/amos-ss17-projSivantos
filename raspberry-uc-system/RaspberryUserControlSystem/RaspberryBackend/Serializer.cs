@@ -12,12 +12,8 @@ namespace RaspberryBackend
         /// <summary>
         /// serializes a object into a string
         /// </summary>
-        /// <param name="obj">
-        /// the object to serialize
-        /// </param>
-        /// <returns>
-        /// the serialized object
-        /// </returns>
+        /// <param name="obj">the object to serialize</param>
+        /// <returns>the serialized objekt</returns>
         public static string Serialize(object obj)
         {
             using (MemoryStream memoryStream = new MemoryStream())
@@ -33,15 +29,9 @@ namespace RaspberryBackend
         /// <summary>
         /// deserializes a an object from a string
         /// </summary>
-        /// <param name="xml">
-        /// the string to deserialize
-        /// </param>
-        /// <param name="toType">
-        /// the type of the object, that you want to get as a result by deserialization
-        /// </param>
-        /// <returns>
-        /// the deserialized string
-        /// </returns>
+        /// <param name="xml">the string to deserialize</param>
+        /// <param name="toType">the type of the object, that you want to get as a result by deserialization</param>
+        /// <returns>the deserialized string</returns>
         public static object Deserialize(string xml, Type toType)
         {
             using (Stream stream = new MemoryStream())

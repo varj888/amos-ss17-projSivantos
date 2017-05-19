@@ -29,7 +29,7 @@ namespace TestmachineFrontend
     {
 
         private string hostname = "minwinpc";
-        private RequestConnClient clientConnection;
+        private ClientConn<Request> clientConnection;
 
         public MainWindow()
         {
@@ -37,7 +37,7 @@ namespace TestmachineFrontend
             //test for the class RequestConnClient
             try
             {
-                clientConnection = new RequestConnClient(hostname);
+                clientConnection = new ClientConn<Request>(hostname, 13370);
                 Debug.WriteLine("Connection to " + hostname + " established.");
             }
             catch(Exception e)
@@ -91,17 +91,17 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-            clientConnection.send(new Request("read", PinID));
+            clientConnection.sendObject(new Request("read", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
-            clientConnection.send(new Request("write", PinID));
+            clientConnection.sendObject(new Request("write", PinID));
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
         {
-            clientConnection.send(new Request("reset", PinID));
+            clientConnection.sendObject(new Request("reset", PinID));
         }
     }
 

@@ -56,11 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ObjConnClient.cs" />
+    <Compile Include="Status.cs" />
+    <Compile Include="ObjConn.cs" />
     <Compile Include="Request.cs" />
-    <Compile Include="RequestConnClient.cs" />
+    <Compile Include="ClientConn.cs" />
     <Compile Include="Serializer.cs" />
-    <Compile Include="StatusConnClient.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

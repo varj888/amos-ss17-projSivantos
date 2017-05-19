@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
+
 
 
     /// <summary>
@@ -14,7 +10,7 @@ using System.Threading.Tasks;
     [DataContract]
     public class Request
     {
-        public Request(string command, Object parameter)
+        public Request(string command, object parameter)
         {
             this.command = command;
             this.parameter = parameter;
@@ -24,7 +20,7 @@ using System.Threading.Tasks;
         public string command;
 
         [DataMember]
-        public Object parameter;
+        public object parameter;
     }
 
 

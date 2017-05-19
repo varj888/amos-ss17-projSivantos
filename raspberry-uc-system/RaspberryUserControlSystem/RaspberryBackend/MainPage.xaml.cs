@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Runtime.Serialization;
 using System.Xml;
+using Windows.Networking.Sockets;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -31,62 +32,31 @@ namespace RaspberryBackend
     {
         public MainPage()
         {
-           
+
             this.InitializeComponent();
-            createListenerAsync();
-
-            //Test for the RequestHandler
-            //RequestController.handleRequest(new Request("LightLED", 1));
+            TCPServer<Request> RequestServer = new TCPServer<Request>(13370, handleRequestConnection);
 
         }
 
-        /// <summary>
-        /// creates TCP socket that is listening on port 7777 for requests
-        /// requests will be handeled by SocketListener_ConnectionReceived
-        /// </summary>
-        private async Task createListenerAsync()
+        private void handleRequestConnection(ObjConn<Request> conn)
         {
-
-            //Create a StreamSocketListener to start listening for TCP connections.
-            Windows.Networking.Sockets.StreamSocketListener socketListener = new Windows.Networking.Sockets.StreamSocketListener();
-
-            //Hook up an event handler to call when connections are received.
-            socketListener.ConnectionReceived += SocketListener_ConnectionReceived;
-            Debug.WriteLine("create Listener");
-
-            //Start listening for incoming TCP connections on the specified port
-            await socketListener.BindServiceNameAsync("13370");
-            Debug.WriteLine("created Listener");
-        }
-
-        /// <summary>
-        /// Reads Requests in a Loop from the Connection and handles them by the RequestController
-        /// </summary>
-        private async void SocketListener_ConnectionReceived(Windows.Networking.Sockets.StreamSocketListener sender,
-            Windows.Networking.Sockets.StreamSocketListenerConnectionReceivedEventArgs args)
-        {
-            Stream inStream = args.Socket.InputStream.AsStreamForRead();
-            StreamReader reader = new StreamReader(inStream);
-            while (true) {
-                try
+            try
+            {
+                while (true)
                 {
-                    //Read line from the remote client.
-                    string request = await reader.ReadLineAsync();
-
-                    Debug.WriteLine(request);
-
-                    //Deserialize the received string into an object of Type Request
-                    Request r = (Request)Serializer.Deserialize(request, typeof(Request));
+                    //Receive a Request from the client
+                    Request r = conn.receiveObject();
 
                     Debug.WriteLine(r.command);
                     Debug.WriteLine(r.parameter);
 
                     //Process Request
                     //RequestController.Instance.handleRequest(r);
-                }catch(Exception e)
-                {
-                    return;
                 }
+            }
+            catch (Exception e)
+            {
+                return;
             }
         }
     }
