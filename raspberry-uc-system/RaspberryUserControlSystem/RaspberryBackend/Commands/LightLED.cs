@@ -31,13 +31,13 @@ namespace RaspberryBackend
             if (requestedParameter.Equals("1"))
             {
                 Debug.WriteLine("Received command LightLED On!");
-                currentState = switch_LED_ToState(PIN_ID, ON);
+                currentState = switch_LED_ToState(ON);
 
             }
             else if (requestedParameter.Equals("0"))
             {
                 Debug.WriteLine("Received command LightLED Off!");
-                currentState = switch_LED_ToState(PIN_ID, OFF);
+                currentState = switch_LED_ToState(OFF);
             }
 
             Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2}",
@@ -45,14 +45,25 @@ namespace RaspberryBackend
 
         }
 
-        private GpioPinValue switch_LED_ToState(ushort pinID, uint targetState)
+        /**
+         * <summary
+         *  can be used to change the state of the (hardware) LED to a new state. 
+         *  Note that this method uses the instance constant "PIN_ID" to change the state
+         *  (Suggestion: modifying for general purpose and implementing it in an LED object  
+         *  => new call then e.g. LED.switchToState(ON);
+         * </summary>
+        **/
+        private GpioPinValue switch_LED_ToState(uint targetState)
         {
-            _gpioInterface.setToOutput(pinID);
-            _gpioInterface.writePin(pinID, targetState);
+            _gpioInterface.setToOutput(PIN_ID);
+            _gpioInterface.writePin(PIN_ID, targetState);
 
             return _gpioInterface.readPin(PIN_ID);
         }
 
+        /// <summary>
+        /// can be used to reset to the orignal state before it was changed on request 
+        /// </summary>
         public override void undo()
         {
             throw new NotImplementedException();

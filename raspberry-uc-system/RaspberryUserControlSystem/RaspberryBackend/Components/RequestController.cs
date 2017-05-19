@@ -79,11 +79,11 @@ namespace RaspberryBackend
         {
             string command = "RaspberryBackend." + request.command;
 
-            //-typeof(ICommand).GetTypeInfo().Assembly:
+            //typeof(ICommand).GetTypeInfo().Assembly:
             //-gets the current running Assembly where ICommand (and all other programm classes) can be found. 
-            //-- typeof() gets metadato of ICommand e.g. Assembly information
-            //-- GetTypeInfo() extracts the Assembly information
-            //-- assembly returns the referenced assembly
+            //-- typeof(type): gets the Type of ICommand => Type ICommand; now access to different methods e.g. (type)ICommand.*
+            //-- GetTypeInfo(): gets Metainformation of the type e.g. Assembly information of ICommand
+            //-- assembly utilize the Assembly information and returns the referenced assembly
             Assembly executingAssembly = typeof(ICommand).GetTypeInfo().Assembly;
             Type commandType = executingAssembly.GetType(command);
 
