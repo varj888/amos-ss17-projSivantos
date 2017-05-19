@@ -12,7 +12,7 @@ namespace RaspberryBackend
    /// </summary>
     class RequestController
     {
-        private static Dictionary<String, Command> requestetCommands = new Dictionary<String, Command>();
+        private static Dictionary<String, Command> requestedCommands = new Dictionary<String, Command>();
         private static readonly RequestController _instance = new RequestController();
         protected GPIOinterface gpioInterface;
 
@@ -47,7 +47,7 @@ namespace RaspberryBackend
                     Command command;
 
                     //look if the command was already requested once, if not, create it. 
-                    if (!requestetCommands.TryGetValue(request.command, out command))
+                    if (!requestedCommands.TryGetValue(request.command, out command))
                     {
                         Debug.WriteLine("Looking up requested Command.....");
                         command = getANDinstanciateCommand(gpioInterface, request);
@@ -97,7 +97,7 @@ namespace RaspberryBackend
          **/
         public void addRequestetCommand(String commandName, Command command)
         {
-            requestetCommands.Add(commandName, command);
+            requestedCommands.Add(commandName, command);
         }
     }
 }

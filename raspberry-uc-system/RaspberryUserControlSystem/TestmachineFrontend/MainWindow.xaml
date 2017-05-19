@@ -31,7 +31,7 @@
                     <!--Button for establishing connection to device-->
                     <Button Grid.Column="1" x:Name="connectIP_button"
                   Margin="38.5,92,34,190"
-                            Grid.RowSpan="2">Connect</Button>
+                            Grid.RowSpan="2" Click="connectIP_button_Click">Connect</Button>
                     <ListView x:Name="listView" HorizontalAlignment="Left" 
                               Height="267" Margin="24,31,0,0" VerticalAlignment="Top" 
                               Width="204" Grid.RowSpan="2">
@@ -56,10 +56,10 @@
 
                     <Button Grid.Column="1" x:Name="ledON_button"
                         Margin="38.6,182.2,157,11.6"
-                        Content="LED ON" Grid.Row="1"     />
+                        Content="LED ON" Grid.Row="1"   Click="ledON_button_Click"  />
                     <Button Grid.Column="1" x:Name="ledOFF_button"
                         Margin="101.6,181.2,93,11.6"
-                        Content="LED OFF" Grid.Row="1"   />
+                        Content="LED OFF" Grid.Row="1"  Click="ledOFF_button_Click" />
                 </Grid>
             </TabItem>
 

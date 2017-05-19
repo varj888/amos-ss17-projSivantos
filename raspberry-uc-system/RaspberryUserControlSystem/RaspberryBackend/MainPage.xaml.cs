@@ -45,18 +45,18 @@ namespace RaspberryBackend
                 while (true)
                 {
                     //Receive a Request from the client
-                    Request r = conn.receiveObject();
+                    Request request = conn.receiveObject();
 
-                    Debug.WriteLine(r.command);
-                    Debug.WriteLine(r.parameter);
+                    Debug.WriteLine(string.Format("Received Request with content : command= {0} and paramater= {1}", request.command, request.parameter) + "/n");
+
 
                     //Process Request
-                    //RequestController.Instance.handleRequest(r);
+                    RequestController.Instance.handleRequest(request);
                 }
             }
             catch (Exception e)
-            {   
-                Debug.WriteLine(e.Message);//Handle exception.
+            {
+                Debug.WriteLine("HandleRequestConnection failed" + e.Message);
                 return;
             }
         }

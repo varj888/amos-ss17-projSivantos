@@ -35,25 +35,55 @@ namespace TestmachineFrontend
             InitializeComponent();
 
             //test for the class RequestConnClient
-            try
-            {
-                clientConnection = new ClientConn<Request>(hostname, 13370);
-                Debug.WriteLine("Connection to " + hostname + " established.");
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e);
-                Debug.WriteLine("Connection to " + hostname + " failed.");
-            }
-            
-            //clientConnection.send(new Request("LightLED", 1));
+            //try
+            //{
+            //    clientConnection = new ClientConn<Request>(hostname, 13370);
+            //    Debug.WriteLine("Connection to " + hostname + " established.");
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e);
+            //    Debug.WriteLine("Connection to " + hostname + " failed.");
+            //}
+
+
             this.DataContext = this;
         }
 
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
         public string DeviceName { get; set; }
+
+
         // public List<RequestConnClient> Connections { get => connections; set => connections = value; }
+
+        private void connectIP_button_Click(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    Connections.Add(new RequestConnClient(IPaddress));
+            //}
+            //catch (Exception ex)
+            //{
+            //    this.debug.Items.Add(new DebugContent { origin = "TCP Connection", text = "Couldn't establish connection" });
+            //}
+            connectToBackend();
+
+        }
+
+        private void connectToBackend()
+        {
+            try
+            {
+                clientConnection = new ClientConn<Request>(IPaddress, 13370);
+                Debug.WriteLine("Connection to " + IPaddress + " established.");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.WriteLine("Connection to " + IPaddress + " failed.");
+            }
+        }
 
         private void vcSlider_DragStarted(object sender, RoutedEventArgs e)
         {
@@ -87,17 +117,31 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
+            //Connections[0].send(new Request("read", PinID));
             clientConnection.sendObject(new Request("read", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
+            //Connections[0].send(new Request("write", PinID));
             clientConnection.sendObject(new Request("write", PinID));
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
         {
+            //Connections[0].send(new Request("reset", PinID));
             clientConnection.sendObject(new Request("reset", PinID));
         }
+
+        private void ledOFF_button_Click(object sender, RoutedEventArgs e)
+        {
+            clientConnection.sendObject(new Request("LightLED", 0));
+        }
+
+        private void ledON_button_Click(object sender, RoutedEventArgs e)
+        {
+            clientConnection.sendObject(new Request("LightLED", 1));
+        }
+
     }
 }
