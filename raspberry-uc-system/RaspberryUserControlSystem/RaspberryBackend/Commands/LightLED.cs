@@ -61,12 +61,5 @@ namespace RaspberryBackend
             return _gpioInterface.readPin(PIN_ID);
         }
 
-        /// <summary>
-        /// can be used to reset to the orignal state before it was changed on request 
-        /// </summary>
-        public override void undo()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

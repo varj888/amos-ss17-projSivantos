@@ -62,6 +62,7 @@
     <Compile Include="Request.cs" />
     <Compile Include="ClientConn.cs" />
     <Compile Include="Serializer.cs" />
+    <Compile Include="StatusConnClient.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

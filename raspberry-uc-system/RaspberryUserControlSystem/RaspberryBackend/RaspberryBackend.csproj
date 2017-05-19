@@ -96,6 +96,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\ReadPin.cs" />
+    <Compile Include="Commands\ResetPin.cs" />
+    <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Components\ObjConn.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />

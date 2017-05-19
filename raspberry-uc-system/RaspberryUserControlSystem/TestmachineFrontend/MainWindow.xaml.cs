@@ -27,7 +27,8 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string hostname = "minwinpc";
+        //private string hostname = "minwinpc";
+        private List<ClientConn<Request>> connections = new List<ClientConn<Request>>();
         private ClientConn<Request> clientConnection;
 
         public MainWindow()
@@ -35,25 +36,56 @@ namespace TestmachineFrontend
             InitializeComponent();
 
             //test for the class RequestConnClient
-            try
-            {
-                clientConnection = new ClientConn<Request>(hostname, 13370);
-                Debug.WriteLine("Connection to " + hostname + " established.");
-            }
-            catch(Exception e)
-            {
-                Debug.WriteLine(e);
-                Debug.WriteLine("Connection to " + hostname + " failed.");
-            }
-            
-            //clientConnection.send(new Request("LightLED", 1));
+            //try
+            //{
+            //    clientConnection = new ClientConn<Request>(hostname, 13370);
+            //    Debug.WriteLine("Connection to " + hostname + " established.");
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e);
+            //    Debug.WriteLine("Connection to " + hostname + " failed.");
+            //}
+
+
             this.DataContext = this;
         }
 
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
+        public string Port { get; set; }
         public string DeviceName { get; set; }
-        // public List<RequestConnClient> Connections { get => connections; set => connections = value; }
+
+
+        public List<ClientConn<Request>> Connections { get => connections; set => connections = value; }
+
+        private void connectIP_button_Click(object sender, RoutedEventArgs e)
+        {
+            //try
+            //{
+            //    Connections.Add(new ClientConn<Request>(IPaddress, 13370));
+            //}
+            //catch (Exception)
+            //{
+            //    this.debug.Items.Add(new DebugContent { origin = "TCP Connection", text = "Couldn't establish connection" });
+            //}
+            connectToBackend();
+
+        }
+
+        private void connectToBackend()
+        {
+            try
+            {
+                clientConnection = new ClientConn<Request>(IPaddress, 13370);
+                Debug.WriteLine("Connection to " + IPaddress + " established.");
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                Debug.WriteLine("Connection to " + IPaddress + " failed.");
+            }
+        }
 
         private void vcSlider_DragStarted(object sender, RoutedEventArgs e)
         {
@@ -87,17 +119,67 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-            clientConnection.sendObject(new Request("read", PinID));
+            try
+            {
+                //Connections[0].sendObject(new Request("ReadPin", PinID));
+                clientConnection.sendObject(new Request("ReadPin", PinID));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Request could not be sent: " + ex.Message);
+            }
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
-            clientConnection.sendObject(new Request("write", PinID));
+            try
+            {
+                //Connections[0].sendObject(new Request("WritePin", PinID));
+                clientConnection.sendObject(new Request("WritePin", PinID));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Request could not be sent: " + ex.Message);
+            }
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
         {
-            clientConnection.sendObject(new Request("reset", PinID));
+            try
+            {
+                //Connections[0].sendObject(new Request("ResetPin", PinID));
+                clientConnection.sendObject(new Request("ResetPin", PinID));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Request could not be sent: " + ex.Message);
+            }
         }
+
+        private void ledOFF_button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                clientConnection.sendObject(new Request("LightLED", 0));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Request could not be sent: " + ex.Message);
+            }
+        }
+
+        private void ledON_button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                clientConnection.sendObject(new Request("LightLED", 1));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Request could not be sent: " + ex.Message);
+            }
+
+        }
+
     }
 }
