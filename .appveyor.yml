@@ -1,0 +1,20 @@
+version: 1.0.{build}
+branches:
+  only:
+    - master
+    #- production
+  #except:
+    #TODO
+skip_tags: true
+
+only_commits:
+  message: /build/  # Start a new build if message contains 'build'
+
+image: Visual Studio 2015
+
+before_build:
+  - nuget restore
+build:
+  project: \raspberry-uc-system\RaspberryUserControlSystem\RaspberryUserConstrolSystem.sln
+  verbosity: minimal
+#after_test:
