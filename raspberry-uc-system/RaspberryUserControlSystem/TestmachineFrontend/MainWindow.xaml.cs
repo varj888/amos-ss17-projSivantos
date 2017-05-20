@@ -57,7 +57,10 @@ namespace TestmachineFrontend
         public string DeviceName { get; set; }
 
 
-        public List<ClientConn<Request>> Connections { get => connections; set => connections = value; }
+        public List<ClientConn<Request>> Connections {
+             get { return connections;}
+             set { connections = value; }
+        }
 
         private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
