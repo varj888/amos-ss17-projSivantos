@@ -11,7 +11,7 @@ namespace RaspberryBackend
     {
         private const uint ON = 1;
         private const uint OFF = 0;
-        private const UInt16 PIN_ID = 6;
+        private const UInt16 GPIO_PIN_ID = 6;
 
         public GpioPinValue lastStateOnRequest;
         public GpioPinValue currentState;
@@ -20,10 +20,13 @@ namespace RaspberryBackend
         public LightLED(GPIOinterface gpioInterface) : base(gpioInterface)
         {
             RequestController.Instance.addRequestetCommand("LightLED", this);
-            lastStateOnRequest = _gpioInterface.readPin(PIN_ID);
+            lastStateOnRequest = _gpioInterface.readPin(GPIO_PIN_ID);
         }
 
-
+        /// <summary>
+        ///  executes the Command LightLED in dependency of the parsed parameter 
+        /// </summary>
+        /// <param name="parameter">parameter with content ("0" or "1")</param>
         public override void execute(Object parameter)
         {
             string requestedParameter = parameter.ToString();
@@ -40,26 +43,28 @@ namespace RaspberryBackend
                 currentState = switch_LED_ToState(OFF);
             }
 
-            Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2}",
-                PIN_ID, currentState, lastStateOnRequest));
+            Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2} \n",
+                GPIO_PIN_ID, currentState, lastStateOnRequest));
 
         }
 
-        /**
-         * <summary
-         *  can be used to change the state of the (hardware) LED to a new state. 
-         *  Note that this method uses the instance constant "PIN_ID" to change the state
-         *  (Suggestion: modifying for general purpose and implementing it in an LED object  
-         *  => new call then e.g. LED.switchToState(ON);
-         * </summary>
-        **/
+
+
+        /// <summary>
+        /// can be used to change the state of the (hardware) LED to a new state. 
+        /// Note: this method uses the instance constant "PIN_ID" to change the state
+        /// => new call then e.g.LED.switchToState(ON);
+        /// </summary>
+        /// <param name="targetState">the state wished to change to</param>
+        /// <returns>The GpioPinValue of the concerned Gpio-Pin</returns>
         private GpioPinValue switch_LED_ToState(uint targetState)
         {
-            _gpioInterface.setToOutput(PIN_ID);
-            _gpioInterface.writePin(PIN_ID, targetState);
+            _gpioInterface.setToOutput(GPIO_PIN_ID);
+            _gpioInterface.writePin(GPIO_PIN_ID, targetState);
 
-            return _gpioInterface.readPin(PIN_ID);
+            return _gpioInterface.readPin(GPIO_PIN_ID);
         }
 
     }
 }
+

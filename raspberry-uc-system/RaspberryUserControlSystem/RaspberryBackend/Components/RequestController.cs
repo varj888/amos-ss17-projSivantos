@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RaspberryBackend
 {  /// <summary>
@@ -33,8 +30,10 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// handles received Requests from the Frontend by executing them. 
+        /// handles received Requests from the Frontend by deciding what to do in dependency of the request
+        /// Note: At this point, only execution commands are content of the requests.
         /// </summary>
+        /// <param name="request">the request information of the Frontend application</param>
         public void handleRequest(Request request)
         {
 
@@ -49,17 +48,18 @@ namespace RaspberryBackend
                     //look if the command was already requested once, if not, create it. 
                     if (!requestedCommands.TryGetValue(request.command, out command))
                     {
-                        Debug.WriteLine("Looking up requested Command.....");
-                        command = getANDinstanciateCommand(gpioInterface, request);
-                        Debug.Write(string.Format("Found the following Command in Request: " + command != null ? command.GetType().FullName : "none"));
+                        Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
+                        command = getANDinstantiateCommand(gpioInterface, request);
+                        Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
                     }
                     //then, execute command
                     command.execute(request.parameter);
 
+
                 }
                 catch (ArgumentNullException an)
                 {
-                    Debug.WriteLine("The requestet command was not found:" + an.Message);
+                    Debug.WriteLine("The requestet command was not found: " + an.Message);
                 }
                 catch (Exception e)
                 {
@@ -69,13 +69,14 @@ namespace RaspberryBackend
             }
         }
 
-        /** 
-         * <summary>
-         * Creates dynamically an instance of the requested Command type and returns it
-         * (it does not matter wich command are requested as long as they are existing) 
-         * </summary>
-         **/
-        private Command getANDinstanciateCommand(GPIOinterface gpioInterface, Request request)
+        /// <summary>
+        ///  Creates dynamically an instance of the requested Command type and returns it
+        ///  (it does not matter wich command are requested as long as they are existing) 
+        /// </summary>
+        /// <param name="gpioInterface"> interaction point to the Raspberry Pi's GpioPins</param>
+        /// <param name="request">requested information of the Frontend application</param>
+        /// <returns></returns>
+        private Command getANDinstantiateCommand(GPIOinterface gpioInterface, Request request)
         {
             string command = "RaspberryBackend." + request.command;
 
@@ -90,11 +91,11 @@ namespace RaspberryBackend
             return (Command)Activator.CreateInstance(commandType, gpioInterface);
         }
 
-        /** 
-         * <summary>
-         * in order to save the requested commands you can add them to a Dictonary datatype with this method
-         * </summary>
-         **/
+        /// <summary>
+        /// can be used to save requested commands by adding them to a Dictonary datatype. 
+        /// </summary>
+        /// <param name="commandName">the name of the requested command</param>
+        /// <param name="command">the Command object of the requested command</param>
         public void addRequestetCommand(String commandName, Command command)
         {
             requestedCommands.Add(commandName, command);

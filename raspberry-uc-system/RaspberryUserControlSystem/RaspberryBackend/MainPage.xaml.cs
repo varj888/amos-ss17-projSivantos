@@ -47,7 +47,7 @@ namespace RaspberryBackend
                     //Receive a Request from the client
                     Request request = conn.receiveObject();
 
-                    Debug.WriteLine(string.Format("Received Request with content : command= {0} and paramater= {1}", request.command, request.parameter) + "/n");
+                    Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1}) \n", request.command, request.parameter));
 
 
                     //Process Request
