@@ -18,3 +18,13 @@ build:
   project: \raspberry-uc-system\RaspberryUserControlSystem\RaspberryUserConstrolSystem.sln
   verbosity: minimal
 #after_test:
+
+notifications:
+
+  # Email
+  - provider: Email
+    to:
+      - Undead.Cyrus@gmail.com
+    subject: 'Build {{status}}'
+    message: "{{message}}, {{commitId}}"
+    on_build_status_changed: true
