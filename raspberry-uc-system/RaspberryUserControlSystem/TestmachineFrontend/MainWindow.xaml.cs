@@ -78,7 +78,7 @@ namespace TestmachineFrontend
 
         }
 
-        private void connectToBackend()
+        public void connectToBackend()
         {
             try
             {
