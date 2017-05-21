@@ -28,6 +28,7 @@ test:
 #    $wc = New-Object 'System.Net.WebClient'
 #    $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\myresults.xml))
 
+  Add-AppveyorTest -Name "UnitTest1" -Framework MSTest -Filename UnitTest1.exe
   vstest.console.exe TestmachineFrontendTests.dll /logger:Appveyor
 
  # mstest.console .\raspberry-uc-system\RaspberryUserControlSystem\TestmachineFrontendTests\dll\TestmachineFrontendTests.dll /xml .\mstest-results.xml
