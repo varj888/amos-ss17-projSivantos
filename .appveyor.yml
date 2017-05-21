@@ -22,6 +22,9 @@ build:
   #assemblies:
     #- Microsoft.Pex.Framework.dll 
     #- Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+before_test:
+
+  nunit3-console \raspberry-uc-system\RaspberryUserControlSystem\TestmachineFrontendTests1\dll\nunit.framework.dll --result=myresults.xml;format=AppVeyor
 
 #after_test:
 
