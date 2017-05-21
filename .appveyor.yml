@@ -28,9 +28,8 @@ test:
 #    $wc = New-Object 'System.Net.WebClient'
 #    $wc.UploadFile("https://ci.appveyor.com/api/testresults/nunit3/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\myresults.xml))
 
-vstest.console /logger:Appveyor \raspberry-uc-system\RaspberryUserControlSystem\TestmachineFrontendTests\dll\TestmachineFrontendTests.dll
+  vstest.console /logger:Appveyor \raspberry-uc-system\RaspberryUserControlSystem\TestmachineFrontendTests\dll\TestmachineFrontendTests.dll
 
-  # run tests
   mstest.console .\raspberry-uc-system\RaspberryUserControlSystem\TestmachineFrontendTests\dll\TestmachineFrontendTests.dll /xml .\mstest-results.xml
 
   $wc = New-Object 'System.Net.WebClient'
