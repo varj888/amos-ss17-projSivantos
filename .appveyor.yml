@@ -25,7 +25,7 @@ test:
 
 #after_test:
 
-notifications:
+#notifications:
 
   # Email
   #- provider: Email
