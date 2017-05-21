@@ -68,7 +68,7 @@ namespace RaspberryBackend
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1}) \n", request.command, request.parameter));
 
                 //Process Request
-                //RequestController.Instance.handleRequest(request);
+                RequestController.Instance.handleRequest(request);
             }
         }
     }
