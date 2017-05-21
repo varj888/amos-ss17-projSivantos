@@ -19,18 +19,18 @@ build:
   verbosity: minimal
 
 test:
-  assemblies:
-    - Microsoft.Pex.Framework.dll 
-    - Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+  #assemblies:
+    #- Microsoft.Pex.Framework.dll 
+    #- Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 
 #after_test:
 
 notifications:
 
   # Email
-  - provider: Email
-    to:
-      - Undead.Cyrus@gmail.com
-    subject: 'Build {{status}}'
-    message: "{{message}}, {{commitId}}"
-    on_build_status_changed: true
+  #- provider: Email
+  #  to:
+  #    - <email here>
+  #  subject: 'Build {{status}}'
+  #  message: "{{message}}, {{commitId}}"
+  #  on_build_status_changed: true
