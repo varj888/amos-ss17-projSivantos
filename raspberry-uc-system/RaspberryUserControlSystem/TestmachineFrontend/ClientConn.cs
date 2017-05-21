@@ -23,11 +23,15 @@ namespace TestmachineFrontend
         /// <param name="port">port of the server, to connect to</param>
        public ClientConn(string hostname, int port)
         {
-            TcpClient client = new TcpClient(hostname, port);
-            NetworkStream stream = client.GetStream();
-            StreamWriter writer = new StreamWriter(stream) { AutoFlush = true };
-            StreamReader reader = new StreamReader(stream);
-            conn = new ObjConn<T>(reader, writer);
+            connect(hostname, port);
+        }
+
+        private async void connect(string hostname, int port)
+        {
+            TcpClient socket = new TcpClient();
+            await socket.ConnectAsync(hostname, port);
+            NetworkStream stream = socket.GetStream();
+            conn = new ObjConn<T>(stream);
         }
         
         /// <summary>

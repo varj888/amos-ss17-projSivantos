@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Net.Sockets;
 
 namespace TestmachineFrontend
 {
@@ -7,20 +9,21 @@ namespace TestmachineFrontend
     /// The Server has to use the same serialisation methods used in this implementation
     /// </summary>
     /// <typeparam name="T">Type of The Object, wich will be send over the connection</typeparam>
-    public class ObjConn<T>
+    public class ObjConn<T> : IDisposable
     {
+        NetworkStream stream;
         StreamReader reader;
         StreamWriter writer;
 
         /// <summary>
         /// Is initialised by streams which should already be initialised
         /// </summary>
-        /// <param name="inStream">stream, the ObjConn will use for receiving Objects</param>
-        /// <param name="outStream">stream, the ObjConn will use for sending Objects</param>
-        public ObjConn(StreamReader inStream, StreamWriter outStream)
+        /// <param name="stream">stream, the ObjConn will use for sending and receiving Objects</param>
+        public ObjConn(NetworkStream stream)
         {
-            reader = inStream;
-            writer = outStream;
+            this.stream = stream;
+            reader = new StreamReader(stream);
+            writer = new StreamWriter(stream) { AutoFlush = true };
         }
 
         /// <summary>
@@ -40,6 +43,11 @@ namespace TestmachineFrontend
         public T receiveObject()
         {
             return (T)Serializer.Deserialize(reader.ReadLine(), typeof(T));
+        }
+
+        public void Dispose()
+        {
+            stream.Dispose();
         }
     }
 }

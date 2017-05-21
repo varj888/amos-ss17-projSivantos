@@ -17,9 +17,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using System.Runtime.Serialization;
 using System.Xml;
-using Windows.Networking.Sockets;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -34,30 +32,41 @@ namespace RaspberryBackend
         {
 
             this.InitializeComponent();
-            TCPServer<Request> RequestServer = new TCPServer<Request>(13370, handleRequestConnection);
+            runRequestServerAsync();
 
+        }
+
+        private async Task runRequestServerAsync()
+        {
+            TCPServer<Request> requestServer = new TCPServer<Request>(13370);
+            while (true)
+            {
+                try
+                {
+                    using (ObjConn<Request> connection = await requestServer.acceptConnectionAsync())
+                    {
+                        handleRequestConnection(connection);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("HandleRequestConnection failed" + e.Message);
+                }
+
+            }
         }
 
         private void handleRequestConnection(ObjConn<Request> conn)
         {
-            try
+            while (true)
             {
-                while (true)
-                {
-                    //Receive a Request from the client
-                    Request request = conn.receiveObject();
+                //Receive a Request from the client
+                Request request = conn.receiveObject();
 
-                    Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1}) \n", request.command, request.parameter));
+                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1}) \n", request.command, request.parameter));
 
-
-                    //Process Request
-                    RequestController.Instance.handleRequest(request);
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("HandleRequestConnection failed" + e.Message);
-                return;
+                //Process Request
+                //RequestController.Instance.handleRequest(request);
             }
         }
     }
