@@ -17,6 +17,9 @@ before_build:
 build:
   project: \raspberry-uc-system\RaspberryUserControlSystem\RaspberryUserConstrolSystem.sln
   verbosity: minimal
+
+test:
+
 #after_test:
 
 notifications:
