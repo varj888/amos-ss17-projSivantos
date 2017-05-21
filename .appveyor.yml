@@ -19,6 +19,9 @@ build:
   verbosity: minimal
 
 test:
+  assemblies:
+    - Microsoft.Pex.Framework.dll 
+    - Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 
 #after_test:
 
