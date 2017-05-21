@@ -66,8 +66,21 @@
     <Compile Include="Properties\PexAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dll\Microsoft.CodeDigger.dll" />
+    <Content Include="dll\Microsoft.ExtendedReflection.ClrMonitor.x86.dll" />
+    <Content Include="dll\Microsoft.ExtendedReflection.dll" />
+    <Content Include="dll\Microsoft.ExtendedReflection.Extensions.dll" />
+    <Content Include="dll\Microsoft.ExtendedReflection.Reasoning.dll" />
+    <Content Include="dll\Microsoft.ExtendedReflection.Z32Solver.dll" />
+    <Content Include="dll\Microsoft.Pex.Fakes.dll" />
     <Content Include="dll\Microsoft.Pex.Framework.dll" />
+    <Content Include="dll\Microsoft.Pex.Framework.Extensions.dll" />
+    <Content Include="dll\Microsoft.Pex.VisualStudio.dll" />
     <Content Include="dll\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+    <Content Include="dll\Microsoft.Z3.dll" />
+    <Content Include="dll\msvcp110.dll" />
+    <Content Include="dll\msvcr110.dll" />
+    <Content Include="dll\vcomp110.dll" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
