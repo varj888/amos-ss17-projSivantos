@@ -43,23 +43,11 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\..\..\..\Downloads\NUnit.Framework-3.6.1\bin\net-4.5\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework.tests">
-      <HintPath>..\..\..\..\..\..\Downloads\NUnit.Framework-3.6.1\bin\net-4.5\nunit.framework.tests.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.testdata">
-      <HintPath>..\..\..\..\..\..\Downloads\NUnit.Framework-3.6.1\bin\net-4.5\nunit.testdata.dll</HintPath>
-    </Reference>
-    <Reference Include="nunitlite">
-      <HintPath>..\..\..\..\..\..\Downloads\NUnit.Framework-3.6.1\bin\net-4.5\nunitlite.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
     <Reference Include="PresentationFramework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
-    </Reference>
-    <Reference Include="slow-nunit-tests">
-      <HintPath>..\..\..\..\..\..\Downloads\NUnit.Framework-3.6.1\bin\net-4.5\slow-nunit-tests.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xaml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -96,6 +84,7 @@
     <Content Include="dll\Microsoft.Z3.dll" />
     <Content Include="dll\msvcp110.dll" />
     <Content Include="dll\msvcr110.dll" />
+    <Content Include="dll\nunit.framework.dll" />
     <Content Include="dll\vcomp110.dll" />
   </ItemGroup>
   <Choose>

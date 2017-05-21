@@ -18,12 +18,16 @@ build:
   project: \raspberry-uc-system\RaspberryUserControlSystem\RaspberryUserConstrolSystem.sln
   verbosity: minimal
 
-test:
+#test:
   #assemblies:
     #- Microsoft.Pex.Framework.dll 
     #- Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
 
 #after_test:
+
+artifacts:  
+- path: '**\*.nupkg'
+  name: NuGet
 
 #notifications:
 
