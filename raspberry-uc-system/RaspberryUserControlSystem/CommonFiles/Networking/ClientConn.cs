@@ -6,7 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestmachineFrontend
+namespace CommonFiles.Networking
 {
     /// <summary>
     /// Represents a TCP connection to a Server

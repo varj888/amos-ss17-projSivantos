@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CommonFiles.Networking;
+using CommonFiles.TransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

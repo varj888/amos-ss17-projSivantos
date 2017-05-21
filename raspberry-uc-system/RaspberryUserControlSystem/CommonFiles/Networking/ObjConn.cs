@@ -2,7 +2,7 @@
 using System.IO;
 using System.Net.Sockets;
 
-namespace TestmachineFrontend
+namespace CommonFiles.Networking
 {
     /// <summary>
     /// Represents a connection to a server, which allows to send and receive Objects of Type T

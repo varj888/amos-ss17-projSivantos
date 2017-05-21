@@ -56,13 +56,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Status.cs" />
-    <Compile Include="ObjConn.cs" />
+    <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
+      <Link>CommonFiles\Networking\ClientConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
+      <Link>CommonFiles\Networking\ObjConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\Serializer.cs">
+      <Link>CommonFiles\Networking\Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
+      <Link>CommonFiles\Networking\TCPServer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
+      <Link>CommonFiles\TransferObjects\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Status.cs">
+      <Link>CommonFiles\TransferObjects\Status.cs</Link>
+    </Compile>
     <Compile Include="DebugContent.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="ClientConn.cs" />
-    <Compile Include="Serializer.cs" />
-    <Compile Include="StatusConnClient.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -103,6 +115,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

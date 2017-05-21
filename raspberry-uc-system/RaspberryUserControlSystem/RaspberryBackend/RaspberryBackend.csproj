@@ -93,25 +93,39 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
+      <Link>CommonFiles\Networking\ClientConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
+      <Link>CommonFiles\Networking\ObjConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\Serializer.cs">
+      <Link>CommonFiles\Networking\Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
+      <Link>CommonFiles\Networking\TCPServer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
+      <Link>CommonFiles\TransferObjects\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Status.cs">
+      <Link>CommonFiles\TransferObjects\Status.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Commands\ReadPin.cs" />
     <Compile Include="Commands\ResetPin.cs" />
     <Compile Include="Commands\WritePin.cs" />
-    <Compile Include="Components\ObjConn.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />
-    <Compile Include="Components\Serializer.cs" />
-    <Compile Include="Components\Request.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\TCPServer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

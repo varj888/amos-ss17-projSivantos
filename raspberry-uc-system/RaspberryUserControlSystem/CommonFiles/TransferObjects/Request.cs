@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-
+namespace CommonFiles.TransferObjects{
     /// <summary>
     /// Unit of transfer by the RequestConnClient Class
     /// is only as a container for the two variables methodName and parameter
-    /// note: this class uses the default contract namespace
     /// </summary>
     [DataContract]
     public class Request
@@ -26,3 +25,4 @@ using System.Runtime.Serialization;
         [DataMember]
         public Object parameter;
     }
+}

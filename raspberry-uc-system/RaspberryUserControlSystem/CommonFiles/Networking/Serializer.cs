@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TestmachineFrontend
+/// <summary>
+/// helper class to serialize and deserialize
+/// it uses strings as the result of serialization
+/// </summary>
+namespace CommonFiles.Networking
 {
-    /// <summary>
-    /// helper class to serialize and deserialize
-    /// it uses strings as the result of serialization
-    /// </summary>
     public class Serializer
     {
         /// <summary>
         /// serializes a object into a string
         /// </summary>
         /// <param name="obj">the object to serialize</param>
-        /// <returns>the serialized object</returns>
+        /// <returns>the serialized objekt</returns>
         public static string Serialize(object obj)
         {
             using (MemoryStream memoryStream = new MemoryStream())
@@ -32,7 +27,7 @@ namespace TestmachineFrontend
         }
 
         /// <summary>
-        /// deserializes a string into a object
+        /// deserializes a an object from a string
         /// </summary>
         /// <param name="xml">the string to deserialize</param>
         /// <param name="toType">the type of the object, that you want to get as a result by deserialization</param>
