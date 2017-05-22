@@ -97,7 +97,7 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="commandName">the name of the requested command</param>
         /// <param name="command">the Command object of the requested command</param>
-        public void addRequestetCommand(String commandName, Command command)
+        public void addRequestedCommand(String commandName, Command command)
         {
             requestedCommands.Add(commandName, command);
         }

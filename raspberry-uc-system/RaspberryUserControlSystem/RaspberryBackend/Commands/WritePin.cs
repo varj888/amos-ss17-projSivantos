@@ -10,7 +10,7 @@ namespace RaspberryBackend
 
         public WritePin(GPIOinterface gpioInterface) : base(gpioInterface)
         {
-            RequestController.Instance.addRequestetCommand("WritePin", this);
+            RequestController.Instance.addRequestedCommand("WritePin", this);
         }
 
         /// <summary>

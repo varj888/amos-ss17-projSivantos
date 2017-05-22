@@ -11,7 +11,7 @@ namespace RaspberryBackend
 
         public ResetPin(GPIOinterface gpioInterface) : base(gpioInterface)
         {
-            RequestController.Instance.addRequestetCommand("ResetPin", this);
+            RequestController.Instance.addRequestedCommand("ResetPin", this);
         }
 
         /// <summary>
