@@ -19,7 +19,7 @@ namespace RaspberryBackend
 
         public LightLED(GPIOinterface gpioInterface) : base(gpioInterface)
         {
-            RequestController.Instance.addRequestetCommand("LightLED", this);
+            RequestController.Instance.addRequestedCommand("LightLED", this);
             lastStateOnRequest = _gpioInterface.readPin(GPIO_PIN_ID);
         }
 

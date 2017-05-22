@@ -13,7 +13,7 @@ namespace RaspberryBackend
 
         public ReadPin(GPIOinterface gpioInterface) : base(gpioInterface)
         {
-            RequestController.Instance.addRequestetCommand("ReadPin", this);
+            RequestController.Instance.addRequestedCommand("ReadPin", this);
         }
 
         /// <summary>
