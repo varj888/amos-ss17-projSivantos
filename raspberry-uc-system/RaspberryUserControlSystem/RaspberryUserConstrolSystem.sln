@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspberryBackendTests", "Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestmachineFrontendTests", "TestmachineFrontendTests\TestmachineFrontendTests.csproj", "{F99E92A3-C4F6-4538-ABFA-6EA537245CBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestmachineFrontendTests1", "TestmachineFrontendTests1\TestmachineFrontendTests1.csproj", "{29AF42D4-10AB-4E5B-9B6D-B82F82F002D1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
