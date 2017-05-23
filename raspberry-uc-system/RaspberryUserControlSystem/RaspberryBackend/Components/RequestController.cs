@@ -23,7 +23,8 @@ namespace RaspberryBackend
         }
 
         public GPIOinterface GpioInterface {
-            set => gpioInterface = value;
+            get { return gpioInterface; }
+            set { gpioInterface = value; }
         }
 
         private RequestController(){}
