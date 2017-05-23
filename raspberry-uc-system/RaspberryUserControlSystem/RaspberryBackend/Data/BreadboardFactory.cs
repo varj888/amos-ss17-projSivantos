@@ -9,11 +9,11 @@ namespace RaspberryBackend.Data
 {
     class BreadboardFactory
     {
-        Dictionary<string, Dictionary<List<string>, Config>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, Config>>();
+        private Dictionary<string, Dictionary<List<string>, Config>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, Config>>();
 
         private const string _CONFIG_PATH = "Data/config/PinOutInfo.xml";
 
-        XDocument config;
+        private XDocument config;
 
         public BreadboardFactory()
         {
@@ -61,14 +61,31 @@ namespace RaspberryBackend.Data
             }
         }
 
-        public Breadboard createBreadboard(string family, string name)
+        public Breadboard createBreadboard(string family, string model_name)
         {
-            return null;
-        }
+            if (hi_dictionary.ContainsKey(family))
+            {
+                Dictionary<List<string>, Config> family_dic = hi_dictionary[family];
 
-        public Dictionary<string, Dictionary<List<string>, Config>> get_hi_dictionary()
-        {
-            return hi_dictionary;
+                Config bb_config = null;
+                bool model_found = false;
+
+                foreach(List<string> model_names in family_dic.Keys)
+                {
+                    if (model_names.Contains(model_name))
+                    {
+                        bb_config = family_dic[model_names];
+                        model_found = true;
+                    }
+                }
+
+                if (model_found)
+                {
+                    return new Breadboard(family, model_name, bb_config);
+                }
+            }
+
+            return null;
         }
 
         public string toString()

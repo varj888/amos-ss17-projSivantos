@@ -9,7 +9,20 @@ namespace RaspberryBackend.Data
     class Breadboard
     {
 
-        private Boolean _statusLED_1 = false;
+        private string _family_name;
+        private string _model_name;
 
+        private Config _pin_config;
+
+        public Breadboard(string family, string model, Config config)
+        {
+            _family_name = family;
+            _model_name = model;
+            _pin_config = config;
+        }
+
+        public string Family_name { get => _family_name; }
+        public string Model_name { get => _model_name; }
+        internal Config Pin_config { get => _pin_config;}
     }
 }

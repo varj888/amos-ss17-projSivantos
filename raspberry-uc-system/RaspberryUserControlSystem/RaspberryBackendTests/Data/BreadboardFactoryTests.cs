@@ -11,6 +11,9 @@ namespace RaspberryBackendTests.Data
     public class BreadboardFactoryTests
     {
 
+        private const string _FAMILY = "Pure";
+        private const string _MODEL = "312 702 M (DN)";
+        private List<string> _EXPECTED_VALUES = new List<string>(){"","RockerSW","Ground","Ground","AMR","","AudioInput","","Ground","PB"};
         BreadboardFactory factory;
 
         [TestInitialize]
@@ -20,9 +23,23 @@ namespace RaspberryBackendTests.Data
         }
 
         [TestMethod]
-        public void testXmlReader()
+        public void TestCreateBreadboard()
         {
-            Debug.Write(factory.toString());
+            Breadboard pure_bb = factory.createBreadboard(_FAMILY, _MODEL);
+
+            Config conf = pure_bb.Pin_config;
+            Dictionary<int,string> dic = conf.Pin_value_map;
+
+            List<string> value_list = new List<string>();
+
+            foreach(string value in dic.Values)
+            {
+                value_list.Add(value);
+            }
+
+            CollectionAssert.AreEqual(_EXPECTED_VALUES, value_list);
+            Assert.AreEqual(pure_bb.Family_name, _FAMILY);
+            Assert.AreEqual(pure_bb.Model_name, _MODEL);
         }
 
         [TestCleanup]
