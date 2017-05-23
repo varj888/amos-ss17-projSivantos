@@ -20,6 +20,10 @@ namespace RaspberryBackend
         private const GpioPinValue PIN_LOW = GpioPinValue.Low;
         private GpioController gpio = GpioController.GetDefault();
 
+        private Boolean _initialized = false;
+
+        public bool Initialized => _initialized;
+
         public GPIOinterface()
         {
             pin_ids["PIN_02"] = 2;   //PullUp   I2C1 SDA
@@ -46,12 +50,19 @@ namespace RaspberryBackend
             pin_ids["PIN_25"] = 25;  //PullDown
             pin_ids["PIN_26"] = 26;  //PullDown
             pin_ids["PIN_27"] = 27;  //PullDown
+        }
 
-            foreach(var pin in pin_ids.Keys)
+        //<summary>
+        //Inititializes the pins to "open".
+        //</summary>
+        public void initPins()
+        {
+            foreach (var pin in pin_ids.Keys)
             {
                 pins[pin_ids[pin]] = gpio.OpenPin(pin_ids[pin]);
             }
 
+            _initialized = true;
         }
 
         //<summary>

@@ -12,15 +12,7 @@ namespace RaspberryBackend
     {
         private static Dictionary<String, Command> requestedCommands = new Dictionary<String, Command>();
         private static readonly RequestController _instance = new RequestController();
-        protected GPIOinterface gpioInterface;
-
-        private static object syncLock = new object();
-
-
-        private RequestController()
-        {
-            gpioInterface = new GPIOinterface();
-        }
+        private GPIOinterface gpioInterface;
 
         public static RequestController Instance
         {
@@ -30,44 +22,58 @@ namespace RaspberryBackend
             }
         }
 
+        public GPIOinterface GpioInterface {
+            set => gpioInterface = value;
+        }
+
+        private RequestController(){}
+
         /// <summary>
         /// handles received Requests from the Frontend by deciding what to do in dependency of the request
         /// Note: At this point, only execution commands are content of the requests.
         /// </summary>
         /// <param name="request">the request information of the Frontend application</param>
-        public void handleRequest(Request request)
+        public Command handleRequest(Request request)
         {
 
+            Command command = null;
 
             if (request != null)
             {
 
                 try
                 {
-                    Command command;
 
                     //look if the command was already requested once, if not, create it. 
                     if (!requestedCommands.TryGetValue(request.command, out command))
                     {
                         Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
-                        command = getANDinstantiateCommand(gpioInterface, request);
+                        command = createCommand(request);
                         Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
                     }
-                    //then, execute command
-                    command.execute(request.parameter);
-
-
+                    //then, if gpioInterface is ready, execute command
+                    if (gpioInterface.Initialized)
+                    {
+                        command.execute(request.parameter);
+                    }
+                    else
+                    {
+                        throw new Exception("gpioInterface must be initialized.");
+                    }
+                   
                 }
-                catch (ArgumentNullException an)
+                catch (ArgumentNullException e)
                 {
-                    Debug.WriteLine("The requestet command was not found: " + an.Message);
+                    throw new ArgumentNullException("The requested command was not found: " + request.command);
                 }
                 catch (Exception e)
                 {
-                    Debug.Write("Something went wrong :( :" + e.Message);
+                    Debug.WriteLine(e.Message);
                 }
-
+                
             }
+
+            return command;
         }
 
         /// <summary>
@@ -77,7 +83,7 @@ namespace RaspberryBackend
         /// <param name="gpioInterface"> interaction point to the Raspberry Pi's GpioPins</param>
         /// <param name="request">requested information of the Frontend application</param>
         /// <returns></returns>
-        private Command getANDinstantiateCommand(GPIOinterface gpioInterface, Request request)
+        private Command createCommand(Request request)
         {
             string command = "RaspberryBackend." + request.command;
 
@@ -89,7 +95,8 @@ namespace RaspberryBackend
             Assembly executingAssembly = typeof(ICommand).GetTypeInfo().Assembly;
             Type commandType = executingAssembly.GetType(command);
 
-            return (Command)Activator.CreateInstance(commandType, gpioInterface);
+
+            return (Command) Activator.CreateInstance(commandType, gpioInterface);
         }
 
         /// <summary>

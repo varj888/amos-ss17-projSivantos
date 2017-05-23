@@ -20,7 +20,6 @@ namespace RaspberryBackend
         public LightLED(GPIOinterface gpioInterface) : base(gpioInterface)
         {
             RequestController.Instance.addRequestedCommand("LightLED", this);
-            lastStateOnRequest = _gpioInterface.readPin(GPIO_PIN_ID);
         }
 
         /// <summary>
@@ -29,6 +28,8 @@ namespace RaspberryBackend
         /// <param name="parameter">parameter with content ("0" or "1")</param>
         public override void execute(Object parameter)
         {
+            lastStateOnRequest = _gpioInterface.readPin(GPIO_PIN_ID);
+
             string requestedParameter = parameter.ToString();
 
             if (requestedParameter.Equals("1"))
