@@ -83,13 +83,17 @@ namespace TestmachineFrontend
             try
             {
                 clientConnection = new ClientConn<Request>(IPaddress, 13370);
-                Debug.WriteLine("Connection to " + IPaddress + " established.");
+                this.addMessage("TCP", "Connection to " + IPaddress + " established.");
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e);
-                Debug.WriteLine("Connection to " + IPaddress + " failed.");
+                this.addMessage("TCP", e.Message);
             }
+        }
+
+        public void addMessage(string origin, string msg)
+        {
+            this.debug.Items.Insert(0, new DebugContent { origin = origin, text = msg });
         }
 
         private void vcSlider_DragStarted(object sender, RoutedEventArgs e)
@@ -128,10 +132,11 @@ namespace TestmachineFrontend
             {
                 //Connections[0].sendObject(new Request("ReadPin", PinID));
                 clientConnection.sendObject(new Request("ReadPin", PinID));
+                this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Request could not be sent: " + ex.Message);
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
             }
         }
 
@@ -141,10 +146,11 @@ namespace TestmachineFrontend
             {
                 //Connections[0].sendObject(new Request("WritePin", PinID));
                 clientConnection.sendObject(new Request("WritePin", PinID));
+                this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Request could not be sent: " + ex.Message);
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
             }
         }
 
@@ -154,10 +160,11 @@ namespace TestmachineFrontend
             {
                 //Connections[0].sendObject(new Request("ResetPin", PinID));
                 clientConnection.sendObject(new Request("ResetPin", PinID));
+                this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Request could not be sent: " + ex.Message);
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
             }
         }
 
@@ -166,10 +173,11 @@ namespace TestmachineFrontend
             try
             {
                 clientConnection.sendObject(new Request("LightLED", 0));
+                this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Request could not be sent: " + ex.Message);
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
             }
         }
 
@@ -178,10 +186,11 @@ namespace TestmachineFrontend
             try
             {
                 clientConnection.sendObject(new Request("LightLED", 1));
+                this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Request could not be sent: " + ex.Message);
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
             }
 
         }
