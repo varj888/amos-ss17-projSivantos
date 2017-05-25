@@ -5,11 +5,11 @@
     /// </summary>
     public abstract class Command : ICommand
     {
-        public RaspberryPi _raspberryPi;
+        public RaspberryPi RaspberryPi;
 
         public Command(RaspberryPi raspberryPi)
         {
-            _raspberryPi = raspberryPi;
+            RaspberryPi = raspberryPi;
         }
 
 

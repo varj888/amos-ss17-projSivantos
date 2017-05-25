@@ -24,8 +24,8 @@ namespace RaspberryBackend
             if (parameter.GetType() == typeof(UInt16))
             {
                 id = (UInt16)parameter;
-                _raspberryPi.GpioInterface.setToOutput(id);
-                _raspberryPi.GpioInterface.writePin(id, 0);
+                RaspberryPi.GpioInterface.setToOutput(id);
+                RaspberryPi.GpioInterface.writePin(id, 0);
 
             }
             else

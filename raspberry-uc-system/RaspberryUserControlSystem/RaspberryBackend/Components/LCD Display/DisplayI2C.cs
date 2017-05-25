@@ -28,7 +28,7 @@ namespace RaspberryBackend
 
         private byte[] _LineAddress = new byte[] { 0x00, 0x40 };
 
-        private byte _backLight = 0x01;
+        public byte _backLight = 0x01;
 
 
         private I2cDevice _i2cPortExpander;

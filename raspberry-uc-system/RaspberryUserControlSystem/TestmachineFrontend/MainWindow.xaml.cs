@@ -20,6 +20,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Xml;
+using System.Threading;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace TestmachineFrontend
 {
@@ -196,11 +198,21 @@ namespace TestmachineFrontend
 
         }
 
+        private int lcdBacklightState = 0;
         private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
         {
 
-            lcd.toggleBacklight();
-
+            //lcd.toggleBacklight();
+            lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
+            try
+            {
+                clientConnection.sendObject(new Request("ToggleBacklightLCD", lcdBacklightState));
+                this.addMessage("GPIO", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+            }
         }
 
         private void displayEingabeTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -215,10 +227,10 @@ namespace TestmachineFrontend
 
         private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
         {
-            //Task.Factory.StartNew(() => sendTextToLcd()); ==> Funktioniert nicht!!!
-            lcd.cts = new CancellationTokenSource();
-            string text = displayEingabeTextBox.Text;
-            lcd.sendTextToLcd(text);
+            ////Task.Factory.StartNew(() => sendTextToLcd()); ==> Funktioniert nicht!!!
+            //lcd.cts = new CancellationTokenSource();
+            //string text = displayEingabeTextBox.Text;
+            //lcd.sendTextToLcd(text);
         }
 
 
@@ -257,9 +269,9 @@ namespace TestmachineFrontend
         {
             Slider slider = sender as Slider;
 
-            lcd.scrollSpeed = getSpeed((int)slider.Value);
-            //Task<int> CalculateScrollSpeed = Task.Factory.StartNew(() => getSpeed((int)slider.Value));
-            //this._scrollSpeed = CalculateScrollSpeed.Result;
+            //lcd.scrollSpeed = getSpeed((int)slider.Value);
+            ////Task<int> CalculateScrollSpeed = Task.Factory.StartNew(() => getSpeed((int)slider.Value));
+            ////this._scrollSpeed = CalculateScrollSpeed.Result;
 
         }
 
@@ -295,5 +307,9 @@ namespace TestmachineFrontend
             };
         }
 
+        private void scrollSlider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+        }
     }
 }

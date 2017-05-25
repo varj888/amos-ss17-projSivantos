@@ -26,8 +26,8 @@ namespace RaspberryBackend
             if (parameter.GetType() == typeof(UInt16))
             {
                 id = (UInt16)parameter;
-                _raspberryPi.GpioInterface.setToInput(id);
-                currentState = _raspberryPi.GpioInterface.readPin(id);
+                RaspberryPi.GpioInterface.setToInput(id);
+                currentState = RaspberryPi.GpioInterface.readPin(id);
                 Debug.Write(string.Format("Pin {0} has currently the state: ", parameter.ToString()));
                 Debug.WriteLine(currentState);
             }
