@@ -35,12 +35,13 @@ namespace RaspberryBackend
         private const Boolean _PRODUCTION = true;
 
         RequestController requestController = null;
+        RaspberryPi raspberryPi = null;
 
         public MainPage()
         {
 
-            // set up the gpio interface
-            GPIOinterface gpiointerface = new GPIOinterface();
+            // set up the RaspberryPi
+            raspberryPi = RaspberryPi.Instance;
 
             // set up request controller
             requestController = RequestController.Instance;
@@ -50,7 +51,7 @@ namespace RaspberryBackend
                 //initialize hardware pins(can fail if no gpio stuff is connected)
                 try
                 {
-                    gpiointerface.initPins();
+                    raspberryPi.GpioInterface.initPins();
                 }
                 catch (Exception e)
                 {
@@ -60,10 +61,10 @@ namespace RaspberryBackend
                     Application.Current.Exit();
                 }
             }
-           
+
 
             //set the (inititialized) gpio Interface
-            requestController.GpioInterface = gpiointerface;
+            requestController.raspberryPi = raspberryPi;
 
             //Start listening for incoming requests
             runRequestServerAsync();
@@ -106,10 +107,12 @@ namespace RaspberryBackend
                 try
                 {
                     requestController.handleRequest(request);
-                }catch(ArgumentNullException e)
+                }
+                catch (ArgumentNullException e)
                 {
                     Debug.Write(e.Message);
-                }catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Debug.Write("Something went wrong handling the Request :( " + e.Message);
                 }

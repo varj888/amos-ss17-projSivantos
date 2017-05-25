@@ -118,7 +118,10 @@
     <Compile Include="Commands\ResetPin.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
+    <Compile Include="Components\DisplayI2C.cs" />
     <Compile Include="Components\Gpio.cs" />
+    <Compile Include="Components\lcdConfig.cs" />
+    <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />

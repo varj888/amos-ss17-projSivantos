@@ -12,7 +12,7 @@ namespace RaspberryBackend
     {
         private static Dictionary<String, Command> requestedCommands = new Dictionary<String, Command>();
         private static readonly RequestController _instance = new RequestController();
-        private GPIOinterface gpioInterface;
+        public RaspberryPi raspberryPi { get; set; }
 
         public static RequestController Instance
         {
@@ -22,12 +22,8 @@ namespace RaspberryBackend
             }
         }
 
-        public GPIOinterface GpioInterface {
-            get { return gpioInterface; }
-            set { gpioInterface = value; }
-        }
 
-        private RequestController(){}
+        private RequestController() { }
 
         /// <summary>
         /// handles received Requests from the Frontend by deciding what to do in dependency of the request
@@ -53,7 +49,7 @@ namespace RaspberryBackend
                         Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
                     }
                     //then, if gpioInterface is ready, execute command
-                    if (gpioInterface.Initialized)
+                    if (RaspberryPi.Instance.GpioInterface.Initialized)
                     {
                         command.execute(request.parameter);
                     }
@@ -61,7 +57,7 @@ namespace RaspberryBackend
                     {
                         throw new Exception("gpioInterface must be initialized.");
                     }
-                   
+
                 }
                 catch (ArgumentNullException e)
                 {
@@ -71,7 +67,7 @@ namespace RaspberryBackend
                 {
                     Debug.WriteLine(e.Message);
                 }
-                
+
             }
 
             return command;
@@ -97,7 +93,7 @@ namespace RaspberryBackend
             Type commandType = executingAssembly.GetType(command);
 
 
-            return (Command) Activator.CreateInstance(commandType, gpioInterface);
+            return (Command)Activator.CreateInstance(commandType, raspberryPi);
         }
 
         /// <summary>

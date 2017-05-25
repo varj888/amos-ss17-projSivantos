@@ -11,7 +11,7 @@ namespace RaspberryBackend
     {
         public GpioPinValue currentState;
 
-        public ReadPin(GPIOinterface gpioInterface) : base(gpioInterface)
+        public ReadPin(RaspberryPi raspberryPi) : base(raspberryPi)
         {
             RequestController.Instance.addRequestedCommand("ReadPin", this);
         }
@@ -26,8 +26,8 @@ namespace RaspberryBackend
             if (parameter.GetType() == typeof(UInt16))
             {
                 id = (UInt16)parameter;
-                _gpioInterface.setToInput(id);
-                currentState = _gpioInterface.readPin(id);
+                _raspberryPi.GpioInterface.setToInput(id);
+                currentState = _raspberryPi.GpioInterface.readPin(id);
                 Debug.Write(string.Format("Pin {0} has currently the state: ", parameter.ToString()));
                 Debug.WriteLine(currentState);
             }
