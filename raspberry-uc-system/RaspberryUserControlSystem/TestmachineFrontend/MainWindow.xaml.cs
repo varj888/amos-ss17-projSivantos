@@ -317,7 +317,7 @@ namespace TestmachineFrontend
 
             try
             {
-                clientConnection.sendObject(new Request("TurnOnHI", 1));
+                clientConnection.sendObject(new Request("TurnOnHI", 127));
                 this.addMessage("TurnOnHI", "Request sent");
             }
             catch (Exception ex)
@@ -332,6 +332,32 @@ namespace TestmachineFrontend
             try
             {
                 clientConnection.sendObject(new Request("TurnOnHI", 0));
+                this.addMessage("TurnOnHI", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("TurnOnHI", "Request could not be sent: " + ex.Message);
+            }
+        }
+
+
+        private void setVoltage_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            sliderValue = Convert.ToByte(setVoltage_Slider.Value);
+        }
+
+        private byte sliderValue = 0;
+
+        private void setVoltage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            sliderValue = Convert.ToByte(setVoltage_Slider.Value);
+        }
+
+        private void sendVoltageValue_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                clientConnection.sendObject(new Request("TurnOnHI", sliderValue));
                 this.addMessage("TurnOnHI", "Request sent");
             }
             catch (Exception ex)
