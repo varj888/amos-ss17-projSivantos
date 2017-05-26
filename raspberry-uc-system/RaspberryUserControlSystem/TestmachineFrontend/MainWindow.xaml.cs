@@ -29,26 +29,12 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private string hostname = "minwinpc";
         private List<ClientConn<Request>> connections = new List<ClientConn<Request>>();
         private ClientConn<Request> clientConnection;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            //test for the class RequestConnClient
-            //try
-            //{
-            //    clientConnection = new ClientConn<Request>(hostname, 13370);
-            //    Debug.WriteLine("Connection to " + hostname + " established.");
-            //}
-            //catch (Exception e)
-            //{
-            //    Debug.WriteLine(e);
-            //    Debug.WriteLine("Connection to " + hostname + " failed.");
-            //}
-
 
             this.DataContext = this;
         }
