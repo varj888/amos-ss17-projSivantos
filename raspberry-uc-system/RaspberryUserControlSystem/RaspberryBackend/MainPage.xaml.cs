@@ -85,9 +85,8 @@ namespace RaspberryBackend
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("HandleRequestConnection failed" + e.Message);
+                    Debug.WriteLine("Network error: " + e.Message);
                 }
-
             }
         }
 
@@ -100,20 +99,18 @@ namespace RaspberryBackend
                 //Receive a Request from the client
                 Request request = conn.receiveObject();
 
-                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1}) \n", request.command, request.parameter));
+                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
 
                 //Process Request
                 try
                 {
                     requestController.handleRequest(request);
-                }catch(ArgumentNullException e)
-                {
-                    Debug.Write(e.Message);
-                }catch (Exception e)
-                {
-                    Debug.Write("Something went wrong handling the Request :( " + e.Message);
                 }
-
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Error handling Request: " + e.Message);
+                    //todo: notify client about error
+                }
             }
         }
     }
