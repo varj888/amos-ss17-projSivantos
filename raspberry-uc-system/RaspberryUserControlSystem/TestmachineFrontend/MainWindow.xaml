@@ -43,15 +43,15 @@
                         </ListView.View>
                     </ListView>
                     <Button Grid.Column="1" x:Name="readPin_button"
-                        Margin="38.5,77.5,157,116"
+                        Margin="38.6,102.2,157,91.6"
                         Content="Read pin" Grid.Row="1" Click="readPin_button_Click"/>
                     <Button Grid.Column="1" x:Name="writePin_button"
-                        Margin="101.5,77.5,93,116"
+                        Margin="101.6,102.2,93,91.6"
                         Content="Write pin" Grid.Row="1" Click="writePin_button_Click"/>
                     <TextBox Grid.Column="1" Margin="38.5,134.5,34,60" 
                              Grid.Row="1" Text="{Binding PinID}"></TextBox>
                     <Button Grid.Column="1" x:Name="reset_button"
-                        Margin="165.5,77.5,34,116"
+                        Margin="165.6,102.2,34,91.6"
                         Content="Reset" Grid.Row="1" Click="reset_button_Click"/>
 
                     <Button Grid.Column="1" x:Name="ledON_button"
@@ -60,6 +60,15 @@
                     <Button Grid.Column="1" x:Name="ledOFF_button"
                         Margin="101.6,182.2,93,11.6"
                         Content="LED OFF" Grid.Row="1"  Click="ledOFF_button_Click" />
+
+                    <Button Grid.Column="1" x:Name="HI_ON"
+                        Margin="38.6,45.2,156,148.6"
+                        Content="HI ON" Grid.Row="1"  Click="HI_ON_Click" />
+
+                    <Button Grid.Column="1" x:Name="HI_OFF"
+                        Margin="101.6,45.2,93,148.6"
+                        Content="HI OFF" Grid.Row="1"  Click="HI_OFF_Click" />
+                    
                 </Grid>
             </TabItem>
 

@@ -311,5 +311,33 @@ namespace TestmachineFrontend
         {
 
         }
+
+        private void HI_ON_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                clientConnection.sendObject(new Request("TurnOnHI", 1));
+                this.addMessage("TurnOnHI", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("TurnOnHI", "Request could not be sent: " + ex.Message);
+            }
+        }
+
+        private void HI_OFF_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                clientConnection.sendObject(new Request("TurnOnHI", 0));
+                this.addMessage("TurnOnHI", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("TurnOnHI", "Request could not be sent: " + ex.Message);
+            }
+        }
     }
 }

@@ -32,6 +32,12 @@ namespace RaspberryBackend
 
         }
 
+        public Potentiometer Potentiometer
+        {
+            get { return potentiometer; }
+
+        }
+
         private RaspberryPi() { }
     }
 }
