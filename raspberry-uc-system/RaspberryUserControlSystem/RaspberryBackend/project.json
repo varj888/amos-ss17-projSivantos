@@ -1,5 +1,6 @@
 ﻿{
   "dependencies": {
+    "Magellanic.I2c": "0.0.4-alpha",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2"
   },
   "frameworks": {
