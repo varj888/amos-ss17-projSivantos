@@ -116,12 +116,13 @@
     </Compile>
     <Compile Include="Commands\ReadPin.cs" />
     <Compile Include="Commands\ResetPin.cs" />
-    <Compile Include="Commands\ToggleBacklightLCD.cs" />
+    <Compile Include="Commands\ToggleBacklight_LCD.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\LCD Display\DisplayI2C.cs" />
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Components\LCD Display\lcdConfig.cs" />
+    <Compile Include="Components\Potentiometer\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />

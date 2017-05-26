@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using Windows.Devices.Gpio;
+﻿using System.Diagnostics;
 
-namespace RaspberryBackend.Commands
+namespace RaspberryBackend
 {
-    class ToggleBacklightLCD : Command
+    class ToggleBacklight_LCD : Command
     {
         private const byte ON = 0x01;
         private const byte OFF = 0x00;
 
-        public ToggleBacklightLCD(RaspberryPi raspberryPi) : base(raspberryPi)
+        public ToggleBacklight_LCD(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("ToggleBacklight", this);
+            RequestController.Instance.addRequestedCommand("ToggleBacklight_LCD", this);
         }
 
         public override void execute(object parameter)
@@ -24,13 +18,13 @@ namespace RaspberryBackend.Commands
 
             if (requestedParameter.Equals("1"))
             {
-                Debug.WriteLine("Received command LightLED On!");
+                Debug.WriteLine("Received command ToggleBacklightLCD On!");
                 switchToState(ON);
 
             }
             else if (requestedParameter.Equals("0"))
             {
-                Debug.WriteLine("Received command LightLED Off!");
+                Debug.WriteLine("Received command ToggleBacklightLCD Off!");
                 switchToState(OFF);
             }
 
@@ -41,6 +35,7 @@ namespace RaspberryBackend.Commands
         {
             RaspberryPi.lcdDisplay._backLight = targetState;
             RaspberryPi.lcdDisplay.sendCommand(targetState);
+            Debug.WriteLine("Backlight state changed!");
 
         }
     }

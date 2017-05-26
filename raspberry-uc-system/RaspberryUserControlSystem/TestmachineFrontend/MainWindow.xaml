@@ -140,24 +140,19 @@
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="2"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="LCD Controll">
+            <TabItem Header="LCD Control">
 
 
                 <StackPanel Name="Panel1" >
-                    <TextBlock x:Name="HelloMessage" Text="Hello World" Margin="10"/>
-            
-                    <Button x:Name="toggleBacklightButton" HorizontalAlignment="Center" Margin="197,5,198,0" Click="toggleBacklightButton_Click" Content="Toggle Backlight" Width="113"/>
-                    <TextBlock x:Name="TempTextBox" Text="TempValue" Margin="10" />
 
-
-
-                    <TextBlock Name="scrollSliderTextBlock" FontSize="16" Margin="209,0,199,0" >Scroll Speed</TextBlock>
-                    <Slider Name="scrollSlider" Width="100" Margin="10,0,0,0" ValueChanged="scrollSlider_ValueChanged_1" SizeChanged="scrollSlider_SizeChanged"></Slider>
+                    <Button x:Name="toggleBacklightButton" HorizontalAlignment="Center" Margin="210,5,202,0" Click="toggleBacklightButton_Click" Content="Toggle Backlight" Width="96"/>
+                    <TextBlock Name="scrollSliderTextBlock" FontSize="16" Margin="411,0,10,0" >Scroll Speed</TextBlock>
+                    <Slider x:Name="scrollSlider" Margin="411,0,10,0" ValueChanged="scrollSlider_ValueChanged_1" SizeChanged="scrollSlider_SizeChanged"/>
 
                     <TextBlock Name="displayEingabeTextBlock" Margin="25,0,0,0">Eingabe für Display</TextBlock>
-                    <TextBox Name="displayEingabeTextBox" Margin="25,5,0,0" Width="500" ></TextBox>
-                    <Button x:Name="sendToLcdButton" Margin="411,0,0,0" Click="sendToLcdButton_Click" Content="Send"/>
-                    <Button x:Name="cancelButton" Margin="411,0,0,0" Click="cancelButton_Click" Content="Cancel"/>
+                    <TextBox Name="displayEingabeTextBox" Margin="25,5,10,0" />
+                    <Button x:Name="sendToLcdButton" Margin="411,0,10,0" Click="sendToLcdButton_Click" Content="Send"/>
+                    <Button x:Name="cancelButton" Margin="411,0,10,0" Click="cancelButton_Click" Content="Cancel"/>
                     <Button Name="sample16Button"  Margin="25,0,272,0" Click="sample16Button_Click">SampleText 16 Chars</Button>
                     <Button Name="sample32Button"  Margin="25,0,272,0" Click="sample32Button_Click">SampleText 32 Chars</Button>
                     <Button Name="sampleGT32Button"  Margin="25,0,272,0" Click="sampleGT32Button_Click">SampleText > 32 Chars</Button>

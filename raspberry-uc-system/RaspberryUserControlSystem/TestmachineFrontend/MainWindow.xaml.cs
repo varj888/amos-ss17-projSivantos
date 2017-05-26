@@ -206,7 +206,7 @@ namespace TestmachineFrontend
             lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
             try
             {
-                clientConnection.sendObject(new Request("ToggleBacklightLCD", lcdBacklightState));
+                clientConnection.sendObject(new Request("ToggleBacklight_LCD", lcdBacklightState));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
