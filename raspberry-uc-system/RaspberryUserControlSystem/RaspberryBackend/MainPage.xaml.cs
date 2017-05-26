@@ -31,36 +31,16 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
 
-        /** FOR ACTUALLY CONNECTED BREADBOARD _PRODUCTION NEEDS TO BE TRUE **/
-        private const Boolean _PRODUCTION = true;
-
         RequestController requestController = null;
 
         public MainPage()
         {
-
             // set up the gpio interface
             GPIOinterface gpiointerface = new GPIOinterface();
+            gpiointerface.initPins();
 
             // set up request controller
             requestController = RequestController.Instance;
-
-            if (_PRODUCTION)
-            {
-                //initialize hardware pins(can fail if no gpio stuff is connected)
-                try
-                {
-                    gpiointerface.initPins();
-                }
-                catch (Exception e)
-                {
-                    Debug.Fail(e.Message);
-
-                    //TODO: Does not work (??)
-                    Application.Current.Exit();
-                }
-            }
-           
 
             //set the (inititialized) gpio Interface
             requestController.GpioInterface = gpiointerface;
