@@ -20,6 +20,7 @@ namespace RaspberryBackend
 
             if (requestedParameter.Equals("1"))
             {
+                //RaspberryPi.Potentiometer._potentiometer.Read();
                 RaspberryPi.Potentiometer.turnOn();
             }
             else if (requestedParameter.Equals("0"))

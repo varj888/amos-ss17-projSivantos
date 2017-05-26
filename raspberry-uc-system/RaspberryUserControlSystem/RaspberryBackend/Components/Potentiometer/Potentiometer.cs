@@ -22,6 +22,9 @@ namespace RaspberryBackend
         private byte[] dataBufferON = new byte[] { 0x7F };
         private byte[] dataBufferOFF = new byte[] { 0x00 };
 
+
+        public I2cDevice _potentiometer { get { return potentiometer; } }
+
         public async void startI2C()
         {
             try
@@ -51,7 +54,7 @@ namespace RaspberryBackend
 
         public Potentiometer()
         {
-
+            startI2C();
         }
 
 
