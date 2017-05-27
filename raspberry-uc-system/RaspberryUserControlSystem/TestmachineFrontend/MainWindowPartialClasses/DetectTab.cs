@@ -87,7 +87,7 @@ namespace TestmachineFrontend
 
         private void HI_OFF_Click(object sender, RoutedEventArgs e)
         {
-               sendRequest(new Request("TurnOffHI", 0));
+               sendRequest(new Request("TurnOnHI", 0));
         }
 
         private void sendVoltageValue_Click(object sender, RoutedEventArgs e)
