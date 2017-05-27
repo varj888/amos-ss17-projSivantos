@@ -32,18 +32,32 @@ namespace RaspberryBackend
     {
 
         RequestController requestController = null;
+        RaspberryPi raspberryPi = null;
 
         public MainPage()
         {
-            // set up the gpio interface
-            GPIOinterface gpiointerface = new GPIOinterface();
-            gpiointerface.initPins();
+
+
+            // set up the RaspberryPi
+            raspberryPi = RaspberryPi.Instance;
+
+            // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
+            raspberryPi.initialize();
+
+            //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
+
 
             // set up request controller
             requestController = RequestController.Instance;
 
-            //set the (inititialized) gpio Interface
-            requestController.GpioInterface = gpiointerface;
+
+           
+            raspberryPi.GpioInterface.initPins();
+              
+
+            //set the (inititialized) raspberryPi
+            requestController.raspberryPi = raspberryPi;
+
 
             //Start listening for incoming requests
             runRequestServerAsync();

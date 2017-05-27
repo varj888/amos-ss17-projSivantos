@@ -5,10 +5,11 @@
     /// </summary>
     public abstract class Command : ICommand
     {
-        public GPIOinterface _gpioInterface;
-        public Command(GPIOinterface gpioInterface)
+        public RaspberryPi RaspberryPi;
+
+        public Command(RaspberryPi raspberryPi)
         {
-            _gpioInterface = gpioInterface;
+            RaspberryPi = raspberryPi;
         }
 
 
