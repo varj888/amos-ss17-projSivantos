@@ -82,43 +82,17 @@ namespace TestmachineFrontend
 
         private void HI_ON_Click(object sender, RoutedEventArgs e)
         {
-
-            try
-            {
-                clientConnection.sendObject(new Request("TurnOnHI", 127));
-                this.addMessage("TurnOnHI", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("TurnOnHI", "Request could not be sent: " + ex.Message);
-            }
+                sendRequest(new Request("TurnOnHI", 127));
         }
 
         private void HI_OFF_Click(object sender, RoutedEventArgs e)
         {
-
-            try
-            {
-                clientConnection.sendObject(new Request("TurnOnHI", 0));
-                this.addMessage("TurnOnHI", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("TurnOnHI", "Request could not be sent: " + ex.Message);
-            }
+               sendRequest(new Request("TurnOffHI", 0));
         }
 
         private void sendVoltageValue_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                clientConnection.sendObject(new Request("TurnOnHI", sliderValue));
-                this.addMessage("TurnOnHI", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("TurnOnHI", "Request could not be sent: " + ex.Message);
-            }
+                sendRequest(new Request("TurnOnHI", sliderValue));
         }
 
         private void setVoltage_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

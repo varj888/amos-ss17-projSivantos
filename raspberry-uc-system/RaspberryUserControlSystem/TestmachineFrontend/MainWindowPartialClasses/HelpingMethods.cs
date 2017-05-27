@@ -21,11 +21,11 @@ namespace TestmachineFrontend
             try
             {
                 clientConnection.sendObject(request);
-                this.addMessage("GPIO", "Request sent");
+                this.addMessage(request.command, "Request sent");
             }
             catch (Exception ex)
             {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+                this.addMessage(request.command, "Request could not be sent: " + ex.Message);
             }
         }
     }
