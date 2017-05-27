@@ -40,7 +40,7 @@ namespace RaspberryBackendTests
             Request lightLEDRequest = new Request("LightLED", 1);
             Command lightLEDCommand = requestController.handleRequest(lightLEDRequest);
             Assert.IsTrue(lightLEDCommand is LightLED);
-         
+
             Request readPinRequest = new Request("ReadPin", 1);
             Command readPinCommand = requestController.handleRequest(readPinRequest);
             Assert.IsTrue(readPinCommand is ReadPin);
@@ -52,6 +52,17 @@ namespace RaspberryBackendTests
             Request writePinRequest = new Request("WritePin", 3);
             Command writePinCommand = requestController.handleRequest(writePinRequest);
             Assert.IsTrue(writePinCommand is WritePin);
+
+            Request TurnOnHIRequest = new Request("TurnOnHI", 127);
+            Command TurnOnHICommand = requestController.handleRequest(TurnOnHIRequest);
+            Assert.IsTrue(TurnOnHICommand is TurnOnHI);
+
+            Request ToggleBacklight_LCDRequest = new Request("ToggleBacklight_LCD", 1);
+            Command ToggleBacklight_LCDCommand = requestController.handleRequest(ToggleBacklight_LCDRequest);
+            Assert.IsTrue(ToggleBacklight_LCDCommand is ToggleBacklight_LCD);
+
+
+
         }
 
         [TestCleanup]

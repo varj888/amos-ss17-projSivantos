@@ -15,12 +15,12 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// execute the Command WritePin
+        /// execute the Command TurnOnHI
         /// </summary>
-        /// <param name="parameter">represents the GpioPin which shall be written on</param>
-        public override void execute(Object parameter)
+        /// <param name="batteryDrainLevel">represents the capacity of a battery</param>
+        public override void execute(Object batteryDrainLevel)
         {
-            string requestedParameter = parameter.ToString();
+            string requestedParameter = batteryDrainLevel.ToString();
 
             if (requestedParameter.Equals("127"))
             {
@@ -33,7 +33,7 @@ namespace RaspberryBackend
             }
             else
             {
-                dataBufferVariable[0] = (byte)parameter;
+                dataBufferVariable[0] = (byte)batteryDrainLevel;
                 RaspberryPi.Potentiometer.write(dataBufferVariable);
             }
 

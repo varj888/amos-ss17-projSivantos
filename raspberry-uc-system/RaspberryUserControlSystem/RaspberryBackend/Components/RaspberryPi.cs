@@ -71,6 +71,12 @@ namespace RaspberryBackend
 
         }
 
+        public void reset()
+        {
+            _gpioInterface = null;
+            _lcdDisplay = null;
+            _potentiometer = null;
+        }
 
 
 
