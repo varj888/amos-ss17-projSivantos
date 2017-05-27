@@ -40,7 +40,10 @@ namespace RaspberryBackend
 
         private RaspberryPi() { }
 
-
+        /// <summary>
+        /// Default initialization of the Raspberry Pi. 
+        /// Note: It initializes only one time once the gpioInterface is initialized. 
+        /// </summary>
         public void initialize()
         {
             if (_gpioInterface != null)
@@ -51,7 +54,12 @@ namespace RaspberryBackend
             }
 
         }
-
+        /// <summary>
+        /// Custome initialization of the Raspberry Pi. e.g for Test purposes
+        /// </summary>
+        /// <param name="gPIOinterface"> Instance of the Gpio Interface</param>
+        /// <param name="lCD"> I2C Lcd Display instance</param>
+        /// <param name="potentiometer">instance of the MCP4018 chip</param>
         public void initialize(GPIOinterface gPIOinterface, LCD lCD, Potentiometer potentiometer)
         {
             if (_gpioInterface != null)
