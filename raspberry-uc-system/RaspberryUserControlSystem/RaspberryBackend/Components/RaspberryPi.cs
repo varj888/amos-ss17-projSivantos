@@ -46,7 +46,7 @@ namespace RaspberryBackend
         /// </summary>
         public void initialize()
         {
-            if (_gpioInterface != null)
+            if (_gpioInterface == null)
             {
                 _gpioInterface = new GPIOinterface();
                 _lcdDisplay = new LCD();
@@ -62,7 +62,7 @@ namespace RaspberryBackend
         /// <param name="potentiometer">instance of the MCP4018 chip</param>
         public void initialize(GPIOinterface gPIOinterface, LCD lCD, Potentiometer potentiometer)
         {
-            if (_gpioInterface != null)
+            if (_gpioInterface == null)
             {
                 _gpioInterface = new GPIOinterface();
                 _lcdDisplay = new LCD();
