@@ -123,6 +123,7 @@
     <Compile Include="Components\LCD Display\DisplayI2C.cs" />
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Components\LCD Display\lcdConfig.cs" />
+    <Compile Include="Components\LCD Display\LCD_I2C.cs" />
     <Compile Include="Components\Potentiometer\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Interfaces\ICommand.cs" />

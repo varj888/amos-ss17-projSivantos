@@ -8,8 +8,7 @@ namespace RaspberryBackend
 {
     public class lcdConfig
     {
-
-        //Setup address
+        //Adress setup information
         public const string I2C_CONTROLLER_NAME = "I2C1"; //use for RPI2
         public const byte DEVICE_I2C_ADDRESS = 0x27; // 7-bit I2C address of the port expander
 
