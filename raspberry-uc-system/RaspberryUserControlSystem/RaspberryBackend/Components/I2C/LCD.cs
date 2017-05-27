@@ -7,6 +7,9 @@ using System.Threading;
 
 namespace RaspberryBackend
 {
+    /// <summary>
+    /// Software representation of the LCD Display. 
+    /// </summary>
     public class LCD
 
     {
@@ -129,6 +132,7 @@ namespace RaspberryBackend
 
         //========================================================================================================
         //======================== The Following methods are not used by this class ==============================
+        //======================== and shoul be moved to Commands                   ==============================
         //========================================================================================================
 
         /**

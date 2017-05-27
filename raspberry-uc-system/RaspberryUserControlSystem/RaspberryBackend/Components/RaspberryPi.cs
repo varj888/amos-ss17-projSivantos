@@ -4,8 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace RaspberryBackend
 {
+    /// <summary>
+    /// Software representation of the RaspberryPi. It contains all component representations which are phyisical connected to the Rpi. 
+    /// </summary>
     public class RaspberryPi
     {
 
@@ -71,6 +75,9 @@ namespace RaspberryBackend
 
         }
 
+        /// <summary>
+        /// Resets the single instance of the Raspberry PI representation. For now it is used for Testing. 
+        /// </summary>
         public void reset()
         {
             _gpioInterface = null;

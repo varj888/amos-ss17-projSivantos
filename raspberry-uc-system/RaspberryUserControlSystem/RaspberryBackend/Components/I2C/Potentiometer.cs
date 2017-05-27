@@ -13,6 +13,9 @@ using System.Diagnostics;
 
 namespace RaspberryBackend
 {
+    /// <summary>
+    /// Software representation of the MCP4018 Chip which is a potentiometer to regulate the Voltage. 
+    /// </summary>
     public class Potentiometer
     {
 
@@ -21,6 +24,9 @@ namespace RaspberryBackend
         private const byte POTENTIOMETER_I2C_ADDRESS = 0x2F;
         private I2cDevice potentiometer;
 
+        /// <summary>
+        /// starts the I2C communication with the LCD Display
+        /// </summary>
         public async void startI2C()
         {
             try
@@ -46,6 +52,10 @@ namespace RaspberryBackend
         }
 
 
+        /// <summary>
+        /// is used to send data to the MCP4018
+        /// </summary>
+        /// <param name="dataBuffer">contains a single byte 0...127 which represents the wiper state of the potentiometer. 127:= Max Voltage, 0:= Min Voltage</param>
         public void write(byte[] dataBuffer)
         {
 

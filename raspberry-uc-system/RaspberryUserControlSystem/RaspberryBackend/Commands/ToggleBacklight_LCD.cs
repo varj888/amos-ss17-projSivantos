@@ -2,6 +2,10 @@
 
 namespace RaspberryBackend
 {
+
+    /// <summary>
+    /// This class represents a Command. It it can be used to toggle the Backlight of a I2C connected LCD on the RaspberryPi. 
+    /// </summary>
     class ToggleBacklight_LCD : Command
     {
         private const byte ON = 0x01;
