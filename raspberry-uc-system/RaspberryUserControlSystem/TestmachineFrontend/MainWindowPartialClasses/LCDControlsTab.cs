@@ -15,12 +15,6 @@ namespace TestmachineFrontend
     {
 
         private int lcdBacklightState = 0;
-<<<<<<< Updated upstream
-        private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            //lcd.toggleBacklight();
-=======
         private int _scrollSpeed;
         CancellationTokenSource sendToLCDcancelToken;
 
@@ -28,7 +22,7 @@ namespace TestmachineFrontend
         private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
         {
 
->>>>>>> Stashed changes
+
             lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
             try
             {
@@ -41,33 +35,6 @@ namespace TestmachineFrontend
             }
         }
 
-<<<<<<< Updated upstream
-        private void displayEingabeTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-
-
-        private int _scrollSpeed;
-        CancellationTokenSource _cts;
-
-        private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
-        {
-            ////Task.Factory.StartNew(() => sendTextToLcd()); ==> Funktioniert nicht!!!
-            //lcd.cts = new CancellationTokenSource();
-            //string text = displayEingabeTextBox.Text;
-            //lcd.sendTextToLcd(text);
-        }
-
-
-
-        public void sendTextToLcd()
-        {
-
-        }
-
-=======
 
         private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
         {
@@ -77,7 +44,7 @@ namespace TestmachineFrontend
 
             try
             {
-                clientConnection.sendObject(new Request("SendToLCD", new AsynchData(sendToLCDcancelToken, _scrollSpeed, text)));
+                clientConnection.sendObject(new Request("SendToLCD", text)); //sendToLCDcancelToken
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
@@ -88,7 +55,7 @@ namespace TestmachineFrontend
         }
 
 
->>>>>>> Stashed changes
+
         private void addText(string text)
         {
             displayEingabeTextBox.Text = text;
@@ -109,22 +76,6 @@ namespace TestmachineFrontend
             addText("Das ist ein Beispieltext mit mehr als 16 Zeichen");
         }
 
-<<<<<<< Updated upstream
-        private void scrollSlider_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-
-        }
-
-        private void scrollSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
-        {
-            Slider slider = sender as Slider;
-
-            //lcd.scrollSpeed = getSpeed((int)slider.Value);
-            ////Task<int> CalculateScrollSpeed = Task.Factory.StartNew(() => getSpeed((int)slider.Value));
-            ////this._scrollSpeed = CalculateScrollSpeed.Result;
-
-=======
-
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
@@ -143,9 +94,8 @@ namespace TestmachineFrontend
 
             //Task<int> CalculateScrollSpeed = Task.Factory.StartNew(() => getSpeed((int)slider.Value));
             //this._scrollSpeed = CalculateScrollSpeed.Result;
->>>>>>> Stashed changes
-        }
 
+        }
         private int getSpeed(int value)
         {
             int scrollSpeed = 0;
@@ -170,22 +120,7 @@ namespace TestmachineFrontend
             return scrollSpeed;
         }
 
-<<<<<<< Updated upstream
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (_cts != null)
-            {
-                _cts.Cancel();
-            };
-        }
-
-        private void scrollSlider_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
-=======
->>>>>>> Stashed changes
     }
 
 }
+

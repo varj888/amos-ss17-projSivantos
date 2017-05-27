@@ -173,11 +173,6 @@ namespace RaspberryBackend
             write(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)), Command_sendMode);
         }
 
-        public byte getBackLightStatus()
-        {
-            return backLight;
-        }
-
 
 
 
