@@ -31,26 +31,12 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private string hostname = "minwinpc";
         private List<ClientConn<Request>> connections = new List<ClientConn<Request>>();
         private ClientConn<Request> clientConnection;
 
         public MainWindow()
         {
             InitializeComponent();
-
-            //test for the class RequestConnClient
-            //try
-            //{
-            //    clientConnection = new ClientConn<Request>(hostname, 13370);
-            //    Debug.WriteLine("Connection to " + hostname + " established.");
-            //}
-            //catch (Exception e)
-            //{
-            //    Debug.WriteLine(e);
-            //    Debug.WriteLine("Connection to " + hostname + " failed.");
-            //}
-
 
             this.DataContext = this;
         }
@@ -67,136 +53,6 @@ namespace TestmachineFrontend
             set { connections = value; }
         }
 
-        private void connectIP_button_Click(object sender, RoutedEventArgs e)
-        {
-            //try
-            //{
-            //    Connections.Add(new ClientConn<Request>(IPaddress, 13370));
-            //}
-            //catch (Exception)
-            //{
-            //    this.debug.Items.Add(new DebugContent { origin = "TCP Connection", text = "Couldn't establish connection" });
-            //}
-            connectToBackend();
-
-        }
-
-        public void connectToBackend()
-        {
-            try
-            {
-                clientConnection = new ClientConn<Request>(IPaddress, 13370);
-                this.addMessage("TCP", "Connection to " + IPaddress + " established.");
-            }
-            catch (Exception e)
-            {
-                this.addMessage("TCP", e.Message);
-            }
-        }
-
-        public void addMessage(string origin, string msg)
-        {
-            this.debug.Items.Insert(0, new DebugContent { origin = origin, text = msg });
-        }
-
-        private void vcSlider_DragStarted(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void vcSlider_DragCompleted(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void vcSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
-        private void soundSlider_DragStarted(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void soundSlider_DragCompleted(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void soundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-
-        }
-
-        private void readPin_button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Connections[0].sendObject(new Request("ReadPin", PinID));
-                clientConnection.sendObject(new Request("ReadPin", PinID));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-        }
-
-        private void writePin_button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Connections[0].sendObject(new Request("WritePin", PinID));
-                clientConnection.sendObject(new Request("WritePin", PinID));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-        }
-
-        private void reset_button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                //Connections[0].sendObject(new Request("ResetPin", PinID));
-                clientConnection.sendObject(new Request("ResetPin", PinID));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-        }
-
-        private void ledOFF_button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                clientConnection.sendObject(new Request("LightLED", 0));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-        }
-
-        private void ledON_button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                clientConnection.sendObject(new Request("LightLED", 1));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-
-        }
 
         private int lcdBacklightState = 0;
         private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
@@ -365,5 +221,6 @@ namespace TestmachineFrontend
                 this.addMessage("TurnOnHI", "Request could not be sent: " + ex.Message);
             }
         }
+
     }
 }

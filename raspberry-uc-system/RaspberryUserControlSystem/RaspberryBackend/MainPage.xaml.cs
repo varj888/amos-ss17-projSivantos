@@ -31,14 +31,12 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
 
-        /** FOR ACTUALLY CONNECTED BREADBOARD _PRODUCTION NEEDS TO BE TRUE **/
-        private const Boolean _PRODUCTION = true;
-
         RequestController requestController = null;
         RaspberryPi raspberryPi = null;
 
         public MainPage()
         {
+
 
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
@@ -48,28 +46,18 @@ namespace RaspberryBackend
 
             //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
 
+
             // set up request controller
             requestController = RequestController.Instance;
 
-            if (_PRODUCTION)
-            {
-                //initialize hardware pins(can fail if no gpio stuff is connected)
-                try
-                {
-                    raspberryPi.GpioInterface.initPins();
-                }
-                catch (Exception e)
-                {
-                    Debug.Fail(e.Message);
 
-                    //TODO: Does not work (??)
-                    Application.Current.Exit();
-                }
-            }
-
+           
+            raspberryPi.GpioInterface.initPins();
+              
 
             //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
+
 
             //Start listening for incoming requests
             runRequestServerAsync();
@@ -91,9 +79,8 @@ namespace RaspberryBackend
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("HandleRequestConnection failed" + e.Message);
+                    Debug.WriteLine("Network error: " + e.Message);
                 }
-
             }
         }
 
@@ -101,27 +88,21 @@ namespace RaspberryBackend
         {
             while (true)
             {
-                Debug.WriteLine("Awaiting Request...");
-
                 //Receive a Request from the client
+                Debug.WriteLine("Awaiting Request...");
                 Request request = conn.receiveObject();
-
-                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1}) \n", request.command, request.parameter));
+                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
 
                 //Process Request
                 try
                 {
                     requestController.handleRequest(request);
                 }
-                catch (ArgumentNullException e)
-                {
-                    Debug.Write(e.Message);
-                }
                 catch (Exception e)
                 {
-                    Debug.Write("Something went wrong handling the Request :( " + e.Message);
+                    Debug.WriteLine("Error handling Request: " + e.Message);
+                    //todo: notify client about error
                 }
-
             }
         }
     }

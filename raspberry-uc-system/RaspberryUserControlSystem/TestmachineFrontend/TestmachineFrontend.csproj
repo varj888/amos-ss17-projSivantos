@@ -92,6 +92,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowPartialClasses\DetectTabEventHandlers.cs" />
+    <Compile Include="MainWindowPartialClasses\HelpingMethods.cs" />
+    <Compile Include="MainWindowPartialClasses\UserControlTabEventHandlers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
