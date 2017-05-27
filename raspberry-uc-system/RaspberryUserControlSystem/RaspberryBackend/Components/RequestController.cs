@@ -55,7 +55,7 @@ namespace RaspberryBackend
                     }
                     else
                     {
-                        throw new Exception("gpioInterface must be initialized.");
+                        throw new Exception("raspberryPi must be initialized.");
                     }
 
                 }
@@ -79,9 +79,10 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="gpioInterface"> interaction point to the Raspberry Pi's GpioPins</param>
         /// <param name="request">requested information of the Frontend application</param>
-        /// <returns></returns>
+        /// <returns> The requested Command Type</returns>
         private Command createCommand(Request request)
         {
+
             string command = "RaspberryBackend." + request.command;
 
             //typeof(ICommand).GetTypeInfo().Assembly:

@@ -10,9 +10,9 @@ namespace RaspberryBackend
     {
 
         private static readonly RaspberryPi _instance = new RaspberryPi();
-        private GPIOinterface _gpioInterface = new GPIOinterface();
-        private DisplayI2C _lcdDisplay = new DisplayI2C(new lcdConfig());
-        private Potentiometer potentiometer = new Potentiometer();
+        private GPIOinterface _gpioInterface;
+        private LCD _lcdDisplay;
+        private Potentiometer _potentiometer;
 
 
         public static RaspberryPi Instance
@@ -26,7 +26,7 @@ namespace RaspberryBackend
 
         }
 
-        public DisplayI2C lcdDisplay
+        public LCD LcdDisplay
         {
             get { return _lcdDisplay; }
 
@@ -34,10 +34,37 @@ namespace RaspberryBackend
 
         public Potentiometer Potentiometer
         {
-            get { return potentiometer; }
+            get { return _potentiometer; }
 
         }
 
         private RaspberryPi() { }
+
+
+        public void initialize()
+        {
+            if (_gpioInterface != null)
+            {
+                _gpioInterface = new GPIOinterface();
+                _lcdDisplay = new LCD();
+                _potentiometer = new Potentiometer();
+            }
+
+        }
+
+        public void initialize(GPIOinterface gPIOinterface, LCD lCD, Potentiometer potentiometer)
+        {
+            if (_gpioInterface != null)
+            {
+                _gpioInterface = new GPIOinterface();
+                _lcdDisplay = new LCD();
+                _potentiometer = new Potentiometer();
+            }
+
+        }
+
+
+
+
     }
 }

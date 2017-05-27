@@ -43,6 +43,11 @@ namespace RaspberryBackend
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
 
+            // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
+            raspberryPi.initialize();
+
+            //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
+
             // set up request controller
             requestController = RequestController.Instance;
 
@@ -63,7 +68,7 @@ namespace RaspberryBackend
             }
 
 
-            //set the (inititialized) gpio Interface
+            //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
 
             //Start listening for incoming requests

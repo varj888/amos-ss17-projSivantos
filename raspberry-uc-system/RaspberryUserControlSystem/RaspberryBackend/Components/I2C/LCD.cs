@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace RaspberryBackend
 {
-    public class LCD_I2C
+    public class LCD
 
     {
         //Adress setup information
@@ -35,7 +35,7 @@ namespace RaspberryBackend
 
         private I2cDevice _lcdDisplay;
 
-        public LCD_I2C(lcdConfig lcdConfig)
+        public LCD()
         {
             // It's async method, so we have to wait
             Task.Run(() => this.startI2C()).Wait();
