@@ -26,71 +26,28 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                //Connections[0].sendObject(new Request("ReadPin", PinID));
-                clientConnection.sendObject(new Request("ReadPin", PinID));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
+           sendRequest(new Request("ReadPin", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                //Connections[0].sendObject(new Request("WritePin", PinID));
-                clientConnection.sendObject(new Request("WritePin", PinID));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
+            sendRequest(new Request("WritePin", PinID));
+              
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                //Connections[0].sendObject(new Request("ResetPin", PinID));
-                clientConnection.sendObject(new Request("ResetPin", PinID));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
+            sendRequest(new Request("ResetPin", PinID));
         }
 
         private void ledOFF_button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                clientConnection.sendObject(new Request("LightLED", 0));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
+           sendRequest(new Request("LightLED", 0));
         }
 
         private void ledON_button_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                clientConnection.sendObject(new Request("LightLED", 1));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-
+               sendRequest(new Request("LightLED", 1));
         }
     }
 }

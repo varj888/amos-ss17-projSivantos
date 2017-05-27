@@ -28,5 +28,18 @@ namespace TestmachineFrontend
         {
             this.debug.Items.Insert(0, new DebugContent { origin = origin, text = msg });
         }
+
+        public void sendRequest(Request request)
+        {
+            try
+            {
+                clientConnection.sendObject(request);
+                this.addMessage("GPIO", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+            }
+        }
     }
 }
