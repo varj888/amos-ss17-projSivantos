@@ -13,45 +13,24 @@ namespace TestmachineFrontend
     public partial class MainWindow : Window
     {
 
+        //UI Bindings
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
         public string Port { get; set; }
-        public string DeviceName { get; set; }
 
-        private List<ClientConn<Request>> connections = new List<ClientConn<Request>>();
         private ClientConn<Request> clientConnection;
 
-        public List<ClientConn<Request>> Connections
-        {
-            get { return connections; }
-            set { connections = value; }
-        }
-
-        public void connectToBackend()
+        private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 clientConnection = new ClientConn<Request>(IPaddress, 13370);
                 this.addMessage("TCP", "Connection to " + IPaddress + " established.");
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
-                this.addMessage("TCP", e.Message);
+                this.addMessage("TCP", exception.Message);
             }
-        }
-
-        private void connectIP_button_Click(object sender, RoutedEventArgs e)
-        {
-            //try
-            //{
-            //    Connections.Add(new ClientConn<Request>(IPaddress, 13370));
-            //}
-            //catch (Exception)
-            //{
-            //    this.debug.Items.Add(new DebugContent { origin = "TCP Connection", text = "Couldn't establish connection" });
-            //}
-            connectToBackend();
-
         }
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
