@@ -16,8 +16,16 @@ namespace TestmachineFrontend
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
         public string Port { get; set; }
+        public string DeviceName { get; set; }
 
+        private List<ClientConn<Request>> connections = new List<ClientConn<Request>>();
         private ClientConn<Request> clientConnection;
+
+        public List<ClientConn<Request>> Connections
+        {
+            get { return connections; }
+            set { connections = value; }
+        }
 
         public void connectToBackend()
         {
@@ -34,7 +42,14 @@ namespace TestmachineFrontend
 
         private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
-           
+            //try
+            //{
+            //    Connections.Add(new ClientConn<Request>(IPaddress, 13370));
+            //}
+            //catch (Exception)
+            //{
+            //    this.debug.Items.Add(new DebugContent { origin = "TCP Connection", text = "Couldn't establish connection" });
+            //}
             connectToBackend();
 
         }
