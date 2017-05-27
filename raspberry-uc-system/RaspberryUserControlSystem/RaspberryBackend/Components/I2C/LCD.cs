@@ -19,6 +19,8 @@ namespace RaspberryBackend
 
 
         private const byte LCD_WRITE = 0x07;
+        private const byte Command_sendMode = 0;
+        private const byte Data_sendMode = 1;
 
         //Setup information for lcd initialization (visit lcd documentation for further information)
         public byte En = 0x02;
@@ -120,9 +122,12 @@ namespace RaspberryBackend
             Task.Delay(5).Wait();
         }
 
-        /**
-       * Send pure data to display
-       **/
+
+        /// <summary>
+        /// sends information to the LCD either data or commands
+        /// </summary>
+        /// <param name="data">information which is to be sent on LCD</param>
+        /// <param name="Rs">Rs=0 for Command or Rs = 1 for Data</param>        
         public void write(byte data, byte Rs)
         {
             pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << this.Rs)));
@@ -135,48 +140,17 @@ namespace RaspberryBackend
         //======================== and shoul be moved to Commands                   ==============================
         //========================================================================================================
 
-        /**
-      * Send data to display
-      **/
-        public void sendData(byte data)
-        {
-            this.write(data, 1);
-        }
-
-
-        /**
-        * Send command to display
-        **/
-        public void sendCommand(byte data)
-        {
-            this.write(data, 0);
-        }
-
-        /**
-        * Print single character onto display
-        **/
-        public void printc(char letter)
-        {
-            try
-            {
-                this.write(Convert.ToByte(letter), 1);
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
-
 
         /**
         * Save custom symbol to CGRAM
         **/
         public void createSymbol(byte[] data, byte address)
         {
-            this.sendCommand(Convert.ToByte(0x40 | (address << 3)));
+            write(Convert.ToByte(0x40 | (address << 3)), Command_sendMode);
+
             for (var i = 0; i < data.Length; i++)
             {
-                this.sendData(data[i]);
+                write(data[i], Data_sendMode);
             }
             this.clrscr();
         }
@@ -187,27 +161,7 @@ namespace RaspberryBackend
         **/
         public void printSymbol(byte address)
         {
-            this.sendData(address);
-        }
-
-        public void printInTwoLines(string text, int charsMaxInLine)
-        {
-            string line1 = "", line2 = "";
-
-            line1 = text.Substring(0, charsMaxInLine);
-            line2 = text.Substring(charsMaxInLine);
-
-            prints(line1);
-            gotoSecondLine();
-            prints(line2);
-        }
-
-        /**
-    * skip to second line
-    **/
-        public void gotoSecondLine()
-        {
-            this.sendCommand(0xc0);
+            write(address, Data_sendMode);
         }
 
 
@@ -216,7 +170,7 @@ namespace RaspberryBackend
         **/
         public void gotoxy(byte x, byte y)
         {
-            this.sendCommand(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)));
+            write(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)), Command_sendMode);
         }
 
         public byte getBackLightStatus()
@@ -225,72 +179,8 @@ namespace RaspberryBackend
         }
 
 
-        /**
-        * Can print string onto display
-        **/
-        public void prints(string text)
-        {
-            for (int i = 0; i < text.Length; i++)
-            {
-                this.printc(text[i]);
-            }
-        }
 
 
-        private void scrollText(string text, int countChars)
-        {
-            int maxChars = 16;
-
-            clrscr();
-
-            for (int i = 0; i <= text.Length - maxChars; i = i + countChars < text.Length ? i + countChars : text.Length)
-            {
-                if (cancelToken.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                Task.Delay(200).Wait();
-                clrscr();
-                for (int j = i; j < maxChars + i && j < text.Length; j++)
-                {
-                    printc(text.ElementAt(j));
-                }
-                Task.Delay(200).Wait();
-            }
-
-        }
-
-        internal void sendTextToLcd(String text)
-        {
-
-            const int charsMaxInLine = 16;
-
-            clrscr();
-
-            if (text.Length <= charsMaxInLine)
-            {
-                prints(text);
-            }
-
-            else if (text.Length > charsMaxInLine && text.Length <= 2 * charsMaxInLine)
-            {
-                Task.Factory.StartNew(() => printInTwoLines(text, charsMaxInLine));
-
-            }
-            else
-            {
-                try
-                {
-                    Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, scrollSpeed), cancelToken.Token);
-                }
-                catch (OperationCanceledException)
-                {
-
-                }
-
-            }
-        }
     }
 
 }

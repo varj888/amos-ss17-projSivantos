@@ -170,7 +170,7 @@
 
                     <Button x:Name="toggleBacklightButton" HorizontalAlignment="Center" Margin="210,5,202,0" Click="toggleBacklightButton_Click" Content="Toggle Backlight" Width="96"/>
                     <TextBlock Name="scrollSliderTextBlock" FontSize="16" Margin="411,0,10,0" >Scroll Speed</TextBlock>
-                    <Slider x:Name="scrollSlider" Margin="411,0,10,0" ValueChanged="scrollSlider_ValueChanged_1" SizeChanged="scrollSlider_SizeChanged"/>
+                    <Slider x:Name="scrollSlider" Margin="411,0,10,0" ValueChanged="scrollSlider_ValueChanged"/>
 
                     <TextBlock Name="displayEingabeTextBlock" Margin="25,0,0,0">Eingabe für Display</TextBlock>
                     <TextBox Name="displayEingabeTextBox" Margin="25,5,10,0" />

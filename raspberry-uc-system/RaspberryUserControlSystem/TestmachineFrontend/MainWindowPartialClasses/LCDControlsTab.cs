@@ -15,10 +15,20 @@ namespace TestmachineFrontend
     {
 
         private int lcdBacklightState = 0;
+<<<<<<< Updated upstream
         private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
         {
 
             //lcd.toggleBacklight();
+=======
+        private int _scrollSpeed;
+        CancellationTokenSource sendToLCDcancelToken;
+
+
+        private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
+        {
+
+>>>>>>> Stashed changes
             lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
             try
             {
@@ -31,6 +41,7 @@ namespace TestmachineFrontend
             }
         }
 
+<<<<<<< Updated upstream
         private void displayEingabeTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -56,6 +67,28 @@ namespace TestmachineFrontend
 
         }
 
+=======
+
+        private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Task.Factory.StartNew(() => sendTextToLcd()); //==> Funktioniert nicht!!!
+            sendToLCDcancelToken = new CancellationTokenSource();
+            string text = displayEingabeTextBox.Text;
+
+            try
+            {
+                clientConnection.sendObject(new Request("SendToLCD", new AsynchData(sendToLCDcancelToken, _scrollSpeed, text)));
+                this.addMessage("GPIO", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+            }
+
+        }
+
+
+>>>>>>> Stashed changes
         private void addText(string text)
         {
             displayEingabeTextBox.Text = text;
@@ -76,6 +109,7 @@ namespace TestmachineFrontend
             addText("Das ist ein Beispieltext mit mehr als 16 Zeichen");
         }
 
+<<<<<<< Updated upstream
         private void scrollSlider_SizeChanged(object sender, SizeChangedEventArgs e)
         {
 
@@ -89,6 +123,27 @@ namespace TestmachineFrontend
             ////Task<int> CalculateScrollSpeed = Task.Factory.StartNew(() => getSpeed((int)slider.Value));
             ////this._scrollSpeed = CalculateScrollSpeed.Result;
 
+=======
+
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sendToLCDcancelToken != null)
+            {
+                sendToLCDcancelToken.Cancel();
+            };
+        }
+
+        private void scrollSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+            Slider slider = sender as Slider;
+
+            _scrollSpeed = getSpeed((int)slider.Value);
+
+            //Task<int> CalculateScrollSpeed = Task.Factory.StartNew(() => getSpeed((int)slider.Value));
+            //this._scrollSpeed = CalculateScrollSpeed.Result;
+>>>>>>> Stashed changes
         }
 
         private int getSpeed(int value)
@@ -115,6 +170,7 @@ namespace TestmachineFrontend
             return scrollSpeed;
         }
 
+<<<<<<< Updated upstream
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
             if (_cts != null)
@@ -128,6 +184,8 @@ namespace TestmachineFrontend
 
         }
 
+=======
+>>>>>>> Stashed changes
     }
 
 }
