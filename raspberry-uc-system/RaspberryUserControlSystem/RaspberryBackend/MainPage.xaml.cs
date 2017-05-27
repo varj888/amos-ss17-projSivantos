@@ -74,11 +74,9 @@ namespace RaspberryBackend
         {
             while (true)
             {
-                Debug.WriteLine("Awaiting Request...");
-
                 //Receive a Request from the client
+                Debug.WriteLine("Awaiting Request...");
                 Request request = conn.receiveObject();
-
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
 
                 //Process Request
