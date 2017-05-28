@@ -38,6 +38,11 @@ namespace RaspberryBackend
 
             Debug.WriteLine((string)parameter);
             string text = (string)parameter;
+            if (text.Equals("#reset"))
+            {
+                lcd.initiateLCD();
+                return;
+            }
 
             if (text.Equals("#cancel"))
             {

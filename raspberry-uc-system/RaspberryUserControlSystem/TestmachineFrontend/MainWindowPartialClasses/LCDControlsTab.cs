@@ -17,6 +17,18 @@ namespace TestmachineFrontend
         private int lcdBacklightState = 0;
         private int _scrollSpeed;
 
+        private void reconnectI2C_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                clientConnection.sendObject(new Request("SendToLCD", "#reset"));
+                this.addMessage("GPIO", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+            }
+        }
 
         private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
         {

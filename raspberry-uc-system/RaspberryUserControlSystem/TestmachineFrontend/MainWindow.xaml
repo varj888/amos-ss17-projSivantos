@@ -167,6 +167,7 @@
 
 
                 <StackPanel Name="Panel1" >
+                    <Button x:Name="reconnectI2C" HorizontalAlignment="Center" Margin="210,5,202,0" Click="reconnectI2C_Click" Content="Reset" Width="96"/>
 
                     <Button x:Name="toggleBacklightButton" HorizontalAlignment="Center" Margin="210,5,202,0" Click="toggleBacklightButton_Click" Content="Toggle Backlight" Width="96"/>
                     <TextBlock Name="scrollSliderTextBlock" FontSize="16" Margin="411,0,10,0" >Scroll Speed</TextBlock>

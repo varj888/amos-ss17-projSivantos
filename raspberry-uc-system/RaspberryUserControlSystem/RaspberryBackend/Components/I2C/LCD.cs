@@ -42,6 +42,7 @@ namespace RaspberryBackend
 
         public LCD()
         {
+
             // It's async method, so we have to wait
             Task.Run(() => this.startI2C()).Wait();
         }
@@ -64,6 +65,7 @@ namespace RaspberryBackend
                 System.Diagnostics.Debug.WriteLine("Exception: {0}", e.Message);
                 return;
             }
+
         }
 
 
