@@ -13,7 +13,6 @@ namespace RaspberryBackend
 
         public ToggleBacklight_LCD(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("ToggleBacklight_LCD", this);
         }
 
         public override void execute(object parameter)
@@ -38,7 +37,7 @@ namespace RaspberryBackend
         private void switchToState(byte targetState)
         {
             RaspberryPi.LcdDisplay.backLight = targetState;
-            RaspberryPi.LcdDisplay.sendCommand(targetState);
+            RaspberryPi.LcdDisplay.write(targetState, 1);
             Debug.WriteLine("Backlight state changed!");
 
         }

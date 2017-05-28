@@ -11,7 +11,6 @@ namespace RaspberryBackend
 
         public TurnOnHI(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("TurnOnHI", this);
         }
 
         /// <summary>

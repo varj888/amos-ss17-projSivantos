@@ -13,7 +13,6 @@ namespace RaspberryBackend
 
         public ReadPin(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("ReadPin", this);
         }
 
         /// <summary>

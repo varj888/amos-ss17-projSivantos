@@ -19,7 +19,6 @@ namespace RaspberryBackend
 
         public LightLED(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("LightLED", this);
         }
 
         /// <summary>

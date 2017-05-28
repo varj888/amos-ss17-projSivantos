@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 
-namespace CommonFiles.TransferObjects{
+namespace CommonFiles.TransferObjects
+{
     /// <summary>
     /// Unit of transfer by the RequestConnClient Class
     /// is only as a container for the two variables methodName and parameter

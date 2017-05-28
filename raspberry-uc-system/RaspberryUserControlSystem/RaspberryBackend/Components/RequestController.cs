@@ -10,7 +10,7 @@ namespace RaspberryBackend
    /// </summary>
     class RequestController
     {
-        private static Dictionary<String, Command> requestedCommands = new Dictionary<String, Command>();
+
         private static readonly RequestController _instance = new RequestController();
         public RaspberryPi raspberryPi { get; set; }
 
@@ -26,7 +26,7 @@ namespace RaspberryBackend
         private RequestController() { }
 
         /// <summary>
-        /// handles received Requests from the Frontend by deciding what to do in dependency of the request
+        /// handles received Requests from the Frontend by deciding what to do in dependency of the request. This method does everything automated!.
         /// Note: At this point, only execution commands are content of the requests.
         /// </summary>
         /// <param name="request">the request information of the Frontend application</param>
@@ -42,12 +42,18 @@ namespace RaspberryBackend
                 {
 
                     //look if the command was already requested once, if not, create it. 
-                    if (!requestedCommands.TryGetValue(request.command, out command))
+                    if (!Command.Instances.TryGetValue(request.command, out command))
                     {
                         Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
                         command = createCommand(request);
                         Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
                     }
+                    else
+                    {
+                        Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
+                    }
+
+
                     //then, if gpioInterface is ready, execute command
                     if (RaspberryPi.Instance.GpioInterface.Initialized)
                     {
@@ -61,7 +67,7 @@ namespace RaspberryBackend
                 }
                 catch (ArgumentNullException e)
                 {
-                    throw new ArgumentNullException("The requested command was not found: " + request.command);
+                    throw new ArgumentNullException("Requested command was not found: " + request.command);
                 }
                 catch (Exception e)
                 {
@@ -95,16 +101,6 @@ namespace RaspberryBackend
 
 
             return (Command)Activator.CreateInstance(commandType, raspberryPi);
-        }
-
-        /// <summary>
-        /// can be used to save requested commands by adding them to a Dictonary datatype. 
-        /// </summary>
-        /// <param name="commandName">the name of the requested command</param>
-        /// <param name="command">the Command object of the requested command</param>
-        public void addRequestedCommand(String commandName, Command command)
-        {
-            requestedCommands.Add(commandName, command);
         }
     }
 }
