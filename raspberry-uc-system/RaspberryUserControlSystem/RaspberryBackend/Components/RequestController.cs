@@ -10,7 +10,6 @@ namespace RaspberryBackend
    /// </summary>
     class RequestController
     {
-
         private static readonly RequestController _instance = new RequestController();
         public RaspberryPi raspberryPi { get; set; }
 
@@ -22,7 +21,6 @@ namespace RaspberryBackend
             }
         }
 
-
         private RequestController() { }
 
         /// <summary>
@@ -32,15 +30,12 @@ namespace RaspberryBackend
         /// <param name="request">the request information of the Frontend application</param>
         public Command handleRequest(Request request)
         {
-
             Command command = null;
 
             if (request != null)
             {
-
                 try
                 {
-
                     //look if the command was already requested once, if not, create it. 
                     if (!Command.Instances.TryGetValue(request.command, out command))
                     {
@@ -53,9 +48,8 @@ namespace RaspberryBackend
                         Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
                     }
 
-
                     //then, if gpioInterface is ready, execute command
-                    if (RaspberryPi.Instance.GpioInterface.Initialized)
+                    if (raspberryPi.isInitialized())
                     {
                         command.execute(request.parameter);
                     }
@@ -63,7 +57,6 @@ namespace RaspberryBackend
                     {
                         throw new Exception("raspberryPi must be initialized.");
                     }
-
                 }
                 catch (ArgumentNullException e)
                 {
@@ -73,9 +66,7 @@ namespace RaspberryBackend
                 {
                     Debug.WriteLine(e.Message);
                 }
-
             }
-
             return command;
         }
 
@@ -88,7 +79,6 @@ namespace RaspberryBackend
         /// <returns> The requested Command Type</returns>
         private Command createCommand(Request request)
         {
-
             string command = "RaspberryBackend." + request.command;
 
             //typeof(ICommand).GetTypeInfo().Assembly:
@@ -98,7 +88,6 @@ namespace RaspberryBackend
             //-- assembly utilize the Assembly information and returns the referenced assembly
             Assembly executingAssembly = typeof(ICommand).GetTypeInfo().Assembly;
             Type commandType = executingAssembly.GetType(command);
-
 
             return (Command)Activator.CreateInstance(commandType, raspberryPi);
         }

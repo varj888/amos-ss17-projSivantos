@@ -18,20 +18,19 @@ namespace RaspberryBackend
     /// </summary>
     public class Potentiometer
     {
-
         // use these constants for controlling how the I2C bus is setup
         private const string I2C_CONTROLLER_NAME = "I2C1";
         private const byte POTENTIOMETER_I2C_ADDRESS = 0x2F;
         private I2cDevice potentiometer;
+        private Boolean _initialized = false;
 
         /// <summary>
-        /// starts the I2C communication with the LCD Display
+        /// starts the I2C communication with the potentiometer
         /// </summary>
-        public async void startI2C()
+        private async void startI2C()
         {
             try
             {
-
                 var i2cSettings = new I2cConnectionSettings(POTENTIOMETER_I2C_ADDRESS);
                 i2cSettings.BusSpeed = I2cBusSpeed.FastMode;
                 string deviceSelector = I2cDevice.GetDeviceSelector(I2C_CONTROLLER_NAME);
@@ -45,12 +44,17 @@ namespace RaspberryBackend
             }
         }
 
-
         public Potentiometer()
         {
-            startI2C();
+            // Wait for async to return
+            Task.Run(() => this.startI2C()).Wait();
+            _initialized = true;
         }
 
+        public Boolean isInitialized()
+        {
+            return _initialized;
+        }
 
         /// <summary>
         /// is used to send data to the MCP4018
@@ -58,10 +62,7 @@ namespace RaspberryBackend
         /// <param name="dataBuffer">contains a single byte 0...127 which represents the wiper state of the potentiometer. 127:= Max Voltage, 0:= Min Voltage</param>
         public void write(byte[] dataBuffer)
         {
-
             potentiometer.Write(dataBuffer);
         }
-
-
     }
 }

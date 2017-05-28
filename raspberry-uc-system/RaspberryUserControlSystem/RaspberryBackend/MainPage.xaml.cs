@@ -30,14 +30,11 @@ namespace RaspberryBackend
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         RequestController requestController = null;
         RaspberryPi raspberryPi = null;
 
         public MainPage()
         {
-
-
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
 
@@ -50,14 +47,8 @@ namespace RaspberryBackend
             // set up request controller
             requestController = RequestController.Instance;
 
-
-           
-            raspberryPi.GpioInterface.initPins();
-              
-
             //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
-
 
             //Start listening for incoming requests
             runRequestServerAsync();

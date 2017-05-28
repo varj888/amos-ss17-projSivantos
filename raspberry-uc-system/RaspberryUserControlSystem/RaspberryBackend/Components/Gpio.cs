@@ -49,6 +49,8 @@ namespace RaspberryBackend
         //</summary>
         public void initPins()
         {
+            if (_initialized) return;
+
             foreach (var pin in pin_ids.Keys)
             {
                 pins[pin_ids[pin]] = gpio.OpenPin(pin_ids[pin]);
@@ -114,9 +116,18 @@ namespace RaspberryBackend
         //<summary>
         //Read from a pin (will read last input if pin is configured as input
         //</summary>
-        public GpioPinValue readPin( UInt16 id )
+        public string readPin( UInt16 id )
         {
-            return pins[id].Read();
+            return pins[id].Read().ToString();
+        }
+
+        /// <summary>
+        /// Return init state of GPIO
+        /// </summary>
+        /// <returns></returns>
+        public Boolean isInitialized()
+        {
+            return _initialized;
         }
     }
 }

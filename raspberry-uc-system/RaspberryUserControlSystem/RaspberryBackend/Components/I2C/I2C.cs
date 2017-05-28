@@ -46,13 +46,13 @@ namespace RaspberryBackend.Data
                         try
                         {
                             byte[] writeBuffer = new byte[1] { 0 };
-                            devices.Write(writeBuffer);
+                            //devices.Write(writeBuffer);
                             addressList.Add(address);
                         }
                         catch (Exception e)
                         {
                             Debug.WriteLine("Exception: {0}", e.Message);
-                            return;
+                            //return;
                         }
                     }
                 }

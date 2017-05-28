@@ -36,10 +36,8 @@ namespace RaspberryBackend
 
         private void switchToState(byte targetState)
         {
-            RaspberryPi.LcdDisplay.backLight = targetState;
-            RaspberryPi.LcdDisplay.write(targetState, 1);
+            RaspberryPi.setLCDBackgroundState(targetState);
             Debug.WriteLine("Backlight state changed!");
-
         }
     }
 }

@@ -20,23 +20,20 @@ namespace RaspberryBackend
         public override void execute(Object batteryDrainLevel)
         {
             string requestedParameter = batteryDrainLevel.ToString();
-
             if (requestedParameter.Equals("127"))
             {
                 //RaspberryPi.Potentiometer._potentiometer.Read();
-                RaspberryPi.Potentiometer.write(dataBufferON);
+                RaspberryPi.setHIPower(dataBufferON);
             }
             else if (requestedParameter.Equals("0"))
             {
-                RaspberryPi.Potentiometer.write(dataBufferOFF);
+                RaspberryPi.setHIPower(dataBufferOFF);
             }
             else
             {
                 dataBufferVariable[0] = (byte)batteryDrainLevel;
-                RaspberryPi.Potentiometer.write(dataBufferVariable);
+                RaspberryPi.setHIPower(dataBufferVariable);
             }
-
         }
-
     }
 }

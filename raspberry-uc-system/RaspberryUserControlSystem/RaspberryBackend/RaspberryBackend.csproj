@@ -125,8 +125,8 @@
     <Compile Include="Data\Breadboard.cs" />
     <Compile Include="Data\BreadboardFactory.cs" />
     <Compile Include="Data\Config.cs" />
-    <Compile Include="Data\I2C.cs" />
-    <Compile Include="Data\Multiplexer.cs" />
+    <Compile Include="Components\I2C\I2C.cs" />
+    <Compile Include="Components\I2C\Multiplexer.cs" />
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
