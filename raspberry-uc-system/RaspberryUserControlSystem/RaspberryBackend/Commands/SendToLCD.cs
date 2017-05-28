@@ -28,10 +28,6 @@ namespace RaspberryBackend
         public override void execute(object parameter)
         {
 
-            //AsynchData data = (AsynchData)asynchData;
-            //_cancelSendToLCD = (CancellationTokenSource)data.cancellationToken;
-            //_scrollSpeed = (int)data.attribute;
-            //string text = (string)data.parameter;
             Debug.WriteLine((string)parameter);
             string text = (string)parameter;
 
@@ -52,7 +48,6 @@ namespace RaspberryBackend
 
             else if (text.Length > charsMaxInLine && text.Length <= 2 * charsMaxInLine)
             {
-                //Task.Factory.StartNew(() => printInTwoLines(text, charsMaxInLine));
 
                 printInTwoLines(text, charsMaxInLine);
             }
@@ -61,9 +56,8 @@ namespace RaspberryBackend
                 try
                 {
                     _cancelSendToLCD = new CancellationTokenSource();
-                    //Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, _scrollSpeed), _cancelSendToLCD.Token);
                     Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, _scrollSpeed), _cancelSendToLCD.Token);
-                    //scrollText(text, _scrollSpeed);
+
                 }
                 catch (OperationCanceledException)
                 {

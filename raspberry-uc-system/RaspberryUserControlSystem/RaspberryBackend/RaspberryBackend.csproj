@@ -121,10 +121,8 @@
     <Compile Include="Commands\TurnOnHI.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
-    <Compile Include="%28For DELETE%29 LCD Display\DisplayI2C.cs" />
     <Compile Include="CommonFiles\TransferObjects\AsynchData.cs" />
     <Compile Include="Components\Gpio.cs" />
-    <Compile Include="%28For DELETE%29 LCD Display\lcdConfig.cs" />
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
