@@ -76,7 +76,7 @@ namespace TestmachineFrontend
 
         private void sampleGT32Button_Click(object sender, RoutedEventArgs e)
         {
-            addText("Das ist ein Beispieltext mit mehr als 16 Zeichen");
+            addText("Das ist ein Beispieltext mit mehr als 16 Zeichen. ");
         }
 
 
@@ -87,6 +87,16 @@ namespace TestmachineFrontend
             //{
             //    sendToLCDcancelToken.Cancel();
             //};
+
+            try
+            {
+                clientConnection.sendObject(new Request("SendToLCD", "cancel")); //sendToLCDcancelToken
+                this.addMessage("GPIO", "Request sent");
+            }
+            catch (Exception ex)
+            {
+                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+            }
         }
 
         private void scrollSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
