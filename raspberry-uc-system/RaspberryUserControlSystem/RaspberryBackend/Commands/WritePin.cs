@@ -10,7 +10,6 @@ namespace RaspberryBackend
 
         public WritePin(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("WritePin", this);
         }
 
         /// <summary>

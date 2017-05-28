@@ -11,7 +11,6 @@ namespace RaspberryBackend
 
         public ResetPin(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("ResetPin", this);
         }
 
         /// <summary>

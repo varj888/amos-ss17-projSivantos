@@ -24,8 +24,6 @@ namespace RaspberryBackend
 
         public SendToLCD(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-
-            RequestController.Instance.addRequestedCommand(this.GetType().Name, this);
         }
 
         /// <summary>

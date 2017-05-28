@@ -13,7 +13,6 @@ namespace RaspberryBackend
 
         public ToggleBacklight_LCD(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("ToggleBacklight_LCD", this);
         }
 
         public override void execute(object parameter)

@@ -10,6 +10,7 @@
         public Command(RaspberryPi raspberryPi)
         {
             RaspberryPi = raspberryPi;
+            RequestController.Instance.addRequestedCommand(this.GetType().Name, this);
         }
 
 
