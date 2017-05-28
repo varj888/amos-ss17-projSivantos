@@ -19,22 +19,23 @@
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5*"/>
-                        <ColumnDefinition Width="5*"/>
+                        <ColumnDefinition Width="90*"/>
+                        <ColumnDefinition Width="66*"/>
+                        <ColumnDefinition Width="99*"/>
+                        <ColumnDefinition Width="254*"/>
                     </Grid.ColumnDefinitions>
 
                     <!--TextBox for entering the IP-Adress of a device-->
-                    <TextBox Grid.Column="1" ToolTip="Enter IP-Adress here"
-                 Margin="38.5,30,34,17.5" FontSize="18"
+                    <TextBox Grid.Column="3" ToolTip="Enter IP-Adress here"
+                 Margin="38.6,30,33,16.8" FontSize="18"
                  TextAlignment="Center"
                  Text="{Binding IPaddress}"/>
                     <!--Button for establishing connection to device-->
-                    <Button Grid.Column="1" x:Name="connectIP_button"
-                  Margin="38.5,92,34,190"
-                            Grid.RowSpan="2" Click="connectIP_button_Click">Connect</Button>
+                    <Button Grid.Column="3" x:Name="connectIP_button"
+                  Margin="38.6,3.2,34,189.6" Click="connectIP_button_Click" Grid.Row="1">Connect</Button>
                     <ListView x:Name="listView" HorizontalAlignment="Left" 
                               Height="267" Margin="24,31,0,0" VerticalAlignment="Top" 
-                              Width="204" Grid.RowSpan="2">
+                              Width="204" Grid.RowSpan="2" Grid.ColumnSpan="3">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="IP-Address" DisplayMemberBinding="{Binding Id}"/>
@@ -42,24 +43,46 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button Grid.Column="1" x:Name="readPin_button"
-                        Margin="38.5,77.5,157,116"
+                    <Button Grid.Column="3" x:Name="readPin_button"
+                        Margin="62.6,102.2,133,91.6"
                         Content="Read pin" Grid.Row="1" Click="readPin_button_Click"/>
-                    <Button Grid.Column="1" x:Name="writePin_button"
-                        Margin="101.5,77.5,93,116"
+                    <Button Grid.Column="3" x:Name="writePin_button"
+                        Margin="125.6,102.2,69,91.6"
                         Content="Write pin" Grid.Row="1" Click="writePin_button_Click"/>
-                    <TextBox Grid.Column="1" Margin="38.5,134.5,34,60" 
+                    <TextBox Grid.Column="3" Margin="24.6,102.2,196,91.6" 
                              Grid.Row="1" Text="{Binding PinID}"></TextBox>
-                    <Button Grid.Column="1" x:Name="reset_button"
-                        Margin="165.5,77.5,34,116"
+                    <Button Grid.Column="3" x:Name="reset_button"
+                        Margin="189.6,102.2,10,91.6"
                         Content="Reset" Grid.Row="1" Click="reset_button_Click"/>
 
-                    <Button Grid.Column="1" x:Name="ledON_button"
-                        Margin="38.6,182.2,157,11.6"
+                    <Button Grid.Column="3" x:Name="ledON_button"
+                        Margin="38.6,45.2,157,148.6"
                         Content="LED ON" Grid.Row="1"   Click="ledON_button_Click"  />
-                    <Button Grid.Column="1" x:Name="ledOFF_button"
-                        Margin="101.6,182.2,93,11.6"
+                    <Button Grid.Column="3" x:Name="ledOFF_button"
+                        Margin="101.6,45.2,93,148.6"
                         Content="LED OFF" Grid.Row="1"  Click="ledOFF_button_Click" />
+
+                    <Button Grid.Column="3" x:Name="HI_ON"
+                        Margin="120.6,166.2,74,27.6"
+                        Content="HI ON" Grid.Row="1"  Click="HI_ON_Click" RenderTransformOrigin="1.369,-0.363" />
+
+                    <Slider x:Name="setVoltage_Slider" 
+                            Maximum="127"
+                            Minimum="0"
+                            ValueChanged="setVoltage_ValueChanged" 
+                            SizeChanged="setVoltage_SizeChanged" 
+                            Margin="24.6,143.2,10,54.6" 
+                            Grid.Column="3" 
+                            Grid.Row="1"/>
+
+                    <Button Grid.Column="3" x:Name="sendVoltageValue"
+                        Margin="24.6,166.2,138,27.6"
+                        Content="Set Voltage" Grid.Row="1"  Click="sendVoltageValue_Click" RenderTransformOrigin="1.369,-0.363" />
+
+                    <Button Grid.Column="3" x:Name="HI_OFF"
+                        Margin="184.6,166.2,10,27.6"
+                        Content="HI OFF" Grid.Row="1"  Click="HI_OFF_Click" RenderTransformOrigin="0.475,-0.185" />
+
                 </Grid>
             </TabItem>
 
@@ -139,6 +162,26 @@
                         Margin="301,21.5,0,0" TextWrapping="Wrap" Text="{Binding //TODO}" 
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="2"/>
                 </Grid>
+            </TabItem>
+            <TabItem Header="LCD Control">
+
+
+                <StackPanel Name="Panel1" >
+                    <Button x:Name="reconnectI2C" HorizontalAlignment="Center" Margin="210,5,202,0" Click="reconnectI2C_Click" Content="Reset" Width="96"/>
+
+                    <Button x:Name="toggleBacklightButton" HorizontalAlignment="Center" Margin="210,5,202,0" Click="toggleBacklightButton_Click" Content="Toggle Backlight" Width="96"/>
+                    <TextBlock Name="scrollSliderTextBlock" FontSize="16" Margin="411,0,10,0" >Scroll Speed</TextBlock>
+                    <Slider x:Name="scrollSlider" Margin="411,0,10,0" ValueChanged="scrollSlider_ValueChanged"/>
+
+                    <TextBlock Name="displayEingabeTextBlock" Margin="25,0,0,0">Eingabe für Display</TextBlock>
+                    <TextBox Name="displayEingabeTextBox" Margin="25,5,10,0" />
+                    <Button x:Name="sendToLcdButton" Margin="411,0,10,0" Click="sendToLcdButton_Click" Content="Send"/>
+                    <Button x:Name="cancelButton" Margin="411,0,10,0" Click="cancelButton_Click" Content="Cancel"/>
+                    <Button Name="sample16Button"  Margin="25,0,272,0" Click="sample16Button_Click">SampleText 16 Chars</Button>
+                    <Button Name="sample32Button"  Margin="25,0,272,0" Click="sample32Button_Click">SampleText 32 Chars</Button>
+                    <Button Name="sampleGT32Button"  Margin="25,0,272,0" Click="sampleGT32Button_Click">SampleText > 32 Chars</Button>
+                </StackPanel>
+
             </TabItem>
         </TabControl>
         <ListView x:Name="debug" HorizontalAlignment="Left"

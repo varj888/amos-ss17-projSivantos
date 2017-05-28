@@ -26,16 +26,9 @@ namespace RaspberryBackend
 
         public GPIOinterface()
         {
-            pin_ids["PIN_02"] = 2;   //PullUp   I2C1 SDA
-            pin_ids["PIN_03"] = 3;   //PullUp   I2C1 SCL
             pin_ids["PIN_04"] = 4;   //PullUp
             pin_ids["PIN_05"] = 5;   //PullUp
             pin_ids["PIN_06"] = 6;   //PullUp
-            pin_ids["PIN_07"] = 7;   //PullUp   SPI0 CS1
-            pin_ids["PIN_08"] = 8;   //PullUp   SPI0 CS0 
-            pin_ids["PIN_09"] = 9;   //PullDown SPI0 MISO
-            pin_ids["PIN_10"] = 10;  //PullDown SPI0 MOSI
-            pin_ids["PIN_11"] = 11;  //PullDown SPI0 SCLK
             pin_ids["PIN_12"] = 12;  //PullDown
             pin_ids["PIN_13"] = 13;  //PullDown
             pin_ids["PIN_16"] = 16;  //PullDown SPI1 CS0
@@ -47,7 +40,6 @@ namespace RaspberryBackend
             pin_ids["PIN_22"] = 22;  //PullDown
             pin_ids["PIN_23"] = 23;  //PullDown
             pin_ids["PIN_24"] = 24;  //PullDown
-            pin_ids["PIN_25"] = 25;  //PullDown
             pin_ids["PIN_26"] = 26;  //PullDown
             pin_ids["PIN_27"] = 27;  //PullDown
         }

@@ -8,9 +8,8 @@ namespace RaspberryBackend
     class WritePin : Command
     {
 
-        public WritePin(GPIOinterface gpioInterface) : base(gpioInterface)
+        public WritePin(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("WritePin", this);
         }
 
         /// <summary>
@@ -23,8 +22,8 @@ namespace RaspberryBackend
             if (parameter.GetType() == typeof(UInt16))
             {
                 id = (UInt16)parameter;
-                _gpioInterface.setToOutput(id);
-                _gpioInterface.writePin(id, 1);
+                RaspberryPi.GpioInterface.setToOutput(id);
+                RaspberryPi.GpioInterface.writePin(id, 1);
             }
             else
             {

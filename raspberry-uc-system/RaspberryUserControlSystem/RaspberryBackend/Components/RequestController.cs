@@ -10,9 +10,9 @@ namespace RaspberryBackend
    /// </summary>
     class RequestController
     {
-        private static Dictionary<String, Command> requestedCommands = new Dictionary<String, Command>();
+
         private static readonly RequestController _instance = new RequestController();
-        private GPIOinterface gpioInterface;
+        public RaspberryPi raspberryPi { get; set; }
 
         public static RequestController Instance
         {
@@ -22,14 +22,11 @@ namespace RaspberryBackend
             }
         }
 
-        public GPIOinterface GpioInterface {
-            set => gpioInterface = value;
-        }
 
-        private RequestController(){}
+        private RequestController() { }
 
         /// <summary>
-        /// handles received Requests from the Frontend by deciding what to do in dependency of the request
+        /// handles received Requests from the Frontend by deciding what to do in dependency of the request. This method does everything automated!.
         /// Note: At this point, only execution commands are content of the requests.
         /// </summary>
         /// <param name="request">the request information of the Frontend application</param>
@@ -45,32 +42,38 @@ namespace RaspberryBackend
                 {
 
                     //look if the command was already requested once, if not, create it. 
-                    if (!requestedCommands.TryGetValue(request.command, out command))
+                    if (!Command.Instances.TryGetValue(request.command, out command))
                     {
                         Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
                         command = createCommand(request);
                         Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
                     }
+                    else
+                    {
+                        Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
+                    }
+
+
                     //then, if gpioInterface is ready, execute command
-                    if (gpioInterface.Initialized)
+                    if (RaspberryPi.Instance.GpioInterface.Initialized)
                     {
                         command.execute(request.parameter);
                     }
                     else
                     {
-                        throw new Exception("gpioInterface must be initialized.");
+                        throw new Exception("raspberryPi must be initialized.");
                     }
-                   
+
                 }
                 catch (ArgumentNullException e)
                 {
-                    throw new ArgumentNullException("The requested command was not found: " + request.command);
+                    throw new ArgumentNullException("Requested command was not found: " + request.command);
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e.Message);
                 }
-                
+
             }
 
             return command;
@@ -82,9 +85,10 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="gpioInterface"> interaction point to the Raspberry Pi's GpioPins</param>
         /// <param name="request">requested information of the Frontend application</param>
-        /// <returns></returns>
+        /// <returns> The requested Command Type</returns>
         private Command createCommand(Request request)
         {
+
             string command = "RaspberryBackend." + request.command;
 
             //typeof(ICommand).GetTypeInfo().Assembly:
@@ -96,17 +100,7 @@ namespace RaspberryBackend
             Type commandType = executingAssembly.GetType(command);
 
 
-            return (Command) Activator.CreateInstance(commandType, gpioInterface);
-        }
-
-        /// <summary>
-        /// can be used to save requested commands by adding them to a Dictonary datatype. 
-        /// </summary>
-        /// <param name="commandName">the name of the requested command</param>
-        /// <param name="command">the Command object of the requested command</param>
-        public void addRequestedCommand(String commandName, Command command)
-        {
-            requestedCommands.Add(commandName, command);
+            return (Command)Activator.CreateInstance(commandType, raspberryPi);
         }
     }
 }

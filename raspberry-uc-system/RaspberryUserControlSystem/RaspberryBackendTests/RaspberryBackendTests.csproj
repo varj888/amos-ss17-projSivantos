@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="CommonFiles\Networking\ClientServerTests.cs" />
     <Compile Include="CommonFiles\Networking\SerializerTests.cs" />
+    <Compile Include="Components\RaspberryPiTests.cs" />
     <Compile Include="Components\RequestControllerTests.cs" />
     <Compile Include="Data\BreadboardFactoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

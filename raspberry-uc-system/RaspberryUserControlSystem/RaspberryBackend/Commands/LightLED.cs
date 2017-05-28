@@ -17,9 +17,8 @@ namespace RaspberryBackend
         public GpioPinValue currentState;
 
 
-        public LightLED(GPIOinterface gpioInterface) : base(gpioInterface)
+        public LightLED(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("LightLED", this);
         }
 
         /// <summary>
@@ -28,7 +27,7 @@ namespace RaspberryBackend
         /// <param name="parameter">parameter with content ("0" or "1")</param>
         public override void execute(Object parameter)
         {
-            lastStateOnRequest = _gpioInterface.readPin(GPIO_PIN_ID);
+            lastStateOnRequest = RaspberryPi.GpioInterface.readPin(GPIO_PIN_ID);
 
             string requestedParameter = parameter.ToString();
 
@@ -60,10 +59,10 @@ namespace RaspberryBackend
         /// <returns>The GpioPinValue of the concerned Gpio-Pin</returns>
         private GpioPinValue switch_LED_ToState(uint targetState)
         {
-            _gpioInterface.setToOutput(GPIO_PIN_ID);
-            _gpioInterface.writePin(GPIO_PIN_ID, targetState);
+            RaspberryPi.GpioInterface.setToOutput(GPIO_PIN_ID);
+            RaspberryPi.GpioInterface.writePin(GPIO_PIN_ID, targetState);
 
-            return _gpioInterface.readPin(GPIO_PIN_ID);
+            return RaspberryPi.GpioInterface.readPin(GPIO_PIN_ID);
         }
 
     }

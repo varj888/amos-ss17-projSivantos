@@ -9,9 +9,8 @@ namespace RaspberryBackend
     class ResetPin : Command
     {
 
-        public ResetPin(GPIOinterface gpioInterface) : base(gpioInterface)
+        public ResetPin(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("ResetPin", this);
         }
 
         /// <summary>
@@ -24,8 +23,8 @@ namespace RaspberryBackend
             if (parameter.GetType() == typeof(UInt16))
             {
                 id = (UInt16)parameter;
-                _gpioInterface.setToOutput(id);
-                _gpioInterface.writePin(id, 0);
+                RaspberryPi.GpioInterface.setToOutput(id);
+                RaspberryPi.GpioInterface.writePin(id, 0);
 
             }
             else
