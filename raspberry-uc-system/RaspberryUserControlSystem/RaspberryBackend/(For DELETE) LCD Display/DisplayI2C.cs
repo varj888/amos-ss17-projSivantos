@@ -9,6 +9,8 @@ using Windows.Devices.Gpio;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
 using System.Threading;
+using System.Net;
+using System.Net.NetworkInformation;
 
 namespace RaspberryBackend
 {
@@ -27,7 +29,7 @@ namespace RaspberryBackend
 
         private byte[] _LineAddress = new byte[] { 0x00, 0x40 };
 
-        public byte _backLight = 0x01;
+        public byte backLight = 0x01;
 
 
         private I2cDevice _i2cPortExpander;
@@ -67,9 +69,42 @@ namespace RaspberryBackend
             this._D7 = lcdConfig.D7;
             this._Bl = lcdConfig.BL;
 
+
             // It's async method, so we have to wait
             Task.Run(() => this.startI2C(lcdConfig.DEVICE_I2C_ADDRESS, lcdConfig.I2C_CONTROLLER_NAME)).Wait();
+
+            String ip = GetIpAddressAsync();
+            prints(ip);
         }
+
+        private string GetIpAddressAsync()
+        {
+            var ipAsString = "Not Found";
+            var hosts = Windows.Networking.Connectivity.NetworkInformation.GetHostNames().ToList();
+            var hostNames = new List<string>();
+
+            //NetworkInterfaceType
+            foreach (var h in hosts)
+            {
+                hostNames.Add(h.DisplayName);
+                if (h.Type == Windows.Networking.HostNameType.Ipv4)
+                {
+                    var networkAdapter = h.IPInformation.NetworkAdapter;
+                    if (networkAdapter.IanaInterfaceType == (uint)NetworkInterfaceType.Ethernet || networkAdapter.IanaInterfaceType == (uint)NetworkInterfaceType.Wireless80211)
+                    {
+                        IPAddress ip;
+                        if (!IPAddress.TryParse(h.DisplayName, out ip)) continue;
+                        if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) return ip.ToString();
+                    }
+
+                }
+            }
+
+
+            return ipAsString;
+
+        }
+
 
         /**
         * Start I2C Communication
@@ -133,7 +168,7 @@ namespace RaspberryBackend
         **/
         public void turnOnBacklight()
         {
-            this._backLight = 0x01;
+            this.backLight = 0x01;
             this.sendCommand(0x00);
         }
 
@@ -143,13 +178,13 @@ namespace RaspberryBackend
         **/
         public void turnOffBacklight()
         {
-            this._backLight = 0x00;
+            this.backLight = 0x00;
             this.sendCommand(0x00);
         }
 
         public byte getBackLightStatus()
         {
-            return _backLight;
+            return backLight;
         }
 
         /**
@@ -243,8 +278,8 @@ namespace RaspberryBackend
         */
         private void pulseEnable(byte data)
         {
-            this._i2cPortExpander.Write(new byte[] { Convert.ToByte(data | (1 << this._En) | (this._backLight << this._Bl)) }); // Enable bit HIGH
-            this._i2cPortExpander.Write(new byte[] { Convert.ToByte(data | (this._backLight << this._Bl)) }); // Enable bit LOW
+            this._i2cPortExpander.Write(new byte[] { Convert.ToByte(data | (1 << this._En) | (this.backLight << this._Bl)) }); // Enable bit HIGH
+            this._i2cPortExpander.Write(new byte[] { Convert.ToByte(data | (this.backLight << this._Bl)) }); // Enable bit LOW
             //Task.Delay(2).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 

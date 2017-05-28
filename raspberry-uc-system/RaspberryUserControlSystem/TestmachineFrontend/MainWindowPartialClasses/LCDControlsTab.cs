@@ -16,7 +16,8 @@ namespace TestmachineFrontend
 
         private int lcdBacklightState = 0;
         private int _scrollSpeed;
-        CancellationTokenSource sendToLCDcancelToken;
+        // no valid code anymore
+        //CancellationTokenSource sendToLCDcancelToken;
 
 
         private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
@@ -38,8 +39,10 @@ namespace TestmachineFrontend
 
         private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
         {
+            // no valid code anymore
             //Task.Factory.StartNew(() => sendTextToLcd()); //==> Funktioniert nicht!!!
-            sendToLCDcancelToken = new CancellationTokenSource();
+            //sendToLCDcancelToken = new CancellationTokenSource();
+
             string text = displayEingabeTextBox.Text;
 
             try
@@ -79,10 +82,11 @@ namespace TestmachineFrontend
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sendToLCDcancelToken != null)
-            {
-                sendToLCDcancelToken.Cancel();
-            };
+            // no valid code anymore
+            //if (sendToLCDcancelToken != null)
+            //{
+            //    sendToLCDcancelToken.Cancel();
+            //};
         }
 
         private void scrollSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
