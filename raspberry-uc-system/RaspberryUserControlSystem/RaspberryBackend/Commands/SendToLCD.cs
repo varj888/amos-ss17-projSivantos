@@ -25,17 +25,23 @@ namespace RaspberryBackend
             RequestController.Instance.addRequestedCommand(this.GetType().Name, this);
         }
 
-        public override void execute(object asynchData)
+        public override void execute(object parameter)
         {
 
             //AsynchData data = (AsynchData)asynchData;
             //_cancelSendToLCD = (CancellationTokenSource)data.cancellationToken;
             //_scrollSpeed = (int)data.attribute;
             //string text = (string)data.parameter;
-            Debug.WriteLine((string)asynchData);
-            string text = (string)asynchData;
+            Debug.WriteLine((string)parameter);
+            string text = (string)parameter;
 
-
+            if (text.Equals("cancel"))
+            {
+                cancelTask();
+                Task.Delay(500);
+                lcd.clrscr();
+                return;
+            }
 
             lcd.clrscr();
 
@@ -54,8 +60,9 @@ namespace RaspberryBackend
             {
                 try
                 {
+                    _cancelSendToLCD = new CancellationTokenSource();
                     //Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, _scrollSpeed), _cancelSendToLCD.Token);
-                    Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, _scrollSpeed));
+                    Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, _scrollSpeed), _cancelSendToLCD.Token);
                     //scrollText(text, _scrollSpeed);
                 }
                 catch (OperationCanceledException)
@@ -64,6 +71,18 @@ namespace RaspberryBackend
                 }
 
             }
+        }
+
+        private void cancelTask()
+        {
+
+            //cancel previous Task (Scroll)
+            if (_cancelSendToLCD != null)
+            {
+                _cancelSendToLCD.Cancel();
+            }
+
+
         }
 
         private void printInTwoLines(string text, int charsMaxInLine)
@@ -87,22 +106,33 @@ namespace RaspberryBackend
 
             lcd.clrscr();
 
-            for (int i = 0; i <= text.Length - maxChars; i = i + countChars < text.Length ? i + countChars : text.Length)
+            while (true)
             {
-                // no valid code anymore
-                //if (_cancelSendToLCD.IsCancellationRequested)
-                //{
-                //    return;
-                //}
-
-                Task.Delay(200).Wait();
-                lcd.clrscr();
-                for (int j = i; j < maxChars + i && j < text.Length; j++)
+                for (int i = 0; i <= text.Length - maxChars; i = i + countChars < text.Length ? i + countChars : text.Length)
                 {
-                    printc(text.ElementAt(j));
+
+                    if (_cancelSendToLCD.IsCancellationRequested)
+                    {
+                        return;
+                    }
+
+                    Task.Delay(200).Wait();
+                    lcd.clrscr();
+                    for (int j = i; j < maxChars + i && j < text.Length; j++)
+                    {
+                        printc(text.ElementAt(j));
+                    }
+                    Task.Delay(200).Wait();
+
                 }
-                Task.Delay(200).Wait();
+
+                if (_cancelSendToLCD.IsCancellationRequested)
+                {
+                    return;
+                }
+
             }
+
 
         }
 
