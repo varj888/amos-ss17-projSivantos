@@ -23,18 +23,18 @@ namespace RaspberryBackend
         private const byte Data_sendMode = 1;
 
         //Setup information for lcd initialization (visit lcd documentation for further information)
-        public byte En = 0x02;
-        public byte Rw = 0x01;
-        public byte Rs = 0x00;
-        public byte D4 = 0x04;
-        public byte D5 = 0x05;
-        public byte D6 = 0x06;
-        public byte D7 = 0x07;
-        public byte Bl = 0x03;
+        public const byte EN = 0x02;
+        public const byte RW = 0x01;
+        public const byte RS = 0x00;
+        public const byte D4c = 0x04;
+        public const byte D5c = 0x05;
+        public const byte D6c = 0x06;
+        public const byte D7c = 0x07;
+        public const byte BL = 0x03;
 
         private byte[] _LineAddress = new byte[] { 0x00, 0x40 };
 
-        public byte backLight { get; set; } = 0x01;
+        public byte backLight { get; set; } = 0x00;
         public int scrollSpeed { get; set; }
         public CancellationTokenSource cancelToken { get; set; }
 
@@ -77,27 +77,27 @@ namespace RaspberryBackend
 
             /* Init sequence */
             Task.Delay(100).Wait();
-            pulseEnable(Convert.ToByte((1 << D5) | (1 << D4)));
+            pulseEnable(Convert.ToByte((1 << D5c) | (1 << D4c)));
             Task.Delay(5).Wait();
-            pulseEnable(Convert.ToByte((1 << D5) | (1 << D4)));
+            pulseEnable(Convert.ToByte((1 << D5c) | (1 << D4c)));
             Task.Delay(5).Wait();
-            pulseEnable(Convert.ToByte((1 << D5) | (1 << D4)));
+            pulseEnable(Convert.ToByte((1 << D5c) | (1 << D4c)));
 
             /*  Init 4-bit mode */
-            pulseEnable(Convert.ToByte((1 << D5)));
+            pulseEnable(Convert.ToByte((1 << D5c)));
 
             /* Init 4-bit mode + 2 line */
-            pulseEnable(Convert.ToByte((1 << D5)));
-            pulseEnable(Convert.ToByte((1 << D7)));
+            pulseEnable(Convert.ToByte((1 << D5c)));
+            pulseEnable(Convert.ToByte((1 << D7c)));
 
             /* Turn on display, cursor */
             pulseEnable(0);
-            pulseEnable(Convert.ToByte((1 << D7) | (Convert.ToByte(turnOnDisplay) << D6) | (Convert.ToByte(turnOnCursor) << D5) | (Convert.ToByte(blinkCursor) << D4)));
+            pulseEnable(Convert.ToByte((1 << D7c) | (Convert.ToByte(turnOnDisplay) << D6c) | (Convert.ToByte(turnOnCursor) << D5c) | (Convert.ToByte(blinkCursor) << D4c)));
 
             this.clrscr();
 
             pulseEnable(0);
-            pulseEnable(Convert.ToByte((1 << D6) | (Convert.ToByte(cursorDirection) << D5) | (Convert.ToByte(textShift) << D4)));
+            pulseEnable(Convert.ToByte((1 << D6c) | (Convert.ToByte(cursorDirection) << D5c) | (Convert.ToByte(textShift) << D4c)));
         }
 
         /**
@@ -106,9 +106,9 @@ namespace RaspberryBackend
         private void pulseEnable(byte data)
         {
             // Enable bit HIGH
-            this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (1 << En) | (backLight << Bl)) });
+            this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (1 << EN) | (backLight << BL)) });
             // Enable bit LOW
-            this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (this.backLight << Bl)) });
+            this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (this.backLight << BL)) });
             //Task.Delay(2).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
@@ -118,7 +118,7 @@ namespace RaspberryBackend
         public void clrscr()
         {
             pulseEnable(0);
-            pulseEnable(Convert.ToByte((1 << D4)));
+            pulseEnable(Convert.ToByte((1 << D4c)));
             Task.Delay(5).Wait();
         }
 
@@ -130,8 +130,8 @@ namespace RaspberryBackend
         /// <param name="Rs">Rs=0 for Command or Rs = 1 for Data</param>        
         public void write(byte data, byte Rs)
         {
-            pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << this.Rs)));
-            pulseEnable(Convert.ToByte((data & 0x0f) << 4 | (Rs << this.Rs)));
+            pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << RS)));
+            pulseEnable(Convert.ToByte((data & 0x0f) << 4 | (Rs << RS)));
             //Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
