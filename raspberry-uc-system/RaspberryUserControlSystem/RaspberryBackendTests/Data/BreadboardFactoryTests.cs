@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend.Data;
 using System.Diagnostics;
 using System.Collections.Generic;
+using RaspberryBackend;
 
 namespace RaspberryBackendTests.Data
 {

@@ -122,16 +122,14 @@
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
-    
     <Compile Include="Data\Breadboard.cs" />
     <Compile Include="Data\BreadboardFactory.cs" />
     <Compile Include="Data\Config.cs" />
+    <Compile Include="Data\I2C.cs" />
     <Compile Include="Data\Multiplexer.cs" />
-    
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
-
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />
