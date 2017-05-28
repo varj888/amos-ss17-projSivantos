@@ -68,9 +68,9 @@ namespace RaspberryBackend
         {
             if (_gpioInterface == null)
             {
-                _gpioInterface = new GPIOinterface();
-                _lcdDisplay = new LCD();
-                _potentiometer = new Potentiometer();
+                _gpioInterface = gPIOinterface;
+                _lcdDisplay = lCD;
+                _potentiometer = potentiometer;
             }
 
         }

@@ -55,7 +55,8 @@ namespace RaspberryBackend
                 try
                 {
                     //Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, _scrollSpeed), _cancelSendToLCD.Token);
-                    scrollText(text, _scrollSpeed);
+                    Task scrollTextTask = Task.Factory.StartNew(() => scrollText(text, _scrollSpeed));
+                    //scrollText(text, _scrollSpeed);
                 }
                 catch (OperationCanceledException)
                 {
@@ -88,10 +89,11 @@ namespace RaspberryBackend
 
             for (int i = 0; i <= text.Length - maxChars; i = i + countChars < text.Length ? i + countChars : text.Length)
             {
-                if (_cancelSendToLCD.IsCancellationRequested)
-                {
-                    return;
-                }
+                // no valid code anymore
+                //if (_cancelSendToLCD.IsCancellationRequested)
+                //{
+                //    return;
+                //}
 
                 Task.Delay(200).Wait();
                 lcd.clrscr();
