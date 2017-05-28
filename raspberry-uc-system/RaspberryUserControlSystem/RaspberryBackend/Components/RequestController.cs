@@ -10,7 +10,7 @@ namespace RaspberryBackend
    /// </summary>
     class RequestController
     {
-        private static Dictionary<String, Command> requestedCommands = new Dictionary<String, Command>();
+
         private static readonly RequestController _instance = new RequestController();
         public RaspberryPi raspberryPi { get; set; }
 
@@ -42,7 +42,7 @@ namespace RaspberryBackend
                 {
 
                     //look if the command was already requested once, if not, create it. 
-                    if (!requestedCommands.TryGetValue(request.command, out command))
+                    if (!Command.Instances.TryGetValue(request.command, out command))
                     {
                         Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
                         command = createCommand(request);
@@ -102,9 +102,6 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="commandName">the name of the requested command</param>
         /// <param name="command">the Command object of the requested command</param>
-        public void addRequestedCommand(String commandName, Command command)
-        {
-            requestedCommands.Add(commandName, command);
-        }
+        
     }
 }
