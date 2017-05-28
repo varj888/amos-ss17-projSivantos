@@ -77,7 +77,6 @@
     <Compile Include="..\CommonFiles\TransferObjects\Status.cs">
       <Link>CommonFiles\TransferObjects\Status.cs</Link>
     </Compile>
-    <Compile Include="CommonFiles\TransferObjects\AsynchData.cs" />
     <Compile Include="DebugContent.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

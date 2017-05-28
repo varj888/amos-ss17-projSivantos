@@ -121,7 +121,6 @@
     <Compile Include="Commands\TurnOnHI.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
-    <Compile Include="CommonFiles\TransferObjects\AsynchData.cs" />
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
