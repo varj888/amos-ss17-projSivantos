@@ -9,6 +9,9 @@ using System.Threading;
 
 namespace RaspberryBackend
 {
+    /// <summary>
+    /// This class represents a Command. It it sends date to a LCD through I2C. 
+    /// </summary>
     class SendToLCD : Command
     {
         private const int charsMaxInLine = 16;
@@ -25,15 +28,22 @@ namespace RaspberryBackend
             RequestController.Instance.addRequestedCommand(this.GetType().Name, this);
         }
 
+        /// <summary>
+        ///  executes the Command SendToLCD in dependency of the parsed parameter 
+        /// </summary>
+        /// <param name="parameter">either a text:string which is to be printed on lcd 
+        /// or a #command:string e.g #cancel to clear the display 
+        /// and terminate all tasks related to a previous call
+        /// </param>
         public override void execute(object parameter)
         {
 
             Debug.WriteLine((string)parameter);
             string text = (string)parameter;
 
-            if (text.Equals("cancel"))
+            if (text.Equals("#cancel"))
             {
-                cancelTask();
+                cancelPreviousTasks();
                 Task.Delay(500);
                 lcd.clrscr();
                 return;
@@ -67,7 +77,7 @@ namespace RaspberryBackend
             }
         }
 
-        private void cancelTask()
+        private void cancelPreviousTasks()
         {
 
             //cancel previous Task (Scroll)
@@ -144,7 +154,7 @@ namespace RaspberryBackend
         /**
       * Can print string onto display
       **/
-        public void prints(string text)
+        private void prints(string text)
         {
             for (int i = 0; i < text.Length; i++)
             {
@@ -155,7 +165,7 @@ namespace RaspberryBackend
         /**
       * Print single character onto display
       **/
-        public void printc(char letter)
+        private void printc(char letter)
         {
             try
             {

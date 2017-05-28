@@ -80,7 +80,7 @@ namespace TestmachineFrontend
 
             try
             {
-                clientConnection.sendObject(new Request("SendToLCD", "cancel"));
+                clientConnection.sendObject(new Request("SendToLCD", "#cancel"));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
