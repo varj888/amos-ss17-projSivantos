@@ -122,6 +122,7 @@
     <Compile Include="Data\Breadboard.cs" />
     <Compile Include="Data\BreadboardFactory.cs" />
     <Compile Include="Data\Config.cs" />
+    <Compile Include="Data\Multiplexer.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />
