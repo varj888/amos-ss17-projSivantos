@@ -97,29 +97,29 @@ namespace TestmachineFrontend
             //_scrollSpeed = getSpeed((int)slider.Value);
 
         }
-        private int getSpeed(int value)
-        {
-            int scrollSpeed = 0;
+        //private int getSpeed(int value)
+        //{
+        //    int scrollSpeed = 0;
 
-            if (value < 26)
-            {
-                scrollSpeed = 1;
-            }
-            else if (value > 25 && value < 51)
-            {
-                scrollSpeed = 2;
-            }
-            else if (value > 50 && value < 75)
-            {
-                scrollSpeed = 3;
-            }
-            else
-            {
-                scrollSpeed = 4;
-            }
+        //    if (value < 26)
+        //    {
+        //        scrollSpeed = 1;
+        //    }
+        //    else if (value > 25 && value < 51)
+        //    {
+        //        scrollSpeed = 2;
+        //    }
+        //    else if (value > 50 && value < 75)
+        //    {
+        //        scrollSpeed = 3;
+        //    }
+        //    else
+        //    {
+        //        scrollSpeed = 4;
+        //    }
 
-            return scrollSpeed;
-        }
+        //    return scrollSpeed;
+        //}
 
     }
 
