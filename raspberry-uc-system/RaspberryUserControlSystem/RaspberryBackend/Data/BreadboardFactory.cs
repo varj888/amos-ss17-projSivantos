@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using System.IO;
 using System.Text;
 
-namespace RaspberryBackend.Data
+namespace RaspberryBackend
 {
     class BreadboardFactory
     {

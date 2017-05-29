@@ -11,15 +11,14 @@ namespace RaspberryBackend
     {
         private const uint ON = 1;
         private const uint OFF = 0;
-        private const UInt16 GPIO_PIN_ID = 6;
+        private const UInt16 GPIO_PIN_ID = 24;
 
-        public GpioPinValue lastStateOnRequest;
-        public GpioPinValue currentState;
+        public string lastStateOnRequest;
+        public string currentState;
 
 
-        public LightLED(GPIOinterface gpioInterface) : base(gpioInterface)
+        public LightLED(RaspberryPi raspberryPi) : base(raspberryPi)
         {
-            RequestController.Instance.addRequestedCommand("LightLED", this);
         }
 
         /// <summary>
@@ -28,7 +27,7 @@ namespace RaspberryBackend
         /// <param name="parameter">parameter with content ("0" or "1")</param>
         public override void execute(Object parameter)
         {
-            lastStateOnRequest = _gpioInterface.readPin(GPIO_PIN_ID);
+            lastStateOnRequest = RaspberryPi.readPin(GPIO_PIN_ID);
 
             string requestedParameter = parameter.ToString();
 
@@ -36,7 +35,6 @@ namespace RaspberryBackend
             {
                 Debug.WriteLine("Received command LightLED On!");
                 currentState = switch_LED_ToState(ON);
-
             }
             else if (requestedParameter.Equals("0"))
             {
@@ -46,7 +44,6 @@ namespace RaspberryBackend
 
             Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2} \n",
                 GPIO_PIN_ID, currentState, lastStateOnRequest));
-
         }
 
 
@@ -58,12 +55,16 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="targetState">the state wished to change to</param>
         /// <returns>The GpioPinValue of the concerned Gpio-Pin</returns>
-        private GpioPinValue switch_LED_ToState(uint targetState)
+        private string switch_LED_ToState(uint targetState)
         {
-            _gpioInterface.setToOutput(GPIO_PIN_ID);
-            _gpioInterface.writePin(GPIO_PIN_ID, targetState);
-
-            return _gpioInterface.readPin(GPIO_PIN_ID);
+            if( targetState == 0 )
+            {
+                RaspberryPi.deactivatePin(GPIO_PIN_ID);
+            } else
+            {
+                RaspberryPi.activatePin(GPIO_PIN_ID);
+            }
+            return RaspberryPi.readPin(GPIO_PIN_ID);
         }
 
     }

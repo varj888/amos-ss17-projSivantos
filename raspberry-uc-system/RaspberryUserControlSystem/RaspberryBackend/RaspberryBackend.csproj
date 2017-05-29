@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -116,12 +116,20 @@
     </Compile>
     <Compile Include="Commands\ReadPin.cs" />
     <Compile Include="Commands\ResetPin.cs" />
+    <Compile Include="Commands\SendToLCD.cs" />
+    <Compile Include="Commands\ToggleBacklight_LCD.cs" />
+    <Compile Include="Commands\TurnOnHI.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Data\Breadboard.cs" />
     <Compile Include="Data\BreadboardFactory.cs" />
     <Compile Include="Data\Config.cs" />
+    <Compile Include="Components\I2C\I2C.cs" />
+    <Compile Include="Components\I2C\Multiplexer.cs" />
+    <Compile Include="Components\I2C\LCD.cs" />
+    <Compile Include="Components\I2C\Potentiometer.cs" />
+    <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />
