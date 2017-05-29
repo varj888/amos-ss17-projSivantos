@@ -42,6 +42,13 @@ namespace RaspberryBackendTests.Data
             Assert.AreEqual(pure_bb.Model_name, _MODEL);
         }
 
+        [TestMethod]
+        public void TestToString()
+        {
+            Debug.WriteLine(factory.ToString());
+        }
+
+
         [TestCleanup]
         public void tearDown()
         {

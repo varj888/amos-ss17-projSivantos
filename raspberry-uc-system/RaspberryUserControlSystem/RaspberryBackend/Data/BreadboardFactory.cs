@@ -88,7 +88,13 @@ namespace RaspberryBackend.Data
             return null;
         }
 
-        public string toString()
+        public Breadboard createBreadboard(string family, string model_name, List<string> pin_values_list)
+        {
+            
+            return new Breadboard(family, model_name, new Config(pin_values_list));
+        }
+
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -102,9 +108,11 @@ namespace RaspberryBackend.Data
                 foreach (List<string> model_names in model_dic.Keys)
                 {
                     sb.Append("\tModels: ");
+                    sb.Append("\n");
                     foreach (string model_name in model_names)
                     {
-                        sb.Append("[" + model_name + "]");
+                        sb.Append("\t\t[" + model_name + "]");
+                        sb.Append("\n");
                     }
                    
                     sb.Append("\n");
