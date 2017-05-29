@@ -123,7 +123,7 @@
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Data\Breadboard.cs" />
-    <Compile Include="Data\BreadboardFactory.cs" />
+    <Compile Include="Data\MultiplexerConfigFactory.cs" />
     <Compile Include="Data\Config.cs" />
     <Compile Include="Components\I2C\I2C.cs" />
     <Compile Include="Components\I2C\Multiplexer.cs" />

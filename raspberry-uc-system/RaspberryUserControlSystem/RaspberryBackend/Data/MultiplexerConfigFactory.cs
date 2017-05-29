@@ -61,40 +61,35 @@ namespace RaspberryBackend
             }
         }
 
-        public Breadboard createBreadboard(string family, string model_name)
+        public Config getMultiplexerConfig(string family, string model_name)
         {
             if (hi_dictionary.ContainsKey(family))
             {
                 Dictionary<List<string>, Config> family_dic = hi_dictionary[family];
 
-                Config bb_config = null;
+                Config multiplex_config = null;
                 bool model_found = false;
 
-                foreach(List<string> model_names in family_dic.Keys)
+                foreach (List<string> model_names in family_dic.Keys)
                 {
                     if (model_names.Contains(model_name))
                     {
-                        bb_config = family_dic[model_names];
+                        multiplex_config = family_dic[model_names];
                         model_found = true;
+                        break;
                     }
                 }
 
                 if (model_found)
                 {
-                    return new Breadboard(family, model_name, bb_config);
+                    return multiplex_config;
                 }
             }
-
             return null;
         }
 
-        public Breadboard createBreadboard(string family, string model_name, List<string> pin_values_list)
-        {
-            
-            return new Breadboard(family, model_name, new Config(pin_values_list));
-        }
 
-        public override string ToString()
+        public string getConfigAsString()
         {
             StringBuilder sb = new StringBuilder();
 

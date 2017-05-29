@@ -9,7 +9,7 @@ namespace RaspberryBackendTests.Data
 {
 
     [TestClass]
-    public class BreadboardFactoryTests
+    public class MultiplexerConfigFactoryTests
     {
 
         private const string _FAMILY = "Pure";
@@ -26,9 +26,8 @@ namespace RaspberryBackendTests.Data
         [TestMethod]
         public void TestCreateBreadboard()
         {
-            Breadboard pure_bb = factory.createBreadboard(_FAMILY, _MODEL);
+            Config conf = factory.getMultiplexerConfig(_FAMILY, _MODEL);
 
-            Config conf = pure_bb.Pin_config;
             Dictionary<int,string> dic = conf.Pin_value_map;
 
             List<string> value_list = new List<string>();
@@ -39,14 +38,12 @@ namespace RaspberryBackendTests.Data
             }
 
             CollectionAssert.AreEqual(_EXPECTED_VALUES, value_list);
-            Assert.AreEqual(pure_bb.Family_name, _FAMILY);
-            Assert.AreEqual(pure_bb.Model_name, _MODEL);
         }
 
         [TestMethod]
         public void TestToString()
         {
-            Debug.WriteLine(factory.ToString());
+            Debug.WriteLine(factory.getConfigAsString());
         }
 
 
