@@ -19,7 +19,7 @@ namespace RaspberryBackend
         /// executes the Command ReadPin 
         /// </summary>
         /// <param name="parameter">represents the GpioPin to read from</param>
-        public override void execute(Object parameter)
+        public override void executeAsync(Object parameter)
         {
             UInt16 id = 0;
             if (parameter.GetType() == typeof(UInt16))

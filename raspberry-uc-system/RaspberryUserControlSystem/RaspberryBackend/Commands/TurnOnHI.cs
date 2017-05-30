@@ -17,7 +17,7 @@ namespace RaspberryBackend
         /// execute the Command TurnOnHI
         /// </summary>
         /// <param name="batteryDrainLevel">represents the capacity of a battery</param>
-        public override void execute(Object batteryDrainLevel)
+        public override void executeAsync(Object batteryDrainLevel)
         {
             string requestedParameter = batteryDrainLevel.ToString();
             if (requestedParameter.Equals("127"))

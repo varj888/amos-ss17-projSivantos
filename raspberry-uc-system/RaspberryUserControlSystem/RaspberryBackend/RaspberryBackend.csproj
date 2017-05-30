@@ -114,6 +114,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\ConnectPins.cs" />
     <Compile Include="Commands\ReadPin.cs" />
     <Compile Include="Commands\ResetPin.cs" />
     <Compile Include="Commands\SendToLCD.cs" />
@@ -122,7 +123,6 @@
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
-    <Compile Include="Data\Breadboard.cs" />
     <Compile Include="Data\MultiplexerConfigFactory.cs" />
     <Compile Include="Data\Config.cs" />
     <Compile Include="Components\I2C\I2C.cs" />

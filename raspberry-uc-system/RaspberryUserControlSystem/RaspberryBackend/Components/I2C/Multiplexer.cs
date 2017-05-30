@@ -20,12 +20,43 @@ namespace RaspberryBackend.Data
         /// </summary>
         private readonly int switches = 96;
 
+        // use these constants for controlling how the I2C bus is setup
+        private const string I2C_CONTROLLER_NAME = "I2C1";
+        private const byte MULTIPLEXER_I2C_ADDRESS = 0x70;
+        private I2cDevice multiplexer;
+        private Boolean _initialized = false;
+
+
         //private static I2cInstance;
 
         public Multiplexer()
         {
-            //I2cInstance = I2C.getInstance();
+            Task.Run(() => this.startI2C()).Wait();
+            _initialized = true;
         }
+
+        private async void startI2C()
+        {
+            try
+            {
+                var i2cSettings = new I2cConnectionSettings(MULTIPLEXER_I2C_ADDRESS);
+                i2cSettings.BusSpeed = I2cBusSpeed.FastMode;
+                string deviceSelector = I2cDevice.GetDeviceSelector(I2C_CONTROLLER_NAME);
+                var i2cDeviceControllers = await DeviceInformation.FindAllAsync(deviceSelector);
+                this.multiplexer = await I2cDevice.FromIdAsync(i2cDeviceControllers[0].Id, i2cSettings);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception: {0}", e.Message);
+                return;
+            }
+        }
+
+        public Boolean isInitialized()
+        {
+            return _initialized;
+        }
+
         /// <summary>
         /// simultaneously updates all switches
         /// using the LDSW command
@@ -48,6 +79,11 @@ namespace RaspberryBackend.Data
         public void powerON()
         {
 
+        }
+
+        public void write(byte[] dataBuffer)
+        {
+            multiplexer.Write(dataBuffer);
         }
     }
 }

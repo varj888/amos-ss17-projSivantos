@@ -51,7 +51,7 @@ namespace RaspberryBackend
                     //then, if gpioInterface is ready, execute command
                     if (raspberryPi.isInitialized())
                     {
-                        command.execute(request.parameter);
+                        command.executeAsync(request.parameter);
                     }
                     else
                     {

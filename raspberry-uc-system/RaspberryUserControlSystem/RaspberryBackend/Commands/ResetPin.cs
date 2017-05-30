@@ -17,7 +17,7 @@ namespace RaspberryBackend
         /// executes the Command ResetPin
         /// </summary>
         /// <param name="parameter">represents the GpioPin which shall be reset</param>
-        public override void execute(Object parameter)
+        public override void executeAsync(Object parameter)
         {
             UInt16 id = 0;
             if (parameter.GetType() == typeof(UInt16))

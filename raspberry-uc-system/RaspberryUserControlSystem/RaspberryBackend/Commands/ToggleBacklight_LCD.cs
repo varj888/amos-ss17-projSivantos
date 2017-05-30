@@ -15,7 +15,7 @@ namespace RaspberryBackend
         {
         }
 
-        public override void execute(object parameter)
+        public override void executeAsync(object parameter)
         {
             string requestedParameter = parameter.ToString();
 

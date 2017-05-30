@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RaspberryBackend.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace RaspberryBackend
         private GPIOinterface _gpioInterface;
         private LCD _lcdDisplay;
         private Potentiometer _potentiometer;
+        private Multiplexer _multiplexer;
         private int maxCharLCD = 16;
         private Boolean _initialized = false;
 
@@ -35,6 +37,7 @@ namespace RaspberryBackend
             _gpioInterface = new GPIOinterface();
             _lcdDisplay = new LCD();
             _potentiometer = new Potentiometer();
+            _multiplexer = new Multiplexer();
 
             _gpioInterface.initPins();
             _lcdDisplay.initiateLCD();
@@ -135,6 +138,11 @@ namespace RaspberryBackend
         public Boolean isInitialized()
         {
             return _initialized & _gpioInterface.isInitialized() & _lcdDisplay.isInitialized() & _potentiometer.isInitialized();
+        }
+
+        public void connectPins(int x, int y)
+        {
+            _multiplexer.write(new Byte[] {0xad});
         }
     }
 }

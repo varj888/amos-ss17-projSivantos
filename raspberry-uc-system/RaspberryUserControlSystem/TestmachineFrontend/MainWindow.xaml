@@ -82,6 +82,8 @@
                     <Button Grid.Column="3" x:Name="HI_OFF"
                         Margin="184.6,166.2,10,27.6"
                         Content="HI OFF" Grid.Row="1"  Click="HI_OFF_Click" RenderTransformOrigin="0.475,-0.185" />
+                    <Button x:Name="connect_Pins" Content="Mux55" Grid.Column="3" HorizontalAlignment="Left" Margin="165,45,0,0" Grid.Row="1"
+                            VerticalAlignment="Top" Width="58" Height="27" Click="connect_Pins_Click"/>
 
                 </Grid>
             </TabItem>
