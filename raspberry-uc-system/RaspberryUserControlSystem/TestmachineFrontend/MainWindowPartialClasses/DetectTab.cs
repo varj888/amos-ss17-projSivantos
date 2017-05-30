@@ -17,17 +17,22 @@ namespace TestmachineFrontend
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
 
-        private void connectIP_button_Click(object sender, RoutedEventArgs e)
+        private async void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
+            //forces the user to wait until the connection is established
+            IsEnabled = false;
+
             try
             {
-                clientConnection = new ClientConn<Request>(IPaddress, 54321);
-                this.addMessage("TCP", "Connection to " + IPaddress + " established.");
+                clientConnection = await ClientConn.connect<Request>(IPaddress, 54321);
+                this.addMessage("connect", "Connection to " + IPaddress + " established.");
             }
             catch (Exception exception)
             {
-                this.addMessage("TCP", exception.Message);
+                this.addMessage("connect", exception.Message);
             }
+
+            IsEnabled = true;
         }
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)

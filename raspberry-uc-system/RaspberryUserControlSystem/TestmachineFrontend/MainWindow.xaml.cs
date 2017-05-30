@@ -31,7 +31,7 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ClientConn<Request> clientConnection;
+        private ObjConn<Request> clientConnection;
 
         public MainWindow()
         {
@@ -39,8 +39,6 @@ namespace TestmachineFrontend
 
             this.DataContext = this;
         }
-
-      
     }
        
 }
