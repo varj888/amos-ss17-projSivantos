@@ -16,15 +16,12 @@ namespace TestmachineFrontend
         //UI Bindings
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
-        public string Port { get; set; }
-
-        private ClientConn<Request> clientConnection;
 
         private void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                clientConnection = new ClientConn<Request>(IPaddress, 13370);
+                clientConnection = new ClientConn<Request>(IPaddress, 54321);
                 this.addMessage("TCP", "Connection to " + IPaddress + " established.");
             }
             catch (Exception exception)

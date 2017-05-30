@@ -36,28 +36,21 @@ namespace RaspberryBackend
 
         public MainPage()
         {
-
-
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
 
             // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
             raspberryPi.initialize();
 
+            raspberryPi.GpioInterface.initPins();
+
             //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
 
-
             // set up request controller
-            requestController = RequestController.Instance;
-
-
-           
-            raspberryPi.GpioInterface.initPins();
-              
+            requestController = RequestController.Instance; 
 
             //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
-
 
             //Start listening for incoming requests
             runRequestServerAsync();
@@ -67,7 +60,7 @@ namespace RaspberryBackend
 
         private async Task runRequestServerAsync()
         {
-            TCPServer<Request> requestServer = new TCPServer<Request>(13370);
+            TCPServer<Request> requestServer = new TCPServer<Request>(54321);
             while (true)
             {
                 try

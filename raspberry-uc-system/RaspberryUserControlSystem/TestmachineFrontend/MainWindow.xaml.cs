@@ -31,6 +31,7 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ClientConn<Request> clientConnection;
 
         public MainWindow()
         {
