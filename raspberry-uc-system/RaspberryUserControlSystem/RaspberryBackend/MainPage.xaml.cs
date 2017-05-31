@@ -60,12 +60,12 @@ namespace RaspberryBackend
 
         private async Task runRequestServerAsync()
         {
-            TCPServer<Request> requestServer = new TCPServer<Request>(54321);
+            TCPServer<Request, Result> requestServer = new TCPServer<Request, Result>(54321);
             while (true)
             {
                 try
                 {
-                    using (ObjConn<Request> connection = await requestServer.acceptConnectionAsync())
+                    using (ObjConn<Request, Result> connection = await requestServer.acceptConnectionAsync())
                     {
                         handleRequestConnection(connection);
                     }
@@ -77,7 +77,7 @@ namespace RaspberryBackend
             }
         }
 
-        private void handleRequestConnection(ObjConn<Request> conn)
+        private void handleRequestConnection(ObjConn<Request,Result> conn)
         {
             while (true)
             {

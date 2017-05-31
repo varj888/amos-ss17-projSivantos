@@ -24,7 +24,7 @@ namespace TestmachineFrontend
 
             try
             {
-                clientConnection = await ClientConn.connect<Request>(IPaddress, 54321);
+                clientConnection = await ClientConn<Result, Request>.connectAsync(IPaddress, 54321);
                 this.addMessage("connect", "Connection to " + IPaddress + " established.");
             }
             catch (Exception exception)

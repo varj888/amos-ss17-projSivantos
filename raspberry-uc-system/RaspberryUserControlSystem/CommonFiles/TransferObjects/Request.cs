@@ -8,8 +8,7 @@ using System.Runtime.Serialization;
 namespace CommonFiles.TransferObjects
 {
     /// <summary>
-    /// Unit of transfer by the RequestConnClient Class
-    /// is only as a container for the two variables methodName and parameter
+    /// Objects of this type will be send from the Testmachine to the Raspberry pi to control it
     /// </summary>
     [DataContract]
     public class Request

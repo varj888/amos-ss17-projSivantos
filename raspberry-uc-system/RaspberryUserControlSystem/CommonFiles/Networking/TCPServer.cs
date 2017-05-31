@@ -12,10 +12,11 @@ namespace CommonFiles.Networking
 {
 
     /// <summary>
-    /// Allows to Listen for Connections and handle them
+    /// Allows to Listen for Connections and accepting them
     /// </summary>
-    /// <typeparam name="T">Type of the Object, wich will be transfered between client and server</typeparam>
-    public class TCPServer<T>
+    /// <typeparam name="inType">Type of the Objects, which will be received from the client</typeparam>
+    /// /// <typeparam name="outType">Type of the Objects, which will be received from the client</typeparam>
+    public class TCPServer<inType, outType>
     {
         private TcpListener listener;
 
@@ -36,7 +37,7 @@ namespace CommonFiles.Networking
         /// Accepts a TCP Connection to a Client
         /// </summary>
         /// <returns>An Object representing the Connection</returns>
-        public async Task<ObjConn<T>> acceptConnectionAsync()
+        public async Task<ObjConn<inType, outType>> acceptConnectionAsync()
         {
             // Accept Requests
             TcpClient client = await listener.AcceptTcpClientAsync();
@@ -44,7 +45,7 @@ namespace CommonFiles.Networking
             // Get a stream object for reading and writing
             NetworkStream stream = client.GetStream();
 
-            return new ObjConn<T>(stream);
+            return new ObjConn<inType, outType>(stream);
         }
     }
 
