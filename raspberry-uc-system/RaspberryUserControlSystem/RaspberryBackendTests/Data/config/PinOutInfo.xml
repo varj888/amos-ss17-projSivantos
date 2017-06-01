@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PinOutInfo>
+    <family name="Pure">
+        <model name="312 702 S (DN),312 702 M (DN),312 702 P (DN),312 702 HP (DN),312 702 no receiver (DN),312 702 S+ (DN),312 702 M+ (DN),312 702 P+ (DN),312 702 HP+ (DN),312 702 no receiver+ (DN),312 502 S (DN),312 502 M (DN),312 502 P (DN),312 502 HP (DN),312 502 no receiver (DN),312 502 S+ (DN),312 502 M+ (DN),312 502 P+ (DN),312 502 HP+ (DN),312 502 no receiver+ (DN),312 302 S (DN),312 302 M (DN),312 302 P (DN),312 302 HP (DN),312 302 no receiver (DN),Octiv R+ S (108/45) (DN),Octiv R+ M (119/60) (DN),Octiv R+ P (124/70) (DN),Octiv R+ HP (130/75) (DN),Octiv R+ no receiver (DN),312 302 S+ (DN),312 302 M+ (DN),312 302 P+ (DN),312 302 HP+ (DN),312 302 no receiver+ (DN),312 102 S+ (DN),312 102 M+ (DN),312 102 P+ (DN),312 102 HP+ (DN),312 102 no receiver+ (DN)">
+            <Pin number="1" value="" />
+            <Pin number="2" value="RockerSW" />
+            <Pin number="3" value="Ground" />
+            <Pin number="4" value="Ground" />
+            <Pin number="5" value="AMR" />
+            <Pin number="6" value="" />
+            <Pin number="7" value="AudioInput" />
+            <Pin number="8" value="" />
+            <Pin number="9" value="Ground" />
+            <Pin number="10" value="PB" />
+        </model>
+        <model name="10 702 S (DN),10 702 S+ (DN),10 702 M (DN),10 702 P (DN),10 702 HP (DN)">
+            <Pin number="1" value="Ground" />
+            <Pin number="2" value="PB" />
+            <Pin number="3" value="" />
+            <Pin number="4" value="" />
+            <Pin number="5" value="" />
+            <Pin number="6" value="" />
+            <Pin number="7" value="" />
+            <Pin number="8" value="" />
+            <Pin number="9" value="REC_DET" />
+            <Pin number="10" value="Ground" />
+        </model>
+    </family>
+    <family name="Nitro">
+        <model name="702(DN)">
+            <Pin number="1" value="Ground" />
+            <Pin number="2" value="Ground" />
+            <Pin number="3" value="AMR" />
+            <Pin number="4" value="RockerSW" />
+            <Pin number="5" value="LED" />
+            <Pin number="6" value="" />
+            <Pin number="7" value="AudioInput" />
+            <Pin number="8" value="" />
+            <Pin number="9" value="Ground" />
+            <Pin number="10" value="PB" />
+        </model>
+    </family>
+    <family name="Life">
+        <model name="702 (DN)">
+            <Pin number="1" value="" />
+            <Pin number="2" value="" />
+            <Pin number="3" value="PB" />
+            <Pin number="4" value="Ground" />
+            <Pin number="5" value="Ground" />
+            <Pin number="6" value="Ground" />
+            <Pin number="7" value="M" />
+            <Pin number="8" value="" />
+            <Pin number="9" value="" />
+            <Pin number="10" value="" />
+        </model>
+    </family>
+    <family name="Motion">
+        <model name="7mi SX (DN)">
+            <Pin number="1" value="" />
+            <Pin number="2" value="" />
+            <Pin number="3" value="AMR" />
+            <Pin number="4" value="Ground" />
+            <Pin number="5" value="Ground" />
+            <Pin number="6" value="" />
+            <Pin number="7" value="RockerSW" />
+            <Pin number="8" value="" />
+            <Pin number="9" value="" />
+            <Pin number="10" value="" />
+        </model>
+    </family>
+    <family name="Insio">
+        <model name="7mi CT VC+">
+            <Pin number="1" value="" />
+            <Pin number="2" value="" />
+            <Pin number="3" value="PB" />
+            <Pin number="4" value="" />
+            <Pin number="5" value="" />
+            <Pin number="6" value="" />
+            <Pin number="7" value="AMR" />
+            <Pin number="8" value="Ground" />
+            <Pin number="9" value="Stop-End" />
+            <Pin number="10" value="" />
+        </model>
+    </family>
+    <family name="Orion">
+        <model name="ITE VC 123/60 WL (DN),ITE VC+ 123/60 WL (DN),ITE VC/T 123/60 WL (DN),ITE VC/T+ 123/60 WL (DN),ITE VC/ST 123/60 WL (DN),ITE VC/ST+ 123/60 WL (DN),ITE Dir VC 123/60 WL (DN),ITE Dir VC+ 123/60 WL (DN),ITE Dir VC/T 123/60 WL (DN),ITE Dir VC/T+ 123/60 WL (DN),ITE Dir VC/ST 123/60 WL (DN),ITE Dir VC/ST+ 123/60 WL(DN),ITE VC 123/55 WL (DN),ITE VC+ 123/55 WL (DN),ITE VC/T 123/55 WL (DN),ITE VC/T+ 123/55 WL (DN),ITE VC/ST 123/55 WL (DN),ITE VC/ST+ 123/55 WL (DN),ITE Dir VC123/55 WL (DN),ITE Dir VC+ 123/55 WL (DN),ITE Dir VC/T 123/55 WL (DN),ITE Dir VC/T+ 123/55 WL (DN),ITE Dir VC/ST 123/55 WL (DN),ITE Dir VC/ST+ 123/55 WL (DN),ITEVC118/55 WL (DN),ITE VC+ 118/55 WL (DN),ITE VC/T 118/55 WL (DN),ITE VC/T+ 118/55 WL (DN),ITE VC/ST 118/55 WL (DN),ITE VC/ST+ 118/55 WL (DN),ITE Dir VC 118/55WL (DN),ITE Dir VC+ 118/55 WL (DN),ITE Dir VC/T 118/55 WL (DN),ITE Dir VC/T+ 118/55 WL (DN),ITE Dir VC/ST 118/55 WL (DN),ITE Dir VC/ST+ 118/55 WL (DN),HS VC118/55 WL (DN),HS VC+ 118/55 WL (DN),HS VC/T 118/55 WL (DN),HS VC/T+ 118/55 WL (DN),HS VC/ST 118/55 WL (DN),HS VC/ST+ 118/55 WL (DN),HS Dir VC 118/55 WL (DN),HSDirVC+ 118/55 WL (DN),HS Dir VC/T 118/55 WL (DN),HS Dir VC/T+ 118/55 WL (DN),HS Dir VC/ST 118/55 WL (DN),HS Dir VC/ST+ 118/55 WL (DN),HS VC 118/45 WL (DN),HSVC+ 118/45 WL (DN),HS VC/T 118/45 WL (DN),HS VC/T+ 118/45 WL (DN),HS VC/ST 118/45 WL (DN),HS VC/ST+ 118/45 WL (DN),HS Dir VC 118/45 WL (DN),HS Dir VC+ 118/45WL (DN),HS Dir VC/T 118/45 WL (DN),HS Dir VC/T+ 118/45 WL (DN),HS Dir VC/ST 118/45 WL (DN),HS Dir VC/ST+ 118/45 WL (DN),HS VC 113/40 WL (DN),HS VC+ 113/40 WL(DN),HS VC/T 113/40 WL (DN),HS VC/T+ 113/40 WL (DN),HS VC/ST 113/40 WL (DN),HS VC/ST+ 113/40 WL (DN),HS Dir VC 113/40 WL (DN),HS Dir VC+ 113/40 WL (DN),HS Dir VC/T113/40 WL (DN),HS Dir VC/T+ 113/40 WL (DN),HS Dir VC/ST 113/40 WL (DN),HS Dir VC/ST+ 113/40 WL (DN),ITC VC 118/55 WL (DN),ITC VC+ 118/55 WL (DN),ITC VC/T 118/55WL (DN),ITC VC/T+ 118/55 WL (DN),ITC VC/ST 118/55 WL (DN),ITC VC/ST+ 118/55 WL (DN),ITC Dir VC 118/55 WL (DN),ITC Dir VC+ 118/55 WL (DN),ITC Dir VC/T 118/55 WL (DN),ITC Dir VC/T+118/55 WL (DN),ITC Dir VC/ST 118/55 WL (DN),ITC Dir VC/ST+ 118/55 WL (DN),ITC VC 118/45 WL (DN),ITC VC+ 118/45 WL (DN),ITC VC/T 118/45 WL (DN),ITC VC/T+ 118/45WL(DN),ITC VC/ST 118/45 WL (DN),ITC VC/ST+ 118/45 WL (DN),ITC Dir VC 118/45 WL (DN),ITC Dir VC+ 118/45 WL (DN),ITC Dir VC/T 118/45 WL (DN),ITC Dir VC/T+ 118/45WL (DN),ITC Dir VC/ST 118/45 WL (DN),ITC Dir VC/ST+ 118/45 WL (DN),ITC VC 113/40 WL (DN),ITC VC+ 113/40 WL (DN),ITC VC/T 113/40 WL (DN),ITC VC/T+ 113/40 WL (DN),ITC VC/ST 113/40 WL (DN),ITC VC/ST+ 113/40 WL (DN),ITC Dir VC 113/40 WL (DN),ITC Dir VC+ 113/40 WL (DN),ITC Dir VC/T 113/40 WL (DN),ITC Dir VC/T+ 113/40 WL (DN),ITC Dir VC/ST 113/40 WL (DN),ITC Dir VC/ST+ 113/40 WL (DN)">
+            <Pin number="1" value="" />
+            <Pin number="2" value="" />
+            <Pin number="3" value="PB" />
+            <Pin number="4" value="Ground" />
+            <Pin number="5" value="Ground" />
+            <Pin number="6" value="" />
+            <Pin number="7" value="AMR" />
+            <Pin number="8" value="" />
+            <Pin number="9" value="EndlessVC" />
+            <Pin number="10" value="" />
+        </model>
+    </family>
+  <family name="D9_RIC312">
+    <model name="702 S (DN),702 S+ (DN),702 M+ (DN),702 M (DN),702 P+ (DN),702 P (DN),702 HP (DN),702 HP+ (DN),702 no receiver (DN),702 no receiver+ (DN), 502 S (DN), 502 S+ (DN), 502 M+ (DN), 502 M (DN), 502 P+ (DN), 502 P (DN), 502 HP (DN), 502 HP+ (DN), 502 no receiver+ (DN), 502 no receiver (DN), 302 S+ (DN), 302 S (DN), 302 M+ (DN), 302 M (DN), 302 P (DN), 302 P+ (DN), 302 HP (DN), 302 HP+ (DN), 302 no receiver+ (DN), 302 no receiver (DN)">
+      <Pin number="1" value="" />
+      <Pin number="2" value="RockerSW" />
+      <Pin number="3" value="Ground" />
+      <Pin number="4" value="Ground" />
+      <Pin number="5" value="AMR" />
+      <Pin number="6" value="" />
+      <Pin number="7" value="" />
+      <Pin number="8" value="" />
+      <Pin number="9" value="REC_DET" />
+      <Pin number="10" value="" />
+    </model>
+  </family>
+  <family name="D9_RIC10">
+    <model name="702 S (DN),702 M (DN),702 P (DN),702 HP (DN),702 no receiver (DN),502 S (DN),502 M (DN),502 P (DN), 502 HP (DN),502 no receiver (DN)">
+      <Pin number="1" value="" />
+      <Pin number="2" value="PB" />
+      <Pin number="3" value="" />
+      <Pin number="4" value="" />
+      <Pin number="5" value="" />
+      <Pin number="6" value="" />
+      <Pin number="7" value="" />
+      <Pin number="8" value="REC_DET" />
+      <Pin number="9" value="REC_DET" />
+      <Pin number="10" value="" />
+    </model>
+  </family>
+  <family name="D9_RIC13">
+    <model name="702 S (DN),702 M (DN),702 P (DN),702 HP (DN),702 no receiver (DN),502 S (DN),502 M (DN),502 P (DN), 502 HP (DN),502 no receiver (DN)">
+      <Pin number="1" value="Ground" />
+      <Pin number="2" value="Ground" />
+      <Pin number="3" value="" />
+      <Pin number="4" value="AMR" />
+      <Pin number="5" value="REC_DET" />
+      <Pin number="6" value="Ground" />
+      <Pin number="7" value="" />
+      <Pin number="8" value="Ground" />
+      <Pin number="9" value="" />
+      <Pin number="10" value="RockerSW" />
+    </model>
+  </family>
+  <family name="D9">
+    <model name="BTE A SX 7bx (DN)">
+      <Pin number="1" value="" />
+      <Pin number="2" value="" />
+      <Pin number="3" value="" />
+      <Pin number="4" value="" />
+      <Pin number="5" value="" />
+      <Pin number="6" value="" />
+      <Pin number="7" value="" />
+      <Pin number="8" value="" />
+      <Pin number="9" value="" />
+      <Pin number="10" value="RockerSW" />
+    </model>
+  </family>
+</PinOutInfo>

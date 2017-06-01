@@ -4,7 +4,7 @@ namespace RaspberryBackend
 {
     public interface ICommand
     {
-        void execute(Object parameter);
+        void executeAsync(Object parameter);
 
     }
 }

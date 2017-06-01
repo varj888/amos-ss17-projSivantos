@@ -17,26 +17,23 @@ namespace RaspberryBackend
         /// execute the Command TurnOnHI
         /// </summary>
         /// <param name="batteryDrainLevel">represents the capacity of a battery</param>
-        public override void execute(Object batteryDrainLevel)
+        public override void executeAsync(Object batteryDrainLevel)
         {
             string requestedParameter = batteryDrainLevel.ToString();
-
             if (requestedParameter.Equals("127"))
             {
                 //RaspberryPi.Potentiometer._potentiometer.Read();
-                RaspberryPi.Potentiometer.write(dataBufferON);
+                RaspberryPi.setHIPower(dataBufferON);
             }
             else if (requestedParameter.Equals("0"))
             {
-                RaspberryPi.Potentiometer.write(dataBufferOFF);
+                RaspberryPi.setHIPower(dataBufferOFF);
             }
             else
             {
                 dataBufferVariable[0] = (byte)batteryDrainLevel;
-                RaspberryPi.Potentiometer.write(dataBufferVariable);
+                RaspberryPi.setHIPower(dataBufferVariable);
             }
-
         }
-
     }
 }

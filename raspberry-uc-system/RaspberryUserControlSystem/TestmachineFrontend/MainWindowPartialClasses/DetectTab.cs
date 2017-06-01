@@ -87,5 +87,10 @@ namespace TestmachineFrontend
         {
             sliderValue = Convert.ToByte(setVoltage_Slider.Value);
         }
+
+        private void connect_Pins_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("ConnectPins", 0));
+        }
     }
 }

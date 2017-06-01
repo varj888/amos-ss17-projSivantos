@@ -30,7 +30,6 @@ namespace RaspberryBackend
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         RequestController requestController = null;
         RaspberryPi raspberryPi = null;
 
@@ -47,7 +46,11 @@ namespace RaspberryBackend
             //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
 
             // set up request controller
+<<<<<<< HEAD
             requestController = RequestController.Instance; 
+=======
+            requestController = RequestController.Instance;
+>>>>>>> refs/remotes/origin/breadboard_xml_config
 
             //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
