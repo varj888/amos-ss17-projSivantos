@@ -87,15 +87,11 @@ namespace RaspberryBackend
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
 
                 //Process Request
-                try
-                {
-                    requestController.handleRequest(request);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error handling Request: " + e.Message);
-                    //todo: notify client about error
-                }
+                Result result = requestController.handleRequest(request);
+                Debug.WriteLine("Error handling Request: " + result.exceptionMessage);
+
+                //Send back Result to the client
+                conn.sendObject(result);
             }
         }
     }

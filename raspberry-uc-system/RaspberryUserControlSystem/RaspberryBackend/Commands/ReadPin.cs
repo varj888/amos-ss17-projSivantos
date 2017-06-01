@@ -21,21 +21,11 @@ namespace RaspberryBackend
         /// <param name="parameter">represents the GpioPin to read from</param>
         public override void execute(Object parameter)
         {
-            UInt16 id = 0;
-            if (parameter.GetType() == typeof(UInt16))
-            {
-                id = (UInt16)parameter;
-                RaspberryPi.GpioInterface.setToInput(id);
-                currentState = RaspberryPi.GpioInterface.readPin(id);
-                Debug.Write(string.Format("Pin {0} has currently the state: ", parameter.ToString()));
-                Debug.WriteLine(currentState);
-            }
-            else
-            {
-                return;
-            }
-
+             UInt16 id = (UInt16)parameter;
+             RaspberryPi.GpioInterface.setToInput(id);
+             currentState = RaspberryPi.GpioInterface.readPin(id);
+             Debug.Write(string.Format("Pin {0} has currently the state: ", parameter.ToString()));
+             Debug.WriteLine(currentState);
         }
-
     }
 }

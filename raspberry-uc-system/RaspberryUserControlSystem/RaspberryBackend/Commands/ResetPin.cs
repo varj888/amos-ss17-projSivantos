@@ -19,20 +19,10 @@ namespace RaspberryBackend
         /// <param name="parameter">represents the GpioPin which shall be reset</param>
         public override void execute(Object parameter)
         {
-            UInt16 id = 0;
-            if (parameter.GetType() == typeof(UInt16))
-            {
-                id = (UInt16)parameter;
-                RaspberryPi.GpioInterface.setToOutput(id);
-                RaspberryPi.GpioInterface.writePin(id, 0);
-
-            }
-            else
-            {
-                return;
-            }
-
+           
+           UInt16 id = (UInt16)parameter;
+           RaspberryPi.GpioInterface.setToOutput(id);
+           RaspberryPi.GpioInterface.writePin(id, 0);
         }
-
     }
 }
