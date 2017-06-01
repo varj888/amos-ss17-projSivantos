@@ -24,7 +24,7 @@ namespace RaspberryBackendTests
         public void setUp()
         {
             _request = new Request(_TESTCOMMAND_1, _TESTPARAM_1);
-            _result = new Result(new Exception("testException"));
+            _result = new Result("testexception");
         }
 
         [TestMethod]

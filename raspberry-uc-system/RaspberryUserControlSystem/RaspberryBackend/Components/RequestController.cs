@@ -38,36 +38,8 @@ namespace RaspberryBackend
 
             try
             {
-<<<<<<< HEAD
                 //look if the command was already requested once, if not, create it. 
                 if (!Command.Instances.TryGetValue(request.command, out command))
-=======
-                try
-                {
-                    //look if the command was already requested once, if not, create it. 
-                    if (!Command.Instances.TryGetValue(request.command, out command))
-                    {
-                        Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
-                        command = createCommand(request);
-                        Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
-                    }
-
-                    //then, if gpioInterface is ready, execute command
-                    if (raspberryPi.isInitialized())
-                    {
-                        command.executeAsync(request.parameter);
-                    }
-                    else
-                    {
-                        throw new Exception("raspberryPi must be initialized.");
-                    }
-                }
-                catch (ArgumentNullException e)
->>>>>>> refs/remotes/origin/breadboard_xml_config
                 {
                     Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
                     command = createCommand(request);
@@ -77,7 +49,6 @@ namespace RaspberryBackend
                 {
                     Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
                 }
-<<<<<<< HEAD
             }
             catch (Exception e)
             {
@@ -86,7 +57,7 @@ namespace RaspberryBackend
 
             try
             {
-                command.execute(request.parameter);
+                command.executeAsync(request.parameter);
             }
             catch(Exception e)
             {
@@ -95,10 +66,6 @@ namespace RaspberryBackend
 
             return new Result(null);      
                 
-=======
-            }
-            return command;
->>>>>>> refs/remotes/origin/breadboard_xml_config
         }
 
         /// <summary>

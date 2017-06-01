@@ -18,24 +18,8 @@ namespace RaspberryBackend
         /// <param name="parameter">represents the GpioPin which shall be written on</param>
         public override void executeAsync(Object parameter)
         {
-<<<<<<< HEAD
             UInt16 id = (UInt16)parameter;
-            RaspberryPi.GpioInterface.setToOutput(id);
-            RaspberryPi.GpioInterface.writePin(id, 1);
-=======
-            UInt16 id = 0;
-            if (parameter.GetType() == typeof(UInt16))
-            {
-                id = (UInt16)parameter;
-                RaspberryPi.activatePin(id);
-            }
-            else
-            {
-                return;
-            }
-
->>>>>>> refs/remotes/origin/breadboard_xml_config
+            RaspberryPi.activatePin(id);
         }
-
     }
 }

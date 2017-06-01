@@ -38,19 +38,20 @@ namespace RaspberryBackend
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
 
-            // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
-            raspberryPi.initialize();
-
-            raspberryPi.GpioInterface.initPins();
+            // try catch, because i have exception in function pulseEnable
+            try
+            {
+                // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
+                raspberryPi.initialize();
+            }
+            catch(Exception e)
+            {
+            }
 
             //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
 
             // set up request controller
-<<<<<<< HEAD
-            requestController = RequestController.Instance; 
-=======
             requestController = RequestController.Instance;
->>>>>>> refs/remotes/origin/breadboard_xml_config
 
             //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
