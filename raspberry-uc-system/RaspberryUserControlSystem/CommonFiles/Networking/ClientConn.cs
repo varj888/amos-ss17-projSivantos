@@ -9,14 +9,59 @@ using System.Threading.Tasks;
 namespace CommonFiles.Networking
 {
 
-    public class ClientConn
+    /// <summary>
+    /// Allows to send to a server and receive from a server
+    /// </summary>
+    /// <typeparam name="inType">Type of Objects received from the server</typeparam>
+    /// <typeparam name="outType">Type of Objects send to the server</typeparam>
+    public class ClientConn<inType, outType>: IDisposable
     {
-        public static async Task<ObjConn<T>> connect<T>(string hostname, int port)
+        /// <summary>
+        /// connects to a Server
+        /// </summary>
+        /// <param name="hostname">hostname of the server to connect to</param>
+        /// <param name="port">port of the server to connect to</param>
+        /// <returns></returns>
+        public static async Task<ClientConn<inType, outType>> connectAsync(string hostname, int port)
         {
             TcpClient socket = new TcpClient();
             await socket.ConnectAsync(hostname, port);
             NetworkStream stream = socket.GetStream();
-            return new ObjConn<T>(stream);
+            ObjConn<inType, outType> objConn = new ObjConn<inType, outType>(stream);
+            return new ClientConn<inType, outType>(objConn);
+        }
+
+        private ObjConn<inType, outType> objConn;
+
+        // private constructor to avoid instantiation without calling connect
+        private ClientConn(ObjConn<inType, outType> objConn) {
+            this.objConn = objConn;
+        }
+
+        /// <summary>
+        /// sends an Object of Type outType to the server
+        /// </summary>
+        /// <param name="obj"></param>
+        public void sendObject(outType obj)
+        {
+            objConn.sendObject(obj);
+        }
+
+        /// <summary>
+        /// receives an Object of Type outType from the server
+        /// </summary>
+        /// <returns></returns>
+        public inType receiveObject()
+        {
+            return objConn.receiveObject();
+        }
+
+        /// <summary>
+        /// closes the connection
+        /// </summary>
+        public void Dispose()
+        {
+            objConn.Dispose();
         }
     }
 }

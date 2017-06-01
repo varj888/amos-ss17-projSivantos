@@ -21,16 +21,16 @@ namespace RaspberryBackendTests
         private const string _TESTCOMMAND_2 = "TestCommand_2";
         private const int _TESTPARAM_2 = 2;
 
-        TCPServer<Request> tcpServer;
-        ClientConn<Request> tcpClient;
+        TCPServer<Request, Result> tcpServer;
+        ClientConn<Result, Request> tcpClient;
 
-        ObjConn<Request> connection;
+        ObjConn<Request, Result> connection;
 
         [TestInitialize]
         public async Task setUp()
         {
-            tcpServer = new TCPServer<Request>(_PORT);
-            tcpClient = new ClientConn<Request>(_LOCALHOST, _PORT);
+            tcpServer = new TCPServer<Request, Result>(_PORT);
+            tcpClient = await ClientConn<Result,Request>.connectAsync(_LOCALHOST, _PORT);
 
             connection = await tcpServer.acceptConnectionAsync();
         }

@@ -24,7 +24,7 @@ namespace TestmachineFrontend
 
             try
             {
-                clientConnection = await ClientConn.connect<Request>(IPaddress, 54321);
+                clientConnection = await ClientConn<Result, Request>.connectAsync(IPaddress, 54321);
                 this.addMessage("connect", "Connection to " + IPaddress + " established.");
             }
             catch (Exception exception)
@@ -86,6 +86,11 @@ namespace TestmachineFrontend
         private void setVoltage_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             sliderValue = Convert.ToByte(setVoltage_Slider.Value);
+        }
+
+        private void connect_Pins_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("ConnectPins", 0));
         }
     }
 }

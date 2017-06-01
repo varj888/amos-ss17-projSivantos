@@ -15,7 +15,7 @@ namespace RaspberryBackend
         {
         }
 
-        public override void execute(object parameter)
+        public override void executeAsync(object parameter)
         {
             string requestedParameter = parameter.ToString();
 
@@ -36,10 +36,8 @@ namespace RaspberryBackend
 
         private void switchToState(byte targetState)
         {
-            RaspberryPi.LcdDisplay.backLight = targetState;
-            RaspberryPi.LcdDisplay.write(targetState, 1);
+            RaspberryPi.setLCDBackgroundState(targetState);
             Debug.WriteLine("Backlight state changed!");
-
         }
     }
 }

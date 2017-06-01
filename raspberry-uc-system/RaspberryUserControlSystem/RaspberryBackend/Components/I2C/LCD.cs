@@ -11,12 +11,10 @@ namespace RaspberryBackend
     /// Software representation of the LCD Display. 
     /// </summary>
     public class LCD
-
     {
         //Adress setup information
         public const string I2C_CONTROLLER_NAME = "I2C1"; //use for RPI2
         public const byte DEVICE_I2C_ADDRESS = 0x27; // 7-bit I2C address of the port expander
-
 
         private const byte LCD_WRITE = 0x07;
         private const byte Command_sendMode = 0;
@@ -36,19 +34,18 @@ namespace RaspberryBackend
 
         public byte backLight { get; set; } = 0x00;
         public int scrollSpeed { get; set; }
-        public CancellationTokenSource cancelToken { get; set; }
 
+        private Boolean _initialized = false;
         private I2cDevice _lcdDisplay;
 
         public LCD()
         {
-
             // It's async method, so we have to wait
             Task.Run(() => this.startI2C()).Wait();
         }
 
         /**
-        * Start I2C Communication
+        * Open communication channel to LCD
         **/
         public async void startI2C()
         {
@@ -68,13 +65,12 @@ namespace RaspberryBackend
 
         }
 
-
         /**
         * Initialization
         **/
         public void initiateLCD(bool turnOnDisplay = true, bool turnOnCursor = false, bool blinkCursor = false, bool cursorDirection = true, bool textShift = false)
         {
-            //Task.Delay(100).Wait();
+            Task.Delay(100).Wait();
             //pulseEnable(Convert.ToByte((turnOnBacklight << 3)));
 
             /* Init sequence */
@@ -96,10 +92,16 @@ namespace RaspberryBackend
             pulseEnable(0);
             pulseEnable(Convert.ToByte((1 << D7c) | (Convert.ToByte(turnOnDisplay) << D6c) | (Convert.ToByte(turnOnCursor) << D5c) | (Convert.ToByte(blinkCursor) << D4c)));
 
-            this.clrscr();
-
             pulseEnable(0);
             pulseEnable(Convert.ToByte((1 << D6c) | (Convert.ToByte(cursorDirection) << D5c) | (Convert.ToByte(textShift) << D4c)));
+
+            this.clrscr();
+            _initialized = true;
+        }
+
+        public Boolean isInitialized()
+        {
+            return _initialized;
         }
 
         /**
@@ -111,7 +113,7 @@ namespace RaspberryBackend
             this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (1 << EN) | (backLight << BL)) });
             // Enable bit LOW
             this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (this.backLight << BL)) });
-            //Task.Delay(2).Wait(); //In case of problem with displaying wrong characters uncomment this part
+            Task.Delay(100).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
         /**
@@ -124,7 +126,6 @@ namespace RaspberryBackend
             Task.Delay(5).Wait();
         }
 
-
         /// <summary>
         /// sends information to the LCD either data or commands
         /// </summary>
@@ -134,14 +135,67 @@ namespace RaspberryBackend
         {
             pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << RS)));
             pulseEnable(Convert.ToByte((data & 0x0f) << 4 | (Rs << RS)));
-            //Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
+            Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
+        }
+
+        /**
+        * skip to second line
+        **/
+        private void gotoSecondLine()
+        {
+            write(0xc0, Command_sendMode);
+        }
+
+        public void printInTwoLines(string text, int charsMaxInLine)
+        {
+            string line1 = "", line2 = "";
+
+            line1 = text.Substring(0, charsMaxInLine);
+            line2 = text.Substring(charsMaxInLine);
+
+            prints(line1);
+            gotoSecondLine();
+            prints(line2);
+        }
+
+        /**
+        * Can print string onto display
+        **/
+        public void prints(string text)
+        {
+            for (int i = 0; i < text.Length; i++)
+            {
+                this.printc(text[i]);
+            }
+        }
+
+        /**
+        * Print single character onto display
+        **/
+        private void printc(char letter)
+        {
+            try
+            {
+                write(Convert.ToByte(letter), Data_sendMode);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Message);
+            }
+        }
+
+        /**
+        * goto X and Y 
+        **/
+        public void gotoxy(byte x, byte y)
+        {
+            write(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)), Command_sendMode);
         }
 
         //========================================================================================================
         //======================== The Following methods are not used by this class ==============================
         //======================== and shoul be moved to Commands                   ==============================
         //========================================================================================================
-
 
         /**
         * Save custom symbol to CGRAM
@@ -157,7 +211,6 @@ namespace RaspberryBackend
             this.clrscr();
         }
 
-
         /**
         * Print custom symbol
         **/
@@ -165,19 +218,5 @@ namespace RaspberryBackend
         {
             write(address, Data_sendMode);
         }
-
-
-        /**
-        * goto X and Y 
-        **/
-        public void gotoxy(byte x, byte y)
-        {
-            write(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)), Command_sendMode);
-        }
-
-
-
-
     }
-
 }

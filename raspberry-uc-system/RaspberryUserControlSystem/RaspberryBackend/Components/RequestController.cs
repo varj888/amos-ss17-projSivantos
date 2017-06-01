@@ -10,7 +10,6 @@ namespace RaspberryBackend
    /// </summary>
     class RequestController
     {
-
         private static readonly RequestController _instance = new RequestController();
         public RaspberryPi raspberryPi { get; set; }
 
@@ -22,7 +21,6 @@ namespace RaspberryBackend
             }
         }
 
-
         private RequestController() { }
 
         /// <summary>
@@ -30,53 +28,44 @@ namespace RaspberryBackend
         /// Note: At this point, only execution commands are content of the requests.
         /// </summary>
         /// <param name="request">the request information of the Frontend application</param>
-        public Command handleRequest(Request request)
+        /// <returns>
+        ///  Returns a Result which is instanciated with exceptionMessage == null, if the command could be executed without exception
+        ///  Returns a Result with exceptionMessage != null, if the command could not be executed without exception
+        /// </returns>
+        public Result handleRequest(Request request)
         {
-
             Command command = null;
 
-            if (request != null)
+            try
             {
-
-                try
+                //look if the command was already requested once, if not, create it. 
+                if (!Command.Instances.TryGetValue(request.command, out command))
                 {
-
-                    //look if the command was already requested once, if not, create it. 
-                    if (!Command.Instances.TryGetValue(request.command, out command))
-                    {
-                        Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
-                        command = createCommand(request);
-                        Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
-                    }
-
-
-                    //then, if gpioInterface is ready, execute command
-                    if (RaspberryPi.Instance.GpioInterface.Initialized)
-                    {
-                        command.execute(request.parameter);
-                    }
-                    else
-                    {
-                        throw new Exception("raspberryPi must be initialized.");
-                    }
-
+                    Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
+                    command = createCommand(request);
+                    Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
                 }
-                catch (ArgumentNullException e)
+                else
                 {
-                    throw new ArgumentNullException("Requested command was not found: " + request.command);
+                    Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
                 }
-                catch (Exception e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-
+            }
+            catch (Exception e)
+            {
+                return new Result("Command could not be created");
             }
 
-            return command;
+            try
+            {
+                command.executeAsync(request.parameter);
+            }
+            catch(Exception e)
+            {
+                return new Result(e.Message);
+            }
+
+            return new Result(null);      
+                
         }
 
         /// <summary>
@@ -88,7 +77,6 @@ namespace RaspberryBackend
         /// <returns> The requested Command Type</returns>
         private Command createCommand(Request request)
         {
-
             string command = "RaspberryBackend." + request.command;
 
             //typeof(ICommand).GetTypeInfo().Assembly:
@@ -98,7 +86,6 @@ namespace RaspberryBackend
             //-- assembly utilize the Assembly information and returns the referenced assembly
             Assembly executingAssembly = typeof(ICommand).GetTypeInfo().Assembly;
             Type commandType = executingAssembly.GetType(command);
-
 
             return (Command)Activator.CreateInstance(commandType, raspberryPi);
         }

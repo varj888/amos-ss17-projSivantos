@@ -74,8 +74,8 @@
     <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
       <Link>CommonFiles\TransferObjects\Request.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\TransferObjects\Status.cs">
-      <Link>CommonFiles\TransferObjects\Status.cs</Link>
+    <Compile Include="..\CommonFiles\TransferObjects\Result.cs">
+      <Link>CommonFiles\TransferObjects\Result.cs</Link>
     </Compile>
     <Compile Include="DebugContent.cs" />
     <Page Include="MainWindow.xaml">

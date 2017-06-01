@@ -30,7 +30,6 @@ namespace RaspberryBackend
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         RequestController requestController = null;
         RaspberryPi raspberryPi = null;
 
@@ -39,15 +38,20 @@ namespace RaspberryBackend
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
 
-            // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
-            raspberryPi.initialize();
-
-            raspberryPi.GpioInterface.initPins();
+            // try catch, because i have exception in function pulseEnable
+            try
+            {
+                // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
+                raspberryPi.initialize();
+            }
+            catch(Exception e)
+            {
+            }
 
             //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
 
             // set up request controller
-            requestController = RequestController.Instance; 
+            requestController = RequestController.Instance;
 
             //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
@@ -60,12 +64,12 @@ namespace RaspberryBackend
 
         private async Task runRequestServerAsync()
         {
-            TCPServer<Request> requestServer = new TCPServer<Request>(54321);
+            TCPServer<Request, Result> requestServer = new TCPServer<Request, Result>(54321);
             while (true)
             {
                 try
                 {
-                    using (ObjConn<Request> connection = await requestServer.acceptConnectionAsync())
+                    using (ObjConn<Request, Result> connection = await requestServer.acceptConnectionAsync())
                     {
                         handleRequestConnection(connection);
                     }
@@ -77,7 +81,7 @@ namespace RaspberryBackend
             }
         }
 
-        private void handleRequestConnection(ObjConn<Request> conn)
+        private void handleRequestConnection(ObjConn<Request,Result> conn)
         {
             while (true)
             {
@@ -87,15 +91,11 @@ namespace RaspberryBackend
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
 
                 //Process Request
-                try
-                {
-                    requestController.handleRequest(request);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error handling Request: " + e.Message);
-                    //todo: notify client about error
-                }
+                Result result = requestController.handleRequest(request);
+                Debug.WriteLine("Error handling Request: " + result.exceptionMessage);
+
+                //Send back Result to the client
+                conn.sendObject(result);
             }
         }
     }
