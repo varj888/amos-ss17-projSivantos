@@ -21,7 +21,6 @@ namespace TestmachineFrontend
             try
             {
                 clientConnection.sendObject(request);
-                this.addMessage(request.command, "Request sent");
             }
             catch (Exception ex)
             {
@@ -36,8 +35,7 @@ namespace TestmachineFrontend
                 result = clientConnection.receiveObject();
             }catch(Exception e)
             {
-                this.addMessage(request.command, "Request could not be received: " + e.Message);
-                
+                this.addMessage(request.command, "Result could not be received: " + e.Message);
                 return;
             }
 
