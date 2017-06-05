@@ -175,10 +175,9 @@
       <Name>Windows IoT Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Reference Include="ABElectronics_Win10IOT_Libraries">
-      <HintPath>..\..\..\..\..\..\Downloads\abelectronicsuk-ABElectronics_Win10IOT_Libraries-d8be919\ABElectronics_Win10IOT_Libraries\bin\Release\ABElectronics_Win10IOT_Libraries.dll</HintPath>
+      <HintPath>..\packages\ABElectronics_Win10IOT\ABElectronics_Win10IOT_Libraries.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
