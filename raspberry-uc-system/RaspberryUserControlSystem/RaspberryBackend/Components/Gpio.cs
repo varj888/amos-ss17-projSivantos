@@ -33,7 +33,7 @@ namespace RaspberryBackend
             pin_ids["PIN_13"] = 13;  //PullDown
             pin_ids["PIN_16"] = 16;  //PullDown SPI1 CS0
             pin_ids["PIN_17"] = 17;  //PullDown
-            pin_ids["PIN_18"] = 18;  //PullDown
+            pin_ids["PIN_18"] = 18;  //PullDown Reserved for NRESET on Mux
             pin_ids["PIN_19"] = 19;  //PullDown SPI1 MISO
             pin_ids["PIN_20"] = 20;  //PullDown SPI1 MOSI
             pin_ids["PIN_21"] = 21;  //PullDown SPI1 SCLK

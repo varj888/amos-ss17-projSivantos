@@ -1,0 +1,35 @@
+# How to network with a Win 10 IoT raspi
+
+Got a DHCP in your network? Great, you're done. Remember you probably won't have it when demoing though, except you have it on your portable machine.
+
+To set a static IP address on a raspi, do either of the following:
+  * Access your raspi remotely via the webinterface: http://<raspi-IP>:8080 (The Win10 IoT Webinterface speaks HTTPS, but with malformed SSL record, throwing errors in common browsers)
+  * Navigate to Connectivity > Network
+  * Select your LAN-adapter (something along the lines of LAN9512/LAN9514 USB 2.0 to Ethernet ) and click "IPv4 configuration"
+  * Configure your raspi to your wishes (switch to "Use the following IP address" )
+!! Obviously, if you change your raspis IP, you will need to adjust your own as well !!
+
+Alternatively:
+  * Access raspi via \\<raspi-IP>\c$
+  * Copy <repo-root>/tools/set_raspiip.bat to your raspi
+  * Login to your device (e.g. using the IoT dashboard)
+  * Switch to the path you copied the file to, then execute
+!! The file contains a preset configuration that you either need to adapt on your host or change it to whatever you want it to be !!
+
+Disclaimer Ad-hoc Wifi:
+  * WiFi is inherently unstable, especially in multiuser loaded systems
+  * For things such as connecting IoT raspis it is sufficient, but needs to be done with care
+  * Ad-hoc means your computer hosts it; If your computer crashes/ hangs, the raspi will eventually disconnect/ react indeterministically
+  * !! Do not use multiple WiFis with the same name !!
+  * !! Do not forget to turn off/ on the raspi when switching computers to host the Ad-hoc (this _is_ Windows after all) !!
+  * !! If your raspi does not connect, restart it. Do not turn off/ on the Ad-hoc !!
+  * Always check with the arp-table, just in case it _did_ get a new lease (Ad-hoc uses some sort of lightweight DHCP)
+
+Raspi-networking troubleshooting:
+  * Is it turned on?
+  * If using ethernet: Do the LEDs on the RJ45 port light up?
+  * Can you see it on your arp-table?
+  * Does it respond to pings? (ping <raspiip>)
+  * Does it show up in Win 10 IoT Dashboard?
+  * Can you connect to it using the Dashboard/ SSH/ SMB (\\<raspiip>\c$)?
+  * Have you tried turning it off and on again?

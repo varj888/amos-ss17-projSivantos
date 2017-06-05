@@ -98,6 +98,7 @@
     <Compile Include="MainWindowPartialClasses\DetectTab.cs" />
     <Compile Include="MainWindowPartialClasses\HelpingMethods.cs" />
     <Compile Include="MainWindowPartialClasses\LCDControlsTab.cs" />
+    <Compile Include="MainWindowPartialClasses\Mux55.cs" />
     <Compile Include="MainWindowPartialClasses\UserControlTab.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

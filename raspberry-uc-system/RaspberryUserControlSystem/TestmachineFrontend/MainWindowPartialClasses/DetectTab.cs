@@ -1,10 +1,6 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace TestmachineFrontend
@@ -37,13 +33,13 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-           sendRequest(new Request("ReadPin", PinID));
+            sendRequest(new Request("ReadPin", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
             sendRequest(new Request("WritePin", PinID));
-              
+
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
@@ -53,44 +49,47 @@ namespace TestmachineFrontend
 
         private void ledOFF_button_Click(object sender, RoutedEventArgs e)
         {
-           sendRequest(new Request("LightLED", 0));
+            sendRequest(new Request("LightLED", 0));
         }
 
         private void ledON_button_Click(object sender, RoutedEventArgs e)
         {
-               sendRequest(new Request("LightLED", 1));
+            sendRequest(new Request("LightLED", 1));
         }
 
         private void HI_ON_Click(object sender, RoutedEventArgs e)
         {
-                sendRequest(new Request("TurnOnHI", 127));
+            //Not yet implemented
+            //sendRequest(new Request("TurnOnHI", x));
         }
 
         private void HI_OFF_Click(object sender, RoutedEventArgs e)
         {
-               sendRequest(new Request("TurnOnHI", 0));
+            //Not yet implemented
+            //sendRequest(new Request("TurnOnHI", x));
         }
 
-        private void sendVoltageValue_Click(object sender, RoutedEventArgs e)
+        private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-                sendRequest(new Request("TurnOnHI", sliderValue));
-        }
-
-        private void setVoltage_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            sliderValue = Convert.ToByte(setVoltage_Slider.Value);
+            sliderValue = Convert.ToByte(setVolume_Slider.Value);
         }
 
         private byte sliderValue = 0;
 
-        private void setVoltage_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void setVolume_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            sliderValue = Convert.ToByte(setVoltage_Slider.Value);
+            sliderValue = Convert.ToByte(setVolume_Slider.Value);
         }
 
         private void connect_Pins_Click(object sender, RoutedEventArgs e)
         {
             sendRequest(new Request("ConnectPins", 0));
+        }
+
+
+        private void sendVolumeLevel_Button_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("SetAnalogVolume", sliderValue));
         }
     }
 }

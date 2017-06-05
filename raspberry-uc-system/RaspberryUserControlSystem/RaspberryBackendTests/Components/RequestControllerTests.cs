@@ -62,7 +62,7 @@ namespace RaspberryBackendTests
 
             Request TurnOnHIRequest = new Request("TurnOnHI", 127);
             Command TurnOnHICommand = requestController.handleRequest(TurnOnHIRequest);
-            Assert.IsTrue(TurnOnHICommand is TurnOnHI);
+            Assert.IsTrue(TurnOnHICommand is SetAnalogVolume);
             Assert.IsTrue(Command.Instances.ContainsValue(TurnOnHICommand));
 
             Request ToggleBacklight_LCDRequest = new Request("ToggleBacklight_LCD", 1);

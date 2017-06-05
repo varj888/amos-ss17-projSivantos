@@ -10,11 +10,16 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Connect pin x to y
+        /// Connect pin x to y, taken from pinarray[0] = x and pinarray[1] = y
         /// </summary>
         public override void executeAsync(Object pinarray)
         {
-            RaspberryPi.connectPins(5, 5);
+            int[] pins = (int[]) pinarray;
+            if (pins.Length != 2)
+            {
+                return;
+            }
+            RaspberryPi.connectPins(pins[0], pins[1]);
         }
     }
 }

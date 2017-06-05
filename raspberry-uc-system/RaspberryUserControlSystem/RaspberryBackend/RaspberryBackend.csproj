@@ -122,7 +122,7 @@
     <Compile Include="Commands\ResetPin.cs" />
     <Compile Include="Commands\SendToLCD.cs" />
     <Compile Include="Commands\ToggleBacklight_LCD.cs" />
-    <Compile Include="Commands\TurnOnHI.cs" />
+    <Compile Include="Commands\SetAnalogVolume.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />

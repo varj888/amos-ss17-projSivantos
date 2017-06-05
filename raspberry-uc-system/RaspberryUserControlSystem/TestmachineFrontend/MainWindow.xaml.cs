@@ -40,5 +40,5 @@ namespace TestmachineFrontend
             this.DataContext = this;
         }
     }
-       
+
 }
