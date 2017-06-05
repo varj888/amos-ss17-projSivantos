@@ -14,12 +14,17 @@ namespace RaspberryBackend
         /// </summary>
         public override void executeAsync(Object pinarray)
         {
-            int[] pins = (int[]) pinarray;
-            if (pins.Length != 2)
+            string s = ((string)pinarray);
+            string[] xy = s.Split('%');
+            
+
+            if (xy.Length != 2)
             {
                 return;
             }
-            RaspberryPi.connectPins(pins[0], pins[1]);
+
+
+            RaspberryPi.connectPins(Int32.Parse(xy[0]), Int32.Parse(xy[1]));
         }
     }
 }
