@@ -20,7 +20,7 @@ namespace RaspberryBackend
         public override void executeAsync(Object volumeLevel)
         {
             byte requestedVolumeLevel = (byte)volumeLevel;
-            if (requestedVolumeLevel < 0 || requestedVolumeLevel >= 127)
+            if (requestedVolumeLevel < 0 || requestedVolumeLevel > 127)
             {
                 throw new ArgumentOutOfRangeException("Volume can only operate in the intervall [0:127]");
             }
