@@ -74,7 +74,7 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                return new Result("Command could not be created");
+                return new Result("Command could not be created " + e.Message);
             }
 
             try

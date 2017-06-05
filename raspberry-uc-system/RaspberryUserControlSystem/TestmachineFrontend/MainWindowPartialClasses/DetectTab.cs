@@ -59,14 +59,20 @@ namespace TestmachineFrontend
 
         private void HI_ON_Click(object sender, RoutedEventArgs e)
         {
+            //sendRequest(new Request("TurnOnHI", 127));
+            sendRequest(new Request("TurnHIOn", 3.3));
             //Not yet implemented
             //sendRequest(new Request("TurnOnHI", x));
         }
 
         private void HI_OFF_Click(object sender, RoutedEventArgs e)
         {
-            //Not yet implemented
-            //sendRequest(new Request("TurnOnHI", x));
+            sendRequest(new Request("TurnOnHI", 0));
+        }
+
+        private void sendVoltageValue_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("TurnOnHI", sliderValue));
         }
 
         private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

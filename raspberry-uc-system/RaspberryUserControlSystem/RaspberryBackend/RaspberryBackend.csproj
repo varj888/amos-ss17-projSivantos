@@ -122,10 +122,13 @@
     <Compile Include="Commands\ResetPin.cs" />
     <Compile Include="Commands\SendToLCD.cs" />
     <Compile Include="Commands\ToggleBacklight_LCD.cs" />
+    <Compile Include="Commands\TurnHIOn.cs" />
+    <Compile Include="Commands\TurnOnHI.cs" />
     <Compile Include="Commands\SetAnalogVolume.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
+    <Compile Include="Components\SPI\ADConverter.cs" />
     <Compile Include="Data\MultiplexerConfigFactory.cs" />
     <Compile Include="Data\Config.cs" />
     <Compile Include="Components\I2C\I2C.cs" />
@@ -173,6 +176,11 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Reference Include="ABElectronics_Win10IOT_Libraries">
+      <HintPath>..\..\..\..\..\..\Downloads\abelectronicsuk-ABElectronics_Win10IOT_Libraries-d8be919\ABElectronics_Win10IOT_Libraries\bin\Release\ABElectronics_Win10IOT_Libraries.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
