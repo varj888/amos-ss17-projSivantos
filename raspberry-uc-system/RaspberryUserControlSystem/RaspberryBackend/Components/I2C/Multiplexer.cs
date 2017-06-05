@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,6 +96,12 @@ namespace RaspberryBackend
         /// <param name="dataBuffer"></param>
         private void write(byte[] dataBuffer)
         {
+            Debug.WriteLine("dataBuffer.Length : "+dataBuffer.Length);
+            foreach (var item in dataBuffer)
+            {
+                Debug.WriteLine("write(databuffer) : " + item.ToString());
+            }
+
             multiplexer.Write(dataBuffer);
         }
 
@@ -107,7 +114,7 @@ namespace RaspberryBackend
         public void connectPins(int xi, int yi)
         {
             if (xi > 9 | yi > 7) return;
-            this.write(new Byte[] { (byte)( _DB15 | (byte)(xi << 3) | (byte)(yi)) });
+            this.write(new Byte[] { (byte)( _DB15 | (byte)(xi << 3) | (byte)(yi)), (byte)1});
         }
 
         /// <summary>
