@@ -75,8 +75,8 @@
                     <Slider x:Name="setVolume_Slider"
                             Maximum="127"
                             Minimum="0"
-                            ValueChanged="setVoltage_ValueChanged" 
-                            SizeChanged="setVoltage_SizeChanged" 
+                            ValueChanged="setVolume_ValueChanged" 
+                            SizeChanged="setVolume_SizeChanged" 
                             Margin="25,143.5,10,55" 
                             Grid.Column="3" 
                             Grid.Row="1" Grid.ColumnSpan="2"/>

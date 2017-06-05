@@ -123,7 +123,6 @@
     <Compile Include="Commands\SendToLCD.cs" />
     <Compile Include="Commands\ToggleBacklight_LCD.cs" />
     <Compile Include="Commands\TurnHIOn.cs" />
-    <Compile Include="Commands\TurnOnHI.cs" />
     <Compile Include="Commands\SetAnalogVolume.cs" />
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
@@ -178,7 +177,7 @@
   <ItemGroup />
   <ItemGroup>
     <Reference Include="ABElectronics_Win10IOT_Libraries">
-      <HintPath>..\..\..\..\..\..\Downloads\abelectronicsuk-ABElectronics_Win10IOT_Libraries-d8be919\ABElectronics_Win10IOT_Libraries\bin\Release\ABElectronics_Win10IOT_Libraries.dll</HintPath>
+      <HintPath>..\packages\ABElectronics_Win10IOT\ABElectronics_Win10IOT_Libraries.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

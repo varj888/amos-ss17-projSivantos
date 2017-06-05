@@ -1,4 +1,5 @@
 ﻿using CommonFiles.TransferObjects;
+using RaspberryBackend;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,7 +36,6 @@ namespace RaspberryBackend
         public Result handleRequest(Request request)
         {
             Command command = null;
-
             try
             {
                 //look if the command was already requested once, if not, create it. 
@@ -63,14 +63,6 @@ namespace RaspberryBackend
                         throw new Exception("raspberryPi must be initialized.");
                     }
                 }
-                catch (ArgumentNullException e)
-                {
-                    throw new ArgumentNullException("Requested command was not found: " + request.command);
-                }
-                else
-                {
-                    Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
-                }
             }
             catch (Exception e)
             {
@@ -85,9 +77,7 @@ namespace RaspberryBackend
             {
                 return new Result(e.Message);
             }
-
             return new Result(null);      
-                
         }
 
         /// <summary>

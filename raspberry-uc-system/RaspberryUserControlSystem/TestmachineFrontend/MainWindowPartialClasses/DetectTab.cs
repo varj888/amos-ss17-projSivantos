@@ -12,14 +12,11 @@ using System.Windows.Controls;
 
 namespace TestmachineFrontend
 {
-
     public partial class MainWindow : Window
     {
-
         //UI Bindings
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
-
 
         // Using a DependencyProperty as the backing store for 
         //IsCheckBoxChecked.  This enables animation, styling, binding, etc...
@@ -69,20 +66,17 @@ namespace TestmachineFrontend
             {
                 this.addMessage("[ERROR]", "Unknown Error. " + any.Message);
                 connected_checkbox.IsChecked = false;
-
-
             }
         }
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-           sendRequest(new Request("ReadPin", PinID));
+            sendRequest(new Request("ReadPin", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
             sendRequest(new Request("WritePin", PinID));
-
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
@@ -134,17 +128,17 @@ namespace TestmachineFrontend
         {
             sendRequest(new Request("ConnectPins", 0));
         }
-       
+
         private void sendVolumeLevel_Button_Click(object sender, RoutedEventArgs e)
         {
             sendRequest(new Request("SetAnalogVolume", sliderValue));
         }
-        
+
         private class RaspberryPiItem
         {
             public string Name { get; set; }
             public int Id { get; set; }
             public string Status { get; set; }
-       }
-
+        }
+    }
 }

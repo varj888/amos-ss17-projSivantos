@@ -44,7 +44,6 @@ namespace RaspberryBackend
             _lcdDisplay.initiateLCD();
 
             _potentiometer = new Potentiometer();
-            _multiplexer = new Multiplexer();
             _adconverter = new ADConverter();
 
             _multiplexer = new Multiplexer(_gpioInterface.getPin(18));
