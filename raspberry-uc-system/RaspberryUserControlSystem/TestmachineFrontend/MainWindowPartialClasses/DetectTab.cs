@@ -1,7 +1,14 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace TestmachineFrontend
 {
@@ -13,27 +20,63 @@ namespace TestmachineFrontend
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
 
+
+        // Using a DependencyProperty as the backing store for 
+        //IsCheckBoxChecked.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsCheckBoxCheckedProperty =
+            DependencyProperty.Register("IsCheckBoxChecked", typeof(bool),
+              typeof(MainWindow), new UIPropertyMetadata(false));
+
         private async void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
             //forces the user to wait until the connection is established
-            IsEnabled = false;
+            //try
+            //{
+            //    IPAddress address = IPAddress.Parse(IPaddress);
+            //    RaspberryPi tmp = RaspberryPi.getInstance(new IPEndPoint(IPAddress.Parse(IPaddress), 54321));
+            //    raspberryPis.Add(tmp);
+            //}
+            //catch (FormatException ex)
+            //{
+            //    this.addMessage("IPAddress", "Invalid IP Address Format: " + ex.Message);
+            //}
+            //catch (Exception any)
+            //{
+            //    this.addMessage("FormatException", "Request could not be sent: " + any.Message);
+
+            //}
+            //connected_checkbox.IsChecked = true;
+            this.BackendList.Items.Add(new RaspberryPiItem() { Name = "Complete this WPF tutorial", Id = 45, Status = "OK" });
 
             try
             {
-                clientConnection = await ClientConn<Result, Request>.connectAsync(IPaddress, 54321);
-                this.addMessage("connect", "Connection to " + IPaddress + " established.");
+                var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPaddress), 54321)); // asynchronously creates and initializes an instance of RaspberryPi
+                connected_checkbox.IsChecked = pi1.IsConnected;
+                //raspberryPis.Add(pi1);
             }
-            catch (Exception exception)
+            catch (FormatException fx)
             {
-                this.addMessage("connect", exception.Message);
+                this.addMessage("[ERROR]", "Invalid IP Address Format: " + fx.Message);
+                connected_checkbox.IsChecked = false;
             }
+            catch (SocketException sx)
+            {
+                this.addMessage("[ERROR]", "Couldn't establish connection: " + sx.Message);
+                connected_checkbox.IsChecked = false;
 
-            IsEnabled = true;
+            }
+            catch (Exception any)
+            {
+                this.addMessage("[ERROR]", "Unknown Error. " + any.Message);
+                connected_checkbox.IsChecked = false;
+
+
+            }
         }
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("ReadPin", PinID));
+           sendRequest(new Request("ReadPin", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
@@ -91,11 +134,17 @@ namespace TestmachineFrontend
         {
             sendRequest(new Request("ConnectPins", 0));
         }
-
-
+       
         private void sendVolumeLevel_Button_Click(object sender, RoutedEventArgs e)
         {
             sendRequest(new Request("SetAnalogVolume", sliderValue));
         }
-    }
+        
+        private class RaspberryPiItem
+        {
+            public string Name { get; set; }
+            public int Id { get; set; }
+            public string Status { get; set; }
+       }
+
 }

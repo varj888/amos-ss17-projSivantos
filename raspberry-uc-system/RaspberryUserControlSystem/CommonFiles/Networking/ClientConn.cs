@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,22 +17,22 @@ namespace CommonFiles.Networking
     /// <typeparam name="outType">Type of Objects send to the server</typeparam>
     public class ClientConn<inType, outType>: IDisposable
     {
+        private ObjConn<inType, outType> objConn;
+
         /// <summary>
         /// connects to a Server
         /// </summary>
         /// <param name="hostname">hostname of the server to connect to</param>
         /// <param name="port">port of the server to connect to</param>
         /// <returns></returns>
-        public static async Task<ClientConn<inType, outType>> connectAsync(string hostname, int port)
+        public static async Task<ClientConn<inType, outType>> connectAsync(IPEndPoint endpoint)
         {
             TcpClient socket = new TcpClient();
-            await socket.ConnectAsync(hostname, port);
+            await socket.ConnectAsync(endpoint.Address, endpoint.Port);
             NetworkStream stream = socket.GetStream();
             ObjConn<inType, outType> objConn = new ObjConn<inType, outType>(stream);
             return new ClientConn<inType, outType>(objConn);
         }
-
-        private ObjConn<inType, outType> objConn;
 
         // private constructor to avoid instantiation without calling connect
         private ClientConn(ObjConn<inType, outType> objConn) {
