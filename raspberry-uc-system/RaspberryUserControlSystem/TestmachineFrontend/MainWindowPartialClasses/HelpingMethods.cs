@@ -57,6 +57,10 @@ namespace TestmachineFrontend
 
         private ClientConn<Result, Request> getClientconnection()
         {
+            if(BackendList.SelectedIndex == -1 && BackendList.Items.Count > 0)
+            {
+                BackendList.SelectedIndex = 0;
+            }
             var c = (RaspberryPiItem)BackendList.Items.GetItemAt(BackendList.SelectedIndex);
             return c.raspi.clientConnection;
         }

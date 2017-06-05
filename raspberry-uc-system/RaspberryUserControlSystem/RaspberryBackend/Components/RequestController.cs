@@ -52,16 +52,6 @@ namespace RaspberryBackend
                     {
                         Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
                     }
-
-                    //then, if gpioInterface is ready, execute command
-                    if (raspberryPi.isInitialized())
-                    {
-                        command.executeAsync(request.parameter);
-                    }
-                    else
-                    {
-                        throw new Exception("raspberryPi must be initialized.");
-                    }
                 }
             }
             catch (Exception e)

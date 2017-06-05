@@ -28,14 +28,22 @@ namespace TestmachineFrontend
             get { return y; }
             set
             {
-                x = value;
+                y = value;
                 OnPropertyChanged("ValueY");
             }
         }
 
         private void setPinsButton_Click(object sender, RoutedEventArgs e)
         {
-            getClientconnection().sendObject(new Request("ConnectPins", ValueX));
+            try
+            {
+                this.addMessage("debug", x.ToString());
+                this.addMessage("debug", y.ToString());
+                getClientconnection().sendObject(new Request("ConnectPins", ((int)x) + "%" + ((int)y)));
+            } catch(Exception ex)
+            {
+                this.addMessage("Debug", ex.Message);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
