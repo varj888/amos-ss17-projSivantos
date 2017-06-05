@@ -32,7 +32,7 @@ namespace RaspberryBackend
 
         private byte[] _LineAddress = new byte[] { 0x00, 0x40 };
 
-        public byte backLight { get; set; } = 0x00;
+        public byte backLight { get; set; }
         public int scrollSpeed { get; set; }
 
         private Boolean _initialized = false;
