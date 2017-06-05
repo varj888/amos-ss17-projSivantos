@@ -174,7 +174,6 @@
       <Name>Windows IoT Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Reference Include="ABElectronics_Win10IOT_Libraries">
       <HintPath>..\packages\ABElectronics_Win10IOT\ABElectronics_Win10IOT_Libraries.dll</HintPath>
