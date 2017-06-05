@@ -83,7 +83,7 @@
 
                     <Button Grid.Column="3" x:Name="sendVoltageValue"
                         Margin="25,166.5,138,28"
-                        Content="Set Voltage" Grid.Row="1"  Click="sendVoltageValue_Click" RenderTransformOrigin="1.369,-0.363" Grid.ColumnSpan="2" />
+                        Content="Set Volume" Grid.Row="1"  Click="sendVolumeLevel_Button_Click" RenderTransformOrigin="1.369,-0.363" Grid.ColumnSpan="2" />
 
                     <Button Grid.Column="4" x:Name="HI_OFF"
                         Margin="139,166.5,10,28"

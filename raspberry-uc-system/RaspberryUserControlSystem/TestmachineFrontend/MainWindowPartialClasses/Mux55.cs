@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonFiles.TransferObjects;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -34,9 +35,7 @@ namespace TestmachineFrontend
 
         private void setPinsButton_Click(object sender, RoutedEventArgs e)
         {
-            //Not yet implemented
-            //y = 1.0;
-            //valueY.Text = ValueY.ToString();
+            getClientconnection().sendObject(new Request("ConnectPins", ValueX));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

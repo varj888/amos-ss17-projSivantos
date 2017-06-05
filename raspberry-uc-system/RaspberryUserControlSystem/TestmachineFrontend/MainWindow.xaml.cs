@@ -31,9 +31,7 @@ namespace TestmachineFrontend
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ClientConn<Result, Request> clientConnection; // UNuse this.
         Dictionary<String, RaspberryPi> raspberryPis = new Dictionary<string, RaspberryPi>();
-        //List<RaspberryPi> raspberryPis = new List<RaspberryPi>(); // Several RaspberryPis can be connected to one TestmachineFrontend
 
         public MainWindow()
         {

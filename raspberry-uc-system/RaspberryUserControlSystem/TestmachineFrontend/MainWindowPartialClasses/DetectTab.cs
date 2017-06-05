@@ -26,30 +26,12 @@ namespace TestmachineFrontend
 
         private async void connectIP_button_Click(object sender, RoutedEventArgs e)
         {
-            //forces the user to wait until the connection is established
-            //try
-            //{
-            //    IPAddress address = IPAddress.Parse(IPaddress);
-            //    RaspberryPi tmp = RaspberryPi.getInstance(new IPEndPoint(IPAddress.Parse(IPaddress), 54321));
-            //    raspberryPis.Add(tmp);
-            //}
-            //catch (FormatException ex)
-            //{
-            //    this.addMessage("IPAddress", "Invalid IP Address Format: " + ex.Message);
-            //}
-            //catch (Exception any)
-            //{
-            //    this.addMessage("FormatException", "Request could not be sent: " + any.Message);
-
-            //}
-            //connected_checkbox.IsChecked = true;
-            this.BackendList.Items.Add(new RaspberryPiItem() { Name = "Complete this WPF tutorial", Id = 45, Status = "OK" });
-
             try
             {
                 var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPaddress), 54321)); // asynchronously creates and initializes an instance of RaspberryPi
                 connected_checkbox.IsChecked = pi1.IsConnected;
-                //raspberryPis.Add(pi1);
+                raspberryPis.Add(IPaddress,pi1);
+                this.BackendList.Items.Add(new RaspberryPiItem() { Name = IPaddress, Id = 45, Status = "OK", raspi = pi1 });
             }
             catch (FormatException fx)
             {
@@ -96,20 +78,17 @@ namespace TestmachineFrontend
 
         private void HI_ON_Click(object sender, RoutedEventArgs e)
         {
-            //sendRequest(new Request("TurnOnHI", 127));
             sendRequest(new Request("TurnHIOn", 3.3));
-            //Not yet implemented
-            //sendRequest(new Request("TurnOnHI", x));
         }
 
         private void HI_OFF_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("TurnOnHI", 0));
+            sendRequest(new Request("TurnHIOn", 0));
         }
 
         private void sendVoltageValue_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("TurnOnHI", sliderValue));
+            sendRequest(new Request("SetAnalogVolume", sliderValue));
         }
 
         private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -131,14 +110,8 @@ namespace TestmachineFrontend
 
         private void sendVolumeLevel_Button_Click(object sender, RoutedEventArgs e)
         {
+            this.addMessage("Debug",sliderValue.ToString());
             sendRequest(new Request("SetAnalogVolume", sliderValue));
-        }
-
-        private class RaspberryPiItem
-        {
-            public string Name { get; set; }
-            public int Id { get; set; }
-            public string Status { get; set; }
         }
     }
 }

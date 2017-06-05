@@ -18,9 +18,15 @@ namespace TestmachineFrontend
 
         public void sendRequest(Request request)
         {
+            if( BackendList.SelectedItems.Count != 1 )
+            {
+                this.addMessage("Debug", "No raspi selected");
+                return;
+            }
+
             try
             {
-                clientConnection.sendObject(request);
+                getClientconnection().sendObject(request);
             }
             catch (Exception ex)
             {
@@ -32,8 +38,8 @@ namespace TestmachineFrontend
 
             try
             {
-                result = clientConnection.receiveObject();
-            }catch(Exception e)
+                result = getClientconnection().receiveObject();
+            } catch(Exception e)
             {
                 this.addMessage(request.command, "Result could not be received: " + e.Message);
                 return;
@@ -47,6 +53,20 @@ namespace TestmachineFrontend
             {
                 this.addMessage(request.command, result.exceptionMessage);
             }
+        }
+
+        private ClientConn<Result, Request> getClientconnection()
+        {
+            var c = (RaspberryPiItem)BackendList.Items.GetItemAt(BackendList.SelectedIndex);
+            return c.raspi.clientConnection;
+        }
+
+        private class RaspberryPiItem
+        {
+            public string Name { get; set; }
+            public int Id { get; set; }
+            public string Status { get; set; }
+            public RaspberryPi raspi { get; set; }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace TestmachineFrontend
         {
             try
             {
-                clientConnection.sendObject(new Request("SendToLCD", "#reset"));
+                getClientconnection().sendObject(new Request("SendToLCD", "#reset"));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace TestmachineFrontend
             lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
             try
             {
-                clientConnection.sendObject(new Request("ToggleBacklight_LCD", lcdBacklightState));
+                getClientconnection().sendObject(new Request("ToggleBacklight_LCD", lcdBacklightState));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
@@ -45,7 +45,6 @@ namespace TestmachineFrontend
                 this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
             }
         }
-
 
         private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
         {
@@ -54,7 +53,7 @@ namespace TestmachineFrontend
 
             try
             {
-                clientConnection.sendObject(new Request("SendToLCD", text));
+                getClientconnection().sendObject(new Request("SendToLCD", text));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
@@ -63,8 +62,6 @@ namespace TestmachineFrontend
             }
 
         }
-
-
 
         private void addText(string text)
         {
@@ -92,7 +89,7 @@ namespace TestmachineFrontend
 
             try
             {
-                clientConnection.sendObject(new Request("SendToLCD", "#cancel"));
+                getClientconnection().sendObject(new Request("SendToLCD", "#cancel"));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)

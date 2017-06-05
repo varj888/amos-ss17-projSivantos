@@ -15,7 +15,7 @@ namespace TestmachineFrontend
     /// </summary>
     public sealed class RaspberryPi
     {
-        private ClientConn<Result, Request> clientConnection;
+        public ClientConn<Result, Request> clientConnection;
         public IPEndPoint endpoint { get; private set; }
         private static UInt16 counter;
         public String name { get; set; }
@@ -73,12 +73,10 @@ namespace TestmachineFrontend
                 Console.WriteLine("[ERROR] Connection couldn't be established for unknown reasons.");
                 throw new Exception("Connection couldn't be established for unknown reasons.", ex);
             }
-           
         }
 
         public void readPin(UInt16 PinID)
         {
-
             try
             {
                 clientConnection.sendObject(new Request("ReadPin", PinID));
@@ -94,7 +92,6 @@ namespace TestmachineFrontend
 
         public void writePin(UInt16 PinID)
         {
-
             try
             {
                 clientConnection.sendObject(new Request("WritePin", PinID));
