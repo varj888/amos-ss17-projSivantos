@@ -1,8 +1,5 @@
-﻿
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend;
-using CommonFiles.TransferObjects;
 
 namespace RaspberryBackendTests
 {
@@ -13,6 +10,9 @@ namespace RaspberryBackendTests
         GPIOinterface TestGpiooInterface;
         LCD TestLcdDisplay;
         Potentiometer Testpotentiometer;
+        Multiplexer Testmultiplexer;
+        ADCDAC Testadconverter;
+
 
 
         [TestInitialize]
@@ -22,15 +22,33 @@ namespace RaspberryBackendTests
             TestGpiooInterface = new GPIOinterface();
             TestLcdDisplay = new LCD();
             Testpotentiometer = new Potentiometer();
+            Testmultiplexer = new Multiplexer();
+            Testadconverter = new ADCDAC();
         }
 
         [TestMethod]
         public void TestNotInitialized()
         {
             raspberryPi.reset();
-            Assert.IsNull(raspberryPi.GpioInterface);
+            System.Diagnostics.Debug.WriteLine(raspberryPi.GPIOinterface != null ? raspberryPi.GPIOinterface.ToString() : "null");
+            Assert.IsNull(raspberryPi.GPIOinterface);
             Assert.IsNull(raspberryPi.LCD);
             Assert.IsNull(raspberryPi.Potentiometer);
+        }
+
+        [TestMethod]
+        public void TestIsInitialized()
+        {
+            raspberryPi.reset();
+            raspberryPi.initialize(TestGpiooInterface, TestLcdDisplay, Testpotentiometer, Testmultiplexer, Testadconverter);
+
+            Assert.AreEqual(TestGpiooInterface, raspberryPi.GPIOinterface);
+            Assert.AreEqual(TestLcdDisplay, raspberryPi.LCD);
+            Assert.AreEqual(Testpotentiometer, raspberryPi.Potentiometer);
+            Assert.AreEqual(Testmultiplexer, raspberryPi.Multiplexer);
+            Assert.AreEqual(Testadconverter, raspberryPi.ADCDAC);
+
+
         }
 
         [TestCleanup]
