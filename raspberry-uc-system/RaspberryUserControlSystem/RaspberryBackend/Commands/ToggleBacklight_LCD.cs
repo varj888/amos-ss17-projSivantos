@@ -4,7 +4,7 @@ namespace RaspberryBackend
 {
 
     /// <summary>
-    /// This class represents a Command. It it can be used to toggle the Backlight of a I2C connected LCD on the RaspberryPi. 
+    /// This class represents a Command. It it can be used to toggle the Backlight of a I2C connected LCD on the RaspberryPi.
     /// </summary>
     class ToggleBacklight_LCD : Command
     {
@@ -15,6 +15,10 @@ namespace RaspberryBackend
         {
         }
 
+        /// <summary>
+        /// Toogles the Backlight of the LCD to onn or off
+        /// </summary>
+        /// <param name="parameter">1 for Backlight on or 0 for off</param>
         public override void executeAsync(object parameter)
         {
             string requestedParameter = parameter.ToString();

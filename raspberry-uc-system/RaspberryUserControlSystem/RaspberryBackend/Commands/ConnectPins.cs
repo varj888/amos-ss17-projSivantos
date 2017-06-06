@@ -1,8 +1,10 @@
 ﻿using System;
-using RaspberryBackend.Data;
 
 namespace RaspberryBackend
 {
+    /// <summary>
+    /// This class represents a Command. It connects two requested Pins (xPin,yPin) on the Multiplexer.
+    /// </summary>
     class ConnectPins : Command
     {
         public ConnectPins(RaspberryPi raspberryPi) : base(raspberryPi)
@@ -10,21 +12,22 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Connect pin x to y, taken from pinarray[0] = x and pinarray[1] = y
+        /// Connect pin x to y, provided by pinString
         /// </summary>
-        public override void executeAsync(Object pinarray)
+        /// <param name="pinString">Input pins in format: "xPin"+"%"+"yPin"</param>
+        public override void executeAsync(Object pinString)
         {
-            string s = ((string)pinarray);
-            string[] xy = s.Split('%');
-            
+            string requestInput = ((string)pinString);
+            string[] pins = requestInput.Split('%');
+            Int32 xPin = Int32.Parse(pins[0]);
+            Int32 yPin = Int32.Parse(pins[1]);
 
-            if (xy.Length != 2)
+            if (pins.Length != 2)
             {
-                return;
+                throw new ArgumentException("Please provide exactly 2 Pins which shall be connected");
             }
 
-
-            RaspberryPi.connectPins(Int32.Parse(xy[0]), Int32.Parse(xy[1]));
+            RaspberryPi.connectPins(xPin, yPin);
         }
     }
 }

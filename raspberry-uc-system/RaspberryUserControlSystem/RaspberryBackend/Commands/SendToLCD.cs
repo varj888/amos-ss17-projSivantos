@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CommonFiles.TransferObjects;
 using System.Threading;
 
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It it sends date to a LCD through I2C. 
+    /// This class represents a Command. It it sends date to a LCD through I2C.
     /// </summary>
     class SendToLCD : Command
     {
@@ -25,16 +19,16 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        ///  executes the Command SendToLCD in dependency of the parsed parameter 
+        ///  executes the Command SendToLCD in dependency of the parsed parameter
         /// </summary>
-        /// <param name="parameter">either a text:string which is to be printed on lcd 
-        /// or a #command:string e.g #cancel to clear the display 
+        /// <param name="parameter">either a text:string which is to be printed on lcd
+        /// or a #command:string e.g #reset to clear the display
         /// and terminate all tasks related to a previous call
         /// </param>
         public override void executeAsync(object parameter)
         {
             string text = (string)parameter;
-            if(text == "#reset")
+            if (text == "#reset")
             {
                 System.Diagnostics.Debug.WriteLine("Resetting display");
                 RaspberryPi.resetLCD();
@@ -43,12 +37,14 @@ namespace RaspberryBackend
             if (text.Length <= charsMaxInLine)
             {
                 RaspberryPi.writeToLCD(text);
-            } else if( text.Length <= 2*charsMaxInLine)
+            }
+            else if (text.Length <= 2 * charsMaxInLine)
             {
                 RaspberryPi.writeToLCDTwoLines(text);
-            } else
+            }
+            else
             {
-                System.Diagnostics.Debug.WriteLine("Text too long to print on LCD");
+                throw new ArgumentException("Text too long to print on LCD");
             }
         }
     }

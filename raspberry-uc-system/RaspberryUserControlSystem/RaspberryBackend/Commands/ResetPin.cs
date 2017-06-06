@@ -4,11 +4,10 @@ namespace RaspberryBackend
 {
 
     /// <summary>
-    /// This class represents a Command. It it can be used to reset a spefic gpio pin of the RaspberryPi. 
+    /// This class represents a Command. It it can be used to reset a spefic gpio pin of the RaspberryPi.
     /// </summary>
     class ResetPin : Command
     {
-
         public ResetPin(RaspberryPi raspberryPi) : base(raspberryPi)
         {
         }

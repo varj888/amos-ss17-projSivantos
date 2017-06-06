@@ -3,7 +3,7 @@
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It it can be used to write on a spefic gpio pin of the RaspberryPi. 
+    /// This class represents a Command. It it can be used to write on a spefic gpio pin of the RaspberryPi.
     /// </summary>
     class WritePin : Command
     {
@@ -15,10 +15,10 @@ namespace RaspberryBackend
         /// <summary>
         /// execute the Command WritePin
         /// </summary>
-        /// <param name="parameter">represents the GpioPin which shall be written on</param>
-        public override void executeAsync(Object parameter)
+        /// <param name="gpioPinID">represents the GpioPin:Uint16 which shall be written on</param>
+        public override void executeAsync(Object gpioPinID)
         {
-            UInt16 id = (UInt16)parameter;
+            UInt16 id = (UInt16)gpioPinID;
             RaspberryPi.activatePin(id);
         }
     }

@@ -14,9 +14,9 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// execute the Command TurnOnHI
+        /// execute the Command SetAnalogVolume
         /// </summary>
-        /// <param name="batteryDrainLevel">represents the capacity of a battery</param>
+        /// <param name="volumeLevel">represents the desired level of analog volume</param>
         public override void executeAsync(Object volumeLevel)
         {
             byte requestedVolumeLevel = (byte)volumeLevel;
