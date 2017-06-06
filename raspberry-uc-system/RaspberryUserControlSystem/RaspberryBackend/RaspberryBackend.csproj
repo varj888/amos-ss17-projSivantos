@@ -127,6 +127,7 @@
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
+    <Compile Include="Components\I2C\I2C.cs" />
     <Compile Include="Components\SPI\ADCDAC.cs" />
     <Compile Include="Data\MultiplexerConfigFactory.cs" />
     <Compile Include="Data\Config.cs" />
