@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ABElectronics_Win10IOT_Libraries;
+﻿using ABElectronics_Win10IOT_Libraries;
+using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace RaspberryBackend
 {
@@ -23,7 +20,7 @@ namespace RaspberryBackend
 
         private double currentDACVoltage = -1;
 
-        public ADCDAC(){}
+        public ADCDAC() { }
 
         /// <summary>
         /// connect to device
@@ -38,7 +35,7 @@ namespace RaspberryBackend
 
             Debug.WriteLine(this.GetType().Name + "::: Conntected Status is: " + adcdac.IsConnected);
 
-            if(adcdac.IsConnected == false)
+            if (adcdac.IsConnected == false)
             {
                 throw new Exception("ADCDAC Connection failure.");
             }
@@ -50,7 +47,7 @@ namespace RaspberryBackend
 
         /// <summary>
         /// initializes the DACVoltage
-        /// connects to the ADCDAC Device 
+        /// connects to the ADCDAC Device
         /// sets DACVoltage to a standard value, here 1.0 volts
         /// </summary>
         public void init()
@@ -73,10 +70,11 @@ namespace RaspberryBackend
         /// <param name="voltage">can be between 0 and 2.047 volts</param>
         public void setDACVoltage(double voltage)
         {
-            if(voltage > MAX_VOLTAGE)
+            if (voltage > MAX_VOLTAGE)
             {
                 voltage = MAX_VOLTAGE;
-            }else if (voltage < MIN_VOLTAGE)
+            }
+            else if (voltage < MIN_VOLTAGE)
             {
                 voltage = MIN_VOLTAGE;
             }

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.Gpio;
@@ -30,9 +27,12 @@ namespace RaspberryBackend
         private byte _DB15 = 0x80;
         private GpioPin _reset;
 
-
         //private static I2cInstance;
 
+        /// <summary>
+        /// creates and initializes the Multiplexer
+        /// </summary>
+        /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
         public Multiplexer(GpioPin reset)
         {
             _reset = reset;
@@ -58,6 +58,10 @@ namespace RaspberryBackend
             }
         }
 
+        /// <summary>
+        /// returns whether the Multiplexer is initialized or not
+        /// </summary>
+        /// <returns>true:= initialize and false:= not initialized</returns>
         public Boolean isInitialized()
         {
             return _initialized;
@@ -96,7 +100,7 @@ namespace RaspberryBackend
         /// <param name="dataBuffer"></param>
         private void write(byte[] dataBuffer)
         {
-            Debug.WriteLine("dataBuffer.Length : "+dataBuffer.Length);
+            Debug.WriteLine("dataBuffer.Length : " + dataBuffer.Length);
             foreach (var item in dataBuffer)
             {
                 Debug.WriteLine("write(databuffer) : " + item.ToString());
@@ -114,7 +118,7 @@ namespace RaspberryBackend
         public void connectPins(int xi, int yi)
         {
             if (xi > 9 | yi > 7) return;
-            this.write(new Byte[] { (byte)( _DB15 | (byte)(xi << 3) | (byte)(yi)), (byte)1});
+            this.write(new Byte[] { (byte)(_DB15 | (byte)(xi << 3) | (byte)(yi)), (byte)1 });
         }
 
         /// <summary>

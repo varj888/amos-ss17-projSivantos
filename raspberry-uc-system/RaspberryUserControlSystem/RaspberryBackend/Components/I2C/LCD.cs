@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
-using System.Threading;
 
 namespace RaspberryBackend
 {
     /// <summary>
-    /// Software representation of the LCD Display. 
+    /// Software representation of the LCD Display.
     /// </summary>
     public class LCD
     {
@@ -130,7 +128,7 @@ namespace RaspberryBackend
         /// sends information to the LCD either data or commands
         /// </summary>
         /// <param name="data">information which is to be sent on LCD</param>
-        /// <param name="Rs">Rs=0 for Command or Rs = 1 for Data</param>        
+        /// <param name="Rs">Rs=0 for Command or Rs = 1 for Data</param>
         public void write(byte data, byte Rs)
         {
             pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << RS)));
@@ -138,14 +136,20 @@ namespace RaspberryBackend
             Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
-        /**
-        * skip to second line
-        **/
+
+        /// <summary>
+        /// skip to second line
+        /// </summary>
         private void gotoSecondLine()
         {
             write(0xc0, Command_sendMode);
         }
 
+        /// <summary>
+        /// pints text in two lines
+        /// </summary>
+        /// <param name="text">text which shall be displayed</param>
+        /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
         public void printInTwoLines(string text, int charsMaxInLine)
         {
             string line1 = "", line2 = "";
@@ -158,9 +162,10 @@ namespace RaspberryBackend
             prints(line2);
         }
 
-        /**
-        * Can print string onto display
-        **/
+        /// <summary>
+        /// Prints a string onto display
+        /// </summary>
+        /// <param name="text">text which shall be displayed</param>
         public void prints(string text)
         {
             for (int i = 0; i < text.Length; i++)
@@ -169,9 +174,10 @@ namespace RaspberryBackend
             }
         }
 
-        /**
-        * Print single character onto display
-        **/
+        /// <summary>
+        /// Prints a character onto display
+        /// </summary>
+        /// <param name="letter">character which shall be displayed</param>
         private void printc(char letter)
         {
             try
@@ -184,9 +190,11 @@ namespace RaspberryBackend
             }
         }
 
-        /**
-        * goto X and Y 
-        **/
+        /// <summary>
+        /// goto X and Y
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public void gotoxy(byte x, byte y)
         {
             write(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)), Command_sendMode);
@@ -197,9 +205,11 @@ namespace RaspberryBackend
         //======================== and shoul be moved to Commands                   ==============================
         //========================================================================================================
 
-        /**
-        * Save custom symbol to CGRAM
-        **/
+        /// <summary>
+        /// Save custom symbol to CGRAM
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="address"></param>
         public void createSymbol(byte[] data, byte address)
         {
             write(Convert.ToByte(0x40 | (address << 3)), Command_sendMode);
@@ -211,9 +221,10 @@ namespace RaspberryBackend
             this.clrscr();
         }
 
-        /**
-        * Print custom symbol
-        **/
+        /// <summary>
+        /// Print custom symbol
+        /// </summary>
+        /// <param name="address"></param>
         public void printSymbol(byte address)
         {
             write(address, Data_sendMode);

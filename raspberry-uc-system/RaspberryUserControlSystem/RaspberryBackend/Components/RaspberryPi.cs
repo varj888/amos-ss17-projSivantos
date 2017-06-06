@@ -1,17 +1,13 @@
-﻿using RaspberryBackend.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ABElectronics_Win10IOT_Libraries;
 using System.Net;
 using System.Net.NetworkInformation;
 
 namespace RaspberryBackend
 {
     /// <summary>
-    /// Software representation of the RaspberryPi. It contains all component representations which are phyisical connected to the Rpi. 
+    /// Software representation of the RaspberryPi. It contains all component representations which are phyisical connected to the Rpi.
     /// </summary>
     public class RaspberryPi
     {
@@ -21,6 +17,7 @@ namespace RaspberryBackend
         private Potentiometer _potentiometer;
         private Multiplexer _multiplexer;
         private ADCDAC _daConverter;
+
         private int maxCharLCD = 16;
         private Boolean _initialized = false;
 
@@ -36,8 +33,8 @@ namespace RaspberryBackend
         private RaspberryPi() { }
 
         /// <summary>
-        /// Default initialization of the Raspberry Pi. 
-        /// Note: It initializes only one time once the gpioInterface is initialized. 
+        /// Default initialization of the Raspberry Pi.
+        /// Note: It initializes only one time once the gpioInterface is initialized.
         /// </summary>
         public void initialize()
         {
@@ -70,7 +67,7 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Resets the single instance of the Raspberry PI representation. For now it is used for Testing. 
+        /// Resets the single instance of the Raspberry PI representation. For now it is used for Testing.
         /// </summary>
         public void reset()
         {
@@ -78,6 +75,8 @@ namespace RaspberryBackend
             _lcdDisplay = null;
             _potentiometer = null;
             _daConverter = null;
+            _multiplexer = null;
+            _initialized = false;
         }
 
         /// <summary>

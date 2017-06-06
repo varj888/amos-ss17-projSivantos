@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.Devices.Gpio;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
-using System.Threading;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
-using System.Diagnostics;
 
 namespace RaspberryBackend
 {
     /// <summary>
-    /// Software representation of the MCP4018 Chip which is a potentiometer to regulate the Voltage. 
+    /// Software representation of the MCP4018 Chip which is a potentiometer to regulate the Voltage.
     /// </summary>
     public class Potentiometer
     {
@@ -44,6 +36,9 @@ namespace RaspberryBackend
             }
         }
 
+        /// <summary>
+        /// creates and initializes the Potentiometer
+        /// </summary>
         public Potentiometer()
         {
             // Wait for async to return
@@ -51,6 +46,10 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
+        /// <summary>
+        /// returns whether the Potentiometer is initialized or not
+        /// </summary>
+        /// <returns>true:= initialize and false:= not initialized</returns>
         public Boolean isInitialized()
         {
             return _initialized;

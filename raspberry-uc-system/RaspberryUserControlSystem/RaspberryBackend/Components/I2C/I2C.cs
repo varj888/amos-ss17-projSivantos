@@ -1,25 +1,23 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
-using System.Diagnostics;
 
 namespace RaspberryBackend.Data
 {
     /// <summary>
-    /// represents the common interface for 
+    /// represents the common interface for
     /// I2C-Communication with devices
     /// </summary>
-    public static class I2C 
+    public static class I2C
     {
         /// <summary>
         /// one Raspberry Pi allows to connect up to 128 devices
         /// </summary>
 		const int MIN_ADDRESS = 0;
-		const int MAX_ADDRESS = 127;
+        const int MAX_ADDRESS = 127;
 
         /// <summary>
         /// Discovers the I2C-compatible devices
@@ -59,5 +57,5 @@ namespace RaspberryBackend.Data
             }
             return addressList;
         }
-	}
+    }
 }
