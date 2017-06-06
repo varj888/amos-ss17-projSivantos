@@ -56,6 +56,9 @@ namespace CommonFiles.Networking
             return read(stream, count);
         }
 
+        /// <summary>
+        /// disposes the stream
+        /// </summary>
         public void Dispose()
         {
             stream.Dispose();

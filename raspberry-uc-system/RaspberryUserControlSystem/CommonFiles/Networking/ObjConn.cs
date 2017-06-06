@@ -41,6 +41,9 @@ namespace CommonFiles.Networking
             return (inType)Serializer.Deserialize(Encoding.ASCII.GetString(dataConn.receive()), typeof(inType));
         }
 
+        /// <summary>
+        /// disposes the stream
+        /// </summary>
         public void Dispose()
         {
             dataConn.Dispose();
