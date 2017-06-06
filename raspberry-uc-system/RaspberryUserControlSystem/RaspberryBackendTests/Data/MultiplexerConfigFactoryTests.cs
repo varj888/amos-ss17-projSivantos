@@ -1,11 +1,9 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using RaspberryBackend.Data;
-using System.Diagnostics;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend;
+using System.Collections.Generic;
+using System.Diagnostics;
 
-namespace RaspberryBackendTests.Data
+namespace RaspberryBackendTests
 {
 
     [TestClass]
@@ -14,7 +12,7 @@ namespace RaspberryBackendTests.Data
 
         private const string _FAMILY = "Pure";
         private const string _MODEL = "312 702 M (DN)";
-        private List<string> _EXPECTED_VALUES = new List<string>(){"","RockerSW","Ground","Ground","AMR","","AudioInput","","Ground","PB"};
+        private List<string> _EXPECTED_VALUES = new List<string>() { "", "RockerSW", "Ground", "Ground", "AMR", "", "AudioInput", "", "Ground", "PB" };
         BreadboardFactory factory;
 
         [TestInitialize]
@@ -28,11 +26,11 @@ namespace RaspberryBackendTests.Data
         {
             Config conf = factory.getMultiplexerConfig(_FAMILY, _MODEL);
 
-            Dictionary<int,string> dic = conf.Pin_value_map;
+            Dictionary<int, string> dic = conf.Pin_value_map;
 
             List<string> value_list = new List<string>();
 
-            foreach(string value in dic.Values)
+            foreach (string value in dic.Values)
             {
                 value_list.Add(value);
             }
