@@ -135,7 +135,7 @@
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
-    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\Interface\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />
     <Compile Include="MainPage.xaml.cs">

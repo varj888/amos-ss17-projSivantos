@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Xml.Linq;
-using System.IO;
 using System.Text;
+using System.Xml.Linq;
 
 namespace RaspberryBackend
 {
+    /// <summary>
+    ///
+    /// </summary>
     class BreadboardFactory
     {
         private Dictionary<string, Dictionary<List<string>, Config>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, Config>>();
@@ -31,7 +32,7 @@ namespace RaspberryBackend
                 Dictionary<List<string>, Config> tmp = new Dictionary<List<string>, Config>();
 
                 IEnumerable<XNode> modelNodes = familyElement.Nodes();
-                foreach(XElement modelElement in modelNodes)
+                foreach (XElement modelElement in modelNodes)
                 {
                     string model_names_string = modelElement.Attribute("name").Value;
 
@@ -61,6 +62,12 @@ namespace RaspberryBackend
             }
         }
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="family"></param>
+        /// <param name="model_name"></param>
+        /// <returns></returns>
         public Config getMultiplexerConfig(string family, string model_name)
         {
             if (hi_dictionary.ContainsKey(family))
@@ -88,14 +95,17 @@ namespace RaspberryBackend
             return null;
         }
 
-
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
         public string getConfigAsString()
         {
             StringBuilder sb = new StringBuilder();
 
             foreach (string familyName in hi_dictionary.Keys)
             {
-                sb.Append("Family "+ familyName + ":");
+                sb.Append("Family " + familyName + ":");
                 sb.Append("\n");
 
                 Dictionary<List<string>, Config> model_dic = hi_dictionary[familyName];
@@ -109,7 +119,7 @@ namespace RaspberryBackend
                         sb.Append("\t\t[" + model_name + "]");
                         sb.Append("\n");
                     }
-                   
+
                     sb.Append("\n");
 
                     Config config_obj = model_dic[model_names];
@@ -121,7 +131,7 @@ namespace RaspberryBackend
                     {
                         string value = config_map[key];
 
-                        sb.Append("\t\t PinID: " + key + ", Value: "+ value);
+                        sb.Append("\t\t PinID: " + key + ", Value: " + value);
                         sb.Append("\n");
                     }
                 }
