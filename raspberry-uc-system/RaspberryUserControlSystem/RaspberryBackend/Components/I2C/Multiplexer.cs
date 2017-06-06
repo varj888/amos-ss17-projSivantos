@@ -35,6 +35,11 @@ namespace RaspberryBackend
             _reset = reset;
         }
 
+        public Multiplexer()
+        {
+            //  _reset = GPIOinterface.getPin(18);
+        }
+
         public override void initiate()
         {
             try
