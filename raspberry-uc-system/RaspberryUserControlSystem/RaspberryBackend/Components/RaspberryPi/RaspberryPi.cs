@@ -8,7 +8,7 @@ namespace RaspberryBackend
     /// </summary>
     public partial class RaspberryPi
     {
-        private Dictionary<Type, HWComponent> _hwComponents;
+        private Dictionary<String, HWComponent> _hwComponents;
 
         private static readonly RaspberryPi _instance = new RaspberryPi();
         private Boolean _initialized = false;
@@ -25,16 +25,13 @@ namespace RaspberryBackend
         /// </summary>
         public void initialize()
         {
-            _hwComponents = new Dictionary<Type, HWComponent>();
-            addToRasPi(new GPIOinterface());
-            addToRasPi(new LCD());
-            addToRasPi(new Potentiometer());
-            addToRasPi(new Multiplexer(GPIOinterface.getPin(18)));
-            addToRasPi(new ADCDAC());
-
-            initializeHWComponents();
-
-            _initialized = true;
+            initialize(
+                new GPIOinterface(),
+                new LCD(),
+                new Potentiometer(),
+                new Multiplexer(GPIOinterface.getPin(18)),
+                new ADCDAC()
+                );
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace RaspberryBackend
         /// </param>
         public void initialize(params HWComponent[] hwComponents)
         {
-            _hwComponents = new Dictionary<Type, HWComponent>();
+            _hwComponents = new Dictionary<String, HWComponent>();
 
             foreach (HWComponent hwComponent in hwComponents)
             {
@@ -60,7 +57,8 @@ namespace RaspberryBackend
 
         private void addToRasPi(HWComponent hwComponent)
         {
-            _hwComponents.Add(hwComponent.GetType(), hwComponent);
+            _hwComponents.Add(hwComponent.GetType().Name, hwComponent);
+            _hwComponents.ToString();
         }
 
         /// <summary>
@@ -68,7 +66,7 @@ namespace RaspberryBackend
         /// </summary>
         public void reset()
         {
-            _hwComponents = new Dictionary<Type, HWComponent>();
+            _hwComponents = new Dictionary<String, HWComponent>();
         }
 
         /// <summary>
