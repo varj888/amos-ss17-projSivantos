@@ -49,7 +49,7 @@ namespace RaspberryBackend
                 {
                     Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -64,7 +64,7 @@ namespace RaspberryBackend
             {
                 return new Result(e.Message);
             }
-            return new Result(null);      
+            return new Result(null);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace RaspberryBackend
             //-- typeof(type): gets the Type of ICommand => Type ICommand; now access to different methods e.g. (type)ICommand.*
             //-- GetTypeInfo(): gets Metainformation of the type e.g. Assembly information of ICommand
             //-- assembly utilize the Assembly information and returns the referenced assembly
-            Assembly executingAssembly = typeof(ICommand).GetTypeInfo().Assembly;
+            Assembly executingAssembly = typeof(Command).GetTypeInfo().Assembly;
             Type commandType = executingAssembly.GetType(command);
 
             return (Command)Activator.CreateInstance(commandType, raspberryPi);
