@@ -8,11 +8,11 @@ namespace RaspberryBackend
 {
     public partial class RaspberryPi
     {
-        public GPIOinterface GPIOinterface { get => (GPIOinterface)_hwComponents[typeof(GPIOinterface).GetType()]; }
-        public LCD LCD { get => (LCD)_hwComponents[typeof(LCD).GetType()]; }
-        public Potentiometer Potentiometer { get => (Potentiometer)_hwComponents[typeof(Potentiometer).GetType()]; }
-        public Multiplexer Multiplexer { get => (Multiplexer)_hwComponents[typeof(Multiplexer).GetType()]; }
-        public ADCDAC ADCDAC { get => (ADCDAC)_hwComponents[typeof(ADCDAC).GetType()]; }
+        public GPIOinterface GPIOinterface { get => _initialized ? (GPIOinterface)_hwComponents[typeof(GPIOinterface).Name] : null; }
+        public LCD LCD { get => _initialized ? (LCD)_hwComponents[typeof(LCD).Name] : null; }
+        public Potentiometer Potentiometer { get => _initialized ? (Potentiometer)_hwComponents[typeof(Potentiometer).Name] : null; }
+        public Multiplexer Multiplexer { get => _initialized ? (Multiplexer)_hwComponents[typeof(Multiplexer).Name] : null; }
+        public ADCDAC ADCDAC { get => _initialized ? (ADCDAC)_hwComponents[typeof(ADCDAC).Name] : null; }
 
 
         private void initializeHWComponents()
