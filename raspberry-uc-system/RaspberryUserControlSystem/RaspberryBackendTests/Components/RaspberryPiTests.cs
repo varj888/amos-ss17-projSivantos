@@ -29,7 +29,7 @@ namespace RaspberryBackendTests
         {
             raspberryPi.reset();
             Assert.IsNull(raspberryPi.GpioInterface);
-            Assert.IsNull(raspberryPi.LcdDisplay);
+            Assert.IsNull(raspberryPi.LCD);
             Assert.IsNull(raspberryPi.Potentiometer);
         }
 
