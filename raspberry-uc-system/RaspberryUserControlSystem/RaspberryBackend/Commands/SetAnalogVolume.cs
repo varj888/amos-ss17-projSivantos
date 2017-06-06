@@ -26,7 +26,7 @@ namespace RaspberryBackend
             }
 
             dataBufferVariable[0] = requestedVolumeLevel;
-            RaspberryPi.setHIPower(dataBufferVariable);
+            RaspberryPi.setAnalogVolume(dataBufferVariable);
         }
     }
 }
