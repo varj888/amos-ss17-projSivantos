@@ -38,21 +38,18 @@ namespace RaspberryBackend
             Command command = null;
             try
             {
-                //look if the command was already requested once, if not, create it. 
+                //look if the command was already requested once, if not, create it.
                 if (!Command.Instances.TryGetValue(request.command, out command))
                 {
-                    //look if the command was already requested once, if not, create it.
-                    if (!Command.Instances.TryGetValue(request.command, out command))
-                    {
-                        Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
-                        command = createCommand(request);
-                        Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
-                    }
+                    Debug.WriteLine("\n" + "Looking up requested Command in Assembly.....");
+                    command = createCommand(request);
+                    Debug.Write(string.Format("Found the following Command in Request: '{0}' and instantiated it \n", command != null ? command.GetType().FullName : "none"));
                 }
+                else
+                {
+                    Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
+                }
+                
             }
             catch (Exception e)
             {

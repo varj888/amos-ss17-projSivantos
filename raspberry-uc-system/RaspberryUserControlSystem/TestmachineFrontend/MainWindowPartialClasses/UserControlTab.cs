@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Diagnostics;
+using CommonFiles.TransferObjects;
 
 namespace TestmachineFrontend
 {
@@ -21,7 +23,8 @@ namespace TestmachineFrontend
 
         private void vcSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-
+            System.Windows.Controls.Slider el = (System.Windows.Controls.Slider) sender;
+            sendRequest(new Request("TurnHIOn", el.Value));
         }
 
         private void soundSlider_DragStarted(object sender, RoutedEventArgs e)

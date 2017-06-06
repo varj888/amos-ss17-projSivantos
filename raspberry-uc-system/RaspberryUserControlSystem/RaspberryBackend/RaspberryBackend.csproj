@@ -127,7 +127,7 @@
     <Compile Include="Commands\WritePin.cs" />
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
-    <Compile Include="Components\SPI\ADConverter.cs" />
+    <Compile Include="Components\SPI\ADCDAC.cs" />
     <Compile Include="Data\MultiplexerConfigFactory.cs" />
     <Compile Include="Data\Config.cs" />
     <Compile Include="Components\I2C\I2C.cs" />
@@ -135,7 +135,7 @@
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
-    <Compile Include="Interfaces\ICommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />
     <Compile Include="MainPage.xaml.cs">

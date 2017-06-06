@@ -69,6 +69,7 @@ namespace RaspberryBackend
             {
                 try
                 {
+                    Debug.WriteLine(this.GetType().Name + "::: Awaiting request...");
                     using (ObjConn<Request, Result> connection = await requestServer.acceptConnectionAsync())
                     {
                         handleRequestConnection(connection);

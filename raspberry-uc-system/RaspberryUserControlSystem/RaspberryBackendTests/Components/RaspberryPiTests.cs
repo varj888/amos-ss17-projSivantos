@@ -24,28 +24,13 @@ namespace RaspberryBackendTests
             Testpotentiometer = new Potentiometer();
         }
 
-
-        //Tests if unknown requests creates the corresponding exception
         [TestMethod]
         public void TestNotInitialized()
         {
-            //raspberryPi.reset();
-            //Assert.IsNull(raspberryPi.GpioInterface);
-            //Assert.IsNull(raspberryPi.LcdDisplay);
-            //Assert.IsNull(raspberryPi.Potentiometer);
-        }
-
-
-        // Tests if possible commands create the corresponding command class
-        // Extend new commands here!
-        [TestMethod]
-        public void TestSingleInitialize()
-        {
-            //raspberryPi.initialize();
-            //raspberryPi.initialize(TestGpiooInterface, TestLcdDisplay, Testpotentiometer);
-            //Assert.AreNotEqual(raspberryPi.GpioInterface, TestGpiooInterface);
-            //Assert.AreNotEqual(raspberryPi.LcdDisplay, TestLcdDisplay);
-            //Assert.AreNotEqual(raspberryPi.Potentiometer, Testpotentiometer);
+            raspberryPi.reset();
+            Assert.IsNull(raspberryPi.GpioInterface);
+            Assert.IsNull(raspberryPi.LcdDisplay);
+            Assert.IsNull(raspberryPi.Potentiometer);
         }
 
         [TestCleanup]
