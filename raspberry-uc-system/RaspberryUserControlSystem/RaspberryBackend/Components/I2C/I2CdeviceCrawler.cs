@@ -11,7 +11,7 @@ namespace RaspberryBackend.Data
     /// represents the common interface for
     /// I2C-Communication with devices
     /// </summary>
-    public static class I2C
+    public static class I2CdeviceCrawler
     {
         /// <summary>
         /// one Raspberry Pi allows to connect up to 128 devices

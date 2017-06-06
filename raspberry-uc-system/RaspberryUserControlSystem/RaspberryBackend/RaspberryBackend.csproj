@@ -130,7 +130,7 @@
     <Compile Include="Components\SPI\ADCDAC.cs" />
     <Compile Include="Data\MultiplexerConfigFactory.cs" />
     <Compile Include="Data\Config.cs" />
-    <Compile Include="Components\I2C\I2C.cs" />
+    <Compile Include="Components\I2C\I2CdeviceCrawler.cs" />
     <Compile Include="Components\I2C\Multiplexer.cs" />
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
