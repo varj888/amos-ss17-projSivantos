@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.Foundation;
 
@@ -12,7 +8,7 @@ namespace RaspberryBackend
     //<summary>
     //Interface to access GPIO pin_ids on a raspberry pi
     //</summary>
-    public class GPIOinterface
+    public class GPIOinterface : HWComponent
     {
         private Dictionary<string, UInt16> pin_ids = new Dictionary<string, UInt16>();
         private Dictionary<UInt16, GpioPin> pins = new Dictionary<UInt16, GpioPin>();
@@ -20,9 +16,6 @@ namespace RaspberryBackend
         private const GpioPinValue PIN_LOW = GpioPinValue.Low;
         private GpioController gpio = GpioController.GetDefault();
 
-        private Boolean _initialized = false;
-
-        public bool Initialized => _initialized;
 
         public GPIOinterface()
         {
@@ -44,10 +37,7 @@ namespace RaspberryBackend
             pin_ids["PIN_27"] = 27;  //PullDown
         }
 
-        //<summary>
-        //Inititializes the pins to "open".
-        //</summary>
-        public void initPins()
+        public override void initiate()
         {
             if (_initialized) return;
 
@@ -66,11 +56,11 @@ namespace RaspberryBackend
         {
             return this.pin_ids;
         }
-        
+
         //<summary>
         //Get a pin by ID
         //</summary>
-        public GpioPin getPin( UInt16 id )
+        public GpioPin getPin(UInt16 id)
         {
             return pins[id];
         }
@@ -78,7 +68,7 @@ namespace RaspberryBackend
         //<summary>
         //Register an eventhandler for a pin
         //</summary>
-        public void registerEventHandler( UInt16 id, TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs> f )
+        public void registerEventHandler(UInt16 id, TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs> f)
         {
             pins[id].ValueChanged += f;
         }
@@ -86,12 +76,13 @@ namespace RaspberryBackend
         //<summary>
         //Set inputmode according to whether pin is supposed to be PullUp/ Down
         //</summary>
-        public void setToInput( UInt16 id )
+        public void setToInput(UInt16 id)
         {
-            if( id < 9 )
+            if (id < 9)
             {
                 pins[id].SetDriveMode(GpioPinDriveMode.InputPullUp);
-            } else
+            }
+            else
             {
                 pins[id].SetDriveMode(GpioPinDriveMode.InputPullDown);
             }
@@ -100,7 +91,7 @@ namespace RaspberryBackend
         //<summary>
         //Set a pin to output
         //</summary>
-        public void setToOutput( UInt16 id )
+        public void setToOutput(UInt16 id)
         {
             pins[id].SetDriveMode(GpioPinDriveMode.Output);
         }
@@ -108,26 +99,18 @@ namespace RaspberryBackend
         //<summary>
         //Write to a pin 0 for low-value, 1 for high-value
         //</summary>
-        public void writePin( UInt16 id, uint v )
+        public void writePin(UInt16 id, uint v)
         {
-            pins[id].Write( (v == 0) ? PIN_LOW : PIN_HIGH );
+            pins[id].Write((v == 0) ? PIN_LOW : PIN_HIGH);
         }
 
         //<summary>
         //Read from a pin (will read last input if pin is configured as input
         //</summary>
-        public string readPin( UInt16 id )
+        public string readPin(UInt16 id)
         {
             return pins[id].Read().ToString();
         }
 
-        /// <summary>
-        /// Return init state of GPIO
-        /// </summary>
-        /// <returns></returns>
-        public Boolean isInitialized()
-        {
-            return _initialized;
-        }
     }
 }

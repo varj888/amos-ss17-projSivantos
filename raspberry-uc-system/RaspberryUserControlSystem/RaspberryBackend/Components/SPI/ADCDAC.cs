@@ -9,7 +9,7 @@ namespace RaspberryBackend
     /// Software representation of the A/D Converter
     /// (MCP3202)
     /// </summary>
-    public class ADCDAC
+    public class ADCDAC : HWComponent
     {
         private ADCDACPi adcdac = new ADCDACPi();
 
@@ -20,7 +20,14 @@ namespace RaspberryBackend
 
         private double currentDACVoltage = -1;
 
-        public ADCDAC() { }
+        public override void initiate()
+        {
+            connect();
+
+            Debug.WriteLine(this.GetType().Name + "::: Setting DACVoltage to standard 1.0 volts.");
+            setDACVoltage(STANDARD_VOLTAGE);
+            _initialized = true;
+        }
 
         /// <summary>
         /// connect to device
@@ -43,20 +50,7 @@ namespace RaspberryBackend
             {
                 Debug.WriteLine(this.GetType().Name + "::: DACDAC is ready for setting voltages!");
             }
-        }
 
-        /// <summary>
-        /// initializes the DACVoltage
-        /// connects to the ADCDAC Device
-        /// sets DACVoltage to a standard value, here 1.0 volts
-        /// </summary>
-        public void init()
-        {
-
-            connect();
-
-            Debug.WriteLine(this.GetType().Name + "::: Setting DACVoltage to standard 1.0 volts.");
-            setDACVoltage(STANDARD_VOLTAGE);
         }
 
         public bool isConnected()

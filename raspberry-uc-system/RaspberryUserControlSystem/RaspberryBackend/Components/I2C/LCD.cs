@@ -7,7 +7,7 @@ namespace RaspberryBackend
     /// <summary>
     /// Software representation of the LCD Display.
     /// </summary>
-    public class LCD
+    public class LCD : HWComponent
     {
         //Adress setup information
         public const byte DEVICE_I2C_ADDRESS = 0x27; // 7-bit I2C address of the port expander
@@ -31,10 +31,10 @@ namespace RaspberryBackend
         public byte backLight { get; set; }
         public int scrollSpeed { get; set; }
 
-        private Boolean _initialized = false;
+
         private I2cDevice _lcdDisplay;
 
-        public LCD()
+        public override void initiate()
         {
             try
             {
@@ -46,6 +46,8 @@ namespace RaspberryBackend
                 System.Diagnostics.Debug.WriteLine("Problem with I2C " + e.Message);
                 throw e;
             }
+
+            initiateLCD();
         }
 
         /**
@@ -80,11 +82,6 @@ namespace RaspberryBackend
 
             this.clrscr();
             _initialized = true;
-        }
-
-        public Boolean isInitialized()
-        {
-            return _initialized;
         }
 
         /**
@@ -214,5 +211,6 @@ namespace RaspberryBackend
         {
             write(address, Data_sendMode);
         }
+
     }
 }

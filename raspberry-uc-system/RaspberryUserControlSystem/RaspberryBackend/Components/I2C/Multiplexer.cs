@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using Windows.Devices.Gpio;
 using Windows.Devices.I2c;
 
@@ -12,7 +11,7 @@ namespace RaspberryBackend
     /// and implements the core functionality of the device
     /// ADG2128 is an analog cross point switch with an array size of 8 x 12
     /// </summary>
-    public class Multiplexer
+    public class Multiplexer : HWComponent
     {
         /// <summary>
         /// total ammount of available switches (8 x 12 --> 96)
@@ -22,7 +21,6 @@ namespace RaspberryBackend
         // use these constants for controlling how the I2C bus is setup
         private const byte MULTIPLEXER_I2C_ADDRESS = 0x70;
         private I2cDevice multiplexer;
-        private Boolean _initialized = false;
         private byte _DB15 = 0x80;
         private GpioPin _reset;
 
@@ -35,7 +33,10 @@ namespace RaspberryBackend
         public Multiplexer(GpioPin reset)
         {
             _reset = reset;
+        }
 
+        public override void initiate()
+        {
             try
             {
                 Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, true, false)).Wait();
@@ -47,15 +48,6 @@ namespace RaspberryBackend
             }
 
             _initialized = true;
-        }
-
-        /// <summary>
-        /// returns whether the Multiplexer is initialized or not
-        /// </summary>
-        /// <returns>true:= initialize and false:= not initialized</returns>
-        public Boolean isInitialized()
-        {
-            return _initialized;
         }
 
         /// <summary>
