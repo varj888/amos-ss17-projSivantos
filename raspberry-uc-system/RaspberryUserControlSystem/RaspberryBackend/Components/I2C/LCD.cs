@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
 
 namespace RaspberryBackend
@@ -11,7 +10,6 @@ namespace RaspberryBackend
     public class LCD
     {
         //Adress setup information
-        public const string I2C_CONTROLLER_NAME = "I2C1"; //use for RPI2
         public const byte DEVICE_I2C_ADDRESS = 0x27; // 7-bit I2C address of the port expander
 
         private const byte LCD_WRITE = 0x07;
@@ -38,29 +36,16 @@ namespace RaspberryBackend
 
         public LCD()
         {
-            // It's async method, so we have to wait
-            Task.Run(() => this.startI2C()).Wait();
-        }
-
-        /**
-        * Open communication channel to LCD
-        **/
-        public async void startI2C()
-        {
             try
             {
-                var i2cSettings = new I2cConnectionSettings(DEVICE_I2C_ADDRESS);
-                i2cSettings.BusSpeed = I2cBusSpeed.FastMode;
-                string deviceSelector = I2cDevice.GetDeviceSelector(I2C_CONTROLLER_NAME);
-                var i2cDeviceControllers = await DeviceInformation.FindAllAsync(deviceSelector);
-                this._lcdDisplay = await I2cDevice.FromIdAsync(i2cDeviceControllers[0].Id, i2cSettings);
+                Task.Run(() => I2C.connectDeviceAsync(DEVICE_I2C_ADDRESS, true, false)).Wait();
+                I2C.connectedDevices.TryGetValue(DEVICE_I2C_ADDRESS, out _lcdDisplay);
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: {0}", e.Message);
-                return;
+                System.Diagnostics.Debug.WriteLine("Problem with I2C " + e.Message);
+                throw e;
             }
-
         }
 
         /**

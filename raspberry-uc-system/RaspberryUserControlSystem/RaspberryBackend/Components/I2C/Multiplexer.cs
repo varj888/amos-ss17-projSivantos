@@ -36,7 +36,17 @@ namespace RaspberryBackend
         public Multiplexer(GpioPin reset)
         {
             _reset = reset;
-            Task.Run(() => this.startI2C()).Wait();
+
+            try
+            {
+                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, true, false)).Wait();
+                I2C.connectedDevices.TryGetValue(MULTIPLEXER_I2C_ADDRESS, out multiplexer);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("Problem with I2C " + e.Message);
+            }
+
             _initialized = true;
         }
 

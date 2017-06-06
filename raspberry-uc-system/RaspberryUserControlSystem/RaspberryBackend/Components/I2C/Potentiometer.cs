@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
 
 namespace RaspberryBackend
@@ -11,38 +10,26 @@ namespace RaspberryBackend
     public class Potentiometer
     {
         // use these constants for controlling how the I2C bus is setup
-        private const string I2C_CONTROLLER_NAME = "I2C1";
         private const byte POTENTIOMETER_I2C_ADDRESS = 0x2F;
         private I2cDevice potentiometer;
         private Boolean _initialized = false;
-
-        /// <summary>
-        /// starts the I2C communication with the potentiometer
-        /// </summary>
-        private async void startI2C()
-        {
-            try
-            {
-                var i2cSettings = new I2cConnectionSettings(POTENTIOMETER_I2C_ADDRESS);
-                i2cSettings.BusSpeed = I2cBusSpeed.FastMode;
-                string deviceSelector = I2cDevice.GetDeviceSelector(I2C_CONTROLLER_NAME);
-                var i2cDeviceControllers = await DeviceInformation.FindAllAsync(deviceSelector);
-                this.potentiometer = await I2cDevice.FromIdAsync(i2cDeviceControllers[0].Id, i2cSettings);
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine("Exception: {0}", e.Message);
-                return;
-            }
-        }
 
         /// <summary>
         /// creates and initializes the Potentiometer
         /// </summary>
         public Potentiometer()
         {
-            // Wait for async to return
-            Task.Run(() => this.startI2C()).Wait();
+            try
+            {
+                Task.Run(() => I2C.connectDeviceAsync(POTENTIOMETER_I2C_ADDRESS, true, false)).Wait();
+                I2C.connectedDevices.TryGetValue(POTENTIOMETER_I2C_ADDRESS, out potentiometer);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Problem with I2C " + e.Message);
+                throw e;
+            }
+
             _initialized = true;
         }
 
