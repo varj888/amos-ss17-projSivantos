@@ -11,7 +11,8 @@ namespace RaspberryBackend
         private Dictionary<String, HWComponent> _hwComponents;
 
         private static readonly RaspberryPi _instance = new RaspberryPi();
-        private Boolean _initialized = false;
+        private bool _initialized = false;
+        private bool defaultMode = false;
 
         public static RaspberryPi Instance
         {
@@ -25,6 +26,7 @@ namespace RaspberryBackend
         /// </summary>
         public void initialize()
         {
+            defaultMode = true;
             initialize(
                 new GPIOinterface(),
                 new LCD(),

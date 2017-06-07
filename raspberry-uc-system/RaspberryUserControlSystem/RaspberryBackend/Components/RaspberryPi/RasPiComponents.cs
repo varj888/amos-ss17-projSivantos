@@ -17,13 +17,17 @@ namespace RaspberryBackend
 
         private void initializeHWComponents()
         {
-            foreach (HWComponent hwcomponent in _hwComponents.Values)
+            if (defaultMode)
             {
-                Task.Delay(500).Wait();
-                hwcomponent.initiate();
-            }
+                foreach (HWComponent hwcomponent in _hwComponents.Values)
+                {
+                    Task.Delay(500).Wait();
+                    hwcomponent.initiate();
+                }
 
-            LCD.prints(this.GetIpAddressAsync());
+                LCD.prints(this.GetIpAddressAsync());
+            }
+            
         }
 
         private string GetIpAddressAsync()
