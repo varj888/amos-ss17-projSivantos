@@ -14,13 +14,12 @@ namespace RaspberryBackend
         /// <summary>
         /// Connect pin x to y, provided by pinString
         /// </summary>
-        /// <param name="pinString">Input pins in format: "xPin"+"%"+"yPin"</param>
-        public override void executeAsync(Object pinString)
+        /// <param name="parameter">pins as int array</param>
+        public override void executeAsync(Object parameter)
         {
-            string requestInput = ((string)pinString);
-            string[] pins = requestInput.Split('%');
-            Int32 xPin = Int32.Parse(pins[0]);
-            Int32 yPin = Int32.Parse(pins[1]);
+            int[] pins = (int[])parameter;
+            Int32 xPin = pins[0];
+            Int32 yPin = pins[1];
 
             if (pins.Length != 2)
             {
