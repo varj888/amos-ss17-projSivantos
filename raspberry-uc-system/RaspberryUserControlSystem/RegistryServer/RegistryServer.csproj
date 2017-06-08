@@ -58,6 +58,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
+      <Link>CommonFiles\Networking\ClientConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\DataConn.cs">
+      <Link>CommonFiles\Networking\DataConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
+      <Link>CommonFiles\Networking\ObjConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\Serializer.cs">
+      <Link>CommonFiles\Networking\Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
+      <Link>CommonFiles\Networking\TCPServer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
+      <Link>CommonFiles\TransferObjekts\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Result.cs">
+      <Link>CommonFiles\TransferObjekts\Result.cs</Link>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
