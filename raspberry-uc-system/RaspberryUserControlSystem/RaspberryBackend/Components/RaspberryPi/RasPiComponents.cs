@@ -14,20 +14,22 @@ namespace RaspberryBackend
         public Multiplexer Multiplexer { get => _initialized ? (Multiplexer)_hwComponents[typeof(Multiplexer).Name] : null; }
         public ADCDAC ADCDAC { get => _initialized ? (ADCDAC)_hwComponents[typeof(ADCDAC).Name] : null; }
 
-
+        //initialization of each Hardware Component
         private void initializeHWComponents()
         {
-            if (defaultMode)
+            if (!testMode)
             {
                 foreach (HWComponent hwcomponent in _hwComponents.Values)
                 {
-                    Task.Delay(500).Wait();
+                    Task.Delay(250).Wait();
                     hwcomponent.initiate();
                 }
 
+                _initialized = true;
+
                 LCD.prints(this.GetIpAddressAsync());
+                Multiplexer.setReset(GPIOinterface.getPin(18));
             }
-            
         }
 
         private string GetIpAddressAsync()
@@ -49,42 +51,9 @@ namespace RaspberryBackend
                         if (!IPAddress.TryParse(h.DisplayName, out ip)) continue;
                         if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork) return ip.ToString();
                     }
-
                 }
             }
             return ipAsString;
         }
     }
-
-
-
-
-    //===================================================================================================================
-    //======================= Different Approach (untestet) with hwComponents as a List ==================================
-    //===================================================================================================================
-
-    //public GPIOinterface GPIOinterface { get => (GPIOinterface)getHwComponent(typeof(GPIOinterface).GetType()); }
-    //public LCD LCD { get => (LCD)getHwComponent(typeof(LCD).GetType()); }
-    //public Potentiometer Potentiometer { get => (Potentiometer)getHwComponent(typeof(Potentiometer).GetType()); }
-    //public Multiplexer Multiplexer { get => (Multiplexer)getHwComponent(typeof(Multiplexer).GetType()); }
-    //public ADCDAC ADCDAC { get => (ADCDAC)getHwComponent(typeof(ADCDAC).GetType()); }
-
-
-    ///// <summary>
-    ///// Finds a specific Hardware Component in the List hwcomponents
-    ///// </summary>
-    ///// <param name="HWcomponentType"></param>
-    ///// <returns></returns>
-    //private HWComponent getHwComponent(Type HWcomponentType)
-    //{
-    //    foreach (HWComponent hwComponent in hwComponents.Values)
-    //    {
-    //        if (typeof(HWComponent).GetType().Equals(hwComponent.GetType()))
-    //        {
-    //            return hwComponent;
-    //        }
-    //    }
-
-    //    throw new TypeLoadException("Hardware Component could not be found");
-    //}
 }
