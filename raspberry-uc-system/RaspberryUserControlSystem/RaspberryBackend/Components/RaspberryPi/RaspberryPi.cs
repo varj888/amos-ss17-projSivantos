@@ -8,11 +8,11 @@ namespace RaspberryBackend
     /// </summary>
     public partial class RaspberryPi
     {
-        private Dictionary<String, HWComponent> _hwComponents;
+        private Dictionary<String, HWComponent> _hwComponents = new Dictionary<String, HWComponent>();
 
         private static readonly RaspberryPi _instance = new RaspberryPi();
         private bool _initialized = false;
-        private bool defaultMode = false;
+        private bool testMode = true;
 
         public static RaspberryPi Instance
         {
@@ -26,18 +26,18 @@ namespace RaspberryBackend
         /// </summary>
         public void initialize()
         {
-            defaultMode = true;
+            testMode = false;
             initialize(
                 new GPIOinterface(),
                 new LCD(),
                 new Potentiometer(),
-                new Multiplexer(GPIOinterface.getPin(18)),
+                new Multiplexer(),
                 new ADCDAC()
                 );
         }
 
         /// <summary>
-        /// Customized initialization of the Raspberry Pi.
+        /// Customized initialization of the Raspberry Pi. It initialize the desired Hardware configuration of the Raspberry Pi.
         /// </summary>
         /// <param name="hwComponents">
         /// Hardware Componens which shall be connected to the Raspi.
@@ -45,16 +45,12 @@ namespace RaspberryBackend
         /// </param>
         public void initialize(params HWComponent[] hwComponents)
         {
-            _hwComponents = new Dictionary<String, HWComponent>();
-
             foreach (HWComponent hwComponent in hwComponents)
             {
                 addToRasPi(hwComponent);
             }
 
             initializeHWComponents();
-
-            _initialized = true;
         }
 
         private void addToRasPi(HWComponent hwComponent)
@@ -64,11 +60,14 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Resets the single instance of the Raspberry PI representation. For now it is used for Testing.
+        /// Deletes thecurrent Hardware Configuration of the Raspberry Pi. For now it is used for Testing.
         /// </summary>
         public void reset()
         {
             _hwComponents = new Dictionary<String, HWComponent>();
+            _initialized = false;
+
+            //missing, resetting all individual Hardware Components
         }
 
         /// <summary>
