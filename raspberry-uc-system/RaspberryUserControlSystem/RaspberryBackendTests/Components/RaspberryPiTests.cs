@@ -13,7 +13,6 @@ namespace RaspberryBackendTests
         Multiplexer Testmultiplexer;
         ADCDAC Testadconverter;
 
-
         [TestInitialize]
         public void setUp()
         {
