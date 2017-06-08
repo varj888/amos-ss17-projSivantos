@@ -93,7 +93,7 @@ namespace RaspberryBackend
             this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (1 << EN) | (backLight << BL)) });
             // Enable bit LOW
             this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (this.backLight << BL)) });
-            Task.Delay(100).Wait(); //In case of problem with displaying wrong characters uncomment this part
+            //Task.Delay(100).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
         /**
@@ -115,7 +115,7 @@ namespace RaspberryBackend
         {
             pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << RS)));
             pulseEnable(Convert.ToByte((data & 0x0f) << 4 | (Rs << RS)));
-            Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
+            //Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
 
