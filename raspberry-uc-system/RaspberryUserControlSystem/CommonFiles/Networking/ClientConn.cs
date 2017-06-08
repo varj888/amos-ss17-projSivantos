@@ -34,6 +34,21 @@ namespace CommonFiles.Networking
             return new ClientConn<inType, outType>(objConn);
         }
 
+        /// <summary>
+        /// connects to a Server
+        /// </summary>
+        /// <param name="hostname">hostname of the server to connect to</param>
+        /// <param name="port">port of the server to connect to</param>
+        /// <returns></returns>
+        public static async Task<ClientConn<inType, outType>> connectAsync(string hostname, int port)
+        {
+            TcpClient socket = new TcpClient();
+            await socket.ConnectAsync(hostname, port);
+            NetworkStream stream = socket.GetStream();
+            ObjConn<inType, outType> objConn = new ObjConn<inType, outType>(stream);
+            return new ClientConn<inType, outType>(objConn);
+        }
+
         // private constructor to avoid instantiation without calling connect
         private ClientConn(ObjConn<inType, outType> objConn) {
             this.objConn = objConn;
