@@ -14,9 +14,9 @@ namespace RaspberryBackend
 
         /// <summary>
         /// based on information in https://www.hackster.io/porrey/discover-i2c-devices-on-the-raspberry-pi-84bc8b
-        /// New I2C device are only going to be connected once
+        /// New I2C device are only going to be connected once. The I2C device will be initialized in DefaultBusSpeedMode and ExclusiveConnectionMode.
         /// </summary>
-        /// <param name="deviceAdress"></param>
+        /// <param name="deviceAdress">The Adress of the specific I2C device (consult Data-Sheed if neccessary)</param>
         /// <returns></returns>
         public static async Task connectDeviceAsync(byte deviceAdress)
         {
@@ -44,10 +44,10 @@ namespace RaspberryBackend
         /// <summary>
         ///
         /// </summary>
-        /// <param name="deviceAdress"></param>
-        /// <param name="FastModeBusSpeed"></param>
-        /// <param name="SharedConnectionMode"></param>
+        /// <param name="FastModeBusSpeed">True for FastMode or False for DefaulMode</param>
+        /// <param name="SharedConnectionMode">True for SharedMode or False for ExclusiveMode</param>
         /// <returns></returns>
+        /// <see cref="connectDeviceAsync(byte)"/>
         public static async Task connectDeviceAsync(byte deviceAdress, bool FastModeBusSpeed, bool SharedConnectionMode)
         {
             if (!connectedDevices.ContainsKey(deviceAdress))

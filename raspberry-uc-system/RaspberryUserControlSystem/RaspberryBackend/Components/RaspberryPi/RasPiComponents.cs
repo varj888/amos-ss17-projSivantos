@@ -8,6 +8,7 @@ namespace RaspberryBackend
 {
     public partial class RaspberryPi
     {
+        /// Hardware Components of the RasPi
         public GPIOinterface GPIOinterface { get => _initialized ? (GPIOinterface)_hwComponents[typeof(GPIOinterface).Name] : null; }
         public LCD LCD { get => _initialized ? (LCD)_hwComponents[typeof(LCD).Name] : null; }
         public Potentiometer Potentiometer { get => _initialized ? (Potentiometer)_hwComponents[typeof(Potentiometer).Name] : null; }

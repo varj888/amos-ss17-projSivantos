@@ -34,5 +34,4 @@ namespace RaspberryBackend
             return GPIOinterface.readPin(id);
         }
     }
-
 }

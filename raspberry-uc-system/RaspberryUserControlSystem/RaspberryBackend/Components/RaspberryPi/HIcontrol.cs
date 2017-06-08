@@ -3,15 +3,13 @@
     public partial class RaspberryPi
     {
         /// <summary>
-        /// usage example:
-        /// turns ADConverter on with
-        /// 3.3V to the channel 2 with DAC voltage 1.5
+        /// Sets the DACVoltage output in channel 1 to a desired voltage
         /// </summary>
+        /// <param name="voltage"></param>
         public void turnHI_on(double voltage)
         {
             ADCDAC.setDACVoltage(voltage);
         }
-
 
         /// <summary>
         /// Set the potentiometer to a value from 0000 0000 - 0111 1111
@@ -33,5 +31,4 @@
             Multiplexer.connectPins(xPin, yPin);
         }
     }
-
 }
