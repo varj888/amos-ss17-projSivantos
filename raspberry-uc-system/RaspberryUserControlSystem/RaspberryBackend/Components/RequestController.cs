@@ -1,7 +1,5 @@
 ﻿using CommonFiles.TransferObjects;
-using RaspberryBackend;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -60,7 +58,7 @@ namespace RaspberryBackend
             {
                 command.executeAsync(request.parameter);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new Result(e.Message);
             }
@@ -83,7 +81,7 @@ namespace RaspberryBackend
             //-- typeof(type): gets the Type of ICommand => Type ICommand; now access to different methods e.g. (type)ICommand.*
             //-- GetTypeInfo(): gets Metainformation of the type e.g. Assembly information of ICommand
             //-- assembly utilize the Assembly information and returns the referenced assembly
-            Assembly executingAssembly = typeof(Command).GetTypeInfo().Assembly;
+            Assembly executingAssembly = typeof(ICommand).GetTypeInfo().Assembly;
             Type commandType = executingAssembly.GetType(command);
 
             return (Command)Activator.CreateInstance(commandType, raspberryPi);
