@@ -30,15 +30,10 @@ namespace RaspberryBackend
         /// creates and initializes the Multiplexer
         /// </summary>
         /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
-        public Multiplexer(GpioPin reset)
-        {
-            _reset = reset;
-        }
-
         public Multiplexer()
         {
-            //  _reset = GPIOinterface.getPin(18);
         }
+
 
         public override void initiate()
         {
@@ -46,15 +41,21 @@ namespace RaspberryBackend
             {
                 Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, true, false)).Wait();
                 I2C.connectedDevices.TryGetValue(MULTIPLEXER_I2C_ADDRESS, out multiplexer);
+
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Problem with I2C " + e.Message);
+                Debug.WriteLine("Problem with I2C : " + e.Message);
             }
 
             _initialized = true;
         }
 
+        public void setReset(GpioPin reset)
+        {
+            _reset = reset;
+            this.powerON();
+        }
         /// <summary>
         /// simultaneously updates all switches
         /// using the LDSW command
