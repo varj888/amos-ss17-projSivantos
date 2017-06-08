@@ -211,6 +211,5 @@ namespace RaspberryBackend
         {
             write(address, Data_sendMode);
         }
-
     }
 }

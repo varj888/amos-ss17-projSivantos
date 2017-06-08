@@ -41,9 +41,7 @@ namespace RaspberryBackend
             }
         }
 
-        /// <summary>
-        ///
-        /// </summary>
+        /// <summary></summary
         /// <param name="FastModeBusSpeed">True for FastMode or False for DefaulMode</param>
         /// <param name="SharedConnectionMode">True for SharedMode or False for ExclusiveMode</param>
         /// <returns></returns>

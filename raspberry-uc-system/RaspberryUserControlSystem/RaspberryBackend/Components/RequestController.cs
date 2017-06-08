@@ -47,7 +47,6 @@ namespace RaspberryBackend
                 {
                     Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
                 }
-
             }
             catch (Exception e)
             {
@@ -62,6 +61,7 @@ namespace RaspberryBackend
             {
                 return new Result(e.Message);
             }
+
             return new Result(null);
         }
 
