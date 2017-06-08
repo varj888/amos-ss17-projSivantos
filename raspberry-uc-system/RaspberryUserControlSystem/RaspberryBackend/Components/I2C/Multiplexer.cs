@@ -50,7 +50,7 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
-        public void setReset(GpioPin reset)
+        public void setResetPin(GpioPin reset)
         {
             _reset = reset;
             this.powerON();

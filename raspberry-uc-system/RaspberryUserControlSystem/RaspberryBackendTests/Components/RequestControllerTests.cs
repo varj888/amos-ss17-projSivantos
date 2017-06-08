@@ -1,8 +1,5 @@
-﻿
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend;
-using CommonFiles.TransferObjects;
 
 namespace RaspberryBackendTests
 {

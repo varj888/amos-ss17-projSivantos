@@ -14,7 +14,6 @@ namespace RaspberryBackendTests
         ADCDAC Testadconverter;
 
 
-
         [TestInitialize]
         public void setUp()
         {
@@ -47,8 +46,6 @@ namespace RaspberryBackendTests
             Assert.AreEqual(Testpotentiometer, raspberryPi.Potentiometer);
             Assert.AreEqual(Testmultiplexer, raspberryPi.Multiplexer);
             Assert.AreEqual(Testadconverter, raspberryPi.ADCDAC);
-
-
         }
 
         [TestCleanup]
