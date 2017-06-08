@@ -27,7 +27,7 @@
         /// </summary>
         public void resetLCD()
         {
-            LCD.initiate();
+            LCD.initiateLCD();
         }
 
         /// <summary>
@@ -37,7 +37,7 @@
         public void setLCDBackgroundState(byte targetState)
         {
             LCD.backLight = targetState;
-            LCD.write(targetState, 1);
+            LCD.write(targetState, 0);
         }
     }
 }
