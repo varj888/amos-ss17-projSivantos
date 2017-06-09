@@ -20,10 +20,12 @@
                     hwcomponent.initiate();
                 }
 
-                _initialized = true;
-
-                displayIPAdressOnLCD();
-                Multiplexer.setResetPin(GPIOinterface.getPin(18));
+                if (hwComponentsInitialized())
+                {
+                    displayIPAdressOnLCD();
+                    Multiplexer.setResetPin(GPIOinterface.getPin(18));
+                }
+               
             }
         }
     }

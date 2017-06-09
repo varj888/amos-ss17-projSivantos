@@ -51,6 +51,7 @@ namespace RaspberryBackend
             }
 
             initializeHWComponents();
+            _initialized = true;
         }
 
         private void addToRasPi(HWComponent hwComponent)
@@ -76,7 +77,20 @@ namespace RaspberryBackend
         /// <returns></returns>
         public Boolean isInitialized()
         {
-            return _initialized & GPIOinterface.isInitialized() & LCD.isInitialized() & Potentiometer.isInitialized();
+            return _initialized & hwComponentsInitialized();
+        }
+
+        private bool hwComponentsInitialized()
+        {
+            foreach (var hwComponent in _hwComponents.Values)
+            {
+                if (!hwComponent.isInitialized())
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }
