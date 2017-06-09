@@ -51,6 +51,7 @@ namespace RaspberryBackend
             }
 
             initializeHWComponents();
+
             _initialized = true;
         }
 
