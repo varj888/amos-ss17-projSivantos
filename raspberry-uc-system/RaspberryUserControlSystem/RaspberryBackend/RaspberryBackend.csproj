@@ -130,7 +130,6 @@
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Components\I2C\I2C.cs" />
     <Compile Include="Components\HWComponent.cs" />
-    <Compile Include="Components\RaspberryPi\RasPiComponents.cs" />
     <Compile Include="Components\RaspberryPi\GPIOcontrol.cs" />
     <Compile Include="Components\RaspberryPi\LCDcontrol.cs" />
     <Compile Include="Components\RaspberryPi\HIcontrol.cs" />
