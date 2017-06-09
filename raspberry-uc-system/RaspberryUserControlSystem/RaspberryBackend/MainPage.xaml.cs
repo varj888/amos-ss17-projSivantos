@@ -105,7 +105,8 @@ namespace RaspberryBackend
         private async Task registerAsync()
         {
             ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
-            conn.sendObject(new Request("register", null));
+            string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
+            conn.sendObject(new Request("register", values));
         }
     }
 }
