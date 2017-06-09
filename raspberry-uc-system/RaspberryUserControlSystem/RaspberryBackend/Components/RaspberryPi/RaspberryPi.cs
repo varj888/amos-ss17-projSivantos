@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace RaspberryBackend
 {
@@ -47,7 +48,20 @@ namespace RaspberryBackend
         {
             foreach (HWComponent hwComponent in hwComponents)
             {
+                System.Diagnostics.Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
+
+
                 addToRasPi(hwComponent);
+
+                System.Diagnostics.Debug.WriteLine("Get Type : " + this.GetType().Name);
+                System.Diagnostics.Debug.WriteLine("Get Property of type : " + this.GetType().GetProperty(hwComponent.GetType().AssemblyQualifiedName));
+
+                var instanceVariable = this.GetType().GetProperty(hwComponent.GetType().Name);
+
+                if (instanceVariable != null)
+                {
+                    instanceVariable.SetValue(this, Convert.ChangeType(hwComponent, hwComponent.GetType()));
+                }
             }
 
             initializeHWComponents();
