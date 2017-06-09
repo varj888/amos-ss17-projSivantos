@@ -12,7 +12,7 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Connect pin x to y, provided by pinString
+        /// Connect pin x to y, provided by an integer Array from Frontend
         /// </summary>
         /// <param name="parameter">pins as int array</param>
         public override void executeAsync(Object parameter)
