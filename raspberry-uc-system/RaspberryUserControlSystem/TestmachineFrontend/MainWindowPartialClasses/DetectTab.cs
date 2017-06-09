@@ -76,42 +76,21 @@ namespace TestmachineFrontend
             sendRequest(new Request("LightLED", 1));
         }
 
-        private void HI_ON_Click(object sender, RoutedEventArgs e)
-        {
-            sendRequest(new Request("TurnHIOn", 1.5));
-        }
-
-        private void HI_OFF_Click(object sender, RoutedEventArgs e)
-        {
-            sendRequest(new Request("TurnHIOn", 0.0));
-        }
-
-        private void sendVoltageValue_Click(object sender, RoutedEventArgs e)
-        {
-            sendRequest(new Request("SetAnalogVolume", sliderValue));
-        }
-
-        private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            sliderValue = Convert.ToByte(setVolume_Slider.Value);
-        }
-
-        private byte sliderValue = 0;
-
-        private void setVolume_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            sliderValue = Convert.ToByte(setVolume_Slider.Value);
-        }
-
         private void connect_Pins_Click(object sender, RoutedEventArgs e)
         {
             sendRequest(new Request("ConnectPins", 0));
         }
 
-        private void sendVolumeLevel_Button_Click(object sender, RoutedEventArgs e)
+        private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            this.addMessage("Debug",sliderValue.ToString());
-            sendRequest(new Request("SetAnalogVolume", sliderValue));
+            Slider el = sender as Slider;
+            sendRequest(new Request("SetAnalogVolume", Convert.ToByte(el.Value)));
+        }
+
+        private void vcSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Slider el = sender as Slider;
+            sendRequest(new Request("TurnHIOn", el.Value));
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace RaspberryBackend
 {
@@ -20,6 +21,7 @@ namespace RaspberryBackend
         public override void executeAsync(Object volumeLevel)
         {
             byte requestedVolumeLevel = (byte)volumeLevel;
+            Debug.WriteLine(this.GetType().Name + "::: Requested Volume level: " + requestedVolumeLevel);
             if (requestedVolumeLevel < 0 || requestedVolumeLevel > 127)
             {
                 throw new ArgumentOutOfRangeException("Volume can only operate in the intervall [0:127]");

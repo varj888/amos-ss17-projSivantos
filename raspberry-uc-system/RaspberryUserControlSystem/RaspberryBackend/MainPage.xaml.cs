@@ -78,7 +78,6 @@ namespace RaspberryBackend
 
                 //Process Request
                 Result result = requestController.handleRequest(request);
-                Debug.WriteLine("Error handling Request: " + result.exceptionMessage);
 
                 //Send back Result to the client
                 conn.sendObject(result);

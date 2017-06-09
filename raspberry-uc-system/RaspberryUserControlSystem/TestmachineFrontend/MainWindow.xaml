@@ -6,43 +6,34 @@
         xmlns:local="clr-namespace:TestmachineFrontend"
         xmlns:data="clr-namespace:TestmachineFrontend"
         mc:Ignorable="d"
-        Title="{Binding DeviceName}" Height="544.444" MinHeight="500" Width="550"
-         MaxWidth="550">
-    <Grid Height="416" VerticalAlignment="Top">
+        Title="{Binding DeviceName}" Height="617.944" MinHeight="500" Width="550"
+        MaxWidth="550">
+
+    <Grid Height="452" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="499*"/>
         </Grid.ColumnDefinitions>
         <TabControl x:Name="tabControl" HorizontalAlignment="Left" 
-                    Height="337" Margin="14,10,0,0" 
-                    VerticalAlignment="Top" Width="513" Grid.ColumnSpan="2">
+                    Height="442" Margin="14,10,0,0" 
+                    VerticalAlignment="Top" Width="513">
             <TabItem Header="Detect">
-                <Grid Background="AliceBlue" Margin="0,2,0,-1">
+                <Grid Background="AliceBlue" Margin="0,0,0,0" Height="418" VerticalAlignment="Top">
                     <!--list of available devices-->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="5*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="31*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="9*"/>
-                        <ColumnDefinition Width="33*"/>
-                        <ColumnDefinition Width="49*"/>
-                        <ColumnDefinition Width="23*"/>
-                        <ColumnDefinition Width="103*"/>
-                    </Grid.ColumnDefinitions>
+
 
                     <!--TextBox for entering the IP-Adress of a device-->
-                    <TextBox Grid.Column="5" ToolTip="Enter IP-Adress here"
-                 Margin="39,30,32,16" FontSize="18"
-                 TextAlignment="Center"
-                 Text="{Binding IPaddress}" Grid.ColumnSpan="2"/>
+                    <TextBox ToolTip="Enter IP-Adress here"
+                             Margin="288,30,32,315" FontSize="18"
+                             TextAlignment="Center"
+                             Text="{Binding IPaddress}"/>
                     <!--Button for establishing connection to device-->
-                    <Button Grid.Column="6" x:Name="connectIP_button"
-                  Margin="18,4,34,190" Click="connectIP_button_Click" Grid.Row="1">Connect</Button>
+                    <Button x:Name="connectIP_button"
+                            Margin="316,119,32,278" 
+                            Click="connectIP_button_Click">Connect</Button>
+
                     <ListView x:Name="BackendList" HorizontalAlignment="Left" 
                               Height="267" Margin="24,31,0,0" VerticalAlignment="Top" 
-                              Width="204" Grid.RowSpan="2" Grid.ColumnSpan="5">
+                              Width="204">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
@@ -51,49 +42,81 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button Grid.Column="6" x:Name="readPin_button"
-                        Margin="17,102,133,92"
-                        Content="Read pin" Grid.Row="1" Click="readPin_button_Click"/>
-                    <Button Grid.Column="6" x:Name="writePin_button"
-                        Margin="80,102,69,92"
-                        Content="Write pin" Grid.Row="1" Click="writePin_button_Click"/>
-                    <TextBox Grid.Column="5" Margin="25,102,195,91" 
-                             Grid.Row="1" Text="{Binding PinID}" Grid.ColumnSpan="2"></TextBox>
-                    <Button Grid.Column="6" x:Name="reset_button"
-                        Margin="144,102,10,92"
-                        Content="Reset" Grid.Row="1" Click="reset_button_Click"/>
 
-                    <Button Grid.Column="5" x:Name="ledON_button"
-                        Margin="39,46,157,149"
-                        Content="LED ON" Grid.Row="1"   Click="ledON_button_Click" Grid.ColumnSpan="2"  />
-                    <Button Grid.Column="6" x:Name="ledOFF_button"
-                        Margin="56,46,93,149"
-                        Content="LED OFF" Grid.Row="1"  Click="ledOFF_button_Click" />
+                    <Button x:Name="readPin_button"
+                        Margin="289,247,157,141"
+                        Content="Read pin" Click="readPin_button_Click"/>
+                    <Button x:Name="writePin_button"
+                        Margin="361,247,84,141"
+                        Content="Write pin" Click="writePin_button_Click"/>
+                    <TextBox Margin="250,247,219,141" 
+                             TextAlignment="Center"
+                             Text="{Binding PinID}"/>
 
-                    <Button Grid.Column="6" x:Name="HI_ON"
-                        Margin="75,166,74,28"
-                        Content="HI ON" Grid.Row="1"  Click="HI_ON_Click" RenderTransformOrigin="1.369,-0.363" />
+                    <Button x:Name="reset_button"
+                        Margin="434,247,16,141"
+                        Content="Reset" Click="reset_button_Click"/>
 
-                    <Slider x:Name="setVolume_Slider"
+                    <Button x:Name="ledON_button"
+                            Margin="290,181,156,211"
+                            Content="LED ON"   Click="ledON_button_Click"  />
+                    <Button x:Name="ledOFF_button"
+                            Margin="362,181,83,211"
+                            Content="LED OFF"  Click="ledOFF_button_Click" />
+
+                    <TextBlock Margin="25,307,435,83"><Run Text="Volume"/></TextBlock>
+                    <TextBlock Margin="97,307,393,83"><Run Text="0"/></TextBlock>
+                    <Slider Name="setVolume_Slider" 
                             Maximum="127"
                             Minimum="0"
+                            TickPlacement="BottomRight"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="3"
                             ValueChanged="setVolume_ValueChanged" 
-                            SizeChanged="setVolume_SizeChanged" 
-                            Margin="25,144,10,55" 
-                            Grid.Column="5" 
-                            Grid.Row="1" Grid.ColumnSpan="2"/>
+                            Margin="119,306,120,83"
+                            Background="AliceBlue"/>
+                    <TextBlock Margin="392,307,92,83"><Run Text="127"/></TextBlock>
 
-                    <Button Grid.Column="5" x:Name="sendVoltageValue"
-                        Margin="25,166,138,28"
-                        Content="Set Volume" Grid.Row="1"  Click="sendVolumeLevel_Button_Click" RenderTransformOrigin="1.369,-0.363" Grid.ColumnSpan="2" />
+                    <TextBox Text="{Binding ElementName=setVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                             TextAlignment="Center" 
+                             Margin="429,306,47,83" />
 
-                    <Button Grid.Column="6" x:Name="HI_OFF"
-                        Margin="139,166,10,28"
-                        Content="HI OFF" Grid.Row="1"  Click="HI_OFF_Click" RenderTransformOrigin="0.475,-0.185" />
-                    <Button x:Name="connect_Pins" Content="Mux55" Grid.Column="6" HorizontalAlignment="Left" Margin="119,46,0,0" Grid.Row="1"
-                            VerticalAlignment="Top" Width="58" Height="26" Click="connect_Pins_Click"/>
-                    <CheckBox x:Name="connected_checkbox" Content="" Grid.Column="5" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top" IsChecked="{Binding ElementName=MainWindow, Path=IsCheckBoxChecked}" IsEnabled="False" Grid.Row="1" RenderTransformOrigin="2.35,0.6" Grid.ColumnSpan="2"/>
+                    <TextBlock Margin="25,348,415,42"><Run Text="DACVoltage"/></TextBlock>
+                    <TextBlock Margin="97,348,380,42"><Run Text="0.0 V"/></TextBlock>
+                    <Slider Name="vcSlider" 
+                            Maximum="1.5"
+                            Minimum="0.0"
+                            TickPlacement="BottomRight"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="0.1"
+                            ValueChanged="vcSlider_ValueChanged" 
+                            Margin="132,348,120,42" />
 
+                    <TextBlock Margin="392,348,85,42"><Run Text="1.5 V"/></TextBlock>
+                    <TextBox Text="{Binding ElementName=vcSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                             TextAlignment="Center" 
+                             Margin="429,348,47,42" />
+
+                    <TextBlock Margin="473,348,15,42"><Run Text="V"/></TextBlock>
+
+                    <Button x:Name="connect_Pins" 
+                            Content="Mux55" 
+                            HorizontalAlignment="Left" 
+                            Margin="434,181,0,0"
+                            VerticalAlignment="Top" 
+                            Width="58" 
+                            Height="26" 
+                            Click="connect_Pins_Click"/>
+
+
+                    <CheckBox x:Name="connected_checkbox" 
+                              Content="" 
+                              HorizontalAlignment="Left" 
+                              Margin="288,119,0,0" 
+                              VerticalAlignment="Top" 
+                              IsChecked="{Binding ElementName=MainWindow, Path=IsCheckBoxChecked}" 
+                              IsEnabled="False" 
+                              RenderTransformOrigin="2.35,0.6"/>
                 </Grid>
             </TabItem>
 
@@ -126,22 +149,9 @@
                     <Button Grid.Row="0"  Margin="360,63,74,7.5" Content="Combi"
                         IsEnabled="False"/>
 
-                    <TextBlock Grid.Row="1" Margin="25,3.5,401,71.5"><Run Text="DACVoltage"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="96,4,330,71"><Run Text="0.0 Volt"/></TextBlock>
-                    <Slider Name="vcSlider" 
-                            Maximum="1.5"
-                            Minimum="0.0"
-                            TickPlacement="BottomRight"
-                            IsSnapToTickEnabled="True"
-                            TickFrequency="0.1"
-                            Thumb.DragStarted="vcSlider_DragStarted"
-                            Thumb.DragCompleted="vcSlider_DragCompleted"
-                            ValueChanged="vcSlider_ValueChanged" 
-                            Margin="144,4,94,71"
-                            Background="AliceBlue" 
-                            Grid.Row="1"/>
-                    <TextBox IsReadOnly = "True" Text="{Binding ElementName=vcSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" DockPanel.Dock="Right" TextAlignment="Right" Margin="455,4,23,71" Grid.Row="1" />
-                    <TextBlock Grid.Row="1" Margin="479,5,9,78"><Run Text="V"/></TextBlock>
+
+
+
                     <Slider Grid.Row="2" x:Name="soundSlider" Thumb.DragStarted="soundSlider_DragStarted"
                         Thumb.DragCompleted="soundSlider_DragCompleted"
                         ValueChanged="soundSlider_ValueChanged" Margin="196,63.5,125,10"
@@ -160,7 +170,6 @@
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="1"/>
                     <Button Grid.Row="1"  Margin="399,59.5,48,7.5" Content="Turn"
                         IsEnabled="False"/>
-                    <TextBlock Grid.Row="1" Margin="403,4,54,78"><Run Text="1.5 Volt"/></TextBlock>
                     <TextBlock Grid.Row="2" Margin="411,66.5,63,15"><Run Text="0"/></TextBlock>
                     <Ellipse Fill="White" HorizontalAlignment="Left" Height="40"
                              Margin="29,2.5,0,0" Grid.Row="2" Stroke="Black"
@@ -224,7 +233,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <ListView x:Name="debug" HorizontalAlignment="Left"  MinHeight="95" Margin="14,352,0,-92" Width="513">
+        <ListView x:Name="debug" HorizontalAlignment="Left"  MinHeight="95" Margin="14,462,0,-156" Width="513" Height="110" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="100" Header="origin" DisplayMemberBinding="{Binding Path=origin}" />
