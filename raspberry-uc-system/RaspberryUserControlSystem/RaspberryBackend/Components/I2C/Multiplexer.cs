@@ -26,14 +26,6 @@ namespace RaspberryBackend
 
         //private static I2cInstance;
 
-        /// <summary>
-        /// creates and initializes the Multiplexer
-        /// </summary>
-        /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
-        public Multiplexer()
-        {
-        }
-
         public override void initiate()
         {
             try
