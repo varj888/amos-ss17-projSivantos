@@ -8,7 +8,7 @@
         /// <param name="voltage"></param>
         public void turnHI_on(double voltage)
         {
-            ADCDAC.setDACVoltage(voltage);
+            ADConverter.setDACVoltage(voltage);
         }
 
         /// <summary>

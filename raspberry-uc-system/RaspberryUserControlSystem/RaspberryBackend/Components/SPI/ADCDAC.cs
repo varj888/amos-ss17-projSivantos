@@ -9,9 +9,9 @@ namespace RaspberryBackend
     /// Software representation of the A/D Converter
     /// (MCP3202)
     /// </summary>
-    public class ADCDAC : HWComponent
+    public class ADConverter : HWComponent
     {
-        private ADCDACPi adcdac = new ADCDACPi();
+        private ADCDACPi _adConvert = new ADCDACPi();
 
         private readonly byte CHANNEL = 0x1;
         private readonly double MIN_VOLTAGE = 0.0;
@@ -37,12 +37,12 @@ namespace RaspberryBackend
 
             Debug.WriteLine(this.GetType().Name + "::: Connecting to SPI Device...");
 
-            Task.Run(() => adcdac.Connect()).Wait();
+            Task.Run(() => _adConvert.Connect()).Wait();
             Task.Delay(5000).Wait();
 
-            Debug.WriteLine(this.GetType().Name + "::: Conntected Status is: " + adcdac.IsConnected);
+            Debug.WriteLine(this.GetType().Name + "::: Conntected Status is: " + _adConvert.IsConnected);
 
-            if (adcdac.IsConnected == false)
+            if (_adConvert.IsConnected == false)
             {
                 throw new Exception("ADCDAC Connection failure.");
             }
@@ -55,7 +55,7 @@ namespace RaspberryBackend
 
         public bool isConnected()
         {
-            return adcdac.IsConnected;
+            return _adConvert.IsConnected;
         }
 
         /// <summary>
@@ -74,9 +74,9 @@ namespace RaspberryBackend
             }
 
             //happens only if ADCDAC is actually connected
-            if (adcdac.IsConnected)
+            if (_adConvert.IsConnected)
             {
-                adcdac.SetDACVoltage(CHANNEL, voltage);
+                _adConvert.SetDACVoltage(CHANNEL, voltage);
             }
 
             currentDACVoltage = voltage;

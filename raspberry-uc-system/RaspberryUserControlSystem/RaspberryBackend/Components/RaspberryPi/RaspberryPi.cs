@@ -27,7 +27,7 @@ namespace RaspberryBackend
         public readonly LCD LCD;
         public readonly Potentiometer Potentiometer;
         public readonly Multiplexer Multiplexer;
-        public readonly ADCDAC ADCDAC;
+        public readonly ADConverter ADConverter;
 
         /// <summary>
         /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the Raspberry Pi. To add aditional hardware, just put it as a new parameter.
@@ -40,7 +40,7 @@ namespace RaspberryBackend
                 new LCD(),
                 new Potentiometer(),
                 new Multiplexer(),
-                new ADCDAC()
+                new ADConverter()
                 );
         }
 

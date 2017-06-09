@@ -11,7 +11,7 @@ namespace RaspberryBackendTests
         LCD TestLcdDisplay;
         Potentiometer Testpotentiometer;
         Multiplexer Testmultiplexer;
-        ADCDAC Testadconverter;
+        ADConverter Testadconverter;
 
         [TestInitialize]
         public void setUp()
@@ -21,7 +21,7 @@ namespace RaspberryBackendTests
             TestLcdDisplay = new LCD();
             Testpotentiometer = new Potentiometer();
             Testmultiplexer = new Multiplexer();
-            Testadconverter = new ADCDAC();
+            Testadconverter = new ADConverter();
         }
 
         [TestMethod]
@@ -44,7 +44,7 @@ namespace RaspberryBackendTests
             Assert.AreEqual(TestLcdDisplay, raspberryPi.LCD);
             Assert.AreEqual(Testpotentiometer, raspberryPi.Potentiometer);
             Assert.AreEqual(Testmultiplexer, raspberryPi.Multiplexer);
-            Assert.AreEqual(Testadconverter, raspberryPi.ADCDAC);
+            Assert.AreEqual(Testadconverter, raspberryPi.ADConverter);
         }
 
         [TestCleanup]
