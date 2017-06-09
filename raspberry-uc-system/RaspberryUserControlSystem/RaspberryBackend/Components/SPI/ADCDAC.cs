@@ -34,7 +34,6 @@ namespace RaspberryBackend
         /// </summary>
         private void connect()
         {
-
             Debug.WriteLine(this.GetType().Name + "::: Connecting to SPI Device...");
 
             Task.Run(() => _adConvert.Connect()).Wait();
@@ -50,7 +49,6 @@ namespace RaspberryBackend
             {
                 Debug.WriteLine(this.GetType().Name + "::: DACDAC is ready for setting voltages!");
             }
-
         }
 
         public bool isConnected()

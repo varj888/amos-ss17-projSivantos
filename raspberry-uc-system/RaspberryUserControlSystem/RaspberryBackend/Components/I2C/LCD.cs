@@ -31,7 +31,6 @@ namespace RaspberryBackend
         public byte backLight { get; set; }
         public int scrollSpeed { get; set; }
 
-
         private I2cDevice _lcdDisplay;
 
         public override void initiate()

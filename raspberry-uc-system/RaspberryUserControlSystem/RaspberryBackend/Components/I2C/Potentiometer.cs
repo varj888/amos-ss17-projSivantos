@@ -29,7 +29,6 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
-
         /// <summary>
         /// is used to send data to the MCP4018
         /// </summary>

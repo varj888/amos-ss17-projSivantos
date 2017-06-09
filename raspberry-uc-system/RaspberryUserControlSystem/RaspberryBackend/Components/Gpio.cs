@@ -111,6 +111,5 @@ namespace RaspberryBackend
         {
             return pins[id].Read().ToString();
         }
-
     }
 }

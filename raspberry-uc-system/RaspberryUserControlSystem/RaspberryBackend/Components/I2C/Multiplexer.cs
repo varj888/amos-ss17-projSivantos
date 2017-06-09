@@ -42,6 +42,10 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
+        /// <summary>
+        /// sets the reset Pin of the Multiplexer and powers it on.
+        /// </summary>
+        /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
         public void setResetPin(GpioPin reset)
         {
             _reset = reset;
@@ -55,6 +59,7 @@ namespace RaspberryBackend
         {
 
         }
+
         /// <summary>
         /// resets (switch off) all of the
         /// switch channels
@@ -65,6 +70,7 @@ namespace RaspberryBackend
             Task.Delay(100).Wait();
             this._reset.Write(GpioPinValue.High);
         }
+
         /// <summary>
         /// switch on all the channells (switches)
         /// </summary>
