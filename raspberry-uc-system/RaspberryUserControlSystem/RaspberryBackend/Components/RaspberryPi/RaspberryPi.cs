@@ -23,6 +23,7 @@ namespace RaspberryBackend
         private bool testMode = true;
 
         /// Hardware Components of the RasPi as Instance Fields.
+        /// Note: Both Type and declarated name needs to be identical otherwise automatation of initialization fails.
         public readonly GPIOinterface GPIOinterface;
         public readonly LCD LCD;
         public readonly Potentiometer Potentiometer;
@@ -53,17 +54,20 @@ namespace RaspberryBackend
         /// </param>
         public void initialize(params HWComponent[] hwComponents)
         {
-            foreach (HWComponent hwComponent in hwComponents)
+            if (hwComponents != null)
             {
-                System.Diagnostics.Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
-                addToRasPi(hwComponent);
+                foreach (HWComponent hwComponent in hwComponents)
+                {
+                    System.Diagnostics.Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
+                    addToRasPi(hwComponent);
 
-                initializeClassInstanceField(hwComponent);
+                    initializeClassInstanceField(hwComponent);
+                }
+
+                initializeHWComponents();
+
+                _initialized = true;
             }
-
-            initializeHWComponents();
-
-            _initialized = true;
         }
 
         /// <summary>
@@ -80,14 +84,15 @@ namespace RaspberryBackend
         /// </summary>
         public void reset()
         {
+            resetClassInstanceField();
             _hwComponents = new Dictionary<String, HWComponent>();
             _initialized = false;
         }
 
         private void addToRasPi(HWComponent hwComponent)
         {
-            _hwComponents.Add(hwComponent.GetType().Name, hwComponent);
-            _hwComponents.ToString();
+            string key = hwComponent.GetType().Name;
+            if (!_hwComponents.ContainsKey(key)) _hwComponents.Add(key, hwComponent);
         }
 
         private bool hwComponentsInitialized()
@@ -132,10 +137,19 @@ namespace RaspberryBackend
             Type rasPiClassType = this.GetType();
             FieldInfo classInstanceField = rasPiClassType.GetField(instanceFieldName);
 
-            if (classInstanceField != null)
+            if (classInstanceField != null && classInstanceField.GetValue(this) == null)
             {
                 var fieldValue = Convert.ChangeType(hwComponent, hwComponent.GetType());
                 classInstanceField.SetValue(this, fieldValue);
+            }
+        }
+
+        //resets all Hardware related instance Fields. For a detailed call structure see initializeClassInstanceField(HWComponent)
+        private void resetClassInstanceField()
+        {
+            foreach (var hwComponent in _hwComponents.Values)
+            {
+                this.GetType().GetField(hwComponent.GetType().Name).SetValue(this, null);
             }
         }
     }
