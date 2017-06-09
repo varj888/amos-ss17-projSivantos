@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization;
+
 /// <summary>
 /// helper class to serialize and deserialize
 /// it uses strings as the result of serialization

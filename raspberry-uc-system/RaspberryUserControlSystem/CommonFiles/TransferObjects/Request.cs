@@ -9,8 +9,10 @@ namespace CommonFiles.TransferObjects
 {
     /// <summary>
     /// Objects of this type will be send from the Testmachine to the Raspberry pi to control it
+    /// The parameter variable can be any primitive Type and any Type annotated as KnownType
     /// </summary>
     [DataContract]
+    [KnownType(typeof(int[]))]
     public class Request
     {
         public Request(string command, Object parameter)
