@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspberryBackendTests", "Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestmachineFrontendTests", "TestmachineFrontendTests\TestmachineFrontendTests.csproj", "{F99E92A3-C4F6-4538-ABFA-6EA537245CBC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{A330158B-437B-4332-9D4F-B7759D04AC24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,5 +102,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E084E7BF-2808-4BF4-98C2-9CEB10E10CD1} = {A330158B-437B-4332-9D4F-B7759D04AC24}
+		{F99E92A3-C4F6-4538-ABFA-6EA537245CBC} = {A330158B-437B-4332-9D4F-B7759D04AC24}
 	EndGlobalSection
 EndGlobal

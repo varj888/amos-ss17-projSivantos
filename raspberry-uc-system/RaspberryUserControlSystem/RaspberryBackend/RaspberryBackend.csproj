@@ -118,7 +118,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Commands\ConnectPins.cs" />
+    <Compile Include="Commands\Interface\ICommand.cs" />
     <Compile Include="Commands\ReadPin.cs" />
     <Compile Include="Commands\ResetPin.cs" />
     <Compile Include="Commands\SendToLCD.cs" />
@@ -126,17 +128,19 @@
     <Compile Include="Commands\TurnHIOn.cs" />
     <Compile Include="Commands\SetAnalogVolume.cs" />
     <Compile Include="Commands\WritePin.cs" />
-    <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Components\Gpio.cs" />
+    <Compile Include="Components\I2C\I2C.cs" />
+    <Compile Include="Components\HWComponent.cs" />
+    <Compile Include="Components\RaspberryPi\GPIOcontrol.cs" />
+    <Compile Include="Components\RaspberryPi\LCDcontrol.cs" />
+    <Compile Include="Components\RaspberryPi\HIcontrol.cs" />
     <Compile Include="Components\SPI\ADCDAC.cs" />
     <Compile Include="Data\MultiplexerConfigFactory.cs" />
     <Compile Include="Data\Config.cs" />
-    <Compile Include="Components\I2C\I2C.cs" />
     <Compile Include="Components\I2C\Multiplexer.cs" />
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
-    <Compile Include="Components\RaspberryPi.cs" />
-    <Compile Include="Commands\Interface\ICommand.cs" />
+    <Compile Include="Components\RaspberryPi\RaspberryPi.cs" />
     <Compile Include="Commands\LightLED.cs" />
     <Compile Include="Components\RequestController.cs" />
     <Compile Include="MainPage.xaml.cs">

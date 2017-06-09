@@ -1,25 +1,9 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Runtime.Serialization.Json;
-using System.Xml.Serialization;
 using System.Threading.Tasks;
-using Windows.Devices.Gpio;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using System.Xml;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -41,11 +25,12 @@ namespace RaspberryBackend
             // try catch, because i have exception in function pulseEnable
             try
             {
-                // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components) 
+                // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components)
                 raspberryPi.initialize();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
+                throw e;
             }
 
             //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
@@ -82,7 +67,7 @@ namespace RaspberryBackend
             }
         }
 
-        private void handleRequestConnection(ObjConn<Request,Result> conn)
+        private void handleRequestConnection(ObjConn<Request, Result> conn)
         {
             while (true)
             {

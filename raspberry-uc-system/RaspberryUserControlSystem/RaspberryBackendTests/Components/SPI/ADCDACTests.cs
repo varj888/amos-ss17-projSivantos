@@ -14,12 +14,12 @@ namespace RaspberryBackendTests
         private readonly double VOLTAGE_MIN = 0.0;
         private readonly double VOLTAGE_MAX = 1.5;
 
-        ADCDAC adcdac;
+        ADConverter adcdac;
         
         [TestInitialize]
         public void setUp()
         {
-            adcdac = new ADCDAC();
+            adcdac = new ADConverter();
         }
 
 

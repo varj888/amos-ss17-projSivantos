@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
 
 namespace RaspberryBackend
@@ -8,10 +7,9 @@ namespace RaspberryBackend
     /// <summary>
     /// Software representation of the LCD Display.
     /// </summary>
-    public class LCD
+    public class LCD : HWComponent
     {
         //Adress setup information
-        public const string I2C_CONTROLLER_NAME = "I2C1"; //use for RPI2
         public const byte DEVICE_I2C_ADDRESS = 0x27; // 7-bit I2C address of the port expander
 
         private const byte LCD_WRITE = 0x07;
@@ -33,34 +31,22 @@ namespace RaspberryBackend
         public byte backLight { get; set; }
         public int scrollSpeed { get; set; }
 
-        private Boolean _initialized = false;
         private I2cDevice _lcdDisplay;
 
-        public LCD()
-        {
-            // It's async method, so we have to wait
-            Task.Run(() => this.startI2C()).Wait();
-        }
-
-        /**
-        * Open communication channel to LCD
-        **/
-        public async void startI2C()
+        public override void initiate()
         {
             try
             {
-                var i2cSettings = new I2cConnectionSettings(DEVICE_I2C_ADDRESS);
-                i2cSettings.BusSpeed = I2cBusSpeed.FastMode;
-                string deviceSelector = I2cDevice.GetDeviceSelector(I2C_CONTROLLER_NAME);
-                var i2cDeviceControllers = await DeviceInformation.FindAllAsync(deviceSelector);
-                this._lcdDisplay = await I2cDevice.FromIdAsync(i2cDeviceControllers[0].Id, i2cSettings);
+                Task.Run(() => I2C.connectDeviceAsync(DEVICE_I2C_ADDRESS, true, false)).Wait();
+                I2C.connectedDevices.TryGetValue(DEVICE_I2C_ADDRESS, out _lcdDisplay);
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: {0}", e.Message);
-                return;
+                System.Diagnostics.Debug.WriteLine("Problem with I2C " + e.Message);
+                throw e;
             }
 
+            initiateLCD();
         }
 
         /**
@@ -97,11 +83,6 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
-        public Boolean isInitialized()
-        {
-            return _initialized;
-        }
-
         /**
        * Create falling edge of "enable" pin to write data/inctruction to display
        */
@@ -111,7 +92,7 @@ namespace RaspberryBackend
             this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (1 << EN) | (backLight << BL)) });
             // Enable bit LOW
             this._lcdDisplay.Write(new byte[] { Convert.ToByte(data | (this.backLight << BL)) });
-            Task.Delay(100).Wait(); //In case of problem with displaying wrong characters uncomment this part
+            //Task.Delay(100).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
         /**
@@ -133,7 +114,7 @@ namespace RaspberryBackend
         {
             pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << RS)));
             pulseEnable(Convert.ToByte((data & 0x0f) << 4 | (Rs << RS)));
-            Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
+            //Task.Delay(5).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
 

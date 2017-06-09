@@ -1,61 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
 
-namespace RaspberryBackend.Data
+namespace RaspberryBackend
 {
-    /// <summary>
-    /// represents the common interface for
-    /// I2C-Communication with devices
-    /// </summary>
-    public static class I2C
+    public class I2C
     {
-        /// <summary>
-        /// one Raspberry Pi allows to connect up to 128 devices
-        /// </summary>
-		const int MIN_ADDRESS = 0;
-        const int MAX_ADDRESS = 127;
+        public static Dictionary<byte, I2cDevice> connectedDevices = new Dictionary<byte, I2cDevice>();
+
+        public const string I2C_CONTROLLER_NAME = "I2C1";
 
         /// <summary>
-        /// Discovers the I2C-compatible devices
+        /// based on information in https://www.hackster.io/porrey/discover-i2c-devices-on-the-raspberry-pi-84bc8b
+        /// New I2C device are only going to be connected once. The I2C device will be initialized in DefaultBusSpeedMode and ExclusiveConnectionMode.
         /// </summary>
-        /// <returns>Addresses of connected devices</returns>
-		public static async Task<IEnumerable<byte>> DiscoverAllDevicesAsync()
+        /// <param name="deviceAdress">The Adress of the specific I2C device (consult Data-Sheed if neccessary)</param>
+        /// <returns></returns>
+        public static async Task connectDeviceAsync(byte deviceAdress)
         {
-            IList<byte> addressList = new List<byte>();
-            string deviceSelector = I2cDevice.GetDeviceSelector();
-            var devices = await DeviceInformation.FindAllAsync(deviceSelector).AsTask();
-            I2cDevice i2cDevice;
-
-            if (devices.Count > 0)
+            if (!connectedDevices.ContainsKey(deviceAdress))
             {
-                for (byte address = MIN_ADDRESS; address <= MAX_ADDRESS; address++)
-                {
-                    var i2cSettings = new I2cConnectionSettings(address);
-                    i2cSettings.BusSpeed = I2cBusSpeed.FastMode;
-                    i2cSettings.SharingMode = I2cSharingMode.Shared;
+                // *** Get a selector string that will return all I2C controllers on the system
+                string availableDeviceSelector = I2cDevice.GetDeviceSelector();
 
-                    i2cDevice = await I2cDevice.FromIdAsync(devices[0].Id, i2cSettings);
-                    if (i2cDevice != null)
-                    {
-                        try
-                        {
-                            byte[] writeBuffer = new byte[1] { 0 };
-                            //devices.Write(writeBuffer);
-                            addressList.Add(address);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine("Exception: {0}", e.Message);
-                            //return;
-                        }
-                    }
-                }
+                // *** Find the I2C bus controller device with our selector string
+                DeviceInformationCollection availableDeviceSelectors = await DeviceInformation.FindAllAsync(availableDeviceSelector).AsTask();
+                DeviceInformation deviceSelector = availableDeviceSelectors[0];
+
+                // *** Create the settings and specify the device address.
+                I2cConnectionSettings settings = new I2cConnectionSettings(deviceAdress);
+
+                // *** Create an I2cDevice with our selected bus controller and I2C settings.
+                I2cDevice device = await I2cDevice.FromIdAsync(deviceSelector.Id, settings);
+
+                connectedDevices.Add(deviceAdress, device);
+
+                setUpDevice(device, false, false);
             }
-            return addressList;
+        }
+
+        /// <summary></summary
+        /// <param name="FastModeBusSpeed">True for FastMode or False for DefaulMode</param>
+        /// <param name="SharedConnectionMode">True for SharedMode or False for ExclusiveMode</param>
+        /// <returns></returns>
+        /// <see cref="connectDeviceAsync(byte)"/>
+        public static async Task connectDeviceAsync(byte deviceAdress, bool FastModeBusSpeed, bool SharedConnectionMode)
+        {
+            if (!connectedDevices.ContainsKey(deviceAdress))
+            {
+                // *** Get a selector string that will return all I2C controllers on the system
+                string availableDeviceSelector = I2cDevice.GetDeviceSelector();
+
+                // *** Find the I2C bus controller device with our selector string
+                DeviceInformationCollection availableDeviceSelectors = await DeviceInformation.FindAllAsync(availableDeviceSelector).AsTask();
+                DeviceInformation deviceSelector = availableDeviceSelectors[0];
+
+                // *** Create the settings and specify the device address.
+                I2cConnectionSettings settings = new I2cConnectionSettings(deviceAdress);
+
+                // *** Create an I2cDevice with our selected bus controller and I2C settings.
+                I2cDevice device = await I2cDevice.FromIdAsync(deviceSelector.Id, settings);
+
+                connectedDevices.Add(deviceAdress, device);
+
+                setUpDevice(device, FastModeBusSpeed, SharedConnectionMode);
+            }
+        }
+
+        private static void setUpDevice(I2cDevice device, bool FastModeBusSpeed, bool SharedConnectionMode)
+        {
+            I2cConnectionSettings settings = device.ConnectionSettings;
+            settings.BusSpeed = FastModeBusSpeed ? I2cBusSpeed.FastMode : I2cBusSpeed.StandardMode;
+            settings.SharingMode = SharedConnectionMode ? I2cSharingMode.Shared : I2cSharingMode.Exclusive;
         }
     }
 }

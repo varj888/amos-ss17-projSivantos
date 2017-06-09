@@ -1,7 +1,5 @@
 ﻿using CommonFiles.TransferObjects;
-using RaspberryBackend;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -49,7 +47,6 @@ namespace RaspberryBackend
                 {
                     Debug.WriteLine("Requested command is already instantiated and the instance will be taken from the Dictonary" + "\n");
                 }
-                
             }
             catch (Exception e)
             {
@@ -60,11 +57,12 @@ namespace RaspberryBackend
             {
                 command.executeAsync(request.parameter);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new Result(e.Message);
             }
-            return new Result(null);      
+
+            return new Result(null);
         }
 
         /// <summary>

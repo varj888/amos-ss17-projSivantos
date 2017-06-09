@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Windows.Devices.Enumeration;
 using Windows.Devices.Gpio;
 using Windows.Devices.I2c;
 
@@ -12,7 +11,7 @@ namespace RaspberryBackend
     /// and implements the core functionality of the device
     /// ADG2128 is an analog cross point switch with an array size of 8 x 12
     /// </summary>
-    public class Multiplexer
+    public class Multiplexer : HWComponent
     {
         /// <summary>
         /// total ammount of available switches (8 x 12 --> 96)
@@ -20,53 +19,38 @@ namespace RaspberryBackend
         private readonly int switches = 96;
 
         // use these constants for controlling how the I2C bus is setup
-        private const string I2C_CONTROLLER_NAME = "I2C1";
         private const byte MULTIPLEXER_I2C_ADDRESS = 0x70;
         private I2cDevice multiplexer;
-        private Boolean _initialized = false;
         private byte _DB15 = 0x80;
         private GpioPin _reset;
 
         //private static I2cInstance;
 
-        /// <summary>
-        /// creates and initializes the Multiplexer
-        /// </summary>
-        /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
-        public Multiplexer(GpioPin reset)
-        {
-            _reset = reset;
-            Task.Run(() => this.startI2C()).Wait();
-            _initialized = true;
-        }
-
-        private async void startI2C()
+        public override void initiate()
         {
             try
             {
-                var i2cSettings = new I2cConnectionSettings(MULTIPLEXER_I2C_ADDRESS);
-                i2cSettings.BusSpeed = I2cBusSpeed.FastMode;
-                string deviceSelector = I2cDevice.GetDeviceSelector(I2C_CONTROLLER_NAME);
-                var i2cDeviceControllers = await DeviceInformation.FindAllAsync(deviceSelector);
-                this.multiplexer = await I2cDevice.FromIdAsync(i2cDeviceControllers[0].Id, i2cSettings);
-                this.powerON();
+                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, true, false)).Wait();
+                I2C.connectedDevices.TryGetValue(MULTIPLEXER_I2C_ADDRESS, out multiplexer);
+
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Exception: {0}", e.Message);
-                return;
+                Debug.WriteLine("Problem with I2C : " + e.Message);
             }
+
+            _initialized = true;
         }
 
         /// <summary>
-        /// returns whether the Multiplexer is initialized or not
+        /// sets the reset Pin of the Multiplexer and powers it on.
         /// </summary>
-        /// <returns>true:= initialize and false:= not initialized</returns>
-        public Boolean isInitialized()
+        /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
+        public void setResetPin(GpioPin reset)
         {
-            return _initialized;
+            _reset = reset;
+            this.powerON();
         }
-
         /// <summary>
         /// simultaneously updates all switches
         /// using the LDSW command
@@ -75,6 +59,7 @@ namespace RaspberryBackend
         {
 
         }
+
         /// <summary>
         /// resets (switch off) all of the
         /// switch channels
@@ -85,6 +70,7 @@ namespace RaspberryBackend
             Task.Delay(100).Wait();
             this._reset.Write(GpioPinValue.High);
         }
+
         /// <summary>
         /// switch on all the channells (switches)
         /// </summary>
