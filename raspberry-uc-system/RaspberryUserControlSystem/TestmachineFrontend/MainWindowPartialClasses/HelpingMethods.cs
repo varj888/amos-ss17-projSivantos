@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace TestmachineFrontend
 {
@@ -63,6 +64,32 @@ namespace TestmachineFrontend
             }
             var c = (RaspberryPiItem)BackendList.Items.GetItemAt(BackendList.SelectedIndex);
             return c.raspi.clientConnection;
+        }
+
+        private int getDuration()
+        {
+            if (durationBox.SelectedIndex < 0)
+            {
+                this.addMessage("Debug", "You need to select an item");
+                return -1;
+            }
+            var a = (ComboBoxItem)durationBox.Items.GetItemAt(durationBox.SelectedIndex);
+            UInt16 duration;
+            switch (a.Content)
+            {
+                case "Short":
+                    duration = 300;
+                    break;
+                case "Medium":
+                    duration = 1000;
+                    break;
+                case "Long":
+                    duration = 5000;
+                    break;
+                default:
+                    return -1;
+            }
+            return duration;
         }
 
         private class RaspberryPiItem

@@ -29,28 +29,23 @@ namespace TestmachineFrontend
 
         private void press_PushButton(object sender, RoutedEventArgs e)
         {
-            if(durationBox.SelectedIndex < 0)
+            getClientconnection().sendObject(new Request("PressPushButton", getDuration()));
+        }
+
+        private void press_Rocker_Switch_Down(object sender, RoutedEventArgs e)
+        {
+            if(getDuration() != -1)
             {
-                this.addMessage("Debug", "You need to select an item");
-                return;
+                getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 0, getDuration() }));
             }
-            var a = (ComboBoxItem) durationBox.Items.GetItemAt(durationBox.SelectedIndex);
-            UInt16 duration;
-            switch(a.Content)
+        }
+
+        private void press_Rocker_Switch_Up(object sender, RoutedEventArgs e)
+        {
+            if (getDuration() != -1)
             {
-                case "Short":
-                    duration = 300;
-                    break;
-                case "Medium":
-                    duration = 1000;
-                    break;
-                case "Long":
-                    duration = 5000;
-                    break;
-                default:
-                    return;
+                getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 1, getDuration() }));
             }
-            getClientconnection().sendObject(new Request("PressPushButton", duration));
         }
     }
 }

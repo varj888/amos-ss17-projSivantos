@@ -131,8 +131,8 @@
                     <TextBlock Grid.Row="0" Margin="25,23,428,58.5"><Run Text="Buttons"/></TextBlock>
                     <Button Grid.Row="0"  Margin="108,17,339,58.5" Content="PB"
                             IsEnabled="True" Click="press_PushButton"/>
-                    <Button Grid.Row="0"  Margin="195,17,256,58.5" Content="RSD"/>
-                    <Button Grid.Row="0"  Margin="278,17,173,58.5" Content="RSU"/>
+                    <Button Grid.Row="0"  Margin="195,17,256,58.5" Content="RSD" Click="press_Rocker_Switch_Down"/>
+                    <Button Grid.Row="0"  Margin="278,17,173,58.5" Content="RSU" Click="press_Rocker_Switch_Up"/>
                     <ComboBox Name="durationBox" HorizontalAlignment="Left" Margin="399,23,0,0" VerticalAlignment="Top" Width="70">
                         <ComboBoxItem Content="Short" HorizontalAlignment="Left" Width="75"/>
                         <ComboBoxItem Content="Medium" HorizontalAlignment="Left" Width="75"/>
