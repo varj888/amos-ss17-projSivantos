@@ -77,13 +77,13 @@ namespace TestmachineFrontend
             switch (a.Content)
             {
                 case "Short":
-                    duration = 300;
+                    duration = 50;
                     break;
                 case "Medium":
-                    duration = 1000;
+                    duration = 500;
                     break;
                 case "Long":
-                    duration = 5000;
+                    duration = 3000;
                     break;
                 default:
                     return -1;
