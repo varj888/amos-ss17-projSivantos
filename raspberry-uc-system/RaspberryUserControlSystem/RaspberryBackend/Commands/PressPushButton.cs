@@ -10,7 +10,6 @@ namespace RaspberryBackend
     /// </summary>
     class PressPushButton : Command
     {
-        UInt16 pushButton_Pin = 26;
 
         public PressPushButton(RaspberryPi raspberryPi) : base(raspberryPi)
         {
