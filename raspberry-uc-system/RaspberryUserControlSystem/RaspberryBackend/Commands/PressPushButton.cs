@@ -19,7 +19,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command ReadPin 
         /// </summary>
-        /// <param name="parameter">represents the GpioPin to read from</param>
+        /// <param name="parameter">UInt16 Duration</param>
         public override void executeAsync(Object parameter)
         {
             UInt16 duration = (UInt16)parameter;
