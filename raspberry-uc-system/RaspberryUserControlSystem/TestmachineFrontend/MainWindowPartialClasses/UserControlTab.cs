@@ -29,7 +29,28 @@ namespace TestmachineFrontend
 
         private void press_PushButton(object sender, RoutedEventArgs e)
         {
-            getClientconnection().sendObject(new Request("PressPushButton", UInt16.Parse(durationBox.Text)));
+            if(durationBox.SelectedIndex < 0)
+            {
+                this.addMessage("Debug", "You need to select an item");
+                return;
+            }
+            var a = (ComboBoxItem) durationBox.Items.GetItemAt(durationBox.SelectedIndex);
+            UInt16 duration;
+            switch(a.Content)
+            {
+                case "Short":
+                    duration = 300;
+                    break;
+                case "Medium":
+                    duration = 1000;
+                    break;
+                case "Long":
+                    duration = 5000;
+                    break;
+                default:
+                    return;
+            }
+            getClientconnection().sendObject(new Request("PressPushButton", duration));
         }
     }
 }
