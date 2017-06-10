@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It connects two requested Pins (xPin,yPin) on the Multiplexer.
+    /// This class represents a Command. It activates a combination of pins.
     /// </summary>
     class PressCombination : Command
     {
@@ -27,21 +27,24 @@ namespace RaspberryBackend
                 Debug.WriteLine("Invalid parameterlist received");
                 return;
             }
-            if (param[0] == 1)
-            {
-                RaspberryPi.activatePin(rockerSwitch_Pin_0);
-            }
-            if (param[1] == 1 & param[2] == 0)
-            {
-                RaspberryPi.activatePin(rockerSwitch_Pin_1);
-            }
-            if (param[2] == 1 & param[1] == 0)
-            {
-                RaspberryPi.activatePin(pushButton_Pin);
-            } else
+
+            if(param[1] == 1 & param[0] == 1)
             {
                 Debug.WriteLine("Tester tried to press both rockerswitches in combination");
                 return;
+            }
+
+            if (param[2] == 1)
+            {
+                RaspberryPi.activatePin(pushButton_Pin);
+            }
+            if (param[1] == 1 & param[0] == 0)
+            {
+                RaspberryPi.activatePin(rockerSwitch_Pin_1);
+            }
+            if (param[0] == 1 & param[1] == 0)
+            {
+                RaspberryPi.activatePin(rockerSwitch_Pin_0);
             }
             Task.Delay(duration).Wait();
             RaspberryPi.deactivatePin(pushButton_Pin);

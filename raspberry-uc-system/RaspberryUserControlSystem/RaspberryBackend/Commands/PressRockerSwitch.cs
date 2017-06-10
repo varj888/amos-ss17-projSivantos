@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It it can be used to read a spefic gpio pin of the RaspberryPi. 
+    /// This class represents a Command. It simulates a rockerswitch. 
     /// </summary>
     class PressRockerSwitch : Command
     {
