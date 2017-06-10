@@ -31,13 +31,17 @@ namespace RaspberryBackend
             {
                 RaspberryPi.activatePin(rockerSwitch_Pin_0);
             }
-            if (param[1] == 1)
+            if (param[1] == 1 & param[2] == 0)
             {
                 RaspberryPi.activatePin(rockerSwitch_Pin_1);
             }
-            if (param[2] == 1)
+            if (param[2] == 1 & param[1] == 0)
             {
                 RaspberryPi.activatePin(pushButton_Pin);
+            } else
+            {
+                Debug.WriteLine("Tester tried to press both rockerswitches in combination");
+                return;
             }
             Task.Delay(duration).Wait();
             RaspberryPi.deactivatePin(pushButton_Pin);
