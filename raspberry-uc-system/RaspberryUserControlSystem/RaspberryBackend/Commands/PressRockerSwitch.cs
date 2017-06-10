@@ -12,8 +12,6 @@ namespace RaspberryBackend
     /// </summary>
     class PressRockerSwitch : Command
     {
-        UInt16 rockerSwitch_Pin_0 = 20;
-        UInt16 rockerSwitch_Pin_1 = 21;
 
         public PressRockerSwitch(RaspberryPi raspberryPi) : base(raspberryPi)
         {
@@ -39,6 +37,7 @@ namespace RaspberryBackend
             if (rsw < 0 | rsw > 1)
             {
                 Debug.WriteLine("Invalid Rockerswitch submitted");
+                return;
             }
 
             UInt16 pushButton_Pin;
