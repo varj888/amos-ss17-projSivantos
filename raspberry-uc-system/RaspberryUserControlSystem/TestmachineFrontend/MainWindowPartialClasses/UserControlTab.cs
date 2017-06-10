@@ -29,7 +29,14 @@ namespace TestmachineFrontend
 
         private void press_PushButton(object sender, RoutedEventArgs e)
         {
-            getClientconnection().sendObject(new Request("PressPushButton", getDuration()));
+            if (getDuration() != -1)
+            {
+                getClientconnection().sendObject(new Request("PressPushButton", getDuration()));
+            }
+            else
+            {
+                this.addMessage("Debug", "Invalid duration");
+            }
         }
 
         private void press_Rocker_Switch_Down(object sender, RoutedEventArgs e)
