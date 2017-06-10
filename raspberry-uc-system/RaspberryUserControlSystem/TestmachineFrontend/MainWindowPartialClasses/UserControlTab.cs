@@ -26,5 +26,10 @@ namespace TestmachineFrontend
         {
 
         }
+
+        private void press_PushButton(object sender, RoutedEventArgs e)
+        {
+            getClientconnection().sendObject(new Request("PressPushButton", UInt16.Parse(durationBox.Text)));
+        }
     }
 }
