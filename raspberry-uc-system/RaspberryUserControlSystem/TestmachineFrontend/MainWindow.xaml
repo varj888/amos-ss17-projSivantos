@@ -130,24 +130,24 @@
 
                     <TextBlock Grid.Row="0" Margin="25,23,428,58.5"><Run Text="Buttons"/></TextBlock>
                     <Button Grid.Row="0"  Margin="108,17,339,58.5" Content="PB"
-                            IsEnabled="False"/>
-                    <Button Grid.Row="0"  Margin="195,17,256,58.5" Content="RSD"/>
-                    <Button Grid.Row="0"  Margin="278,17,173,58.5" Content="RSU"/>
-                    <CheckBox x:Name="checkBox" HorizontalAlignment="Left"
-                              Margin="369,23,0,0" VerticalAlignment="Top" Height="15" Width="16"/>
-                    <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="31"
-                             Margin="395,17,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
-                             VerticalAlignment="Top" Width="59" IsEnabled="False"/>
-                    <TextBlock Grid.Row="0" Margin="468,23,6,58.5"><Run Text="ms"/></TextBlock>
-                    <RadioButton x:Name="radioButton1" HorizontalAlignment="Left"
+                            IsEnabled="True" Click="press_PushButton"/>
+                    <Button Grid.Row="0"  Margin="195,17,256,58.5" Content="RSD" Click="press_Rocker_Switch_Down"/>
+                    <Button Grid.Row="0"  Margin="278,17,173,58.5" Content="RSU" Click="press_Rocker_Switch_Up"/>
+                    <ComboBox Name="durationBox" HorizontalAlignment="Left" Margin="399,23,0,0" VerticalAlignment="Top" Width="70">
+                        <ComboBoxItem Content="Short" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Medium" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Long" HorizontalAlignment="Left" Width="75"/>
+                    </ComboBox>
+                    <TextBlock Grid.Row="0" Margin="344,23,103,90" Text="Duration"/>
+                    <CheckBox x:Name="pushButton_Checkbox" HorizontalAlignment="Left"
                                  Margin="126,63,0,0" VerticalAlignment="Top"
-                                 IsChecked="True" IsEnabled="False" Height="14" Width="15"/>
-                    <RadioButton x:Name="radioButton2" HorizontalAlignment="Left"
+                                 IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
+                    <CheckBox x:Name="rockerswitch_Down_Checkbox" HorizontalAlignment="Left"
                         Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15"/>
-                    <RadioButton x:Name="radioButton3" HorizontalAlignment="Left"
-                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="True" Height="14" Width="15"/>
+                    <CheckBox x:Name="rockerswitch_Up_Checkbox" HorizontalAlignment="Left"
+                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15"/>
                     <Button Grid.Row="0"  Margin="360,63,74,7.5" Content="Combi"
-                        IsEnabled="False"/>
+                        IsEnabled="True" Click="press_Combination"/>
 
 
 

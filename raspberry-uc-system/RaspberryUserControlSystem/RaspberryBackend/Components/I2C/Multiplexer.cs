@@ -43,7 +43,7 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// sets the reset Pin of the Multiplexer and powers it on.
+        /// Sets the reset Pin of the Multiplexer and powers it on.
         /// </summary>
         /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
         public void setResetPin(GpioPin reset)

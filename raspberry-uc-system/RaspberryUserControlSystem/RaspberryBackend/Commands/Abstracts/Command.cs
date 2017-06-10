@@ -10,7 +10,9 @@ namespace RaspberryBackend
     {
         private static Dictionary<String, Command> instances = new Dictionary<String, Command>();
         public RaspberryPi RaspberryPi;
-
+        protected UInt16 pushButton_Pin = 26;
+        protected UInt16 rockerSwitch_Pin_0 = 20;
+        protected UInt16 rockerSwitch_Pin_1 = 21;
 
         public static Dictionary<String, Command> Instances
         {
