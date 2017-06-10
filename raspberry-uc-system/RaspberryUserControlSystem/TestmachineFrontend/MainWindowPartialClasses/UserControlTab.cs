@@ -53,5 +53,37 @@ namespace TestmachineFrontend
                 this.addMessage("Debug", "Invalid duration");
             }
         }
+
+        private void press_Combination(object sender, RoutedEventArgs e)
+        {
+            if (getDuration() != -1)
+            {
+                int[] param = new int[4];
+                for (int i = 0; i < param.Length; i++)
+                {
+                    param[i] = 0;
+                }
+                param[param.Length - 1] = getDuration();
+
+                int duration = getDuration();
+                if (rockerswitch_Down_Checkbox.IsChecked == true)
+                {
+                    param[0] = 1;
+                }
+                if (rockerswitch_Up_Checkbox.IsChecked == true)
+                {
+                    param[1] = 1;
+                }
+                if (pushButton_Checkbox.IsChecked == true)
+                {
+                    param[2] = 1;
+                }
+                getClientconnection().sendObject(new Request("PressCombination", param));
+            }
+            else
+            {
+                this.addMessage("Debug", "Invalid duration");
+            }
+        }
     }
 }

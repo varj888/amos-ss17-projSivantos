@@ -139,15 +139,15 @@
                         <ComboBoxItem Content="Long" HorizontalAlignment="Left" Width="75"/>
                     </ComboBox>
                     <TextBlock Grid.Row="0" Margin="344,23,103,90" Text="Duration"/>
-                    <RadioButton x:Name="radioButton1" HorizontalAlignment="Left"
+                    <CheckBox x:Name="pushButton_Checkbox" HorizontalAlignment="Left"
                                  Margin="126,63,0,0" VerticalAlignment="Top"
-                                 IsChecked="True" IsEnabled="False" Height="14" Width="15"/>
-                    <RadioButton x:Name="radioButton2" HorizontalAlignment="Left"
+                                 IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
+                    <CheckBox x:Name="rockerswitch_Down_Checkbox" HorizontalAlignment="Left"
                         Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15"/>
-                    <RadioButton x:Name="radioButton3" HorizontalAlignment="Left"
-                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="True" Height="14" Width="15"/>
+                    <CheckBox x:Name="rockerswitch_Up_Checkbox" HorizontalAlignment="Left"
+                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15"/>
                     <Button Grid.Row="0"  Margin="360,63,74,7.5" Content="Combi"
-                        IsEnabled="False"/>
+                        IsEnabled="True" Click="press_Combination"/>
 
 
 
