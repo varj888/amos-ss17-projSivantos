@@ -37,6 +37,9 @@ namespace TestmachineFrontend
             if(getDuration() != -1)
             {
                 getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 0, getDuration() }));
+            } else
+            {
+                this.addMessage("Debug", "Invalid duration");
             }
         }
 
@@ -45,6 +48,9 @@ namespace TestmachineFrontend
             if (getDuration() != -1)
             {
                 getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 1, getDuration() }));
+            } else
+            {
+                this.addMessage("Debug", "Invalid duration");
             }
         }
     }

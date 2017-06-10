@@ -70,7 +70,6 @@ namespace TestmachineFrontend
         {
             if (durationBox.SelectedIndex < 0)
             {
-                this.addMessage("Debug", "You need to select an item");
                 return -1;
             }
             var a = (ComboBoxItem)durationBox.Items.GetItemAt(durationBox.SelectedIndex);
