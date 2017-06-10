@@ -22,7 +22,7 @@ namespace RaspberryBackend
         {
             int[] param = (int[])parameter;
             int duration = param[param.Length - 1];
-            if(param.Length != 3)
+            if(param.Length != 4)
             {
                 Debug.WriteLine("Invalid parameterlist received");
                 return;

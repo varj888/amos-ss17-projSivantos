@@ -21,7 +21,7 @@ namespace RaspberryBackend
         /// <param name="parameter">UInt16 Duration</param>
         public override void executeAsync(Object parameter)
         {
-            UInt16 duration = (UInt16)parameter;
+            int duration = (int)parameter;
             RaspberryPi.activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
             RaspberryPi.deactivatePin(pushButton_Pin);

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RaspberryBackend.Commands
+namespace RaspberryBackend
 {
     /// <summary>
     /// This class represents a Command. It it can be used to read a spefic gpio pin of the RaspberryPi. 
