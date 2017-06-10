@@ -121,6 +121,7 @@
     <Compile Include="Commands\Abstracts\Command.cs" />
     <Compile Include="Commands\ConnectPins.cs" />
     <Compile Include="Commands\Interface\ICommand.cs" />
+    <Compile Include="Commands\PressPushButton.cs" />
     <Compile Include="Commands\ReadPin.cs" />
     <Compile Include="Commands\ResetPin.cs" />
     <Compile Include="Commands\SendToLCD.cs" />
