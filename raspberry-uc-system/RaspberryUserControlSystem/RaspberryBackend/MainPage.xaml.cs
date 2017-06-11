@@ -30,7 +30,7 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                throw e;
+                Debug.WriteLine("Something went wrong during the initialization process of the RasPi : "+e.Message);
             }
 
             // set up request controller
