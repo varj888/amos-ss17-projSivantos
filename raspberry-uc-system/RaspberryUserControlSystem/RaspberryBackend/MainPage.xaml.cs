@@ -33,8 +33,6 @@ namespace RaspberryBackend
                 throw e;
             }
 
-            //raspberryPi.reconfigure(new GPIOinterface(), new LCD(), new Potentiometer());
-
             // set up request controller
             requestController = RequestController.Instance;
 
