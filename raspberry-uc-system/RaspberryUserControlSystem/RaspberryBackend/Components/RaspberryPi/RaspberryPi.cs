@@ -81,7 +81,7 @@ namespace RaspberryBackend
                 {
                     initiateStartUpConfiguration();
                 }
-                else
+                else if(!testMode)
                 {
                     throw new AggregateException("Hardware Components are (partly) not initialised thus the startconfiguration could not be initalised");
                 }

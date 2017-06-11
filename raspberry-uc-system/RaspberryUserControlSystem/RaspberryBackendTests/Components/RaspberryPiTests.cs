@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend;
+using System;
 
 namespace RaspberryBackendTests
 {
@@ -64,6 +65,13 @@ namespace RaspberryBackendTests
             Assert.IsNull(raspberryPi.Potentiometer);
             Assert.IsNull(raspberryPi.Multiplexer);
             Assert.IsNull(raspberryPi.ADConverter);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(AggregateException))]
+        public void TestNullInitialization()
+        {
 
             raspberryPi.initialize(null);
             raspberryPi.reset();
@@ -74,8 +82,6 @@ namespace RaspberryBackendTests
             Assert.IsNull(raspberryPi.Multiplexer);
             Assert.IsNull(raspberryPi.ADConverter);
         }
-
-
 
         [TestMethod]
         public void TestIsInitialized()
