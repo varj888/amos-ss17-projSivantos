@@ -6,7 +6,8 @@ namespace RaspberryBackend
 {
     /// <summary>
     /// Software representation of the RaspberryPi. It contains all component representations which are phyisical connected to the Rpi.
-    /// To Add new Hadware Components add the corrosponding instance field and create/initialize it in initialize()
+    /// To Add new Hadware Components, create/initialize it in initialize(). If it is desired, aditionally declare the corrosponding instance field which will be automatically initialised.
+    /// For Testing without connected Hardware Components, use the overloaded initialized(params HWComponents[] hwComponents) method to initialize the Raspberry Pi.
     /// </summary>
     public partial class RaspberryPi
     {
@@ -23,7 +24,7 @@ namespace RaspberryBackend
         private bool testMode = true;
 
         /// Hardware Components of the RasPi as Instance Fields.
-        /// Note: Both Type and declarated name needs to be identical otherwise automatation of initialization fails.
+        /// Note: Both Type and declared name needs to be identical otherwise automatation of initialization fails.
         public readonly GPIOinterface GPIOinterface;
         public readonly LCD LCD;
         public readonly Potentiometer Potentiometer;
@@ -31,7 +32,10 @@ namespace RaspberryBackend
         public readonly ADConverter ADConverter;
 
         /// <summary>
-        /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the Raspberry Pi. To add aditional hardware, just put it as a new parameter.
+        /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi. 
+        /// To add aditional hardware, just insert a new parameter in the initialize(..) call eg. initialize(... , new HWComponent). 
+        /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfiguration"/>.
+        /// Note: See <seealso cref="initialize(HWComponent[])"/> for detailed insight of the RasPi's initialization process.
         /// </summary>
         public void initialize()
         {
@@ -45,12 +49,18 @@ namespace RaspberryBackend
                 );
         }
 
+        private void initiateStartUpConfiguration()
+        {
+            displayIPAdressOnLCD();
+            Multiplexer.setResetPin(GPIOinterface.getPin(18));
+        }
+
         /// <summary>
-        /// Customized initialization of the Raspberry Pi. It initialize the desired Hardware configuration of the Raspberry Pi.
+        /// Customized initialization of the Raspberry Pi. It initialize the desired Hardware and Start-Up configuration of the Raspberry Pi.
         /// </summary>
         /// <param name="hwComponents">
         /// Hardware Componens which shall be connected to the Raspi.
-        /// Enter as many components as desired devided with ','. e.g. (HWComponent one, HWComponent two)
+        /// Enter as many components as desired devided with ','. e.g. initialize(HWComponent one, HWComponent two);
         /// </param>
         public void initialize(params HWComponent[] hwComponents)
         {
@@ -65,22 +75,37 @@ namespace RaspberryBackend
                 }
 
                 initializeHWComponents();
+               
+                // Since the initialisation of Hardware is indipendent, the start-configuration of the RasPi which relise on them is seperated
+                if (hwComponentsInitialized())
+                {
+                    initiateStartUpConfiguration();
+                }
+                else
+                {
+                    throw new AggregateException("Hardware Components are (partly) not initialised thus the startconfiguration could not be initalised");
+                }
 
                 _initialized = true;
             }
+            else
+            {
+                throw new AggregateException("The RasPi,  at least, needs to be initialised with the Hardware Component <GPIOinterface>.");
+            }
         }
+
 
         /// <summary>
         /// Return whether raspberrypi and it's hardware components are initialized
         /// </summary>
-        /// <returns></returns>
+        /// <returns>True if each HWComponent and the Raspberry Pi is initialised. False if at least one HWComponent is not initialised</returns>
         public Boolean isInitialized()
         {
             return _initialized & hwComponentsInitialized();
         }
 
         /// <summary>
-        /// Deletes thecurrent Hardware Configuration of the Raspberry Pi. For now it is used for Testing.
+        /// Deletes the current Hardware Configuration of the Raspberry Pi. For now it is used for testing. Later it can be used for dynamically auto configurate the Raspberry Pi.
         /// </summary>
         public void reset()
         {
@@ -101,12 +126,14 @@ namespace RaspberryBackend
             {
                 if (!hwComponent.isInitialized())
                 {
+                    System.Diagnostics.Debug.WriteLine(hwComponent.GetType().Name+" is not initialised");
                     return false;
                 }
             }
 
             return true;
         }
+
         //initialization of each Hardware Component
         private void initializeHWComponents()
         {
@@ -119,14 +146,12 @@ namespace RaspberryBackend
                     System.Threading.Tasks.Task.Delay(250).Wait();
                     hwcomponent.initiate();
 
-                    System.Diagnostics.Debug.WriteLine(hwcomponent.GetType().Name + " initiated.");
+                    System.Diagnostics.Debug.WriteLine(hwcomponent.GetType().Name + " initalized.");
                 }
-
-                if (hwComponentsInitialized())
-                {
-                    displayIPAdressOnLCD();
-                    Multiplexer.setResetPin(GPIOinterface.getPin(18));
-                }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("System starts in Test-Mode. Hardware Components are not going to be connected/initialised.");
             }
         }
 
