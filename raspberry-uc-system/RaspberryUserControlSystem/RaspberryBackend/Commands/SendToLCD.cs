@@ -9,11 +9,6 @@ namespace RaspberryBackend
     class SendToLCD : Command
     {
         private const int charsMaxInLine = 16;
-        private CancellationTokenSource _cancelSendToLCD;
-        private int _scrollSpeed = 1;
-        private const byte Command_sendMode = 0;
-        private const byte Data_sendMode = 1;
-
         public SendToLCD(RaspberryPi raspberryPi) : base(raspberryPi)
         {
         }
