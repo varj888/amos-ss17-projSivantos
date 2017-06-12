@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.Devices.I2c;
+using System.Linq;
 
 namespace RaspberryBackend
 {
@@ -24,8 +26,6 @@ namespace RaspberryBackend
         private byte _DB15 = 0x80;
         private GpioPin _reset;
 
-        //private static I2cInstance;
-
         public override void initiate()
         {
             try
@@ -40,6 +40,27 @@ namespace RaspberryBackend
             }
 
             _initialized = true;
+        }
+
+        internal void setMultiplexerConfiguration()
+        {
+            Config gpio_to_X_config = MultiplexerConfigParser.getStandardMultiplexerConfig();
+            Dictionary<int, string> X_to_gpio_map = gpio_to_X_config.Pin_value_map;
+            Dictionary<string, int> gpio_to_Y_map = GPIOConfig._gpio_to_Y_map;
+
+            foreach (int gpio_i in X_to_gpio_map.Keys)
+            {
+                //Debug.WriteLine("X Value: " + (i + 1) + ",  Value:" + values[i]);
+                foreach (string gpio_value in gpio_to_Y_map.Keys)
+                {
+                    //Debug.WriteLine("Value:" + gpio_value + ",  Y value: " + gpio_to_Y_map[gpio_value]);
+                    if (gpio_value.Equals(X_to_gpio_map[gpio_i]))
+                    {
+                        connectPins(gpio_i, gpio_to_Y_map[gpio_value]);
+                        Debug.WriteLine("X Pin:" + gpio_i + ",  Y Pin: " + gpio_to_Y_map[gpio_value]);
+                    }
+                }
+            }
         }
 
         /// <summary>

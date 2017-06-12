@@ -8,21 +8,21 @@ namespace RaspberryBackend
     /// <summary>
     ///
     /// </summary>
-    class BreadboardFactory
+    static class MultiplexerConfigParser
     {
-        private Dictionary<string, Dictionary<List<string>, Config>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, Config>>();
+        private static Dictionary<string, Dictionary<List<string>, Config>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, Config>>();
 
         private const string _CONFIG_PATH = "Data/config/PinOutInfo.xml";
 
-        private XDocument config;
+        private static XDocument config;
 
-        public BreadboardFactory()
+        static MultiplexerConfigParser()
         {
             config = XDocument.Load(_CONFIG_PATH);
             buildDictionary();
         }
 
-        private void buildDictionary()
+        private static void buildDictionary()
         {
             IEnumerable<XNode> familyNodes = config.Element("PinOutInfo").Nodes();
 
@@ -68,7 +68,7 @@ namespace RaspberryBackend
         /// <param name="family"></param>
         /// <param name="model_name"></param>
         /// <returns></returns>
-        public Config getMultiplexerConfig(string family, string model_name)
+        public static Config getMultiplexerConfig(string family, string model_name)
         {
             if (hi_dictionary.ContainsKey(family))
             {
@@ -95,11 +95,16 @@ namespace RaspberryBackend
             return null;
         }
 
+        public static Config getStandardMultiplexerConfig()
+        {
+            return getMultiplexerConfig("Pure", "312 702 S (DN)");
+        }
+
         /// <summary>
         ///
         /// </summary>
         /// <returns></returns>
-        public string getConfigAsString()
+        public static string getConfigAsString()
         {
             StringBuilder sb = new StringBuilder();
 

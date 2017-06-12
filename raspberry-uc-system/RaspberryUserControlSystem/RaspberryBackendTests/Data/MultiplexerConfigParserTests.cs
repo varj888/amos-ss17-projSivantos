@@ -13,18 +13,16 @@ namespace RaspberryBackendTests
         private const string _FAMILY = "Pure";
         private const string _MODEL = "312 702 M (DN)";
         private List<string> _EXPECTED_VALUES = new List<string>() { "", "RockerSW", "Ground", "Ground", "AMR", "", "AudioInput", "", "Ground", "PB" };
-        BreadboardFactory factory;
 
         [TestInitialize]
         public void setUp()
         {
-            factory = new BreadboardFactory();
         }
 
         [TestMethod]
         public void TestCreateBreadboard()
         {
-            Config conf = factory.getMultiplexerConfig(_FAMILY, _MODEL);
+            Config conf = MultiplexerConfigParser.getMultiplexerConfig(_FAMILY, _MODEL);
 
             Dictionary<int, string> dic = conf.Pin_value_map;
 
@@ -41,7 +39,7 @@ namespace RaspberryBackendTests
         [TestMethod]
         public void TestToString()
         {
-            Debug.WriteLine(factory.getConfigAsString());
+            Debug.WriteLine(MultiplexerConfigParser.getConfigAsString());
         }
 
 
