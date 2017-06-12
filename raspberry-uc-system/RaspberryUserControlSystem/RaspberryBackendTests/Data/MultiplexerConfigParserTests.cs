@@ -22,7 +22,7 @@ namespace RaspberryBackendTests
         [TestMethod]
         public void TestCreateBreadboard()
         {
-            Config conf = MultiplexerConfigParser.getMultiplexerConfig(_FAMILY, _MODEL);
+            MultiplexerConfig conf = MultiplexerConfigParser.getMultiplexerConfig(_FAMILY, _MODEL);
 
             Dictionary<int, string> dic = conf.Pin_value_map;
 
@@ -39,7 +39,7 @@ namespace RaspberryBackendTests
         [TestMethod]
         public void TestToString()
         {
-            Debug.WriteLine(MultiplexerConfigParser.getConfigAsString());
+            Debug.WriteLine(MultiplexerConfigParser.getXMLConfigAsString());
         }
 
 
