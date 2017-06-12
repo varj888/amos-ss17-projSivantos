@@ -52,7 +52,7 @@ namespace RaspberryBackend
         private void initiateStartUpConfiguration()
         {
             displayIPAdressOnLCD();
-            Multiplexer.setResetPin(GPIOinterface.getPin(GPIOConfig.MULTIPLEXER_RESET_PIN));
+            Multiplexer.setResetPin(GPIOinterface.getPin(18));
             Multiplexer.setMultiplexerConfiguration();
         }
 
