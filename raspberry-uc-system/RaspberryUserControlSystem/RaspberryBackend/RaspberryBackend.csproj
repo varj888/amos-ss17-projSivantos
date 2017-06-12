@@ -139,7 +139,7 @@
     <Compile Include="Components\RaspberryPi\LCDcontrol.cs" />
     <Compile Include="Components\RaspberryPi\HIcontrol.cs" />
     <Compile Include="Components\SPI\ADCDAC.cs" />
-    <Compile Include="Data\MultiplexerConfigParser.cs" />
+    <Compile Include="Data\config\MultiplexerConfigParser.cs" />
     <Compile Include="Data\MultiplexerConfig.cs" />
     <Compile Include="Components\I2C\Multiplexer.cs" />
     <Compile Include="Components\I2C\LCD.cs" />
