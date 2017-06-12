@@ -13,6 +13,7 @@ namespace CommonFiles.TransferObjects
     /// </summary>
     [DataContract]
     [KnownType(typeof(int[]))]
+    [KnownType(typeof(string[]))]
     public class Request
     {
         public Request(string command, Object parameter)

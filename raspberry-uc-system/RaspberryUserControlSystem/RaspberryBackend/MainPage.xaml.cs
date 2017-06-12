@@ -39,6 +39,9 @@ namespace RaspberryBackend
             //set the (inititialized) raspberryPi
             requestController.raspberryPi = raspberryPi;
 
+            //register at the registry server
+            registerAsync();
+
             //Start listening for incoming requests
             runRequestServerAsync();
 
@@ -80,6 +83,13 @@ namespace RaspberryBackend
                 //Send back Result to the client
                 conn.sendObject(result);
             }
+        }
+
+        private async Task registerAsync()
+        {
+            ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
+            string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
+            conn.sendObject(new Request("register", values));
         }
     }
 }
