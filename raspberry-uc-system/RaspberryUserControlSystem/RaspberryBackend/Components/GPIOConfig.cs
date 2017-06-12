@@ -21,6 +21,7 @@ namespace RaspberryBackend
         public static readonly string STOP_END = "Stop-End";
         public static readonly string ENDLESS_VC = "EndlessVC";
 
+        public static readonly int Y0 = 0;
         public static readonly int Y1 = 1;
         public static readonly int Y2 = 2;
         public static readonly int Y3 = 3;
@@ -35,6 +36,7 @@ namespace RaspberryBackend
         /// </summary>
         static GPIOConfig()
         {
+            _gpio_to_Y_map.Add(GROUND, Y0);
             _gpio_to_Y_map.Add(REC_DET, Y1);
             _gpio_to_Y_map.Add(LED, Y2);
             _gpio_to_Y_map.Add(PUSHBUTTON_STRING, Y3);
