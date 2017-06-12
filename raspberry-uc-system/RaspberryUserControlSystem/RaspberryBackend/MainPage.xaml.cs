@@ -40,7 +40,7 @@ namespace RaspberryBackend
             requestController.raspberryPi = raspberryPi;
 
             //register at the registry server
-            registerAsync();
+            //registerAsync();
 
             //Start listening for incoming requests
             runRequestServerAsync();

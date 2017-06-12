@@ -1,11 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-<<<<<<< HEAD
 VisualStudioVersion = 15.0.26430.13
-=======
-VisualStudioVersion = 15.0.26403.7
->>>>>>> refs/remotes/origin/RegitryServer
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestmachineFrontend", "TestmachineFrontend\TestmachineFrontend.csproj", "{DD11F37E-6DF9-444D-8800-8416524B2366}"
 EndProject
@@ -15,11 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaspberryBackendTests", "Ra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestmachineFrontendTests", "TestmachineFrontendTests\TestmachineFrontendTests.csproj", "{F99E92A3-C4F6-4538-ABFA-6EA537245CBC}"
 EndProject
-<<<<<<< HEAD
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{A330158B-437B-4332-9D4F-B7759D04AC24}"
-=======
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryServer", "RegistryServer\RegistryServer.csproj", "{88CF0DE1-DAE6-4B04-AAB7-03A94C01577C}"
->>>>>>> refs/remotes/origin/RegitryServer
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
