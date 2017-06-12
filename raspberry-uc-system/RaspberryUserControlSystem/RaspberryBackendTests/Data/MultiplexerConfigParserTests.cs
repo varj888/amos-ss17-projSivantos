@@ -24,7 +24,7 @@ namespace RaspberryBackendTests
         {
             MultiplexerConfig conf = MultiplexerConfigParser.getMultiplexerConfig(_FAMILY, _MODEL);
 
-            Dictionary<int, string> dic = conf.Pin_value_map;
+            Dictionary<int, string> dic = conf.X_Pin_To_Value_Map;
 
             List<string> value_list = new List<string>();
 
