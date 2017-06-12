@@ -14,12 +14,11 @@ namespace RaspberryBackendTests
             mux = new Multiplexer();
         }
 
-
         //Tests if unknown requests creates the corresponding exception
         [TestMethod]
-        public void TestY_to_X_mapping()
+        public void testMethod()
         {
-            mux.setMultiplexerConfiguration();
+            
         }
 
 
