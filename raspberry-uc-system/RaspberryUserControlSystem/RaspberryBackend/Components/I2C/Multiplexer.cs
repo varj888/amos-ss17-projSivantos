@@ -42,22 +42,36 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
-        internal void setMultiplexerConfiguration()
+        /// <summary>
+        /// Sets the multiplexer configuation to a default HI from the XML Config file
+        /// The HI is:
+        /// Family: "Pure", Model: "312 702 S (DN)"
+        /// </summary>
+        public void setMultiplexerConfiguration()
         {
-            Config gpio_to_X_config = MultiplexerConfigParser.getStandardMultiplexerConfig();
-            Dictionary<int, string> X_to_gpio_map = gpio_to_X_config.Pin_value_map;
+            setMultiplexerConfiguration("Pure", "312 702 S (DN)");
+        }
+
+        /// <summary>
+        /// Sets the multiplexer configuation to a specific HI
+        /// </summary>
+        /// <param name="family">family name of the HI, e.g.: "Pure"</param>
+        /// <param name="model_name">model name of the HI: e.g: "312 702 S (DN)"</param>
+        public void setMultiplexerConfiguration(string family, string model_name)
+        {
+            Debug.WriteLine(this.GetType().Name + "::: Setting Multiplexer Config:");
+            MultiplexerConfig mux_config = MultiplexerConfigParser.getMultiplexerConfig(family, model_name);
+            Dictionary<int, string> X_to_gpio_map = mux_config.X_Pin_To_Value_Map;
             Dictionary<string, int> gpio_to_Y_map = GPIOConfig._gpio_to_Y_map;
 
             foreach (int gpio_i in X_to_gpio_map.Keys)
             {
-                //Debug.WriteLine("X Value: " + (i + 1) + ",  Value:" + values[i]);
                 foreach (string gpio_value in gpio_to_Y_map.Keys)
                 {
-                    //Debug.WriteLine("Value:" + gpio_value + ",  Y value: " + gpio_to_Y_map[gpio_value]);
                     if (gpio_value.Equals(X_to_gpio_map[gpio_i]))
                     {
                         connectPins(gpio_i, gpio_to_Y_map[gpio_value]);
-                        Debug.WriteLine("X Pin:" + gpio_i + ",  Y Pin: " + gpio_to_Y_map[gpio_value]);
+                        Debug.WriteLine(this.GetType().Name + "::: X[" + gpio_i + "]["+ X_to_gpio_map[gpio_i] + "]; Y[" + gpio_to_Y_map[gpio_value] + "]["+gpio_value+"]");
                     }
                 }
             }

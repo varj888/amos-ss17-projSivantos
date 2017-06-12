@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace RaspberryBackend
 {
+    /// <summary>
+    /// Represents the configuration of RasperyyPi components to the multiplexer inputs Y1-Y7
+    /// </summary>
     static class GPIOConfig
     {
 
         public static Dictionary<string, int> _gpio_to_Y_map = new Dictionary<string, int>();
-        
-        public static readonly UInt16 MULTIPLEXER_RESET_PIN = 18;
-        public static readonly UInt16 PUSHBUTTON_PIN = 26;
-        public static readonly UInt16 ROCKERSWITCH_PIN_0 = 20;
-        public static readonly UInt16 ROCKERSWITCH_PIN_1 = 21;
 
         public static readonly string ROCKERSWITCH_STRING = "RockerSW";
         public static readonly string PUSHBUTTON_STRING = "PB";
@@ -27,13 +21,25 @@ namespace RaspberryBackend
         public static readonly string STOP_END = "Stop-End";
         public static readonly string ENDLESS_VC = "EndlessVC";
 
+        public static readonly int Y1 = 1;
+        public static readonly int Y2 = 2;
         public static readonly int Y3 = 3;
         public static readonly int Y4 = 4;
+        public static readonly int Y5 = 5;
+        public static readonly int Y6 = 6;
+        public static readonly int Y7 = 7;
 
+
+        /// <summary>
+        /// Builds a dictionary containing the configuration of RasperyyPi components to the multiplexer inputs Y1-Y7
+        /// </summary>
         static GPIOConfig()
         {
-            _gpio_to_Y_map.Add(GPIOConfig.PUSHBUTTON_STRING, Y3);
-            _gpio_to_Y_map.Add(GPIOConfig.ROCKERSWITCH_STRING, Y4);
+            _gpio_to_Y_map.Add(REC_DET, Y1);
+            _gpio_to_Y_map.Add(LED, Y2);
+            _gpio_to_Y_map.Add(PUSHBUTTON_STRING, Y3);
+            _gpio_to_Y_map.Add(ROCKERSWITCH_STRING, Y4);
+            //TODO: Map Y5-Y7 as soon as we know what the strings mean...
 
         }
     }
