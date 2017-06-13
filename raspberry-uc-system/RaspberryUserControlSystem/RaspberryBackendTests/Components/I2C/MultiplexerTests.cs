@@ -18,7 +18,7 @@ namespace RaspberryBackendTests
 
         //Tests if unknown requests creates the corresponding exception
         [TestMethod]
-        public void testSetDefaultMultiplexerConfig()
+        public void TestSetDefaultMultiplexerConfig()
         {
             mux.setMultiplexerConfiguration();
 
@@ -45,7 +45,8 @@ namespace RaspberryBackendTests
             Assert.AreEqual(mux.get_Y_conntected_to_X(10), GPIOConfig._gpio_to_Y_map["PB"]);
         }
 
-        public void testSetMultiplexerConfig()
+        [TestMethod]
+        public void TestSetMultiplexerConfig()
         {
             mux.setMultiplexerConfiguration("D9_RIC13", "702 S (DN)");
 
@@ -60,7 +61,7 @@ namespace RaspberryBackendTests
             Assert.AreEqual(mux.get_Value_conntected_to_X(9), "");
             Assert.AreEqual(mux.get_Value_conntected_to_X(10), "RockerSW");
 
-            Assert.AreEqual(mux.get_Y_conntected_to_X(1), -1);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(1), GPIOConfig._gpio_to_Y_map["Ground"]);
             Assert.AreEqual(mux.get_Y_conntected_to_X(2), GPIOConfig._gpio_to_Y_map["Ground"]);
             Assert.AreEqual(mux.get_Y_conntected_to_X(3), -1);
             Assert.AreEqual(mux.get_Y_conntected_to_X(4), -1);
