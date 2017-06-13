@@ -23,13 +23,10 @@ namespace RaspberryBackend
             _model_name = model_name;
             _x_pin_to_value_map = new Dictionary<int, string>();
 
-            int count = 1;
-            foreach(string value in value_list)
+            for(int i = 0; i < value_list.Count; ++i)
             {
-                X_Pin_To_Value_Map.Add(count, value);
-                count++;
+                X_Pin_To_Value_Map.Add(i, value_list[i]);
             }
-
         }
         /// <summary>
         /// Getter field for the Multiplexer configuration dictionary
