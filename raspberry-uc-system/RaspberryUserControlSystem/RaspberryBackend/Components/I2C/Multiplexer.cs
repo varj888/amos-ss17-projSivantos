@@ -72,7 +72,7 @@ namespace RaspberryBackend
                 {
                     if (y_value.Equals(X_to_value_map[value_x]))
                     {
-                        if(_initialized == true)
+                        if(isInitialized())
                         {
                             connectPins(value_x, value_to_Y_map[y_value]);
                             Debug.WriteLine(this.GetType().Name + "::: X(" + value_x + ")[" + X_to_value_map[value_x] + "] to Y(" + value_to_Y_map[y_value] + ")[" + y_value + "]");
@@ -145,7 +145,7 @@ namespace RaspberryBackend
         public void resetAll()
         {
             //resetting the multiplexer
-            if (_initialized == true)
+            if (isInitialized())
             {
                 this._reset.Write(GpioPinValue.Low);
                 Task.Delay(100).Wait();
