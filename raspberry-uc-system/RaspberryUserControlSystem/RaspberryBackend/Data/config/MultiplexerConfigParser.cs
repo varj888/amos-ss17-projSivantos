@@ -6,30 +6,33 @@ using System.Xml.Linq;
 namespace RaspberryBackend
 {
     /// <summary>
-    ///
+    /// This static class parses the given XML Multiplexer configuration file
+    /// and stores all possible multiplexer configurations in a dictionary
     /// </summary>
-    class BreadboardFactory
+    static class MultiplexerConfigParser
     {
-        private Dictionary<string, Dictionary<List<string>, Config>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, Config>>();
+        private static Dictionary<string, Dictionary<List<string>, MultiplexerConfig>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, MultiplexerConfig>>();
 
         private const string _CONFIG_PATH = "Data/config/PinOutInfo.xml";
 
-        private XDocument config;
+        private static XDocument config;
 
-        public BreadboardFactory()
+        static MultiplexerConfigParser()
         {
             config = XDocument.Load(_CONFIG_PATH);
             buildDictionary();
         }
 
-        private void buildDictionary()
+        private static void buildDictionary()
         {
             IEnumerable<XNode> familyNodes = config.Element("PinOutInfo").Nodes();
 
             foreach (XElement familyElement in familyNodes)
             {
 
-                Dictionary<List<string>, Config> tmp = new Dictionary<List<string>, Config>();
+                string family_name = familyElement.Attribute("name").Value;
+
+                Dictionary<List<string>, MultiplexerConfig> tmp = new Dictionary<List<string>, MultiplexerConfig>();
 
                 IEnumerable<XNode> modelNodes = familyElement.Nodes();
                 foreach (XElement modelElement in modelNodes)
@@ -52,29 +55,31 @@ namespace RaspberryBackend
                         pin_value_list.Add(pin_value);
                     }
 
-                    Config pin_config = new Config(pin_value_list);
+                    MultiplexerConfig pin_config = new MultiplexerConfig(family_name, model_names_string, pin_value_list);
 
                     tmp.Add(model_names_list, pin_config);
                 }
-                string family_name = familyElement.Attribute("name").Value;
-
+                
                 hi_dictionary.Add(family_name, tmp);
             }
         }
 
         /// <summary>
-        ///
+        /// Get the multiplexer configuation of a specific HI
         /// </summary>
-        /// <param name="family"></param>
-        /// <param name="model_name"></param>
-        /// <returns></returns>
-        public Config getMultiplexerConfig(string family, string model_name)
+        /// <param name="family">family name of the HI, e.g.: "Pure"</param>
+        /// <param name="model_name">model name of the HI: e.g: "312 702 S (DN)"</param>
+        /// <returns>
+        /// Returns a MultiplexerConfig Object
+        /// Returns null if the specified HI is not found
+        /// </returns>
+        public static MultiplexerConfig getMultiplexerConfig(string family, string model_name)
         {
             if (hi_dictionary.ContainsKey(family))
             {
-                Dictionary<List<string>, Config> family_dic = hi_dictionary[family];
+                Dictionary<List<string>, MultiplexerConfig> family_dic = hi_dictionary[family];
 
-                Config multiplex_config = null;
+                MultiplexerConfig multiplex_config = null;
                 bool model_found = false;
 
                 foreach (List<string> model_names in family_dic.Keys)
@@ -96,10 +101,12 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        ///
+        /// Creates a human readable string of the XML configuration file.
         /// </summary>
-        /// <returns></returns>
-        public string getConfigAsString()
+        /// <returns>
+        /// Returns a string containing multiplexer configurations for all possible HIs
+        /// </returns>
+        public static string getXMLConfigAsString()
         {
             StringBuilder sb = new StringBuilder();
 
@@ -108,7 +115,7 @@ namespace RaspberryBackend
                 sb.Append("Family " + familyName + ":");
                 sb.Append("\n");
 
-                Dictionary<List<string>, Config> model_dic = hi_dictionary[familyName];
+                Dictionary<List<string>, MultiplexerConfig> model_dic = hi_dictionary[familyName];
 
                 foreach (List<string> model_names in model_dic.Keys)
                 {
@@ -122,8 +129,8 @@ namespace RaspberryBackend
 
                     sb.Append("\n");
 
-                    Config config_obj = model_dic[model_names];
-                    Dictionary<int, string> config_map = config_obj.Pin_value_map;
+                    MultiplexerConfig config_obj = model_dic[model_names];
+                    Dictionary<int, string> config_map = config_obj.X_Pin_To_Value_Map;
 
                     sb.Append("\tConfig: ");
                     sb.Append("\n");
