@@ -26,6 +26,8 @@ namespace RaspberryBackend
         private byte _DB15 = 0x80;
         private GpioPin _reset;
 
+        private Dictionary<int, Tuple<int, string>> current_multiplexer_state = new Dictionary<int, Tuple<int, string>>();
+
         public override void initiate()
         {
             try
@@ -43,7 +45,7 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Sets the multiplexer configuation to a default HI from the XML Config file
+        /// Sets the multiplexer configuation to a default HI from the XML Config file.
         /// The HI is:
         /// Family: "Pure", Model: "312 702 S (DN)"
         /// </summary>
@@ -61,20 +63,61 @@ namespace RaspberryBackend
         {
             Debug.WriteLine(this.GetType().Name + "::: Setting Multiplexer Config:");
             MultiplexerConfig mux_config = MultiplexerConfigParser.getMultiplexerConfig(family, model_name);
-            Dictionary<int, string> X_to_gpio_map = mux_config.X_Pin_To_Value_Map;
-            Dictionary<string, int> gpio_to_Y_map = GPIOConfig._gpio_to_Y_map;
+            Dictionary<int, string> X_to_value_map = mux_config.X_Pin_To_Value_Map;
+            Dictionary<string, int> value_to_Y_map = GPIOConfig._gpio_to_Y_map;
 
-            foreach (int gpio_i in X_to_gpio_map.Keys)
+            foreach (int value_x in X_to_value_map.Keys)
             {
-                foreach (string gpio_value in gpio_to_Y_map.Keys)
+                foreach (string y_value in value_to_Y_map.Keys)
                 {
-                    if (gpio_value.Equals(X_to_gpio_map[gpio_i]))
+                    if (y_value.Equals(X_to_value_map[value_x]))
                     {
-                        connectPins(gpio_i, gpio_to_Y_map[gpio_value]);
-                        Debug.WriteLine(this.GetType().Name + "::: X[" + gpio_i + "]["+ X_to_gpio_map[gpio_i] + "]; Y[" + gpio_to_Y_map[gpio_value] + "]["+gpio_value+"]");
+                        if(_initialized == true)
+                        {
+                            connectPins(value_x, value_to_Y_map[y_value]);
+                            Debug.WriteLine(this.GetType().Name + "::: X(" + value_x + ")[" + X_to_value_map[value_x] + "] to Y(" + value_to_Y_map[y_value] + ")[" + y_value + "]");
+                        }
+                        current_multiplexer_state.Add(value_x, new Tuple<int, string>(value_to_Y_map[y_value], y_value));
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets the Y pin currently connected to the X Pin
+        /// </summary>
+        /// <param name="xi">specified X Pin on the multiplexer</param>
+        /// <returns>
+        /// Returns the Y pin currenctly connected to the X Pin
+        /// Returns -1 if key is not found
+        /// </returns>
+        public int get_Y_conntected_to_X(int xi)
+        {
+            if (current_multiplexer_state.ContainsKey(xi))
+            {
+                return current_multiplexer_state[xi].Item1;
+
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Gets the Value pin currently connected to the X Pin
+        /// </summary>
+        /// <param name="xi">specified X Pin on the multiplexer</param>
+        /// <returns>
+        /// Returns the Value currenctly connected to the X Pin, e.g.: "RockerSW"
+        /// Returns an empty string if key is not found
+        /// </returns>
+        public string get_Value_conntected_to_X(int xi)
+        {
+            if (current_multiplexer_state.ContainsKey(xi))
+            {
+                return current_multiplexer_state[xi].Item2;
+            }
+
+            return "";
         }
 
         /// <summary>
@@ -101,9 +144,15 @@ namespace RaspberryBackend
         /// </summary>
         public void resetAll()
         {
-            this._reset.Write(GpioPinValue.Low);
-            Task.Delay(100).Wait();
-            this._reset.Write(GpioPinValue.High);
+            //resetting the multiplexer
+            if (_initialized == true)
+            {
+                this._reset.Write(GpioPinValue.Low);
+                Task.Delay(100).Wait();
+                this._reset.Write(GpioPinValue.High);
+            }
+            // resets the pin dictionary
+            current_multiplexer_state.Clear();
         }
 
         /// <summary>
