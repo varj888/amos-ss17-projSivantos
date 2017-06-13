@@ -53,7 +53,7 @@ namespace RaspberryBackend
         {
             displayIPAdressOnLCD();
             Multiplexer.setResetPin(GPIOinterface.getPin(18));
-            Multiplexer.setMultiplexerConfiguration();
+            Multiplexer.setMultiplexerConfiguration("TestFamily","TestModel");
         }
 
         /// <summary>
