@@ -20,7 +20,7 @@ namespace RaspberryBackendTests
         }
 
         [TestMethod]
-        public void TestCreateBreadboard()
+        public void TestCreateMultiplexerConfig()
         {
             MultiplexerConfig conf = MultiplexerConfigParser.getMultiplexerConfig(_FAMILY, _MODEL);
 
@@ -39,7 +39,7 @@ namespace RaspberryBackendTests
         [TestMethod]
         public void TestToString()
         {
-            Debug.WriteLine(MultiplexerConfigParser.getXMLConfigAsString());
+            
         }
 
 
