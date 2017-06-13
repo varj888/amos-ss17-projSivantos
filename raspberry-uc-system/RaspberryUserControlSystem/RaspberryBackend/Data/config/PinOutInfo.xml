@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PinOutInfo>
+    <family name="TestFamily">
+      <model name="TestModel">
+        <Pin number="1" value="RockerSW" />
+        <Pin number="2" value="" />
+        <Pin number="3" value="PB" />
+        <Pin number="4" value="" />
+        <Pin number="5" value="" />
+        <Pin number="6" value="Ground" />
+        <Pin number="7" value="" />
+        <Pin number="8" value="" />
+        <Pin number="9" value="" />
+        <Pin number="10" value="Ground" />
+      </model>
+    </family>
     <family name="Pure">
         <model name="312 702 S (DN),312 702 M (DN),312 702 P (DN),312 702 HP (DN),312 702 no receiver (DN),312 702 S+ (DN),312 702 M+ (DN),312 702 P+ (DN),312 702 HP+ (DN),312 702 no receiver+ (DN),312 502 S (DN),312 502 M (DN),312 502 P (DN),312 502 HP (DN),312 502 no receiver (DN),312 502 S+ (DN),312 502 M+ (DN),312 502 P+ (DN),312 502 HP+ (DN),312 502 no receiver+ (DN),312 302 S (DN),312 302 M (DN),312 302 P (DN),312 302 HP (DN),312 302 no receiver (DN),Octiv R+ S (108/45) (DN),Octiv R+ M (119/60) (DN),Octiv R+ P (124/70) (DN),Octiv R+ HP (130/75) (DN),Octiv R+ no receiver (DN),312 302 S+ (DN),312 302 M+ (DN),312 302 P+ (DN),312 302 HP+ (DN),312 302 no receiver+ (DN),312 102 S+ (DN),312 102 M+ (DN),312 102 P+ (DN),312 102 HP+ (DN),312 102 no receiver+ (DN)">
             <Pin number="1" value="" />
