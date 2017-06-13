@@ -14,11 +14,6 @@ namespace RaspberryBackendTests
         private const string _MODEL = "312 702 M (DN)";
         private List<string> _EXPECTED_VALUES = new List<string>() { "", "RockerSW", "Ground", "Ground", "AMR", "", "AudioInput", "", "Ground", "PB" };
 
-        [TestInitialize]
-        public void setUp()
-        {
-        }
-
         [TestMethod]
         public void TestCreateMultiplexerConfig()
         {
@@ -34,19 +29,6 @@ namespace RaspberryBackendTests
             }
 
             CollectionAssert.AreEqual(_EXPECTED_VALUES, value_list);
-        }
-
-        [TestMethod]
-        public void TestToString()
-        {
-            
-        }
-
-
-        [TestCleanup]
-        public void tearDown()
-        {
-
         }
     }
 }
