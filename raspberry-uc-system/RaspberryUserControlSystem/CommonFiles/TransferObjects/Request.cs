@@ -9,23 +9,29 @@ namespace CommonFiles.TransferObjects
 {
     /// <summary>
     /// Objects of this type will be send from the Testmachine to the Raspberry pi to control it
-    /// The parameter variable can be any primitive Type and any Type annotated as KnownType
+    /// parameters have to be known Types
     /// </summary>
     [DataContract]
     [KnownType(typeof(int[]))]
     [KnownType(typeof(string[]))]
     public class Request
     {
-        public Request(string command, Object parameter)
+        public Request(string command, object parameter)
         {
             this.command = command;
-            this.parameter = parameter;
+            parameters = new object[] { parameter };
+        }
+
+        public Request(string command, Object[] parameters)
+        {
+            this.command = command;
+            this.parameters = parameters;
         }
 
         [DataMember]
         public string command;
 
         [DataMember]
-        public Object parameter;
+        public Object[] parameters;
     }
 }

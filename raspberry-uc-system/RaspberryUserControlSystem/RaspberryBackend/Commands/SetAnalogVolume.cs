@@ -17,9 +17,10 @@ namespace RaspberryBackend
         /// <summary>
         /// execute the Command SetAnalogVolume
         /// </summary>
-        /// <param name="volumeLevel">represents the desired level of analog volume</param>
-        public override void executeAsync(Object volumeLevel)
+        /// <param name="parameters">represents the desired level of analog volume</param>
+        public override void executeAsync(Object[] parameters)
         {
+            object volumeLevel = parameters[0];
             byte requestedVolumeLevel = (byte)volumeLevel;
             Debug.WriteLine(this.GetType().Name + "::: Requested Volume level: " + requestedVolumeLevel);
             if (requestedVolumeLevel < 0 || requestedVolumeLevel > 127)

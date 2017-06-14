@@ -19,8 +19,9 @@ namespace RaspberryBackend
         /// executes the Command ReadPin 
         /// </summary>
         /// <param name="parameter">represents the GpioPin to read from</param>
-        public override void executeAsync(Object parameter)
+        public override void executeAsync(Object[] parameters)
         {
+            object parameter = parameters[0];
             UInt16 id = (UInt16)parameter;
             currentState = RaspberryPi.readPin(id);
             Debug.WriteLine(string.Format("Pin {0} has currently the state: {1}", id, currentState));

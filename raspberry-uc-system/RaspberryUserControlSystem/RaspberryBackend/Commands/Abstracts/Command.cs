@@ -30,7 +30,7 @@ namespace RaspberryBackend
         /// executes the command in dependencie of the parsed parameter
         /// </summary>
         /// <param name="parameter">A Object parameter in order to determine further attributes of the execution</param>
-        public abstract void executeAsync(object parameter);
+        public abstract void executeAsync(object[] parameters);
 
 
     }

@@ -15,9 +15,10 @@ namespace RaspberryBackend
         /// <summary>
         /// execute the Command WritePin
         /// </summary>
-        /// <param name="gpioPinID">represents the GpioPin:Uint16 which shall be written on</param>
-        public override void executeAsync(Object gpioPinID)
+        /// <param name="parameters">represents the GpioPin:Uint16 which shall be written on</param>
+        public override void executeAsync(Object[] parameters)
         {
+            object gpioPinID = parameters[0];
             UInt16 id = (UInt16)gpioPinID;
             RaspberryPi.activatePin(id);
         }

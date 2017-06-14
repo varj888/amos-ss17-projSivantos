@@ -20,8 +20,9 @@ namespace RaspberryBackend
         /// or a #command:string e.g #reset to clear the display
         /// and terminate all tasks related to a previous call
         /// </param>
-        public override void executeAsync(object parameter)
+        public override void executeAsync(object[] parameters)
         {
+            object parameter = parameters[0];
             string text = (string)parameter;
             if (text == "#reset")
             {

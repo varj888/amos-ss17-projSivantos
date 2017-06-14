@@ -18,8 +18,9 @@ namespace RaspberryBackend
         /// Activate multiple pins at the same time. Currently we use 3 buttons: rockerswitch_down, rockerswitch_up and pushbutton.
         /// </summary>
         /// <param name="parameter">Int 1 for press, duration any int: [rockerswitch_0, rockerswitch_1, pushbutton, duration]</param>
-        public override void executeAsync(Object parameter)
+        public override void executeAsync(Object[] parameters)
         {
+            object parameter = parameters[0];
             int[] param = (int[])parameter;
             int duration = param[param.Length - 1];
             if(param.Length != 4)

@@ -19,8 +19,9 @@ namespace RaspberryBackend
         /// executes the Command ReadPin 
         /// </summary>
         /// <param name="parameter">UInt16 Duration</param>
-        public override void executeAsync(Object parameter)
+        public override void executeAsync(Object[] parameters)
         {
+            object parameter = parameters[0];
             int duration = (int)parameter;
             RaspberryPi.activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();

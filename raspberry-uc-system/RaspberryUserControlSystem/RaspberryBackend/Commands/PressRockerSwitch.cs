@@ -21,8 +21,9 @@ namespace RaspberryBackend
         /// Execute presssing one rockerswitch
         /// </summary>
         /// <param name="parameter">Expects an int-Array containing id = [0|1] and duration</param>
-        public override void executeAsync(Object parameter)
+        public override void executeAsync(Object[] parameters)
         {
+            object parameter = parameters[0];
             int[] param = (int[])parameter;
 
             if (param.Length != 2)

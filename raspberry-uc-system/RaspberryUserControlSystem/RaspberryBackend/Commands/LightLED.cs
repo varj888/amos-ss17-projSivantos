@@ -25,8 +25,9 @@ namespace RaspberryBackend
         ///  executes the Command LightLED in dependency of the parsed parameter 
         /// </summary>
         /// <param name="parameter">parameter with content ("0" or "1")</param>
-        public override void executeAsync(Object parameter)
+        public override void executeAsync(Object[] parameters)
         {
+            object parameter = parameters[0];
             lastStateOnRequest = RaspberryPi.readPin(GPIO_PIN_ID);
 
             string requestedParameter = parameter.ToString();

@@ -16,8 +16,9 @@ namespace RaspberryBackend
         /// executes the Command ResetPin
         /// </summary>
         /// <param name="parameter">represents the GpioPin which shall be reset</param>
-        public override void executeAsync(Object parameter)
+        public override void executeAsync(Object[] parameters)
         {
+            object parameter = parameters[0];
             UInt16 id = (UInt16)parameter;
             RaspberryPi.deactivatePin(id);
         }

@@ -19,8 +19,9 @@ namespace RaspberryBackend
         /// Toogles the Backlight of the LCD to onn or off
         /// </summary>
         /// <param name="parameter">1 for Backlight on or 0 for off</param>
-        public override void executeAsync(object parameter)
+        public override void executeAsync(object[] parameters)
         {
+            object parameter = parameters[0];
             string requestedParameter = parameter.ToString();
 
             if (requestedParameter.Equals("1"))

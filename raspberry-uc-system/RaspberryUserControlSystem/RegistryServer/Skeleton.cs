@@ -57,7 +57,7 @@ namespace RegistryServer
                 //Receive a Request from the client
                 Debug.WriteLine("Awaiting Request...");
                 Request request = conn.receiveObject();
-                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
+                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameters));
 
                 //Process Request
                 Result result = handleRequest(request);
@@ -91,7 +91,7 @@ namespace RegistryServer
             // calling the method
             try
             {
-                m.Invoke(service, new Object[] { request.parameter });
+                m.Invoke(service, new Object[] { request.parameters });
             }
             catch (Exception e)
             {

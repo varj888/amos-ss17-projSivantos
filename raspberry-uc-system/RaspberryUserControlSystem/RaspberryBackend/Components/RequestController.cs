@@ -55,7 +55,7 @@ namespace RaspberryBackend
 
             try
             {
-                command.executeAsync(request.parameter);
+                command.executeAsync(request.parameters);
             }
             catch (Exception e)
             {
