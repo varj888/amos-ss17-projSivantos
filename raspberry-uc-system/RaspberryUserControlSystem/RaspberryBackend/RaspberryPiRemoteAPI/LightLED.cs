@@ -7,36 +7,29 @@ namespace RaspberryBackend
     /// <summary>
     /// This class represents a Command. It lights the LED on if the Request-Parameter is 1 and off if 0. 
     /// </summary>
-    class LightLED : Command
+    public partial class RaspberryPi
     {
-        private const uint ON = 1;
-        private const uint OFF = 0;
-        private const UInt16 GPIO_PIN_ID = 24;
-
         public string lastStateOnRequest;
         public string currentState;
-
-
-        public LightLED(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
+        private const UInt16 GPIO_PIN_ID = 24;
 
         /// <summary>
         ///  executes the Command LightLED in dependency of the parsed parameter 
         /// </summary>
         /// <param name="parameter">parameter with content ("0" or "1")</param>
-        public override void executeAsync(Object parameter)
+        public void LightLED(Int32 requestedParameter)
         {
-            lastStateOnRequest = RaspberryPi.readPin(GPIO_PIN_ID);
+            const uint ON = 1;
+            const uint OFF = 0;
 
-            string requestedParameter = parameter.ToString();
+            lastStateOnRequest = readPin(GPIO_PIN_ID);
 
-            if (requestedParameter.Equals("1"))
+            if (requestedParameter == ON)
             {
                 Debug.WriteLine("Received command LightLED On!");
                 currentState = switch_LED_ToState(ON);
             }
-            else if (requestedParameter.Equals("0"))
+            else if (requestedParameter == OFF)
             {
                 Debug.WriteLine("Received command LightLED Off!");
                 currentState = switch_LED_ToState(OFF);
@@ -59,12 +52,12 @@ namespace RaspberryBackend
         {
             if( targetState == 0 )
             {
-                RaspberryPi.deactivatePin(GPIO_PIN_ID);
+                deactivatePin(GPIO_PIN_ID);
             } else
             {
-                RaspberryPi.activatePin(GPIO_PIN_ID);
+                activatePin(GPIO_PIN_ID);
             }
-            return RaspberryPi.readPin(GPIO_PIN_ID);
+            return readPin(GPIO_PIN_ID);
         }
 
     }

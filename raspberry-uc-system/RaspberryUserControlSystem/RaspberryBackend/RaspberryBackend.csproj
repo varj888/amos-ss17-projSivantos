@@ -109,6 +109,9 @@
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
+    <Compile Include="..\CommonFiles\Networking\Skeleton.cs">
+      <Link>CommonFiles\Networking\Skeleton.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
       <Link>CommonFiles\Networking\TCPServer.cs</Link>
     </Compile>
@@ -121,19 +124,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Commands\Abstracts\Command.cs" />
-    <Compile Include="Commands\ConnectPins.cs" />
-    <Compile Include="Commands\Interface\ICommand.cs" />
-    <Compile Include="Commands\PressCombination.cs" />
-    <Compile Include="Commands\PressPushButton.cs" />
-    <Compile Include="Commands\PressRockerSwitch.cs" />
-    <Compile Include="Commands\ReadPin.cs" />
-    <Compile Include="Commands\ResetPin.cs" />
-    <Compile Include="Commands\SendToLCD.cs" />
-    <Compile Include="Commands\ToggleBacklight_LCD.cs" />
-    <Compile Include="Commands\TurnHIOn.cs" />
-    <Compile Include="Commands\SetAnalogVolume.cs" />
-    <Compile Include="Commands\WritePin.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\ConnectPins.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\PressCombination.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\PressPushButton.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\PressRockerSwitch.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\ReadPin.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\ResetPin.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\SendToLCD.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\ToggleBacklight_LCD.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\TurnHIOn.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\SetAnalogVolume.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\WritePin.cs" />
     <Compile Include="Components\Gpio.cs" />
     <Compile Include="Components\GPIOConfig.cs" />
     <Compile Include="Components\I2C\I2C.cs" />
@@ -148,8 +149,7 @@
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
     <Compile Include="Components\RaspberryPi\RaspberryPi.cs" />
-    <Compile Include="Commands\LightLED.cs" />
-    <Compile Include="Components\RequestController.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\LightLED.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

@@ -8,12 +8,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegistryServer
+namespace CommonFiles.Networking
 {
 
     /// <summary>
     /// This class represents a Server which listens for incoming Requests
-    /// and invokes the requested method on a service
+    /// and invokes the requested method
     /// </summary>
     public class Skeleton
     {
@@ -32,7 +32,7 @@ namespace RegistryServer
 
         private async Task runAsync(int port)
         {
-            TCPServer<Request, Result> requestServer = new TCPServer<Request, Result>(54320);
+            TCPServer<Request, Result> requestServer = new TCPServer<Request, Result>(port);
             while (true)
             {
                 try
@@ -57,7 +57,7 @@ namespace RegistryServer
                 //Receive a Request from the client
                 Debug.WriteLine("Awaiting Request...");
                 Request request = conn.receiveObject();
-                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
+                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameters));
 
                 //Process Request
                 Result result = handleRequest(request);
@@ -76,7 +76,7 @@ namespace RegistryServer
             // Searching the method
             try
             {
-                m = typeof(RegistryService).GetMethod(request.command);
+                m = service.GetType().GetMethod(request.command);
             }
             catch (Exception e)
             {
@@ -91,7 +91,11 @@ namespace RegistryServer
             // calling the method
             try
             {
-                m.Invoke(service, new Object[] { request.parameter });
+                m.Invoke(service, request.parameters);
+            }
+            catch(TargetInvocationException e)
+            {
+                return new Result(e.GetBaseException().Message);
             }
             catch (Exception e)
             {

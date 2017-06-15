@@ -11,6 +11,10 @@ namespace RaspberryBackend
     /// </summary>
     public partial class RaspberryPi
     {
+        protected UInt16 pushButton_Pin = 26;
+        protected UInt16 rockerSwitch_Pin_0 = 20;
+        protected UInt16 rockerSwitch_Pin_1 = 21;
+
         //Single location for all Hardware Components
         private Dictionary<String, HWComponent> _hwComponents = new Dictionary<String, HWComponent>();
 

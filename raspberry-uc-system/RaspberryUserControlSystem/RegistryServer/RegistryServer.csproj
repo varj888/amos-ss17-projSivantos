@@ -55,7 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Skeleton.cs" />
+    <Compile Include="..\CommonFiles\Networking\Skeleton.cs">
+      <Link>CommonFiles\Networking\Skeleton.cs</Link>
+    </Compile>
     <Compile Include="RegistryService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -10,20 +10,15 @@ namespace RaspberryBackend
     /// <summary>
     /// This class represents a Command. It simulates a rockerswitch. 
     /// </summary>
-    class PressRockerSwitch : Command
+    public partial class RaspberryPi
     {
-
-        public PressRockerSwitch(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
 
         /// <summary>
         /// Execute presssing one rockerswitch
         /// </summary>
         /// <param name="parameter">Expects an int-Array containing id = [0|1] and duration</param>
-        public override void executeAsync(Object parameter)
-        {
-            int[] param = (int[])parameter;
+        public void PressRockerSwitch(int[] param)
+        { 
 
             if (param.Length != 2)
             {
@@ -50,9 +45,9 @@ namespace RaspberryBackend
                 pushButton_Pin = rockerSwitch_Pin_1;
             }
 
-            RaspberryPi.activatePin(pushButton_Pin);
+            activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
-            RaspberryPi.deactivatePin(pushButton_Pin);
+            deactivatePin(pushButton_Pin);
         }
     }
 }

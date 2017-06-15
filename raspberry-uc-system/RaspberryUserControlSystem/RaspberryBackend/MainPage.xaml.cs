@@ -14,7 +14,6 @@ namespace RaspberryBackend
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        RequestController requestController = null;
         RaspberryPi raspberryPi = null;
 
         public MainPage()
@@ -33,57 +32,16 @@ namespace RaspberryBackend
                 Debug.WriteLine("Something went wrong during the initialization process of the RasPi : "+e.Message);
             }
 
-            // set up request controller
-            requestController = RequestController.Instance;
-
-            //set the (inititialized) raspberryPi
-            requestController.raspberryPi = raspberryPi;
-
             //register at the registry server
             //registerAsync();
 
-            //Start listening for incoming requests
-            runRequestServerAsync();
+            // set up the skeleton
+            Skeleton raspberryPiSkeletion = new Skeleton(raspberryPi, 54321);
 
             this.InitializeComponent();
         }
 
-        private async Task runRequestServerAsync()
-        {
-            TCPServer<Request, Result> requestServer = new TCPServer<Request, Result>(54321);
-            while (true)
-            {
-                try
-                {
-                    Debug.WriteLine(this.GetType().Name + "::: Awaiting request...");
-                    using (ObjConn<Request, Result> connection = await requestServer.acceptConnectionAsync())
-                    {
-                        handleRequestConnection(connection);
-                    }
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Network error: " + e.Message);
-                }
-            }
-        }
-
-        private void handleRequestConnection(ObjConn<Request, Result> conn)
-        {
-            while (true)
-            {
-                //Receive a Request from the client
-                Debug.WriteLine("Awaiting Request...");
-                Request request = conn.receiveObject();
-                Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameter));
-
-                //Process Request
-                Result result = requestController.handleRequest(request);
-
-                //Send back Result to the client
-                conn.sendObject(result);
-            }
-        }
+        
 
         private async Task registerAsync()
         {

@@ -7,15 +7,15 @@ namespace RaspberryBackendTests
     public class RequestControllerTests
     {
 
-        RequestController requestController;
-        GPIOinterface inter;
+        //RequestController requestController;
+        //GPIOinterface inter;
 
-        [TestInitialize]
-        public void setUp()
-        {
-            inter = new GPIOinterface();
-            //do not init the pins
-            requestController = RequestController.Instance;
+        //[TestInitialize]
+        //public void setUp()
+        //{
+        //    inter = new GPIOinterface();
+        //    //do not init the pins
+        //    requestController = RequestController.Instance;
 
 
         }
@@ -76,10 +76,10 @@ namespace RaspberryBackendTests
 
         //}
 
-        [TestCleanup]
-        public void tearDown()
-        {
-            requestController = null;
-        }
-    }
+        //[TestCleanup]
+        //public void tearDown()
+        //{
+        //    requestController = null;
+        //}
+    //}
 }

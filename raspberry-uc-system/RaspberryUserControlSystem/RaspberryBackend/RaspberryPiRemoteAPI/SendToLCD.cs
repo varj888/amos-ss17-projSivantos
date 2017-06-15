@@ -6,12 +6,8 @@ namespace RaspberryBackend
     /// <summary>
     /// This class represents a Command. It it sends date to a LCD through I2C.
     /// </summary>
-    class SendToLCD : Command
+    public partial class RaspberryPi
     {
-        private const int charsMaxInLine = 16;
-        public SendToLCD(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
 
         /// <summary>
         ///  executes the Command SendToLCD in dependency of the parsed parameter
@@ -20,22 +16,23 @@ namespace RaspberryBackend
         /// or a #command:string e.g #reset to clear the display
         /// and terminate all tasks related to a previous call
         /// </param>
-        public override void executeAsync(object parameter)
+        public void SendToLCD(string text)
         {
-            string text = (string)parameter;
+             const int charsMaxInLine = 16;
+       
             if (text == "#reset")
             {
                 System.Diagnostics.Debug.WriteLine("Resetting display");
-                RaspberryPi.resetLCD();
+                resetLCD();
                 return;
             }
             if (text.Length <= charsMaxInLine)
             {
-                RaspberryPi.writeToLCD(text);
+                writeToLCD(text);
             }
             else if (text.Length <= 2 * charsMaxInLine)
             {
-                RaspberryPi.writeToLCDTwoLines(text);
+                writeToLCDTwoLines(text);
             }
             else
             {

@@ -8,23 +8,19 @@ namespace RaspberryBackend
     /// <summary>
     /// This class represents a Command. It it can be used to read a spefic gpio pin of the RaspberryPi. 
     /// </summary>
-    class PressPushButton : Command
+    public partial class RaspberryPi
     {
 
-        public PressPushButton(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
-
+       
         /// <summary>
         /// executes the Command ReadPin 
         /// </summary>
         /// <param name="parameter">UInt16 Duration</param>
-        public override void executeAsync(Object parameter)
+        public void PressPushButton(int duration)
         {
-            int duration = (int)parameter;
-            RaspberryPi.activatePin(pushButton_Pin);
+            activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
-            RaspberryPi.deactivatePin(pushButton_Pin);
+            deactivatePin(pushButton_Pin);
         }
     }
 }
