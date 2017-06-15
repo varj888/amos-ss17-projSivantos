@@ -5,22 +5,16 @@ namespace RaspberryBackend
     /// <summary>
     /// This class represents a Command. It it can be used to write on a spefic gpio pin of the RaspberryPi.
     /// </summary>
-    class WritePin : Command
+    public partial class RaspberryPi
     {
-
-        public WritePin(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
 
         /// <summary>
         /// execute the Command WritePin
         /// </summary>
         /// <param name="parameters">represents the GpioPin:Uint16 which shall be written on</param>
-        public override void executeAsync(Object[] parameters)
+        public void WritePin(UInt16 id)
         {
-            object gpioPinID = parameters[0];
-            UInt16 id = (UInt16)gpioPinID;
-            RaspberryPi.activatePin(id);
+            activatePin(id);
         }
     }
 }

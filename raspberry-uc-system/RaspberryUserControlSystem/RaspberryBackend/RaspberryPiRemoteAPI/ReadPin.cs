@@ -7,23 +7,16 @@ namespace RaspberryBackend
     /// <summary>
     /// This class represents a Command. It it can be used to read a spefic gpio pin of the RaspberryPi. 
     /// </summary>
-    class ReadPin : Command
+    public partial class RaspberryPi
     {
-        public string currentState;
-
-        public ReadPin(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
 
         /// <summary>
         /// executes the Command ReadPin 
         /// </summary>
         /// <param name="parameter">represents the GpioPin to read from</param>
-        public override void executeAsync(Object[] parameters)
+        public void ReadPin(UInt16 id)
         {
-            object parameter = parameters[0];
-            UInt16 id = (UInt16)parameter;
-            currentState = RaspberryPi.readPin(id);
+            string currentState = readPin(id);
             Debug.WriteLine(string.Format("Pin {0} has currently the state: {1}", id, currentState));
         }
     }

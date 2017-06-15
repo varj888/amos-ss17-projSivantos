@@ -6,21 +6,16 @@ namespace RaspberryBackend
     /// <summary>
     /// This class represents a Command. It it can be used to reset a spefic gpio pin of the RaspberryPi.
     /// </summary>
-    class ResetPin : Command
+    public partial class RaspberryPi
     {
-        public ResetPin(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
 
         /// <summary>
         /// executes the Command ResetPin
         /// </summary>
         /// <param name="parameter">represents the GpioPin which shall be reset</param>
-        public override void executeAsync(Object[] parameters)
+        public void ResetPin(UInt16 id)
         {
-            object parameter = parameters[0];
-            UInt16 id = (UInt16)parameter;
-            RaspberryPi.deactivatePin(id);
+            deactivatePin(id);
         }
     }
 }

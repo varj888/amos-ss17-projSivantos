@@ -3,25 +3,22 @@ using System.Diagnostics;
 
 namespace RaspberryBackend
 {
-    class SetAnalogVolume : Command
+    public partial class RaspberryPi
     {
-        //0x03F Middle
-        private byte[] dataBufferON = new byte[] { 127 }; //oder 0x07F
-        private byte[] dataBufferOFF = new byte[] { 0 }; //oder 0x000
-        private byte[] dataBufferVariable = new byte[] { 0 };
-
-        public SetAnalogVolume(RaspberryPi raspberryPi) : base(raspberryPi)
-        {
-        }
+        
 
         /// <summary>
         /// execute the Command SetAnalogVolume
         /// </summary>
         /// <param name="parameters">represents the desired level of analog volume</param>
-        public override void executeAsync(Object[] parameters)
+        public void SetAnalogVolume(byte requestedVolumeLevel)
         {
-            object volumeLevel = parameters[0];
-            byte requestedVolumeLevel = (byte)volumeLevel;
+            //0x03F Middle
+            byte[] dataBufferON = new byte[] { 127 }; //oder 0x07F
+            byte[] dataBufferOFF = new byte[] { 0 }; //oder 0x000
+            byte[] dataBufferVariable = new byte[] { 0 };
+
+           
             Debug.WriteLine(this.GetType().Name + "::: Requested Volume level: " + requestedVolumeLevel);
             if (requestedVolumeLevel < 0 || requestedVolumeLevel > 127)
             {
@@ -29,7 +26,7 @@ namespace RaspberryBackend
             }
 
             dataBufferVariable[0] = requestedVolumeLevel;
-            RaspberryPi.setAnalogVolume(dataBufferVariable);
+            setAnalogVolume(dataBufferVariable);
         }
     }
 }

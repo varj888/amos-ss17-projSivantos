@@ -39,7 +39,7 @@ namespace TestmachineFrontend
             {
                 this.addMessage("debug", x.ToString());
                 this.addMessage("debug", y.ToString());
-                getClientconnection().sendObject(new Request("ConnectPins", new int[] { (int)x, (int)y }));
+                getClientconnection().sendObject(new Request("ConnectPins", new object[] { (int)x, (int)y }));
             } catch(Exception ex)
             {
                 this.addMessage("Debug", ex.Message);
