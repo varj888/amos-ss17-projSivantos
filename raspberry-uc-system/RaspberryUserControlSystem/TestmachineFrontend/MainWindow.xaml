@@ -234,8 +234,8 @@
                             <MenuItem Header="Medium Left" Click="MenuItem_Click"/>
                             <MenuItem Header="Power Right" Click="MenuItem_Click"/>
                             <MenuItem Header="Power Left" Click="MenuItem_Click"/>
-                            <MenuItem Header="HI Power Right" Click="MenuItem_Click"/>
-                            <MenuItem Header="HI Power Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="High Power Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="High Power Left" Click="MenuItem_Click"/>
                             <MenuItem Header="Defective" Click="MenuItem_Click"/>
                             <MenuItem Header="No Receiver" Click="MenuItem_Click"/>
 

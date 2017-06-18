@@ -14,7 +14,7 @@ namespace RaspberryBackend
         public void SetARDVoltage(string device)
         {
             this.setARDVoltage(device);
-            Debug.Write("Set ARD voltage");
+            Debug.WriteLine("Set ARD voltage");
         }
     }
 }

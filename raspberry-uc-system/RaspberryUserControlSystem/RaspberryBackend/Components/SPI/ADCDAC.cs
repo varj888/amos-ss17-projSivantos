@@ -28,6 +28,7 @@ namespace RaspberryBackend
 
             Debug.WriteLine(this.GetType().Name + "::: Setting DACVoltage to standard 1.0 volts.");
             setDACVoltage1(STANDARD_VOLTAGE);
+
             _initialized = true;
         }
 
@@ -76,6 +77,7 @@ namespace RaspberryBackend
             //happens only if ADCDAC is actually connected
             if (_adConvert.IsConnected)
             {
+                Debug.WriteLine(channel.ToString() + "   " + voltage.ToString());
                 _adConvert.SetDACVoltage(channel, voltage);
                 if (channel == CHANNEL_1)
                 {

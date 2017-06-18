@@ -123,8 +123,8 @@ namespace RaspberryBackend
                 return;
             }
             double resistance = deviceResistanceMap[device];
-            double voltage = (ADConverter.getDACVoltage1() / (1000.00 + resistance)) * resistance;
-            Debug.WriteLine("Setting ARD voltage to " + voltage.ToString());
+            double voltage = (ADConverter.getDACVoltage1() / (1.00 + resistance)) * resistance;
+            Debug.WriteLine("Setting ARD for Device " + device + " to " + voltage.ToString());
             ADConverter.setDACVoltage2(voltage);
         }
     }

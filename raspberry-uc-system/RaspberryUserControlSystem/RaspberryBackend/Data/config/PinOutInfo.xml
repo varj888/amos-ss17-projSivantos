@@ -2,12 +2,12 @@
 <PinOutInfo>
     <family name="TestFamily">
       <model name="TestModel">
-        <Pin number="1" value="RockerSW" />
+        <Pin number="1" value="ARD" />
         <Pin number="2" value="" />
         <Pin number="3" value="PB" />
         <Pin number="4" value="DET_AUDIO" />
         <Pin number="5" value="DET_TELE" />
-        <Pin number="6" value="ARD" />
+        <Pin number="6" value="RockerSW" />
         <Pin number="7" value="Ground" />
         <Pin number="8" value="" />
         <Pin number="9" value="" />
