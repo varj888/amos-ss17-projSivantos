@@ -1,5 +1,4 @@
-﻿using CommonFiles.TransferObjects;
-using System;
+﻿using System;
 
 namespace RaspberryBackend
 {
@@ -13,12 +12,9 @@ namespace RaspberryBackend
         /// execute the Command WritePin
         /// </summary>
         /// <param name="parameters">represents the GpioPin:Uint16 which shall be written on</param>
-        public Result WritePin(UInt16 id)
+        public void Ping(UInt16 placeholderVariable)
         {
-            activatePin(id);
-            string retValue = readPin(id);
-            Result a = new Result(true, this.GetType().Name, retValue);
-            return a;
+            return;// new Result(true, "pong", 0); ;
         }
     }
 }

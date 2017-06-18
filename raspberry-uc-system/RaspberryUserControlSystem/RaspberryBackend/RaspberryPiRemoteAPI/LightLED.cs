@@ -1,11 +1,11 @@
-﻿using System;
+﻿using CommonFiles.TransferObjects;
+using System;
 using System.Diagnostics;
-using Windows.Devices.Gpio;
 
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It lights the LED on if the Request-Parameter is 1 and off if 0. 
+    /// This class represents a Command. It lights the LED on if the Request-Parameter is 1 and off if 0.
     /// </summary>
     public partial class RaspberryPi
     {
@@ -14,10 +14,10 @@ namespace RaspberryBackend
         private const UInt16 GPIO_PIN_ID = 24;
 
         /// <summary>
-        ///  executes the Command LightLED in dependency of the parsed parameter 
+        ///  executes the Command LightLED in dependency of the parsed parameter
         /// </summary>
         /// <param name="parameter">parameter with content ("0" or "1")</param>
-        public void LightLED(Int32 requestedParameter)
+        public Result LightLED(Int32 requestedParameter)
         {
             const uint ON = 1;
             const uint OFF = 0;
@@ -37,12 +37,13 @@ namespace RaspberryBackend
 
             Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2} \n",
                 GPIO_PIN_ID, currentState, lastStateOnRequest));
+            return new Result(true, this.GetType().Name, requestedParameter.ToString());
         }
 
 
 
         /// <summary>
-        /// can be used to change the state of the (hardware) LED to a new state. 
+        /// can be used to change the state of the (hardware) LED to a new state.
         /// Note: this method uses the instance constant "PIN_ID" to change the state
         /// => new call then e.g.LED.switchToState(ON);
         /// </summary>
@@ -50,10 +51,11 @@ namespace RaspberryBackend
         /// <returns>The GpioPinValue of the concerned Gpio-Pin</returns>
         private string switch_LED_ToState(uint targetState)
         {
-            if( targetState == 0 )
+            if (targetState == 0)
             {
                 deactivatePin(GPIO_PIN_ID);
-            } else
+            }
+            else
             {
                 activatePin(GPIO_PIN_ID);
             }

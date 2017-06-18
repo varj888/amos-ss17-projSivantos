@@ -19,20 +19,21 @@ namespace CommonFiles.TransferObjects
             this.value = value;
         }
 
-        public Result(bool success, string obj, Object value)
+        public Result(bool success, string obj, Object value) : this(success, obj, value, null)
         {
-            new Result(success, obj, value, null);
         }
 
-        public Result(String exceptionMessage)
+        public Result(String exceptionMessage) : this(false, null, null, exceptionMessage)
         {
-            new Result(false, null, null, exceptionMessage);
         }
 
         [DataMember]
         public bool success;
+        [DataMember]
         public string exceptionMessage;
+        [DataMember]
         public string obj;
+        [DataMember]
         public Object value;
     }
 }

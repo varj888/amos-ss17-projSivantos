@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
@@ -16,15 +15,14 @@ namespace RaspberryBackend
         /// or a #command:string e.g #reset to clear the display
         /// and terminate all tasks related to a previous call
         /// </param>
-        public void SendToLCD(string text)
+        public Result SendToLCD(string text)
         {
-             const int charsMaxInLine = 16;
-       
+            const int charsMaxInLine = 16;
+
             if (text == "#reset")
             {
-                System.Diagnostics.Debug.WriteLine("Resetting display");
                 resetLCD();
-                return;
+                return new Result(true, this.GetType().Name, "Resetting display");
             }
             if (text.Length <= charsMaxInLine)
             {
@@ -36,8 +34,10 @@ namespace RaspberryBackend
             }
             else
             {
-                throw new ArgumentException("Text too long to print on LCD");
+                return new Result("Text too long to print on LCD");
             }
+
+            return new Result(true, this.GetType().Name, text);
         }
     }
 }

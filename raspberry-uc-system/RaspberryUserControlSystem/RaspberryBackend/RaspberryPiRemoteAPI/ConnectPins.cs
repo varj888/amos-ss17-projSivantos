@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
     public partial class RaspberryPi
     {
-        public void ConnectPins(int x, int y)
+        public Result ConnectPins(int x, int y)
         {
             connectPins(x, y);
+            return new Result(true, this.GetType().Name, x + "a" + y);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
@@ -11,10 +11,10 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableTeleCoil.
         /// </summary>
-        public void SetARDVoltage(string device)
+        public Result SetARDVoltage(string device)
         {
             this.setARDVoltage(device);
-            Debug.WriteLine("Set ARD voltage");
+            return new Result(true, this.GetType().Name, device);
         }
     }
 }
