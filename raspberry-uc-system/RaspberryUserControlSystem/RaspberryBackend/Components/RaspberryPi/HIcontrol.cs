@@ -120,6 +120,7 @@ namespace RaspberryBackend
             if (!this.deviceResistanceMap.ContainsKey(device))
             {
                 Debug.Write("Invalid device provided!");
+                return;
             }
             double resistance = deviceResistanceMap[device];
             ADConverter.setDACVoltage2((ADConverter.getDACVoltage() / (1000.00 + resistance)) * resistance);
