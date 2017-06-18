@@ -11,9 +11,17 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableTeleCoil.
         /// </summary>
-        public void EnableTeleCoil(int placeholderVariable)
+        public void EnableTeleCoil(int value)
         {
-            this.setTeleCoil();
+            if (value == 1)
+            {
+                this.setTeleCoil();
+
+            }
+            else if (value == 0)
+            {
+                this.unsetTeleCoil();
+            }
             Debug.Write("Set telecoil");
         }
     }
