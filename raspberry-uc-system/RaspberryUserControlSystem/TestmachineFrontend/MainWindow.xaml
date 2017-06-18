@@ -202,6 +202,7 @@
                     <TextBlock Grid.Row="2" Margin="45,112.667,416.333,8"><Run Text="Power"/></TextBlock>
                     <TextBlock Margin="14,105,445.333,8.667"><Run Text="T-Coil"/></TextBlock>
                     <TextBlock Grid.Row="1" Margin="14,2.333,443.333,90.333" Text="Audio Shoe" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="1" Margin="14,43.333,429.667,47.333" Text="Receiver Identity" TextWrapping="Wrap"/>
 
                     <CheckBox x:Name="checkBox2" HorizontalAlignment="Left"
                         Margin="86,115.667,0,0" VerticalAlignment="Top" Grid.Row="2" Height="15" Width="16"/>
@@ -222,6 +223,24 @@
                         IsEnabled="True" Click="UndetectTCol_Button_Copy_Click"/>
                     <Button x:Name ="UndetectAudioShoe_Button_Copy" Grid.Row="1"  Margin="251,10.333,122.333,92.333" Content="Undetect Audio Shoe"
                         IsEnabled="True" Click="UndetectAudioShoe_Button_Copy_Click" />
+                    <TextBlock Grid.Row="1" Margin="4,97.333,420.667,10.333"><Run Text="Endless VC"/></TextBlock>
+
+                    <Menu Margin="72,52.333,251.667,56.333" Grid.Row="1">
+                        
+                        <MenuItem  Header="Choice Receiver Type... " Click="MenuItem_Click">
+                            <MenuItem Header="Small Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="Small Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="Medium Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="Medium Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="Power Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="Power Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="HI Power Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="HI Power Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="Defective" Click="MenuItem_Click"/>
+                            <MenuItem Header="No Receiver" Click="MenuItem_Click"/>
+
+                        </MenuItem>
+                    </Menu>
                 </Grid>
             </TabItem>
             <TabItem Header="LCD Control">
