@@ -133,7 +133,7 @@
                             IsEnabled="True" Click="press_PushButton"/>
                     <Button Grid.Row="0"  Margin="195,17,256,58.5" Content="RSD" Click="press_Rocker_Switch_Down"/>
                     <Button Grid.Row="0"  Margin="278,17,173,58.5" Content="RSU" Click="press_Rocker_Switch_Up"/>
-                    <ComboBox Name="durationBox" HorizontalAlignment="Left" Margin="399,23,0,0" VerticalAlignment="Top" Width="70">
+                    <ComboBox Name="durationBox" HorizontalAlignment="Left" Margin="399,23,0,0" VerticalAlignment="Top" Width="70" SelectedIndex="0">
                         <ComboBoxItem Content="Short" HorizontalAlignment="Left" Width="75"/>
                         <ComboBoxItem Content="Medium" HorizontalAlignment="Left" Width="75"/>
                         <ComboBoxItem Content="Long" HorizontalAlignment="Left" Width="75"/>
