@@ -1,5 +1,6 @@
 ﻿using CommonFiles.TransferObjects;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace TestmachineFrontend
 {
@@ -110,12 +111,13 @@ namespace TestmachineFrontend
         }
 
         //Resistor Value default is No Receiver:= 200
-        private double resistorValue=200;
+        private double resistorValue = 200;
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem menuItem = sender as MenuItem;
-            getClientconnection().sendObject(new Request("SetREDVoltage", menuItem.Header.ToString()));
+            addMessage("Debug", "Set ARD voltage to " + menuItem.Header.ToString());
+            getClientconnection().sendObject(new Request("SetARDVoltage", menuItem.Header.ToString()));
         }
     }
 }
