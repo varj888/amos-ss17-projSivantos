@@ -146,7 +146,7 @@
                         Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15"/>
                     <CheckBox x:Name="rockerswitch_Up_Checkbox" HorizontalAlignment="Left"
                         Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15"/>
-                    <Button Grid.Row="0"  Margin="360,63,74,7.5" Content="Combi"
+                    <Button Grid.Row="0"  Margin="344,51,28.333,57.667" Content="Combi"
                         IsEnabled="True" Click="press_Combination"/>
 
 
@@ -154,44 +154,61 @@
 
                     <Slider Grid.Row="2" x:Name="soundSlider" Thumb.DragStarted="soundSlider_DragStarted"
                         Thumb.DragCompleted="soundSlider_DragCompleted"
-                        ValueChanged="soundSlider_ValueChanged" Margin="196,63.5,125,10"
+                        ValueChanged="soundSlider_ValueChanged" Margin="126,114.667,195.333,8"
                         Background="AliceBlue"/>
-                    <TextBlock Grid.Row="1" Margin="25,55.5,401,17.5"><Run Text="Endless VC"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="138,31.5,329,40.5"><Run Text="Down"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="223,31.5,252,40.5"><Run Text="Up"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="315,31.5,145,40.5"><Run Text="Ticks"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="370,61.333,55.333,11.333"><Run Text="Endless VC"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="435,28.333,31.333,43.333"><Run Text="Down"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="474,29.333,1.333,43.333"><Run Text="Up"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="399,85.333,60.333,127" Grid.RowSpan="2"><Run Text="Ticks"/></TextBlock>
                     <RadioButton x:Name="radioButton4" HorizontalAlignment="Left"
-                        Margin="144,63.5,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Row="1" Height="14" Width="15"/>
+                        Margin="441,61.333,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Row="1" Height="14" Width="15"/>
                     <RadioButton x:Name="radioButton5" HorizontalAlignment="Left"
-                        Margin="221,63.5,0,0" VerticalAlignment="Top" IsChecked="False"
+                        Margin="474,61.333,0,0" VerticalAlignment="Top" IsChecked="False"
                                  Grid.Row="1" RenderTransformOrigin="4.78,0.614" Height="14" Width="15"/>
                     <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="28"
-                        Margin="301,59.5,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
+                        Margin="442,80.333,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="1"/>
-                    <Button Grid.Row="1"  Margin="399,59.5,48,7.5" Content="Turn"
-                        IsEnabled="False"/>
-                    <TextBlock Grid.Row="2" Margin="411,66.5,63,15"><Run Text="0"/></TextBlock>
-                    <Ellipse Fill="White" HorizontalAlignment="Left" Height="40"
-                             Margin="29,2.5,0,0" Grid.Row="2" Stroke="Black"
+                    <Button Grid.Row="1"  Margin="439,117.333,8.333,123" Content="Turn"
+                        IsEnabled="False" Grid.RowSpan="2"/>
+                    <TextBlock Grid.Row="2" Margin="351,110.667,122.333,5" RenderTransformOrigin="0.449,0.5"><Run Text="0"/></TextBlock>
+                    <Ellipse Name="IO_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                             Margin="6,28.667,0,0" Grid.Row="2" Stroke="Black"
                              VerticalAlignment="Top" Width="40"/>
-                    <Ellipse Fill="White" HorizontalAlignment="Left" Height="40"
-                        Margin="81,2.5,0,0" Grid.Row="2" Stroke="Black"
+                    <Ellipse Name="LED_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="58,28.667,0,0" Grid.Row="2" Stroke="Black"
                         VerticalAlignment="Top" Width="40"/>
-                    <Ellipse Fill="AliceBlue" HorizontalAlignment="Left" Height="40"
-                        Margin="131,2.5,0,0" Grid.Row="2" Stroke="Black"
+                    <Ellipse Name="Sound_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="108,28.667,0,0" Grid.Row="2" Stroke="Black"
                         VerticalAlignment="Top" Width="40"/>
-                    <TextBlock Grid.Row="2" Margin="39,47.5,441,33"><Run Text="I/O"/></TextBlock>
-                    <TextBlock Grid.Row="2" Margin="86,47.5,388,33"><Run Text="LED"/></TextBlock>
-                    <TextBlock Grid.Row="2" Margin="135,47.5,326,33"><Run Text="Sound"/></TextBlock>
-                    <TextBlock Grid.Row="2" Margin="45,72.5,416,8"><Run Text="Power"/></TextBlock>
+                    <Ellipse Name="TCoil_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="10,95,0,0" Stroke="Black"
+                        VerticalAlignment="Top" Width="40" Grid.RowSpan="2"/>
+                    <Ellipse x:Name="AudioShoe_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="63,95,0,0" Stroke="Black" 
+                        VerticalAlignment="Top" Width="40" Grid.RowSpan="2"/>
+
+                    <TextBlock Grid.Row="2" Margin="16,74.667,463.333,49"><Run Text="I/O"/></TextBlock>
+                    <TextBlock Grid.Row="2" Margin="63,74.667,410.333,49"><Run Text="LED"/></TextBlock>
+                    <TextBlock Grid.Row="2" Margin="112,74.667,348.333,49"><Run Text="Sound"/></TextBlock>
+                    <TextBlock Grid.Row="2" Margin="45,112.667,416.333,8"><Run Text="Power"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="14,6.333,446.333,102.333"><Run Text="T-Coil"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="68,6.333,390.333,87.333" Text="Audio Shoe" TextWrapping="Wrap"/>
+
                     <CheckBox x:Name="checkBox2" HorizontalAlignment="Left"
-                        Margin="131,76.5,0,0" VerticalAlignment="Top" Grid.Row="2" Height="15" Width="16"/>
-                    <TextBlock Grid.Row="2" Margin="211,21.5,254,64"><Run Text="Beeps"/></TextBlock>
+                        Margin="86,115.667,0,0" VerticalAlignment="Top" Grid.Row="2" Height="15" Width="16"/>
+                    <TextBlock Grid.Row="2" Margin="379,110.667,85.333,9"><Run Text="Beeps"/></TextBlock>
+
                     <CheckBox x:Name="checkBox3" HorizontalAlignment="Left"
-                        Margin="261,24.5,0,0" VerticalAlignment="Top" Grid.Row="2" Height="15" Width="16"/>
+                        Margin="418,110.667,0,0" VerticalAlignment="Top" Grid.Row="2" Height="15" Width="16"/>
                     <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="28"
-                        Margin="301,21.5,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
+                        Margin="441,102.667,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="2"/>
+
+                    <Button Name ="DetectTCol_Button" Grid.Row="0"  Margin="112,95,271.333,13.667" Content="Detect TCoil"
+                        IsEnabled="True" Click="DetectTCol_Button_Click"/>
+
+                    <Button Name ="DetectAudioShoe_Button" Grid.Row="0"  Margin="112,126,271.333,111.333" Content="Detect Audio Shoe"
+                        IsEnabled="True" Click="DetectAudioShoe_Button_Click" Grid.RowSpan="2" />
                 </Grid>
             </TabItem>
             <TabItem Header="LCD Control">

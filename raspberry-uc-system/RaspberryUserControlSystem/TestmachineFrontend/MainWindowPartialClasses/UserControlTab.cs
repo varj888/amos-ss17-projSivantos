@@ -92,5 +92,15 @@ namespace TestmachineFrontend
                 this.addMessage("Debug", "Invalid duration");
             }
         }
+
+        private void DetectTCol_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DetectAudioShoe_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
