@@ -98,5 +98,24 @@ namespace TestmachineFrontend
         {
 
         }
+
+        private void UndetectAudioShoe_Button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UndetectTCol_Button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //Resistor Value default is No Receiver:= 200
+        private double resistorValue=200;
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem menuItem = sender as MenuItem;
+            getClientconnection().sendObject(new Request("SetREDVoltage", menuItem.Header.ToString()));
+        }
     }
 }

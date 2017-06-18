@@ -156,20 +156,29 @@
                         Thumb.DragCompleted="soundSlider_DragCompleted"
                         ValueChanged="soundSlider_ValueChanged" Margin="126,114.667,195.333,8"
                         Background="AliceBlue"/>
-                    <TextBlock Grid.Row="1" Margin="370,61.333,55.333,11.333"><Run Text="Endless VC"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="435,28.333,31.333,43.333"><Run Text="Down"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="474,29.333,1.333,43.333"><Run Text="Up"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="399,85.333,60.333,127" Grid.RowSpan="2"><Run Text="Ticks"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="4,97.333,420.667,10.333"><Run Text="Endless VC"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="97,97.333,368.667,16.333"><Run Text="Down"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="171,98.333,303.667,16.333"><Run Text="Up"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="250,99.333,208.667,10.333"><Run Text="Ticks"/></TextBlock>
                     <RadioButton x:Name="radioButton4" HorizontalAlignment="Left"
-                        Margin="441,61.333,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Row="1" Height="14" Width="15"/>
+                        Margin="75,97.333,0,0" VerticalAlignment="Top" IsChecked="True" Grid.Row="1" Height="14" Width="15"/>
                     <RadioButton x:Name="radioButton5" HorizontalAlignment="Left"
-                        Margin="474,61.333,0,0" VerticalAlignment="Top" IsChecked="False"
+                        Margin="151,97.333,0,0" VerticalAlignment="Top" IsChecked="False"
                                  Grid.Row="1" RenderTransformOrigin="4.78,0.614" Height="14" Width="15"/>
-                    <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="28"
-                        Margin="442,80.333,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
-                        VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="1"/>
-                    <Button Grid.Row="1"  Margin="439,117.333,8.333,123" Content="Turn"
-                        IsEnabled="False" Grid.RowSpan="2"/>
+                    <TextBox x:Name="textBox2" HorizontalAlignment="Left" Height="26"
+                        Margin="198,97.333,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
+                        VerticalAlignment="Top" Width="39" IsEnabled="False" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+                        <TextBox.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="-0.707"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="-0.21"/>
+                            </TransformGroup>
+                        </TextBox.RenderTransform>
+                    </TextBox>
+                    <Button Grid.Row="1"  Margin="293,97.333,158.667,10.333" Content="Turn"
+                        IsEnabled="False"/>
                     <TextBlock Grid.Row="2" Margin="351,110.667,122.333,5" RenderTransformOrigin="0.449,0.5"><Run Text="0"/></TextBlock>
                     <Ellipse Name="IO_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
                              Margin="6,28.667,0,0" Grid.Row="2" Stroke="Black"
@@ -181,18 +190,19 @@
                         Margin="108,28.667,0,0" Grid.Row="2" Stroke="Black"
                         VerticalAlignment="Top" Width="40"/>
                     <Ellipse Name="TCoil_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
-                        Margin="10,95,0,0" Stroke="Black"
-                        VerticalAlignment="Top" Width="40" Grid.RowSpan="2"/>
+                        Margin="66,89,0,0" Stroke="Black"
+                        VerticalAlignment="Top" Width="40"/>
                     <Ellipse x:Name="AudioShoe_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
-                        Margin="63,95,0,0" Stroke="Black" 
+                        Margin="65,133,0,0" Stroke="Black" 
                         VerticalAlignment="Top" Width="40" Grid.RowSpan="2"/>
 
                     <TextBlock Grid.Row="2" Margin="16,74.667,463.333,49"><Run Text="I/O"/></TextBlock>
                     <TextBlock Grid.Row="2" Margin="63,74.667,410.333,49"><Run Text="LED"/></TextBlock>
                     <TextBlock Grid.Row="2" Margin="112,74.667,348.333,49"><Run Text="Sound"/></TextBlock>
                     <TextBlock Grid.Row="2" Margin="45,112.667,416.333,8"><Run Text="Power"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="14,6.333,446.333,102.333"><Run Text="T-Coil"/></TextBlock>
-                    <TextBlock Grid.Row="1" Margin="68,6.333,390.333,87.333" Text="Audio Shoe" TextWrapping="Wrap"/>
+                    <TextBlock Margin="14,105,445.333,8.667"><Run Text="T-Coil"/></TextBlock>
+                    <TextBlock Grid.Row="1" Margin="14,2.333,443.333,90.333" Text="Audio Shoe" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="1" Margin="14,43.333,429.667,47.333" Text="Receiver Identity" TextWrapping="Wrap"/>
 
                     <CheckBox x:Name="checkBox2" HorizontalAlignment="Left"
                         Margin="86,115.667,0,0" VerticalAlignment="Top" Grid.Row="2" Height="15" Width="16"/>
@@ -204,11 +214,33 @@
                         Margin="441,102.667,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="2"/>
 
-                    <Button Name ="DetectTCol_Button" Grid.Row="0"  Margin="112,95,271.333,13.667" Content="Detect TCoil"
+                    <Button Name ="DetectTCol_Button" Grid.Row="0"  Margin="123,99,251.333,9.667" Content="Detect TCoil"
                         IsEnabled="True" Click="DetectTCol_Button_Click"/>
 
-                    <Button Name ="DetectAudioShoe_Button" Grid.Row="0"  Margin="112,126,271.333,111.333" Content="Detect Audio Shoe"
-                        IsEnabled="True" Click="DetectAudioShoe_Button_Click" Grid.RowSpan="2" />
+                    <Button Name ="DetectAudioShoe_Button" Grid.Row="1"  Margin="126,10.333,251.333,92.333" Content="Detect Audio Shoe"
+                        IsEnabled="True" Click="DetectAudioShoe_Button_Click" />
+                    <Button x:Name ="UndetectTCol_Button_Copy" Grid.Row="0"  Margin="251,99,122.333,9.667" Content="Undetect TCoil"
+                        IsEnabled="True" Click="UndetectTCol_Button_Copy_Click"/>
+                    <Button x:Name ="UndetectAudioShoe_Button_Copy" Grid.Row="1"  Margin="251,10.333,122.333,92.333" Content="Undetect Audio Shoe"
+                        IsEnabled="True" Click="UndetectAudioShoe_Button_Copy_Click" />
+                    <TextBlock Grid.Row="1" Margin="4,97.333,420.667,10.333"><Run Text="Endless VC"/></TextBlock>
+
+                    <Menu Margin="72,52.333,251.667,56.333" Grid.Row="1">
+                        
+                        <MenuItem  Header="Choice Receiver Type... " Click="MenuItem_Click">
+                            <MenuItem Header="Small Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="Small Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="Medium Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="Medium Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="Power Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="Power Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="HI Power Right" Click="MenuItem_Click"/>
+                            <MenuItem Header="HI Power Left" Click="MenuItem_Click"/>
+                            <MenuItem Header="Defective" Click="MenuItem_Click"/>
+                            <MenuItem Header="No Receiver" Click="MenuItem_Click"/>
+
+                        </MenuItem>
+                    </Menu>
                 </Grid>
             </TabItem>
             <TabItem Header="LCD Control">
