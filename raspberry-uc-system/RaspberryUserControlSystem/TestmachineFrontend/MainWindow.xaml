@@ -202,7 +202,7 @@
                     <TextBlock Grid.Row="2" Margin="45,112.667,416.333,8"><Run Text="Power"/></TextBlock>
                     <TextBlock Margin="14,105,445.333,8.667"><Run Text="T-Coil"/></TextBlock>
                     <TextBlock Grid.Row="1" Margin="14,2.333,443.333,90.333" Text="Audio Shoe" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Row="1" Margin="14,43.333,429.667,47.333" Text="Receiver Identity" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Row="1" Margin="14,58.6,392,48.4" Text="Receiver Identity" TextWrapping="Wrap"/>
 
                     <CheckBox x:Name="checkBox2" HorizontalAlignment="Left"
                         Margin="86,115.667,0,0" VerticalAlignment="Top" Grid.Row="2" Height="15" Width="16"/>
@@ -225,22 +225,20 @@
                         IsEnabled="True" Click="UndetectAudioShoe_Button_Copy_Click" />
                     <TextBlock Grid.Row="1" Margin="4,97.333,420.667,10.333"><Run Text="Endless VC"/></TextBlock>
 
-                    <Menu Margin="72,52.333,251.667,56.333" Grid.Row="1">
+                    <ComboBox Name="receiverBox" HorizontalAlignment="Left" Margin="125,58.6,0,0" VerticalAlignment="Top" Width="123" SelectedIndex="1" Grid.Row="1" Height="23">
+                        <ComboBoxItem Content="Short" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Small Right" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Small Left" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Medium Right" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Medium Left" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Power Right" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Power Left" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="High Power Right" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="High Power Left" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="Defective" HorizontalAlignment="Left" Width="75"/>
+                        <ComboBoxItem Content="No Receiver" HorizontalAlignment="Left" Width="75"/>
+                    </ComboBox>
 
-                        <MenuItem  Header="Choice Receiver Type... ">
-                            <MenuItem Header="Small Right" Click="MenuItem_Click"/>
-                            <MenuItem Header="Small Left" Click="MenuItem_Click"/>
-                            <MenuItem Header="Medium Right" Click="MenuItem_Click"/>
-                            <MenuItem Header="Medium Left" Click="MenuItem_Click"/>
-                            <MenuItem Header="Power Right" Click="MenuItem_Click"/>
-                            <MenuItem Header="Power Left" Click="MenuItem_Click"/>
-                            <MenuItem Header="High Power Right" Click="MenuItem_Click"/>
-                            <MenuItem Header="High Power Left" Click="MenuItem_Click"/>
-                            <MenuItem Header="Defective" Click="MenuItem_Click"/>
-                            <MenuItem Header="No Receiver" Click="MenuItem_Click"/>
-
-                        </MenuItem>
-                    </Menu>
                 </Grid>
             </TabItem>
             <TabItem Header="LCD Control">
@@ -290,5 +288,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <Button Grid.Row="0"  Margin="282,233,137,193" Content="Update Receiver"
+            IsEnabled="True" Click="receiverUpdate_Click"/>
     </Grid>
 </Window>
