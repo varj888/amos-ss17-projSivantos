@@ -1,4 +1,5 @@
 ﻿using CommonFiles.TransferObjects;
+using System;
 
 namespace RaspberryBackend
 {
@@ -10,7 +11,7 @@ namespace RaspberryBackend
         /// execute the Command SetAnalogVolume
         /// </summary>
         /// <param name="parameters">represents the desired level of analog volume</param>
-        public Result SetAnalogVolume(byte requestedVolumeLevel)
+        public string SetAnalogVolume(byte requestedVolumeLevel)
         {
             //0x03F Middle
             byte[] dataBufferON = new byte[] { 127 }; //oder 0x07F
@@ -19,13 +20,13 @@ namespace RaspberryBackend
 
             if (requestedVolumeLevel < 0 || requestedVolumeLevel > 127)
             {
-                return new Result(true, this.GetType().Name, "Volume can only operate in the intervall [0:127]");
+                throw new Exception("Volume can only operate in the intervall [0:127]");
             }
 
             dataBufferVariable[0] = requestedVolumeLevel;
             setAnalogVolume(dataBufferVariable);
 
-            return new Result(true, this.GetType().Name, requestedVolumeLevel.ToString());
+            return requestedVolumeLevel.ToString();
         }
     }
 }

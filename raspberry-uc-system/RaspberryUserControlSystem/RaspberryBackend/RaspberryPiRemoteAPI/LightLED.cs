@@ -17,7 +17,7 @@ namespace RaspberryBackend
         ///  executes the Command LightLED in dependency of the parsed parameter
         /// </summary>
         /// <param name="parameter">parameter with content ("0" or "1")</param>
-        public Result LightLED(Int32 requestedParameter)
+        public string LightLED(Int32 requestedParameter)
         {
             const uint ON = 1;
             const uint OFF = 0;
@@ -37,7 +37,7 @@ namespace RaspberryBackend
 
             Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2} \n",
                 GPIO_PIN_ID, currentState, lastStateOnRequest));
-            return new Result(true, this.GetType().Name, requestedParameter.ToString());
+            return requestedParameter.ToString();
         }
 
 

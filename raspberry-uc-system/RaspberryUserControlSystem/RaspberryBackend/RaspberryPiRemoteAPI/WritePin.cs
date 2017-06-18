@@ -13,12 +13,11 @@ namespace RaspberryBackend
         /// execute the Command WritePin
         /// </summary>
         /// <param name="parameters">represents the GpioPin:Uint16 which shall be written on</param>
-        public Result WritePin(UInt16 id)
+        public string WritePin(UInt16 id)
         {
             activatePin(id);
             string retValue = readPin(id);
-            Result a = new Result(true, this.GetType().Name, retValue);
-            return a;
+            return retValue;
         }
     }
 }

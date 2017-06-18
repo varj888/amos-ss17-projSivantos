@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableTeleCoil.
         /// </summary>
-        public Result EnableTeleCoil(int value)
+        public string EnableTeleCoil(int value)
         {
             if (value == 1)
             {
@@ -23,7 +23,7 @@ namespace RaspberryBackend
                 this.unsetTeleCoil();
             }
 
-            return new Result(true, this.GetType().Name, readPin(teleCoil_Pin));
+            return readPin(teleCoil_Pin);
 
         }
     }

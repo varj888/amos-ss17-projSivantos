@@ -14,10 +14,10 @@ namespace RaspberryBackend
         /// executes the Command ResetPin
         /// </summary>
         /// <param name="parameter">represents the GpioPin which shall be reset</param>
-        public Result ResetPin(UInt16 id)
+        public string ResetPin(UInt16 id)
         {
             deactivatePin(id);
-            return new Result(true, this.GetType().Name, readPin(id).ToString());
+            return readPin(id).ToString();
         }
     }
 }

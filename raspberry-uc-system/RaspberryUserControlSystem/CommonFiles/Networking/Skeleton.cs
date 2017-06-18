@@ -87,8 +87,8 @@ namespace CommonFiles.Networking
             // calling the method
             try
             {
-                var ret = m.Invoke(service, request.parameters);
-                return (Result)ret;
+                object value = m.Invoke(service, request.parameters);
+                return new Result(true,service.GetType().Name, value);
             }
             catch (TargetInvocationException e)
             {

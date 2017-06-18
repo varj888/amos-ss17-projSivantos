@@ -13,7 +13,7 @@ namespace RaspberryBackend
         /// Toogles the Backlight of the LCD to onn or off
         /// </summary>
         /// <param name="parameter">1 for Backlight on or 0 for off</param>
-        public Result ToggleBacklight_LCD(int requestedParameter)
+        public string ToggleBacklight_LCD(int requestedParameter)
         {
             const byte ON = 0x01;
             const byte OFF = 0x00;
@@ -27,7 +27,7 @@ namespace RaspberryBackend
                 switchToState(OFF);
             }
 
-            return new Result(true, this.GetType().Name, requestedParameter.ToString());
+            return requestedParameter.ToString();
         }
 
         private void switchToState(byte targetState)

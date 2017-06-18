@@ -11,10 +11,10 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableTeleCoil.
         /// </summary>
-        public Result SetARDVoltage(string device)
+        public string SetARDVoltage(string device)
         {
             this.setARDVoltage(device);
-            return new Result(true, this.GetType().Name, device);
+            return device;
         }
     }
 }

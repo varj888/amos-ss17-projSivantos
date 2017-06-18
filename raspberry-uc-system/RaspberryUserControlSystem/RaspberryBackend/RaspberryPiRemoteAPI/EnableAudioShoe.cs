@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableAudioShoe.
         /// </summary>
-        public Result EnableAudioShoe(int value)
+        public string EnableAudioShoe(int value)
         {
             if (value == 1)
             {
@@ -22,7 +22,7 @@ namespace RaspberryBackend
                 this.unsetAudioShoe();
             }
 
-            return new Result(true, this.GetType().Name, readPin(audioShoe_Pin));
+            return readPin(audioShoe_Pin);
         }
     }
 }

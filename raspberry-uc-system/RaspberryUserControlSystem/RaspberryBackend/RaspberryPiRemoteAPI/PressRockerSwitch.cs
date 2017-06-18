@@ -14,12 +14,12 @@ namespace RaspberryBackend
         /// Execute presssing one rockerswitch
         /// </summary>
         /// <param name="parameter">Expects an int-Array containing id = [0|1] and duration</param>
-        public Result PressRockerSwitch(int[] param)
+        public string PressRockerSwitch(int[] param)
         {
 
             if (param.Length != 2)
             {
-                return new Result("Received invalid paremeterlist");
+                throw new Exception("Received invalid paremeterlist");
             }
 
             int rsw = param[0];
@@ -27,7 +27,7 @@ namespace RaspberryBackend
 
             if (rsw < 0 | rsw > 1)
             {
-                return new Result("Invalid Rockerswitch submitted");
+               throw new Exception("Invalid Rockerswitch submitted");
             }
 
             UInt16 pushButton_Pin;
@@ -45,7 +45,7 @@ namespace RaspberryBackend
             Task.Delay(duration).Wait();
             deactivatePin(pushButton_Pin);
 
-            return new Result(true, this.GetType().Name, param.ToString());
+            return param.ToString();
         }
     }
 }

@@ -14,13 +14,13 @@ namespace RaspberryBackend
         /// executes the Command ReadPin
         /// </summary>
         /// <param name="parameter">UInt16 Duration</param>
-        public Result PressPushButton(int duration)
+        public string PressPushButton(int duration)
         {
             activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
             deactivatePin(pushButton_Pin);
 
-            return new Result(true, this.GetType().Name, duration.ToString());
+            return duration.ToString();
         }
     }
 }
