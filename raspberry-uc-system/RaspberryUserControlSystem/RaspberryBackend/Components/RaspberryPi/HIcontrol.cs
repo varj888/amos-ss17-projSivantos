@@ -30,5 +30,61 @@
         {
             Multiplexer.connectPins(xPin, yPin);
         }
+
+        /// <summary>
+        /// Send signal that an audio-shoe is connected by pulling up the respective pin as defined by documentation. Compare the
+        /// circuit diagram for more details.
+        /// </summary>
+        public void setAudioShoe()
+        {
+            this.activatePin(this.audioShoe_Pin);
+        }
+
+        /// <summary>
+        /// Send signal that an audio-shoe was disconnected by pulling down the respective pin as defined by documentation. Compare the
+        /// circuit diagram for more details.
+        /// </summary>
+        public void unsetAudioShoe()
+        {
+            this.deactivatePin(this.audioShoe_Pin);
+        }
+
+        /// <summary>
+        /// Send signal that a tele-coil is nearby by pulling up the respective pin as defined by documentation. Compare the
+        /// circuit diagram for more details.
+        /// </summary>
+        public void setTeleCoil()
+        {
+            this.activatePin(this.teleCoil_Pin);
+        }
+
+        /// <summary>
+        /// Send signal that a tele-coil was removed by pulling down the respective pin as defined by documentation. Compare the
+        /// circuit diagram for more details.
+        /// </summary>
+        public void unsetTeleCoil()
+        {
+            this.deactivatePin(this.teleCoil_Pin);
+        }
+
+        /// <summary>
+        /// Return current status of audio-shoe. Note that readPin returns the last written value, which does not necessarily
+        /// represent the real status of a pin.
+        /// </summary>
+        /// <returns></returns>
+        public string getAudioShoeStatus()
+        {
+            return this.readPin(this.audioShoe_Pin);
+        }
+
+        /// <summary>
+        /// Return current status of tele-coil. Note that readPin returns the last written value, which does not neccessarily
+        /// represent the real status of a ping.
+        /// </summary>
+        /// <returns></returns>
+        public string getTeleCoilStatus()
+        {
+            return this.readPin(this.audioShoe_Pin);
+        }
     }
 }
