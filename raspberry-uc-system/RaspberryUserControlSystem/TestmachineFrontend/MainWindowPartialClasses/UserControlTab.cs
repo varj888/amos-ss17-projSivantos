@@ -114,14 +114,12 @@ namespace TestmachineFrontend
             addMessage("Debug", "DisableTeleCoil");
         }
 
-        //Resistor Value default is No Receiver:= 200
-        private double resistorValue = 200;
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void receiverUpdate_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem menuItem = sender as MenuItem;
-            addMessage("Debug", "Set ARD voltage to " + menuItem.Header.ToString());
-            getClientconnection().sendObject(new Request("SetARDVoltage", menuItem.Header.ToString()));
+            int a = this.receiverBox.SelectedIndex;
+            ComboBoxItem s = (ComboBoxItem)receiverBox.Items[a];
+            addMessage("Debug", "Set ARD voltage to " + s.Content);
+            getClientconnection().sendObject(new Request("SetARDVoltage", s.Content));
         }
     }
 }
