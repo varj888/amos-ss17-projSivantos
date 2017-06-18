@@ -1,10 +1,6 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,7 +15,7 @@ namespace TestmachineFrontend
 
         public void sendRequest(Request request)
         {
-            if( BackendList.SelectedItems.Count != 1 )
+            if (BackendList.SelectedItems.Count != 1)
             {
                 this.addMessage("Debug", "No raspi selected");
                 return;
@@ -40,25 +36,31 @@ namespace TestmachineFrontend
             try
             {
                 result = getClientconnection().receiveObject();
-            } catch(Exception e)
+                processResult(request, result);
+            }
+            catch (Exception e)
             {
                 this.addMessage(request.command, "Result could not be received: " + e.Message);
                 return;
             }
+        }
 
-            if (result.exceptionMessage == null)
-            {
-                this.addMessage(request.command, "sucess");
-            }
-            else
+        public void processResult(Request request, Result result)
+        {
+            if (!result.success)
             {
                 this.addMessage(request.command, result.exceptionMessage);
+            } // Check whether we have an obj string and a appropriate value
+            else if (result.success == true && result.obj != null && result.value != null)
+            {
+                // Do something with the result object here, for now we just output it on the commandline
+                this.addMessage(result.obj, result.value.ToString());
             }
         }
 
         private ClientConn<Result, Request> getClientconnection()
         {
-            if(BackendList.SelectedIndex == -1 && BackendList.Items.Count > 0)
+            if (BackendList.SelectedIndex == -1 && BackendList.Items.Count > 0)
             {
                 BackendList.SelectedIndex = 0;
             }
