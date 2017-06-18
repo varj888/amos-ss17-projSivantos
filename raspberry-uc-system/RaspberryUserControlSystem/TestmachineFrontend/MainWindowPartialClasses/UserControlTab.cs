@@ -102,5 +102,15 @@ namespace TestmachineFrontend
         {
 
         }
+
+        private void UndetectAudioShoe_Button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UndetectTCol_Button_Copy_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
