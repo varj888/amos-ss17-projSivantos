@@ -1,14 +1,35 @@
-﻿namespace RaspberryBackend
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+
+namespace RaspberryBackend
 {
     public partial class RaspberryPi
     {
+        /// <summary>
+        /// Dictionary to represent possible receivers to detect with their respective resistance. Refer to
+        /// https://drive.google.com/drive/folders/0BzaNmZTttJK4N1dmUWt0VFRzU3c for more information.
+        /// </summary>
+        private Dictionary<string, double> deviceResistanceMap = new Dictionary<string, double>
+        {
+            {"Small right", 0.787},
+            {"Small left", 1.540},
+            {"Medium right", 2.490},
+            {"Medium Left", 3.480},
+            {"Power right", 4.870},
+            {"Power Left", 6.490},
+            {"High Power right", 8.660},
+            {"High Power left", 11.000},
+            {"Defective", 133.700},
+            {"No receiver", 200.0},
+        };
+
         /// <summary>
         /// Sets the DACVoltage output in channel 1 to a desired voltage
         /// </summary>
         /// <param name="voltage"></param>
         public void turnHI_on(double voltage)
         {
-            ADConverter.setDACVoltage(voltage);
+            ADConverter.setDACVoltage1(voltage);
         }
 
         /// <summary>
@@ -85,6 +106,23 @@
         public string getTeleCoilStatus()
         {
             return this.readPin(this.audioShoe_Pin);
+        }
+
+        /// <summary>
+        /// This method sets the voltage for output 1 on the ADCDAC Pi Zero. The formula for setting the voltage was provided
+        /// by our partners: Vx = [ Vbat / ( 1000 + Rx ) ] * Rx whereas Rx is being provided from a set list of receivers in
+        /// combination with its respective resistance. The list must be contained in this class and filled accordingly, to ensure
+        /// the frontend/ API user will not send invalid values possibly resulting in too high current.
+        /// </summary>
+        /// <param name="device">The device provided as a string used to look up its respective voltage</param>
+        public void setARDVoltage(string device)
+        {
+            if (!this.deviceResistanceMap.ContainsKey(device))
+            {
+                Debug.Write("Invalid device provided!");
+            }
+            double resistance = deviceResistanceMap[device];
+            ADConverter.setDACVoltage2((ADConverter.getDACVoltage() / (1000.00 + resistance)) * resistance);
         }
     }
 }

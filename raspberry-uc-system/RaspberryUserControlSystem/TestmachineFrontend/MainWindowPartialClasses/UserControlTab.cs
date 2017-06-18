@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommonFiles.TransferObjects;
 using System.Windows;
-using System.Diagnostics;
-using CommonFiles.TransferObjects;
-using System.Windows.Controls;
 
 namespace TestmachineFrontend
 {
     public partial class MainWindow : Window
     {
+
         private void soundSlider_DragStarted(object sender, RoutedEventArgs e)
         {
 
@@ -41,10 +35,11 @@ namespace TestmachineFrontend
 
         private void press_Rocker_Switch_Down(object sender, RoutedEventArgs e)
         {
-            if(getDuration() != -1)
+            if (getDuration() != -1)
             {
                 getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 0, getDuration() }));
-            } else
+            }
+            else
             {
                 this.addMessage("Debug", "Invalid duration");
             }
@@ -55,7 +50,8 @@ namespace TestmachineFrontend
             if (getDuration() != -1)
             {
                 getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 1, getDuration() }));
-            } else
+            }
+            else
             {
                 this.addMessage("Debug", "Invalid duration");
             }

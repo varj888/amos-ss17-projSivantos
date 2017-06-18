@@ -124,7 +124,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RaspberryPiRemoteAPI\DisableAudioShoe.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\DisableTeleCoil.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\EnableAudioShoe.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ConnectPins.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\EnableTeleCoil.cs" />
     <Compile Include="RaspberryPiRemoteAPI\PressCombination.cs" />
     <Compile Include="RaspberryPiRemoteAPI\PressPushButton.cs" />
     <Compile Include="RaspberryPiRemoteAPI\PressRockerSwitch.cs" />
