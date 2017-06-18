@@ -20,6 +20,9 @@ namespace RaspberryBackend
         public static readonly string M = "M";
         public static readonly string STOP_END = "Stop-End";
         public static readonly string ENDLESS_VC = "EndlessVC";
+        public static readonly string ARD = "ARD";
+        public static readonly string DET_TELE = "DET_TELE";
+        public static readonly string DET_AUDIO = "DET_AUDIO";
 
         public static readonly int Y0 = 0;
         public static readonly int Y1 = 1;
@@ -41,6 +44,9 @@ namespace RaspberryBackend
             _gpio_to_Y_map.Add(LED, Y2);
             _gpio_to_Y_map.Add(PUSHBUTTON_STRING, Y3);
             _gpio_to_Y_map.Add(ROCKERSWITCH_STRING, Y4);
+            _gpio_to_Y_map.Add(ARD, Y1);
+            _gpio_to_Y_map.Add(DET_TELE, Y6);
+            _gpio_to_Y_map.Add(DET_AUDIO, Y7);
             //TODO: Map Y5-Y7 as soon as we know what the strings mean...
 
         }

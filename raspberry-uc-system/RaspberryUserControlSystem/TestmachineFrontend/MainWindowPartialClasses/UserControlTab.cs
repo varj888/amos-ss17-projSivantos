@@ -92,22 +92,26 @@ namespace TestmachineFrontend
 
         private void DetectTCol_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            getClientconnection().sendObject(new Request("EnableTeleCoil", 0));
+            addMessage("Debug", "EnableTeleCoil");
         }
 
         private void DetectAudioShoe_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            getClientconnection().sendObject(new Request("EnableAudioShoe", 0));
+            addMessage("Debug", "EnableAudioShoe");
         }
 
         private void UndetectAudioShoe_Button_Copy_Click(object sender, RoutedEventArgs e)
         {
-
+            getClientconnection().sendObject(new Request("DisableAudioShoe", 0));
+            addMessage("Debug", "DisableAudioShoe");
         }
 
         private void UndetectTCol_Button_Copy_Click(object sender, RoutedEventArgs e)
         {
-
+            getClientconnection().sendObject(new Request("DisableTeleCoil", 0));
+            addMessage("Debug", "DisableTeleCoil");
         }
 
         //Resistor Value default is No Receiver:= 200

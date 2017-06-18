@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command DisableTeleCoil.
         /// </summary>
-        public void DisableTeleCoil()
+        public void DisableTeleCoil(int placeholderVariable)
         {
             this.unsetTeleCoil();
             Debug.Write("Unset telecoil");

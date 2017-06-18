@@ -11,16 +11,16 @@ namespace RaspberryBackend
         /// </summary>
         private Dictionary<string, double> deviceResistanceMap = new Dictionary<string, double>
         {
-            {"Small right", 0.787},
-            {"Small left", 1.540},
-            {"Medium right", 2.490},
+            {"Small Right", 0.787},
+            {"Small Left", 1.540},
+            {"Medium Right", 2.490},
             {"Medium Left", 3.480},
-            {"Power right", 4.870},
+            {"Power Right", 4.870},
             {"Power Left", 6.490},
-            {"High Power right", 8.660},
-            {"High Power left", 11.000},
+            {"High Power Right", 8.660},
+            {"High Power Left", 11.000},
             {"Defective", 133.700},
-            {"No receiver", 200.0},
+            {"No Receiver", 200.0},
         };
 
         /// <summary>
@@ -123,7 +123,9 @@ namespace RaspberryBackend
                 return;
             }
             double resistance = deviceResistanceMap[device];
-            ADConverter.setDACVoltage2((ADConverter.getDACVoltage() / (1000.00 + resistance)) * resistance);
+            double voltage = (ADConverter.getDACVoltage1() / (1000.00 + resistance)) * resistance;
+            Debug.WriteLine("Setting ARD voltage to " + voltage.ToString());
+            ADConverter.setDACVoltage2(voltage);
         }
     }
 }

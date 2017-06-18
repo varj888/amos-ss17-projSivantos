@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableAudioShoe.
         /// </summary>
-        public void EnableAudioShoe()
+        public void EnableAudioShoe(int placeholderVariable)
         {
             this.setAudioShoe();
             Debug.Write("Set audio-shoe");

@@ -5,10 +5,10 @@
         <Pin number="1" value="RockerSW" />
         <Pin number="2" value="" />
         <Pin number="3" value="PB" />
-        <Pin number="4" value="" />
-        <Pin number="5" value="" />
-        <Pin number="6" value="Ground" />
-        <Pin number="7" value="" />
+        <Pin number="4" value="DET_AUDIO" />
+        <Pin number="5" value="DET_TELE" />
+        <Pin number="6" value="ARD" />
+        <Pin number="7" value="Ground" />
         <Pin number="8" value="" />
         <Pin number="9" value="" />
         <Pin number="10" value="Ground" />

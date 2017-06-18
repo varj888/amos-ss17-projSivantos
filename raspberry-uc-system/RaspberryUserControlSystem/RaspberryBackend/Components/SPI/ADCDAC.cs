@@ -19,7 +19,8 @@ namespace RaspberryBackend
         private readonly double MAX_VOLTAGE = 1.5;
         private readonly double STANDARD_VOLTAGE = 1.0;
 
-        private double currentDACVoltage = -1;
+        private double currentDACVoltage1 = -1;
+        private double currentDACVoltage2 = -1;
 
         public override void initiate()
         {
@@ -76,13 +77,24 @@ namespace RaspberryBackend
             if (_adConvert.IsConnected)
             {
                 _adConvert.SetDACVoltage(channel, voltage);
-                currentDACVoltage = voltage;
+                if (channel == CHANNEL_1)
+                {
+                    currentDACVoltage1 = voltage;
+                }
+                else if (channel == CHANNEL_2)
+                {
+                    currentDACVoltage2 = voltage;
+                }
             }
         }
 
-        public double getDACVoltage()
+        public double getDACVoltage1()
         {
-            return currentDACVoltage;
+            return currentDACVoltage1;
+        }
+        public double getDACVoltage2()
+        {
+            return currentDACVoltage2;
         }
 
         /// <summary>

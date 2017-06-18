@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableAudioShoe.
         /// </summary>
-        public void DisableAudioShoe()
+        public void DisableAudioShoe(int placeholderVariable)
         {
             this.unsetAudioShoe();
             Debug.Write("Unset audio-shoe");
