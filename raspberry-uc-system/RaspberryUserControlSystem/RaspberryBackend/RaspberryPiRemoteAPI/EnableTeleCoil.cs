@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableTeleCoil.
         /// </summary>
-        public void EnableTeleCoil(int value)
+        public Result EnableTeleCoil(int value)
         {
             if (value == 1)
             {
@@ -22,7 +22,9 @@ namespace RaspberryBackend
             {
                 this.unsetTeleCoil();
             }
-            Debug.Write("Set telecoil");
+
+            return new Result(true, this.GetType().Name, readPin(teleCoil_Pin));
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// <summary>
         /// executes the Command EnableAudioShoe.
         /// </summary>
-        public void EnableAudioShoe(int value)
+        public Result EnableAudioShoe(int value)
         {
             if (value == 1)
             {
@@ -22,7 +22,7 @@ namespace RaspberryBackend
                 this.unsetAudioShoe();
             }
 
-            Debug.Write("Set audio-shoe");
+            return new Result(true, this.GetType().Name, readPin(audioShoe_Pin));
         }
     }
 }

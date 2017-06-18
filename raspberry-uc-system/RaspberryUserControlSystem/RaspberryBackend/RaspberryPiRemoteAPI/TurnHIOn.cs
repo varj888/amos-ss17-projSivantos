@@ -15,7 +15,7 @@ namespace RaspberryBackend
         public Result TurnHIOn(double voltage)
         {
             turnHI_on(voltage);
-            return new Result(true, this.GetType().Name, voltage.ToString());
+            return new Result(true, this.GetType().Name, voltage);
         }
     }
 }

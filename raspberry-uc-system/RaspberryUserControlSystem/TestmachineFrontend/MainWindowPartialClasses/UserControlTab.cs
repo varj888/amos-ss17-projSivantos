@@ -26,7 +26,7 @@ namespace TestmachineFrontend
         {
             if (getDuration() != -1)
             {
-                getClientconnection().sendObject(new Request("PressPushButton", getDuration()));
+                sendRequest(new Request("PressPushButton", getDuration()));
             }
             else
             {
@@ -38,7 +38,7 @@ namespace TestmachineFrontend
         {
             if (getDuration() != -1)
             {
-                getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 0, getDuration() }));
+                sendRequest(new Request("PressRockerSwitch", new int[] { 0, getDuration() }));
             }
             else
             {
@@ -50,7 +50,7 @@ namespace TestmachineFrontend
         {
             if (getDuration() != -1)
             {
-                getClientconnection().sendObject(new Request("PressRockerSwitch", new int[] { 1, getDuration() }));
+                sendRequest(new Request("PressRockerSwitch", new int[] { 1, getDuration() }));
             }
             else
             {
@@ -82,7 +82,7 @@ namespace TestmachineFrontend
                 {
                     param[2] = 1;
                 }
-                getClientconnection().sendObject(new Request("PressCombination", param));
+                sendRequest(new Request("PressCombination", param));
             }
             else
             {
@@ -92,34 +92,29 @@ namespace TestmachineFrontend
 
         private void DetectTCol_Button_Click(object sender, RoutedEventArgs e)
         {
-            getClientconnection().sendObject(new Request("EnableTeleCoil", 1));
-            addMessage("Debug", "EnableTeleCoil");
+            sendRequest(new Request("EnableTeleCoil", 1));
         }
 
         private void DetectAudioShoe_Button_Click(object sender, RoutedEventArgs e)
         {
-            getClientconnection().sendObject(new Request("EnableAudioShoe", 1));
-            addMessage("Debug", "EnableAudioShoe");
+            sendRequest(new Request("EnableAudioShoe", 1));
         }
 
         private void UndetectAudioShoe_Button_Copy_Click(object sender, RoutedEventArgs e)
         {
-            getClientconnection().sendObject(new Request("EnableAudioShoe", 0));
-            addMessage("Debug", "DisableAudioShoe");
+            sendRequest(new Request("EnableAudioShoe", 0));
         }
 
         private void UndetectTCol_Button_Copy_Click(object sender, RoutedEventArgs e)
         {
-            getClientconnection().sendObject(new Request("EnableTeleCoil", 0));
-            addMessage("Debug", "DisableTeleCoil");
+            sendRequest(new Request("EnableTeleCoil", 0));
         }
 
         private void receiverUpdate_Click(object sender, RoutedEventArgs e)
         {
             int a = this.receiverBox.SelectedIndex;
             ComboBoxItem s = (ComboBoxItem)receiverBox.Items[a];
-            addMessage("Debug", "Set ARD voltage to " + s.Content);
-            getClientconnection().sendObject(new Request("SetARDVoltage", s.Content));
+            sendRequest(new Request("SetARDVoltage", s.Content));
         }
     }
 }

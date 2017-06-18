@@ -54,7 +54,14 @@ namespace TestmachineFrontend
             else if (result.success == true && result.obj != null && result.value != null)
             {
                 // Do something with the result object here, for now we just output it on the commandline
-                this.addMessage(result.obj, (String)result.value);
+                if (commandMap.ContainsKey(request.command))
+                {
+                    commandMap[request.command].Invoke(this, new object[] { result });
+                }
+                else
+                {
+                    this.addMessage(result.obj, result.value.ToString());
+                }
             }
         }
 

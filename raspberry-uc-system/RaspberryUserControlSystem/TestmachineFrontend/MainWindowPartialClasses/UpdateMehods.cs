@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using CommonFiles.TransferObjects;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
+using System.Windows.Media;
 
 namespace TestmachineFrontend
 {
@@ -9,7 +11,7 @@ namespace TestmachineFrontend
     {
         public Dictionary<string, MethodInfo> commandMap = new Dictionary<string, MethodInfo>
         {
-            {"EnableTeleCoil", typeof(MainWindow).GetMethod("updateUIElement")},
+            {"EnableTeleCoil", typeof(MainWindow).GetMethod("updateTeleCoilUI")},
             {"EnableAudioShoe", typeof(MainWindow).GetMethod("updateAudioShoeUI")},
             {"TurnHIOn", typeof(MainWindow).GetMethod("updatePowerUI")},
             {"NotImplemented", typeof(MainWindow).GetMethod("updateSoundUI")},
@@ -17,34 +19,67 @@ namespace TestmachineFrontend
             {"PressPushButton", typeof(MainWindow).GetMethod("updatePushButtonUI")},
         };
 
-        public void updateTeleCoilUI(int value)
+        public void updateTeleCoilUI(Result result)
         {
-            Debug.WriteLine("updateTeleCoilUI");
+            string value = (string)result.value;
+
+            if (value != null)
+            {
+                if (value.Equals("High"))
+                {
+                    TCoil_Eclipse.Fill = new SolidColorBrush(Colors.Green);
+                }
+                else if (value.Equals("Low"))
+                {
+                    TCoil_Eclipse.Fill = new SolidColorBrush(Colors.Red);
+                }
+            }
+            addMessage("Update", "ToggleTeleCoil completed");
         }
 
-        public void updateAudioShoeUI(int value)
+        public void updateAudioShoeUI(Result result)
         {
-            Debug.WriteLine("updateAudioShoeUI");
+            string value = (string)result.value;
+
+            if (value != null)
+            {
+                if (value.Equals("High"))
+                {
+                    AudioShoe_Eclipse.Fill = new SolidColorBrush(Colors.Green);
+                }
+                else if (value.Equals("Low"))
+                {
+                    AudioShoe_Eclipse.Fill = new SolidColorBrush(Colors.Red);
+
+                }
+            }
+            addMessage("Update", "ToggleAudioShoe completed");
         }
 
-        public void updatePowerUI(int value)
+        public void updatePowerUI(Result result)
         {
-            Debug.WriteLine("updatePowerUI");
+            double value = (double)result.value;
+            // 1.5V is the maximum
+            double frac = value / 1.5;
+            Color color = Colors.Green;
+            color.ScA = (int)System.Math.Floor(frac * 255.0);
+            IO_Eclipse.Fill = new SolidColorBrush(color);
+            addMessage("Update", "TurnHIOn completed");
         }
 
-        public void updateSoundUI(int value)
+        public void updateSoundUI(Result result)
         {
             Debug.WriteLine("updateSoundUI");
         }
 
-        public void updatePushButtonUI(int value)
+        public void updatePushButtonUI(Result result)
         {
-            Debug.WriteLine("updatePushButtonUI");
+            addMessage("Update", "PressPushButton GUI notification not yet implemented!");
         }
 
-        public void updateRockerSwitchUI(int value)
+        public void updateRockerSwitchUI(Result result)
         {
-            Debug.WriteLine("updateRockerSwitch");
+            addMessage("Update", "PressRockerSwitch GUI notification not yet implemented!");
         }
     }
 }
