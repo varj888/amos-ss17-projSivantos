@@ -78,7 +78,12 @@ namespace TestmachineFrontend
 
         private void connect_Pins_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("ConnectPins", 0));
+            
+            
+            this.commandMap["Command"].Invoke(this, new object[] { 1 });
+            
+
+            //sendRequest(new Request("ConnectPins", 0));
         }
 
         private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
