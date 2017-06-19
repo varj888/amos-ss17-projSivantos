@@ -73,8 +73,7 @@ namespace TestmachineFrontend
 
         private void connect_Pins_Click(object sender, RoutedEventArgs e)
         {
-            this.commandMap["Command"].Invoke(this, new object[] { 1 });
-            //sendRequest(new Request("ConnectPins", 0));
+            addMessage("debug", "Not yet implemented");
         }
 
         private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
