@@ -1,7 +1,4 @@
 ﻿using CommonFiles.TransferObjects;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Media;
 
@@ -9,17 +6,11 @@ namespace TestmachineFrontend
 {
     public partial class MainWindow : Window
     {
-        public Dictionary<string, MethodInfo> commandMap = new Dictionary<string, MethodInfo>
-        {
-            {"EnableTeleCoil", typeof(MainWindow).GetMethod("updateTeleCoilUI")},
-            {"EnableAudioShoe", typeof(MainWindow).GetMethod("updateAudioShoeUI")},
-            {"TurnHIOn", typeof(MainWindow).GetMethod("updatePowerUI")},
-            {"NotImplemented", typeof(MainWindow).GetMethod("updateSoundUI")},
-            {"PressRockerSwitch", typeof(MainWindow).GetMethod("updateRockerSwitchUI")},
-            {"PressPushButton", typeof(MainWindow).GetMethod("updatePushButtonUI")},
-        };
-
-        public void updateTeleCoilUI(Result result)
+        /// <summary>
+        /// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend.
+        /// </summary>
+        /// <param name="result">The responded result from Backend. It is either "High" or "Low"</param>
+        public void updateGUI_EnableTeleCoil(Result result)
         {
             string value = (string)result.value;
 
@@ -37,7 +28,11 @@ namespace TestmachineFrontend
             addMessage("Update", "ToggleTeleCoil completed");
         }
 
-        public void updateAudioShoeUI(Result result)
+        /// <summary>
+        /// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend
+        /// </summary>
+        /// <param name="result">The responded result from Backend. It is either "High" or "Low"</param>
+        public void updateGUI_EnableAudioShoe(Result result)
         {
             string value = (string)result.value;
 
@@ -56,7 +51,11 @@ namespace TestmachineFrontend
             addMessage("Update", "ToggleAudioShoe completed");
         }
 
-        public void updatePowerUI(Result result)
+        /// <summary>
+        /// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend
+        /// </summary>
+        /// <param name="result">The responded result from Backend. It is double value in the intervall [0:1.5]</param>
+        public void updateGUI_TurnHIOn(Result result)
         {
             double value = (double)result.value;
             // 1.5V is the maximum
@@ -67,17 +66,29 @@ namespace TestmachineFrontend
             addMessage("Update", "TurnHIOn completed");
         }
 
-        public void updateSoundUI(Result result)
+        /// <summary>
+        /// Not yet implemented
+        /// </summary>
+        /// <param name="result"></param>
+        public void updateGUI_Sound(Result result)
         {
-            Debug.WriteLine("updateSoundUI");
+            addMessage("Update", "updateSoundUI GUI notification not yet implemented!");
         }
 
-        public void updatePushButtonUI(Result result)
+        /// <summary>
+        /// Not yet implemented
+        /// </summary>
+        /// <param name="result">The responded result from Backend</param>
+        public void updateGUI_PressPushButton(Result result)
         {
             addMessage("Update", "PressPushButton GUI notification not yet implemented!");
         }
 
-        public void updateRockerSwitchUI(Result result)
+        /// <summary>
+        /// Not yet implemented
+        /// </summary>
+        /// <param name="result">The responded result from Backend</param>
+        public void updateGUI_PressRockerSwitch(Result result)
         {
             addMessage("Update", "PressRockerSwitch GUI notification not yet implemented!");
         }

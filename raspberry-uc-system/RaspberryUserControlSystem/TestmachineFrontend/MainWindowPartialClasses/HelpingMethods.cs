@@ -1,6 +1,9 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,11 +11,23 @@ namespace TestmachineFrontend
 {
     public partial class MainWindow : Window
     {
+        //Creates one time a List with all public methods in MainWindow
+        public List<string> mainMethods = getMethodNamesOf(typeof(MainWindow));
+
+        /// <summary>
+        /// Adds a message to the GUI table
+        /// </summary>
+        /// <param name="origin">The type/kategorie/source of the message</param>
+        /// <param name="msg">Actually content of the message</param>
         public void addMessage(string origin, string msg)
         {
             this.debug.Items.Insert(0, new DebugContent { origin = origin, text = msg });
         }
 
+        /// <summary>
+        /// Sends a Request from Frontend to Backend. Uses <see cref="addMessage(string, string)"./>
+        /// </summary>
+        /// <param name="request">The Request for Backend</param>
         public void sendRequest(Request request)
         {
             if (BackendList.SelectedItems.Count != 1)
@@ -45,6 +60,11 @@ namespace TestmachineFrontend
             }
         }
 
+        /// <summary>
+        /// This method processes the responded result from Backend. It will also invoke the updating process of GUI elements.
+        /// </summary>
+        /// <param name="request">The former Request which was sent from Frontend to Backend</param>
+        /// <param name="result">The responded result from Backend</param>
         public void processResult(Request request, Result result)
         {
             if (!result.success)
@@ -53,10 +73,12 @@ namespace TestmachineFrontend
             } // Check whether we have an obj string and a appropriate value
             else if (result.success == true && result.obj != null && result.value != null)
             {
-                // Do something with the result object here, for now we just output it on the commandline
-                if (commandMap.ContainsKey(request.command))
+                string methodName = "updateGUI_" + request.command;
+
+                if (mainMethods.Contains(methodName))
                 {
-                    commandMap[request.command].Invoke(this, new object[] { result });
+                    MethodInfo updateCommand = typeof(MainWindow).GetMethod(methodName);
+                    updateCommand.Invoke(this, new object[] { result });
                 }
                 else
                 {
@@ -106,6 +128,19 @@ namespace TestmachineFrontend
             public int Id { get; set; }
             public string Status { get; set; }
             public RaspberryPi raspi { get; set; }
+        }
+
+        /// <summary>
+        /// This helper Method can get the names of all public and declared instance method  of a Class
+        /// </summary>
+        /// <param name="type">The Type of a class. Use typeof(Class) to get the Type of a class</param>
+        /// <returns>A list with strings of all names of public method within the defined type</returns>
+        private static List<string> getMethodNamesOf(Type type)
+        {
+            MethodInfo[] methodInfo = type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
+            string[] methodNames = methodInfo.Select(n => n.Name).ToArray();
+
+            return new List<string>(methodNames);
         }
     }
 }
