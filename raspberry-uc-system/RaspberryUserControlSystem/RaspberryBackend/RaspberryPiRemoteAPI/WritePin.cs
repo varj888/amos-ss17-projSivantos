@@ -10,9 +10,10 @@ namespace RaspberryBackend
     {
 
         /// <summary>
-        /// execute the Command WritePin
+        /// Execute the Command WritePin
         /// </summary>
-        /// <param name="parameters">represents the GpioPin:Uint16 which shall be written on</param>
+        /// <param name="parameters">Represents the GpioPin:Uint16 which shall be written on</param>
+        /// <returns>The current status of the requested pin.</returns>
         public string WritePin(UInt16 id)
         {
             activatePin(id);

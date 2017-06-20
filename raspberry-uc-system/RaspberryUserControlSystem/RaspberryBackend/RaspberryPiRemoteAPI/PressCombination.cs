@@ -14,6 +14,7 @@ namespace RaspberryBackend
         /// Activate multiple pins at the same time. Currently we use 3 buttons: rockerswitch_down, rockerswitch_up and pushbutton.
         /// </summary>
         /// <param name="parameter">Int 1 for press, duration any int: [rockerswitch_0, rockerswitch_1, pushbutton, duration]</param>
+        /// <returns>The provided duration.</returns>
         public string PressCombination(int[] param)
         {
             int duration = param[param.Length - 1];

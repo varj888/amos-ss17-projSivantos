@@ -8,9 +8,10 @@ namespace RaspberryBackend
 
 
         /// <summary>
-        /// execute the Command SetAnalogVolume
+        /// Execute the Command SetAnalogVolume
         /// </summary>
         /// <param name="parameters">represents the desired level of analog volume</param>
+        /// <returns>The requested volume-level represented as string</returns>
         public string SetAnalogVolume(byte requestedVolumeLevel)
         {
             //0x03F Middle

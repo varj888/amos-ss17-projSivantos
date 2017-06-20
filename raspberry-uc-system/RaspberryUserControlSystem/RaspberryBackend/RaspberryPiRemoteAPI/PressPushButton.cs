@@ -11,9 +11,11 @@ namespace RaspberryBackend
 
 
         /// <summary>
-        /// executes the Command ReadPin
+        /// Executes the Command PressPushButton. For this the respective Pushbutton is activated and deactivated after
+        /// a user-provided duration using the raspberry-class methods.
         /// </summary>
         /// <param name="parameter">UInt16 Duration</param>
+        /// <returns>The provided duration as string.</returns>
         public string PressPushButton(int duration)
         {
             activatePin(pushButton_Pin);

@@ -9,8 +9,10 @@ namespace RaspberryBackend
     {
 
         /// <summary>
-        /// executes the Command EnableAudioShoe.
+        /// Executes the Command EnableAudioShoe. For this the raspberry-class method set-/ unsetAudioShoe is used.
         /// </summary>
+        /// <param name="value">Integer: For 1 activate audioshoe, for 0 deactivate it.</param>
+        /// <returns>Current status of AudioShoe-Pin.</returns>
         public string EnableAudioShoe(int value)
         {
             if (value == 1)

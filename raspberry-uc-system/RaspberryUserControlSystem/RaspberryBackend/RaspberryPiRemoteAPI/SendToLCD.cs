@@ -10,12 +10,13 @@ namespace RaspberryBackend
     {
 
         /// <summary>
-        ///  executes the Command SendToLCD in dependency of the parsed parameter
+        /// Executes the Command SendToLCD in dependency of the parsed parameter
         /// </summary>
-        /// <param name="parameter">either a text:string which is to be printed on lcd
+        /// <param name="parameter">Either a text:string which is to be printed on lcd
         /// or a #command:string e.g #reset to clear the display
         /// and terminate all tasks related to a previous call
         /// </param>
+        /// <returns>The provided text or a status information.</returns>
         public string SendToLCD(string text)
         {
             const int charsMaxInLine = 16;
@@ -23,7 +24,7 @@ namespace RaspberryBackend
             if (text == "#reset")
             {
                 resetLCD();
-                return "Resetting display";
+                return "Reset display";
             }
             if (text.Length <= charsMaxInLine)
             {

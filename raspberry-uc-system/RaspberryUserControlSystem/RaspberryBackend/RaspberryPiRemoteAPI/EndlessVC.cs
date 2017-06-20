@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It it can be used to write on a spefic gpio pin of the RaspberryPi.
+    /// This class represents a Command. It it can be used to set endless volume-control.
     /// </summary>
     public partial class RaspberryPi
     {
-
         private int _ticks_counter = 0;
 
         //UI Bindings
         public int Ticks_Counter { get => _ticks_counter; set => _ticks_counter = value; }
 
         /// <summary>
-        /// execute the Command WritePin
+        /// Execute the Command EndlessVCUp. The command uses the Ticks_Counter to its max-value, until the max-value is
+        /// reached, it activates the respective pushButton for rocker-switch up for 50ms.
         /// </summary>
-        /// <param name="parameters">represents the GpioPin:Uint16 which shall be written on</param>
+        /// <returns>The Ticks_counter representing the current state of volume.</returns>
         public string EndlessVCUp(int[] param)
         {
             if (Ticks_Counter == int.MaxValue) return Ticks_Counter.ToString();
@@ -39,6 +39,11 @@ namespace RaspberryBackend
             return Ticks_Counter.ToString();
         }
 
+        /// <summary>
+        /// Execute the Command EndlessVCDown. The command uses the Ticks_Counter to its min-value, until the min-value is
+        /// reached, it activates the respective pushButton for rocker-switch up for 50ms.
+        /// </summary>
+        /// <returns>The Ticks_counter representing the current state of volume.</returns>
         public string EndlessVCDown(int[] param)
         {
             if (Ticks_Counter == int.MinValue) return Ticks_Counter.ToString();

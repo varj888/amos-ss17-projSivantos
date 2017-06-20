@@ -9,8 +9,10 @@ namespace RaspberryBackend
     {
 
         /// <summary>
-        /// executes the Command EnableTeleCoil.
+        /// Executes the Command EnableTeleCoil.
         /// </summary>
+        /// <param name="value">Integer: For 1 activate the telecoil. For 0 deactivate it.</param>
+        /// <returns>The current status of the teleCoil-pin.</returns>
         public string EnableTeleCoil(int value)
         {
             if (value == 1)

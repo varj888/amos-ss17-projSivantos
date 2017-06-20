@@ -14,6 +14,7 @@ namespace RaspberryBackend
         /// Execute presssing one rockerswitch
         /// </summary>
         /// <param name="parameter">Expects an int-Array containing id = [0|1] and duration</param>
+        /// <returns>The provided parameterlist represented as string</returns>
         public string PressRockerSwitch(int[] param)
         {
 

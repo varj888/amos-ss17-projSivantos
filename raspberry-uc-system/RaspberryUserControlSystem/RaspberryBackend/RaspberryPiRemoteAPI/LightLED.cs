@@ -16,7 +16,8 @@ namespace RaspberryBackend
         /// <summary>
         ///  executes the Command LightLED in dependency of the parsed parameter
         /// </summary>
-        /// <param name="parameter">parameter with content ("0" or "1")</param>
+        /// <param name="parameter">Int to turn on or off the LED (0 or 1)</param>
+        /// <returns>The requested parameter.</returns>
         public string LightLED(Int32 requestedParameter)
         {
             const uint ON = 1;

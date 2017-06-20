@@ -9,8 +9,10 @@ namespace RaspberryBackend
     {
 
         /// <summary>
-        /// executes the Command EnableTeleCoil.
+        /// Executes the Command SetARDVoltage. For this the raspberry-class method setARDVoltage(device) is called.
         /// </summary>
+        /// <param name="device">The identifier to choose a device.</param>
+        /// <returns>The provided device.</returns>
         public string SetARDVoltage(string device)
         {
             this.setARDVoltage(device);
