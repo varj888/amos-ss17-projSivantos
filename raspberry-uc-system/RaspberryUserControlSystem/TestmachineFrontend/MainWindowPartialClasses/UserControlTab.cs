@@ -116,5 +116,17 @@ namespace TestmachineFrontend
             ComboBoxItem s = (ComboBoxItem)receiverBox.Items[a];
             sendRequest(new Request("SetARDVoltage", s.Content));
         }
+
+        private void Endless_VC_Up(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("EndlessVCUp", new int []{ }));
+            this.addMessage("Endless_VC_Up", "+1");
+        }
+
+        private void Endless_VC_Down(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("EndlessVCDown", new int[] { }));
+            this.addMessage("Endless_VC_Down", "-1");
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CommonFiles.TransferObjects;
 using System.Windows;
 using System.Windows.Media;
+using System.Diagnostics;
 
 namespace TestmachineFrontend
 {
@@ -91,6 +92,20 @@ namespace TestmachineFrontend
         public void updateGUI_PressRockerSwitch(Result result)
         {
             addMessage("Update", "PressRockerSwitch GUI notification not yet implemented!");
+        }
+
+        public void updateGUI_EndlessVCDown(Result result)
+        {
+            string ticks = (string)result.value;
+            Debug.WriteLine("EndlessVCDown update ticks.");
+            this.Ticks.Text = ticks.ToString();
+        }
+
+        public void updateGUI_EndlessVCUp(Result result)
+        {
+            string ticks = (string) result.value;
+            Debug.WriteLine("EndlessVCUp update ticks.");
+            this.Ticks.Text = ticks;
         }
     }
 }
