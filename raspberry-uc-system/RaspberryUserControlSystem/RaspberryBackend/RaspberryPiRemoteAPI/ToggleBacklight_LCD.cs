@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
@@ -10,33 +10,30 @@ namespace RaspberryBackend
     {
 
         /// <summary>
-        /// Toogles the Backlight of the LCD to onn or off
+        /// Toogles the Backlight of the LCD to onn or off.
         /// </summary>
         /// <param name="parameter">1 for Backlight on or 0 for off</param>
-        public void ToggleBacklight_LCD(string requestedParameter)
+        /// <returns>The provided parameter represented as a string.</returns>
+        public string ToggleBacklight_LCD(int requestedParameter)
         {
             const byte ON = 0x01;
             const byte OFF = 0x00;
 
-            if (requestedParameter.Equals("1"))
+            if (requestedParameter.Equals(1))
             {
-                Debug.WriteLine("Received command ToggleBacklightLCD On!");
                 switchToState(ON);
-
             }
-            else if (requestedParameter.Equals("0"))
+            else if (requestedParameter.Equals(0))
             {
-                Debug.WriteLine("Received command ToggleBacklightLCD Off!");
                 switchToState(OFF);
             }
 
-
+            return requestedParameter.ToString();
         }
 
         private void switchToState(byte targetState)
         {
             setLCDBackgroundState(targetState);
-            Debug.WriteLine("Backlight state changed!");
         }
     }
 }

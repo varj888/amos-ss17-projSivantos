@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using CommonFiles.TransferObjects;
+using System;
 using System.Threading.Tasks;
 
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It simulates a rockerswitch. 
+    /// This class represents a Command. It simulates a rockerswitch.
     /// </summary>
     public partial class RaspberryPi
     {
@@ -17,13 +14,13 @@ namespace RaspberryBackend
         /// Execute presssing one rockerswitch
         /// </summary>
         /// <param name="parameter">Expects an int-Array containing id = [0|1] and duration</param>
-        public void PressRockerSwitch(int[] param)
-        { 
+        /// <returns>The provided parameterlist represented as string</returns>
+        public string PressRockerSwitch(int[] param)
+        {
 
             if (param.Length != 2)
             {
-                Debug.WriteLine("Received invalid paremeterlist");
-                return;
+                throw new Exception("Received invalid paremeterlist");
             }
 
             int rsw = param[0];
@@ -31,8 +28,7 @@ namespace RaspberryBackend
 
             if (rsw < 0 | rsw > 1)
             {
-                Debug.WriteLine("Invalid Rockerswitch submitted");
-                return;
+               throw new Exception("Invalid Rockerswitch submitted");
             }
 
             UInt16 pushButton_Pin;
@@ -40,7 +36,8 @@ namespace RaspberryBackend
             if (rsw == 0)
             {
                 pushButton_Pin = rockerSwitch_Pin_0;
-            } else
+            }
+            else
             {
                 pushButton_Pin = rockerSwitch_Pin_1;
             }
@@ -48,6 +45,8 @@ namespace RaspberryBackend
             activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
             deactivatePin(pushButton_Pin);
+
+            return param.ToString();
         }
     }
 }

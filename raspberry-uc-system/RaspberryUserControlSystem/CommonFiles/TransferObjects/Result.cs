@@ -11,12 +11,29 @@ namespace CommonFiles.TransferObjects
     [DataContract]
     public class Result
     {
-        public Result(String exceptionMessage)
+        private Result(bool success, string obj, Object value, String exceptionMessage)
         {
             this.exceptionMessage = exceptionMessage;
+            this.success = success;
+            this.obj = obj;
+            this.value = value;
+        }
+
+        public Result(bool success, string obj, Object value) : this(success, obj, value, null)
+        {
+        }
+
+        public Result(String exceptionMessage) : this(false, null, null, exceptionMessage)
+        {
         }
 
         [DataMember]
-        public String exceptionMessage;
+        public bool success;
+        [DataMember]
+        public string exceptionMessage;
+        [DataMember]
+        public string obj;
+        [DataMember]
+        public Object value;
     }
 }

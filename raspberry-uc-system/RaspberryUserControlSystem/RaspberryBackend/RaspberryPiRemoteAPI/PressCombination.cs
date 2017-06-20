@@ -1,5 +1,5 @@
-﻿using System;
-using System.Diagnostics;
+﻿using CommonFiles.TransferObjects;
+using System;
 using System.Threading.Tasks;
 
 namespace RaspberryBackend
@@ -14,19 +14,18 @@ namespace RaspberryBackend
         /// Activate multiple pins at the same time. Currently we use 3 buttons: rockerswitch_down, rockerswitch_up and pushbutton.
         /// </summary>
         /// <param name="parameter">Int 1 for press, duration any int: [rockerswitch_0, rockerswitch_1, pushbutton, duration]</param>
-        public void PressCombination(int[] param)
+        /// <returns>The provided duration.</returns>
+        public string PressCombination(int[] param)
         {
             int duration = param[param.Length - 1];
-            if(param.Length != 4)
+            if (param.Length != 4)
             {
-                Debug.WriteLine("Invalid parameterlist received");
-                return;
+                throw new Exception("Invalid parameterlist received");
             }
 
-            if(param[1] == 1 & param[0] == 1)
+            if (param[1] == 1 & param[0] == 1)
             {
-                Debug.WriteLine("Tester tried to press both rockerswitches in combination");
-                return;
+                throw new Exception("Tester tried to press both rockerswitches in combination");
             }
 
             if (param[2] == 1)
@@ -45,6 +44,8 @@ namespace RaspberryBackend
             deactivatePin(pushButton_Pin);
             deactivatePin(rockerSwitch_Pin_0);
             deactivatePin(rockerSwitch_Pin_1);
+
+            return duration.ToString();
         }
     }
 }

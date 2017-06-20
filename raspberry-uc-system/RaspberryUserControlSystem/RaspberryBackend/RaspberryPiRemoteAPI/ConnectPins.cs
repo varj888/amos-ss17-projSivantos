@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
     public partial class RaspberryPi
     {
-        public void ConnectPins(int x, int y)
+        /// <summary>
+        /// Executes the command ConnectPins. For this we call the raspberry-class method connectPins.
+        /// </summary>
+        /// <param name="x">X-Side pin (output)</param>
+        /// <param name="y">Y-Side pin (input)</param>
+        /// <returns>String representing which pin to which was connected.</returns>
+        public string ConnectPins(int x, int y)
         {
             connectPins(x, y);
+            return x + " to " + y;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Reflection;
 
+
 namespace RaspberryBackend
 {
     /// <summary>
@@ -14,6 +15,8 @@ namespace RaspberryBackend
         protected UInt16 pushButton_Pin = 26;
         protected UInt16 rockerSwitch_Pin_0 = 20;
         protected UInt16 rockerSwitch_Pin_1 = 21;
+        protected UInt16 audioShoe_Pin = 19;
+        protected UInt16 teleCoil_Pin = 13;
 
         //Single location for all Hardware Components
         private Dictionary<String, HWComponent> _hwComponents = new Dictionary<String, HWComponent>();
@@ -36,8 +39,8 @@ namespace RaspberryBackend
         public readonly ADConverter ADConverter;
 
         /// <summary>
-        /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi. 
-        /// To add aditional hardware, just insert a new parameter in the initialize(..) call eg. initialize(... , new HWComponent). 
+        /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi.
+        /// To add aditional hardware, just insert a new parameter in the initialize(..) call eg. initialize(... , new HWComponent).
         /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfiguration"/>.
         /// Note: See <seealso cref="initialize(HWComponent[])"/> for detailed insight of the RasPi's initialization process.
         /// </summary>
@@ -57,7 +60,7 @@ namespace RaspberryBackend
         {
             displayIPAdressOnLCD();
             Multiplexer.setResetPin(GPIOinterface.getPin(18));
-            Multiplexer.setMultiplexerConfiguration("TestFamily","TestModel");
+            Multiplexer.setMultiplexerConfiguration("TestFamily", "TestModel");
         }
 
         /// <summary>
@@ -80,13 +83,13 @@ namespace RaspberryBackend
                 }
 
                 initializeHWComponents();
-               
+
                 // Since the initialisation of Hardware is indipendent, the start-configuration of the RasPi which relise on them is seperated
                 if (hwComponentsInitialized())
                 {
                     initiateStartUpConfiguration();
                 }
-                else if(!testMode)
+                else if (!testMode)
                 {
                     throw new AggregateException("Hardware Components are (partly) not initialised thus the startconfiguration could not be initalised");
                 }
@@ -131,7 +134,7 @@ namespace RaspberryBackend
             {
                 if (!hwComponent.isInitialized())
                 {
-                    System.Diagnostics.Debug.WriteLine(hwComponent.GetType().Name+" is not initialised");
+                    System.Diagnostics.Debug.WriteLine(hwComponent.GetType().Name + " is not initialised");
                     return false;
                 }
             }

@@ -13,19 +13,22 @@ namespace RaspberryBackend
     {
         private ADCDACPi _adConvert = new ADCDACPi();
 
-        private readonly byte CHANNEL = 0x1;
+        private readonly byte CHANNEL_1 = 0x1;
+        private readonly byte CHANNEL_2 = 0x2;
         private readonly double MIN_VOLTAGE = 0.0;
         private readonly double MAX_VOLTAGE = 1.5;
         private readonly double STANDARD_VOLTAGE = 1.0;
 
-        private double currentDACVoltage = -1;
+        private double currentDACVoltage1 = -1;
+        private double currentDACVoltage2 = -1;
 
         public override void initiate()
         {
             connect();
 
             Debug.WriteLine(this.GetType().Name + "::: Setting DACVoltage to standard 1.0 volts.");
-            setDACVoltage(STANDARD_VOLTAGE);
+            setDACVoltage1(STANDARD_VOLTAGE);
+
             _initialized = true;
         }
 
@@ -60,7 +63,7 @@ namespace RaspberryBackend
         /// method to set the DAC voltage on the ADCDAC Channel 1
         /// </summary>
         /// <param name="voltage">can be between 0 and 2.047 volts</param>
-        public void setDACVoltage(double voltage)
+        public void setDACVoltage(double voltage, byte channel)
         {
             if (voltage > MAX_VOLTAGE)
             {
@@ -74,15 +77,44 @@ namespace RaspberryBackend
             //happens only if ADCDAC is actually connected
             if (_adConvert.IsConnected)
             {
-                _adConvert.SetDACVoltage(CHANNEL, voltage);
+                Debug.WriteLine(channel.ToString() + "   " + voltage.ToString());
+                _adConvert.SetDACVoltage(channel, voltage);
+                if (channel == CHANNEL_1)
+                {
+                    currentDACVoltage1 = voltage;
+                }
+                else if (channel == CHANNEL_2)
+                {
+                    currentDACVoltage2 = voltage;
+                }
             }
-
-            currentDACVoltage = voltage;
         }
 
-        public double getDACVoltage()
+        public double getDACVoltage1()
         {
-            return currentDACVoltage;
+            return currentDACVoltage1;
+        }
+        public double getDACVoltage2()
+        {
+            return currentDACVoltage2;
+        }
+
+        /// <summary>
+        /// Wrapper around setDACVoltage so set channels without knowing their addresss
+        /// </summary>
+        /// <param name="voltage"></param>
+        public void setDACVoltage1(double voltage)
+        {
+            this.setDACVoltage(voltage, this.CHANNEL_1);
+        }
+
+        /// <summary>
+        /// Wrapper around setDACVoltage so set channels without knowing their addresss
+        /// </summary>
+        /// <param name="voltage"></param>
+        public void setDACVoltage2(double voltage)
+        {
+            this.setDACVoltage(voltage, this.CHANNEL_2);
         }
     }
 }

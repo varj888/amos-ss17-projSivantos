@@ -1,12 +1,7 @@
-﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
+﻿using CommonFiles.TransferObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,7 +13,7 @@ namespace TestmachineFrontend
         public UInt16 PinID { get; set; }
         public string IPaddress { get; set; }
 
-        // Using a DependencyProperty as the backing store for 
+        // Using a DependencyProperty as the backing store for
         //IsCheckBoxChecked.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsCheckBoxCheckedProperty =
             DependencyProperty.Register("IsCheckBoxChecked", typeof(bool),
@@ -30,7 +25,7 @@ namespace TestmachineFrontend
             {
                 var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPaddress), 54321)); // asynchronously creates and initializes an instance of RaspberryPi
                 connected_checkbox.IsChecked = pi1.IsConnected;
-                raspberryPis.Add(IPaddress,pi1);
+                raspberryPis.Add(IPaddress, pi1);
                 this.BackendList.Items.Add(new RaspberryPiItem() { Name = IPaddress, Id = 45, Status = "OK", raspi = pi1 });
             }
             catch (FormatException fx)
@@ -78,7 +73,7 @@ namespace TestmachineFrontend
 
         private void connect_Pins_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("ConnectPins", 0));
+            addMessage("debug", "Not yet implemented");
         }
 
         private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

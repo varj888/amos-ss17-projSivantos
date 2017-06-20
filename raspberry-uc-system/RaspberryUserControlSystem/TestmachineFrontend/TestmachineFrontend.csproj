@@ -82,6 +82,7 @@
       <Link>CommonFiles\TransferObjects\Result.cs</Link>
     </Compile>
     <Compile Include="DebugContent.cs" />
+    <Compile Include="MainWindowPartialClasses\UpdateMehods.cs" />
     <Compile Include="RaspberryPi.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

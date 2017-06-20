@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonFiles.TransferObjects;
+using System;
 
 namespace RaspberryBackend
 {
@@ -10,12 +11,14 @@ namespace RaspberryBackend
     {
 
         /// <summary>
-        /// executes the Command ResetPin
+        /// Executes the Command ResetPin
         /// </summary>
         /// <param name="parameter">represents the GpioPin which shall be reset</param>
-        public void ResetPin(UInt16 id)
+        /// <returns>The current state of the deactivated pin represented as string. Should evaluate to "Low".</returns>
+        public string ResetPin(UInt16 id)
         {
             deactivatePin(id);
+            return readPin(id).ToString();
         }
     }
 }

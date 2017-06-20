@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CommonFiles.Networking
@@ -15,7 +11,7 @@ namespace CommonFiles.Networking
     /// </summary>
     /// <typeparam name="inType">Type of Objects received from the server</typeparam>
     /// <typeparam name="outType">Type of Objects send to the server</typeparam>
-    public class ClientConn<inType, outType>: IDisposable
+    public class ClientConn<inType, outType> : IDisposable
     {
         private ObjConn<inType, outType> objConn;
 
@@ -50,7 +46,8 @@ namespace CommonFiles.Networking
         }
 
         // private constructor to avoid instantiation without calling connect
-        private ClientConn(ObjConn<inType, outType> objConn) {
+        private ClientConn(ObjConn<inType, outType> objConn)
+        {
             this.objConn = objConn;
         }
 

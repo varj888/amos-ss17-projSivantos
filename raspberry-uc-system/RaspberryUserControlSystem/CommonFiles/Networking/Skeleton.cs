@@ -1,11 +1,7 @@
-﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
+﻿using CommonFiles.TransferObjects;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CommonFiles.Networking
@@ -91,9 +87,10 @@ namespace CommonFiles.Networking
             // calling the method
             try
             {
-                m.Invoke(service, request.parameters);
+                object value = m.Invoke(service, request.parameters);
+                return new Result(true,service.GetType().Name, value);
             }
-            catch(TargetInvocationException e)
+            catch (TargetInvocationException e)
             {
                 return new Result(e.GetBaseException().Message);
             }
@@ -102,7 +99,6 @@ namespace CommonFiles.Networking
                 return new Result(e.Message);
             }
 
-            return new Result("success");
         }
     }
 }
