@@ -36,18 +36,18 @@ namespace RaspberryBackend
             //registerAsync();
 
             // set up the skeleton
-            Skeleton raspberryPiSkeletion = new Skeleton(raspberryPi, 54321);
+            ServerSkeleton raspberryPiSkeletion = new ServerSkeleton(raspberryPi, 54321);
 
             this.InitializeComponent();
         }
 
         
 
-        private async Task registerAsync()
-        {
-            ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
-            string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
-            conn.sendObject(new Request("register", values));
-        }
+        //private async Task registerAsync()
+        //{
+        //    ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
+        //    string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
+        //    conn.sendObject(new Request("register", values));
+        //}
     }
 }

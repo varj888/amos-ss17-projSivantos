@@ -11,7 +11,7 @@ namespace CommonFiles.Networking
     /// This class represents a Server which listens for incoming Requests
     /// and invokes the requested method
     /// </summary>
-    public class Skeleton
+    public class ServerSkeleton
     {
         private Object service;
 
@@ -20,7 +20,7 @@ namespace CommonFiles.Networking
         /// </summary>
         /// <param name="service">Service, which methods will be called on incoming Request</param>
         /// <param name="port">Port, where the server listens for incoming Requests</param>
-        public Skeleton(Object service, int port)
+        public ServerSkeleton(Object service, int port)
         {
             this.service = service;
             Task.Factory.StartNew(() => runAsync(port));

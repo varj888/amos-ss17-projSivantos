@@ -109,8 +109,8 @@
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\Networking\Skeleton.cs">
-      <Link>CommonFiles\Networking\Skeleton.cs</Link>
+    <Compile Include="..\CommonFiles\Networking\ServerSkeleton.cs">
+      <Link>CommonFiles\Networking\ServerSkeleton.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
       <Link>CommonFiles\Networking\TCPServer.cs</Link>
