@@ -226,6 +226,7 @@
                         <ComboBoxItem Content="Defective" HorizontalAlignment="Left" Width="75"/>
                         <ComboBoxItem Content="No Receiver" HorizontalAlignment="Left" Width="75"/>
                     </ComboBox>
+                    <Button Grid.Row="1"  Margin="253,60,120,36" Content="Update Receiver" IsEnabled="True" Click="receiverUpdate_Click"/>
 
                 </Grid>
             </TabItem>
