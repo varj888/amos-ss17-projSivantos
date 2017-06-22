@@ -96,16 +96,14 @@ namespace TestmachineFrontend
 
         public void updateGUI_EndlessVCDown(Result result)
         {
-            string ticks = (string)result.value;
-            Debug.WriteLine("EndlessVCDown update ticks.");
-            this.Ticks.Text = ticks.ToString();
+            int ticks = (int)result.value;
+            this.addMessage("updateGUI_EndlessVCDown", "Pressed released EndlessVCDown" + ticks + " times successfully.");
         }
 
         public void updateGUI_EndlessVCUp(Result result)
         {
-            string ticks = (string) result.value;
-            Debug.WriteLine("EndlessVCUp update ticks.");
-            this.Ticks.Text = ticks;
+            int ticks = (int)result.value;
+            this.addMessage("updateGUI_EndlessVCUp", "Pressed released EndlessVCUp" + ticks + " times successfully.");
         }
     }
 }
