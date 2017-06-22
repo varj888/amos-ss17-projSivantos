@@ -12,31 +12,16 @@ namespace RaspberryBackend
     /// </summary>
     public partial class RaspberryPi
     {
-        private int _ticks_counter = 0;
-
-        //UI Bindings
-        public int Ticks_Counter { get => _ticks_counter; set => _ticks_counter = value; }
-
         /// <summary>
         /// Execute the Command EndlessVCUp. The command uses the Ticks_Counter to its max-value, until the max-value is
         /// reached, it activates the respective pushButton for rocker-switch up for 50ms.
         /// </summary>
         /// <returns>The Ticks_counter representing the current state of volume.</returns>
-        public string EndlessVCUp(int[] param)
+        public int EndlessVCUp(int ticks)
         {
-            if (Ticks_Counter == int.MaxValue) return Ticks_Counter.ToString();
-            ++Ticks_Counter;
-            
-            UInt16 pushButton_Pin_Up;
-
-            pushButton_Pin_Up = rockerSwitch_Pin_1;
-
-            Debug.WriteLine("Endless VC Up, Tick Counter: " + _ticks_counter);
-            activatePin(pushButton_Pin_Up);
-            Task.Delay(50).Wait();
-            deactivatePin(pushButton_Pin_Up);
-
-            return Ticks_Counter.ToString();
+            Debug.WriteLine("EndlessVCUp ::: Pressing RockerSwitch up " + ticks + " times.");
+            pressRockerSwitch(rockerSwitch_Pin_1, ticks);
+            return ticks;
         }
 
         /// <summary>
@@ -44,21 +29,21 @@ namespace RaspberryBackend
         /// reached, it activates the respective pushButton for rocker-switch up for 50ms.
         /// </summary>
         /// <returns>The Ticks_counter representing the current state of volume.</returns>
-        public string EndlessVCDown(int[] param)
+        public int EndlessVCDown(int ticks)
         {
-            if (Ticks_Counter == int.MinValue) return Ticks_Counter.ToString();
-            --Ticks_Counter;
+            Debug.WriteLine("EndlessVCDown ::: Pressing RockerSwitch down " + ticks + " times.");
+            pressRockerSwitch(rockerSwitch_Pin_0, ticks);
+            return ticks;
+        }
 
-            UInt16 pushButton_Pin_Down;
-
-            pushButton_Pin_Down = rockerSwitch_Pin_0;
-
-            Debug.WriteLine("Endless VC Down, Tick Counter: " + _ticks_counter);
-            activatePin(pushButton_Pin_Down);
-            Task.Delay(50).Wait();
-            deactivatePin(pushButton_Pin_Down);
-
-            return Ticks_Counter.ToString();
+        private void pressRockerSwitch(UInt16 pin, int ticks)
+        {
+            for (int i = 0; i < ticks; ++i)
+            {
+                activatePin(pin);
+                Task.Delay(50).Wait();
+                deactivatePin(pin);
+            }
         }
     }
 }
