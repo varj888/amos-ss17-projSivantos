@@ -124,6 +124,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ServerStub.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableAudioShoe.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ConnectPins.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableTeleCoil.cs" />

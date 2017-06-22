@@ -90,6 +90,7 @@
     <Compile Include="DebugContent.cs" />
     <Compile Include="MainWindowPartialClasses\UpdateMehods.cs" />
     <Compile Include="RaspberryPi.cs" />
+    <Compile Include="TestCallee.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

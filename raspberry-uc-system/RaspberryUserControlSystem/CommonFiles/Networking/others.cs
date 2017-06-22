@@ -5,8 +5,6 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Reflection;
-using Windows.Networking;
-using Windows.Networking.Connectivity;
 
 namespace CommonFiles.Networking
 {

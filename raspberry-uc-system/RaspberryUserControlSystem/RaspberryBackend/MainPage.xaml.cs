@@ -1,5 +1,6 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
+using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -38,10 +39,37 @@ namespace RaspberryBackend
             // set up the skeleton
             ServerSkeleton raspberryPiSkeletion = new ServerSkeleton(raspberryPi, 54321);
 
+            runServerStubsAsync();
+
             this.InitializeComponent();
         }
 
-        
+        private async Task runServerStubsAsync()
+        {
+            while (true)
+            {
+                try
+                {
+                    ServerStub stub;
+                    using (stub = await ServerStub.createServerStubAsync(54322))
+                    {
+                        await handleServerStubAsync(stub);
+                    } 
+                }catch(Exception e)
+                {
+                    Debug.WriteLine("error in runServerStub Loop: " + e.Message);
+                }
+            }
+        }
+
+        private async Task handleServerStubAsync(ServerStub stub)
+        {
+            while (true)
+            {
+                stub.testCall("Second RPC connection Test");
+                await Task.Delay(3000);
+            }
+        }
 
         //private async Task registerAsync()
         //{
