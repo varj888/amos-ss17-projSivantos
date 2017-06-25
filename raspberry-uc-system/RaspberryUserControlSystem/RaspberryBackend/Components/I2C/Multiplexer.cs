@@ -67,6 +67,8 @@ namespace RaspberryBackend
             Dictionary<int, string> X_to_value_map = mux_config.X_Pin_To_Value_Map;
             Dictionary<string, int> value_to_Y_map = GPIOConfig._gpio_to_Y_map;
 
+            current_multiplexer_state.Clear();
+
             foreach (int value_x in X_to_value_map.Keys)
             {
                 foreach (string y_value in value_to_Y_map.Keys)

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml.Linq;
 
 namespace TestmachineFrontend
 {
@@ -69,7 +70,7 @@ namespace TestmachineFrontend
         {
             if (!result.success)
             {
-                this.addMessage(request.command, result.exceptionMessage);
+                this.addMessage(request.command, "Failed: " + result.exceptionMessage);
             } // Check whether we have an obj string and a appropriate value
             else if (result.success == true && result.obj != null && result.value != null)
             {
@@ -82,7 +83,7 @@ namespace TestmachineFrontend
                 }
                 else
                 {
-                    this.addMessage(result.obj, result.value.ToString());
+                    this.addMessage(result.obj, "Success: " + result.value.ToString());
                 }
             }
         }
@@ -141,6 +142,32 @@ namespace TestmachineFrontend
             string[] methodNames = methodInfo.Select(n => n.Name).ToArray();
 
             return new List<string>(methodNames);
+        }
+
+        private Dictionary<string, List<string>> buildDictionary(string xml)
+        {
+            XDocument config = XDocument.Parse(xml);
+            Dictionary<string, List<string>> ret = new Dictionary<string, List<string>>();
+
+            IEnumerable<XNode> familyNodes = config.Element("PinOutInfo").Nodes();
+            foreach (XElement familyElement in familyNodes)
+            {
+                IEnumerable<XNode> modelNodes = familyElement.Nodes();
+                string family = familyElement.Attribute("name").Value;
+                foreach (XElement modelElement in modelNodes)
+                {
+                    List<string> models = new List<string>();
+                    models.AddRange(modelElement.Attribute("name").Value.Split(','));
+                    if(ret.ContainsKey(family))
+                    {
+                        ret[family].AddRange(models);
+                    } else
+                    {
+                        ret[family] = models;
+                    }
+                }
+            }
+            return ret;
         }
     }
 }
