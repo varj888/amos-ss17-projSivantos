@@ -88,7 +88,7 @@
       <Link>CommonFiles\TransferObjects\Result.cs</Link>
     </Compile>
     <Compile Include="DebugContent.cs" />
-    <Compile Include="MainWindowPartialClasses\UpdateMehods.cs" />
+    <Compile Include="MainWindowPartialClasses\UpdateMethods.cs" />
     <Compile Include="RaspberryPi.cs" />
     <Compile Include="TestCallee.cs" />
     <Page Include="MainWindow.xaml">
