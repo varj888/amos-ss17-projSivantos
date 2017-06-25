@@ -1,5 +1,6 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
+using CommonFiles.RPCInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +13,7 @@ namespace RaspberryBackend.Components
     /// <summary>
     /// This class can be used to remotely call Methods of a client
     /// </summary>
-    class ServerStub: IDisposable
+    class ServerStub: IDisposable, IEventReceiver
     {
         private ObjConn<Result, Request> connection;
 

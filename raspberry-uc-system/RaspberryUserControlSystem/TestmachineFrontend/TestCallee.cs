@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonFiles.RPCInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestmachineFrontend
 {
-    class TestCallee
+    class TestCallee: IEventReceiver
     {
         public void testCall(string parameter)
         {

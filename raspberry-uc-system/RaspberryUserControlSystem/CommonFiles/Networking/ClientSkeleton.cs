@@ -32,7 +32,7 @@ namespace CommonFiles.Networking
             while (true)
             {
                 Request request = conn.receiveObject();
-                Result result = Others.handleRequest(callee, request);
+                Result result = Request.handleRequest(callee, request);
                 conn.sendObject(result);
             }
         }

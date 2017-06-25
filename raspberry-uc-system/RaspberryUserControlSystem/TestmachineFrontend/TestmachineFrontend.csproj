@@ -72,14 +72,14 @@
     <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
       <Link>CommonFiles\Networking\ObjConn.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\Networking\others.cs">
-      <Link>CommonFiles\Networking\others.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
       <Link>CommonFiles\Networking\TCPServer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
+      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
       <Link>CommonFiles\TransferObjects\Request.cs</Link>

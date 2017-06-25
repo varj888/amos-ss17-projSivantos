@@ -56,7 +56,7 @@ namespace CommonFiles.Networking
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameters));
 
                 //Process Request
-                Result result = Others.handleRequest(service, request);
+                Result result = Request.handleRequest(service, request);
 
                 //Send back Result to the client
                 conn.sendObject(result);
