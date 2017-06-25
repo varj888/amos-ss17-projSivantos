@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -12,6 +14,7 @@ namespace RaspberryBackend
     static class MultiplexerConfigParser
     {
         private static Dictionary<string, Dictionary<List<string>, MultiplexerConfig>> hi_dictionary = new Dictionary<string, Dictionary<List<string>, MultiplexerConfig>>();
+        private static Dictionary<string, List<string>> avaliableHI = new Dictionary<string, List<string>>();
 
         private const string _CONFIG_PATH = "Data/config/PinOutInfo.xml";
 
@@ -58,8 +61,14 @@ namespace RaspberryBackend
                     MultiplexerConfig pin_config = new MultiplexerConfig(family_name, model_names_string, pin_value_list);
 
                     tmp.Add(model_names_list, pin_config);
+                    if(avaliableHI.ContainsKey(family_name))
+                    {
+                        avaliableHI[family_name].AddRange(model_names_list);
+                    } else
+                    {
+                        avaliableHI[family_name] = model_names_list;
+                    }
                 }
-                
                 hi_dictionary.Add(family_name, tmp);
             }
         }
@@ -147,6 +156,11 @@ namespace RaspberryBackend
             }
 
             return sb.ToString();
+        }
+
+        public static Dictionary<string, List<string>> getAvailableHI()
+        {
+            return avaliableHI;
         }
     }
 }
