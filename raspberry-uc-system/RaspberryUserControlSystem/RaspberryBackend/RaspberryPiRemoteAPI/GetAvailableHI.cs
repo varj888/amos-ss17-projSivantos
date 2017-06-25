@@ -11,7 +11,7 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="y">Dummy</param>
         /// <returns>Dictionary of Lists of strings mapped to strings.</returns>
-        public Dictionary<string, List<string>> GetAvailableHI(int y)
+        public string GetAvailableHI(int y)
         {
             return MultiplexerConfigParser.getAvailableHI();
         }
