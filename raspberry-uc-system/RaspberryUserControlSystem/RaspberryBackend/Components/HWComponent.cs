@@ -1,7 +1,7 @@
 ﻿namespace RaspberryBackend
 {
     /// <summary>
-    /// This abstract Class represents the Super - Class vor all Hardware Components which shall be connected to the RasPi
+    /// This abstract Class represents the Super - Class for all Hardware Components which shall be connected to the RasPi
     /// </summary>
     public abstract class HWComponent
     {

@@ -28,8 +28,10 @@ namespace RaspberryBackend
         private string currentModel = "";
         private string currentFamily = "";
 
-        private Dictionary<int, Tuple<int, string>> current_multiplexer_state = new Dictionary<int, Tuple<int, string>>();
-
+        //private Dictionary<int, Tuple<int, string>> current_multiplexer_state = new Dictionary<int, Tuple<int, string>>();
+        public Dictionary<int, Tuple<int, string>> current_multiplexer_state { get; private set; } = new Dictionary<int, Tuple<int, string>>();
+        public string family { get; private set; }
+        public string model_name { get; private set; }
         public override void initiate()
         {
             try
@@ -63,6 +65,8 @@ namespace RaspberryBackend
         public void setMultiplexerConfiguration(string family, string model_name)
         {
             Debug.WriteLine(this.GetType().Name + "::: Setting Multiplexer Config:");
+            this.family = family;
+            this.model_name = model_name;
             MultiplexerConfig mux_config = MultiplexerConfigParser.getMultiplexerConfig(family, model_name);
             Dictionary<int, string> X_to_value_map = mux_config.X_Pin_To_Value_Map;
             Dictionary<string, int> value_to_Y_map = GPIOConfig._gpio_to_Y_map;

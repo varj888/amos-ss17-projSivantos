@@ -4,7 +4,7 @@ using System;
 namespace RaspberryBackend
 {
     /// <summary>
-    /// This class represents a Command. It it sends date to a LCD through I2C.
+    /// This class represents a Command. It it sends data to a LCD through I2C.
     /// </summary>
     public partial class RaspberryPi
     {

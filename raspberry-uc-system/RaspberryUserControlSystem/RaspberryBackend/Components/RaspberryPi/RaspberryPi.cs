@@ -7,9 +7,9 @@ using System.Reflection;
 namespace RaspberryBackend
 {
     /// <summary>
-    /// Software representation of the RaspberryPi. It contains all component representations which are phyisical connected to the Rpi.
-    /// To Add new Hadware Components, create/initialize it in initialize(). If it is desired, aditionally declare the corrosponding instance field which will be automatically initialised.
-    /// For Testing without connected Hardware Components, use the overloaded initialized(params HWComponents[] hwComponents) method to initialize the Raspberry Pi.
+    /// Software representation of the RaspberryPi. It contains all component representations which are phyisically connected to the Rpi.
+    /// To add new Hardware Components, create/initialize it with initialize(). If it is desired, aditionally declare the corresponding instance field which will be automatically initialised.
+    /// For testing without connected Hardware Components, use the overloaded initialized(params HWComponents[] hwComponents) method to initialize the Raspberry Pi.
     /// </summary>
     public partial class RaspberryPi
     {
@@ -34,7 +34,7 @@ namespace RaspberryBackend
         private bool testMode = true;
 
         /// Hardware Components of the RasPi as Instance Fields.
-        /// Note: Both Type and declared name needs to be identical otherwise automatation of initialization fails.
+        /// Note: Both Type and declared name need to be identical otherwise automatation of initialization fails.
         public readonly GPIOinterface GPIOinterface;
         public readonly LCD LCD;
         public readonly Potentiometer Potentiometer;
@@ -150,7 +150,7 @@ namespace RaspberryBackend
             {
                 foreach (HWComponent hwcomponent in _hwComponents.Values)
                 {
-                    System.Diagnostics.Debug.WriteLine("Initialize conneted Hardware : " + hwcomponent.GetType().Name);
+                    System.Diagnostics.Debug.WriteLine("Initialize connected Hardware : " + hwcomponent.GetType().Name);
 
                     System.Threading.Tasks.Task.Delay(250).Wait();
                     hwcomponent.initiate();
