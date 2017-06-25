@@ -32,12 +32,15 @@ namespace TestmachineFrontend
     public partial class MainWindow : Window
     {
         Dictionary<String, RaspberryPi> raspberryPis = new Dictionary<string, RaspberryPi>();
+        TestCallee testCallee; 
 
         public MainWindow()
         {
             InitializeComponent();
 
             this.DataContext = this;
+
+            testCallee = new TestCallee();
         }
     }
 }

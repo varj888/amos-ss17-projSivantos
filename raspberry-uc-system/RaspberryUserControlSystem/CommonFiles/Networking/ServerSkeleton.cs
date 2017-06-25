@@ -11,7 +11,7 @@ namespace CommonFiles.Networking
     /// This class represents a Server which listens for incoming Requests
     /// and invokes the requested method
     /// </summary>
-    public class Skeleton
+    public class ServerSkeleton
     {
         private Object service;
 
@@ -20,7 +20,7 @@ namespace CommonFiles.Networking
         /// </summary>
         /// <param name="service">Service, which methods will be called on incoming Request</param>
         /// <param name="port">Port, where the server listens for incoming Requests</param>
-        public Skeleton(Object service, int port)
+        public ServerSkeleton(Object service, int port)
         {
             this.service = service;
             Task.Factory.StartNew(() => runAsync(port));
@@ -56,49 +56,11 @@ namespace CommonFiles.Networking
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameters));
 
                 //Process Request
-                Result result = handleRequest(request);
+                Result result = Request.handleRequest(service, request);
 
                 //Send back Result to the client
                 conn.sendObject(result);
             }
-        }
-
-        // handling the Request by searching the method request.command and calling it
-        // the method will be called with request.parameter as argument
-        private Result handleRequest(Request request)
-        {
-            MethodInfo m;
-
-            // Searching the method
-            try
-            {
-                m = service.GetType().GetMethod(request.command);
-            }
-            catch (Exception e)
-            {
-                return new Result(e.Message);
-            }
-
-            if (m == null)
-            {
-                return new Result("Command not found");
-            }
-
-            // calling the method
-            try
-            {
-                object value = m.Invoke(service, request.parameters);
-                return new Result(true,service.GetType().Name, value);
-            }
-            catch (TargetInvocationException e)
-            {
-                return new Result(e.GetBaseException().Message);
-            }
-            catch (Exception e)
-            {
-                return new Result(e.Message);
-            }
-
         }
     }
 }

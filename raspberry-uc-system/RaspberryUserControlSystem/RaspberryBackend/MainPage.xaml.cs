@@ -1,5 +1,6 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
+using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -36,18 +37,45 @@ namespace RaspberryBackend
             //registerAsync();
 
             // set up the skeleton
-            Skeleton raspberryPiSkeletion = new Skeleton(raspberryPi, 54321);
+            ServerSkeleton raspberryPiSkeletion = new ServerSkeleton(raspberryPi, 54321);
+
+            runServerStubsAsync();
 
             this.InitializeComponent();
         }
 
-        
-
-        private async Task registerAsync()
+        private async Task runServerStubsAsync()
         {
-            ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
-            string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
-            conn.sendObject(new Request("register", values));
+            while (true)
+            {
+                try
+                {
+                    ServerStub stub;
+                    using (stub = await ServerStub.createServerStubAsync(54322))
+                    {
+                        await handleServerStubAsync(stub);
+                    } 
+                }catch(Exception e)
+                {
+                    Debug.WriteLine("error in runServerStub Loop: " + e.Message);
+                }
+            }
         }
+
+        private async Task handleServerStubAsync(ServerStub stub)
+        {
+            while (true)
+            {
+                stub.testCall("Second RPC connection Test");
+                await Task.Delay(3000);
+            }
+        }
+
+        //private async Task registerAsync()
+        //{
+        //    ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
+        //    string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
+        //    conn.sendObject(new Request("register", values));
+        //}
     }
 }

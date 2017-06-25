@@ -1,7 +1,9 @@
-﻿using CommonFiles.TransferObjects;
+﻿using CommonFiles.Networking;
+using CommonFiles.TransferObjects;
 using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -43,6 +45,16 @@ namespace TestmachineFrontend
             {
                 this.addMessage("[ERROR]", "Unknown Error. " + any.Message);
                 connected_checkbox.IsChecked = false;
+            }
+
+            try
+            {
+                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync(new IPEndPoint(IPAddress.Parse(IPaddress), 54322));
+                await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
+            }
+            catch (Exception any)
+            {
+                this.addMessage("Error", "Error connecting the ClientSkeleton: " + any.Message);
             }
         }
 

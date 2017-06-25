@@ -103,17 +103,17 @@
     <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
       <Link>CommonFiles\Networking\ObjConn.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\Networking\others.cs">
-      <Link>CommonFiles\Networking\others.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\Networking\Skeleton.cs">
-      <Link>CommonFiles\Networking\Skeleton.cs</Link>
+    <Compile Include="..\CommonFiles\Networking\ServerSkeleton.cs">
+      <Link>CommonFiles\Networking\ServerSkeleton.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
       <Link>CommonFiles\Networking\TCPServer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
+      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
       <Link>CommonFiles\TransferObjects\Request.cs</Link>
@@ -124,6 +124,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\ServerStub.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableAudioShoe.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ConnectPins.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableTeleCoil.cs" />
@@ -195,6 +196,7 @@
       <HintPath>..\packages\ABElectronics_Win10IOT\ABElectronics_Win10IOT_Libraries.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
