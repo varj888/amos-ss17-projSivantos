@@ -22,6 +22,12 @@ namespace RaspberryBackend
             {"Defective", 133.700},
             {"No Receiver", 200.0},
         };
+        private string currentReceiver = "None";
+
+        public string getCurrentReceiver()
+        {
+            return currentReceiver;
+        }
 
         /// <summary>
         /// Sets the DACVoltage output in channel 1 to a desired voltage
@@ -126,6 +132,7 @@ namespace RaspberryBackend
             double voltage = (ADConverter.getDACVoltage1() / (14.00 + resistance)) * resistance;
             Debug.WriteLine("Setting ARD for Device " + device + " to " + voltage.ToString());
             ADConverter.setDACVoltage2(voltage);
+            this.currentReceiver = device;
         }
     }
 }

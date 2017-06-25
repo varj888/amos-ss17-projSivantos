@@ -131,7 +131,7 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="text">text which shall be displayed</param>
         /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
-        public void printInTwoLines(string text, int charsMaxInLine)
+        public void printInTwoLines(string text, int charsMaxInLine = 16)
         {
             string line1 = "", line2 = "";
 

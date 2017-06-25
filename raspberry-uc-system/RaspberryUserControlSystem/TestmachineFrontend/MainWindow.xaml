@@ -247,7 +247,6 @@
                     <Button Name="sample32Button"  Margin="25,0,272,0" Click="sample32Button_Click">SampleText 32 Chars</Button>
                     <Button Name="sampleGT32Button"  Margin="25,0,272,0" Click="sampleGT32Button_Click">SampleText > 32 Chars</Button>
                 </StackPanel>
-
             </TabItem>
 
             <TabItem Header="Mux 55">
