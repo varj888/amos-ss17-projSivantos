@@ -61,9 +61,19 @@ namespace TestmachineFrontend
 
         private void setHI_Click(object sender, RoutedEventArgs e)
         {
-            ComboBoxItem a = (ComboBoxItem)availableHIList.Items.GetItemAt(availableHIList.SelectedIndex);
-            string model = a.Content.ToString();
-            string family = a.Name;
+            ComboBoxItem ci;
+            try
+            {
+                ci = (ComboBoxItem)availableHIList.Items.GetItemAt(availableHIList.SelectedIndex);
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                this.addMessage("setHI_Click", "No valid model selected.");
+                return;
+            }
+             
+            string model = ci.Content.ToString();
+            string family = ci.Name;
             sendRequest(new Request("SetHI", new Object[] { family, model  }));
         }
     }

@@ -16,6 +16,7 @@ namespace RaspberryBackend
         public string SetHI(string family, string model)
         {
             Multiplexer.setMultiplexerConfiguration(family, model);
+            this.updateLCD();
             return model;
         }
     }

@@ -52,13 +52,13 @@ namespace TestmachineFrontend
             try
             {
                 result = getClientconnection().receiveObject();
-                processResult(request, result);
             }
             catch (Exception e)
             {
                 this.addMessage(request.command, "Result could not be received: " + e.Message);
                 return;
             }
+            processResult(request, result);
         }
 
         private Boolean isRaspiSelected()

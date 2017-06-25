@@ -25,6 +25,8 @@ namespace RaspberryBackend
         private I2cDevice multiplexer;
         private byte _DB15 = 0x80;
         private GpioPin _reset;
+        private string currentModel = "";
+        private string currentFamily = "";
 
         private Dictionary<int, Tuple<int, string>> current_multiplexer_state = new Dictionary<int, Tuple<int, string>>();
 
@@ -84,6 +86,8 @@ namespace RaspberryBackend
                     }
                 }
             }
+            this.currentFamily = family;
+            this.currentModel = model_name;
         }
 
         /// <summary>
@@ -208,6 +212,24 @@ namespace RaspberryBackend
             if (xi > 9 | yi > 7) return;
             if (xi > 5) xi = xi + 2;
             this.write(new Byte[] { (byte)((byte)(xi << 3) | (byte)(yi)) });
+        }
+
+        /// <summary>
+        /// Retrieve current model.
+        /// </summary>
+        /// <returns>The current configuration's model written to the mux.</returns>
+        public string getCurrentModel()
+        {
+            return this.currentModel;
+        }
+
+        /// <summary>
+        /// Retrieve current model.
+        /// </summary>
+        /// <returns>The current configuration's family written to the mux.</returns>
+        public string getCurrentFamily()
+        {
+            return this.currentFamily;
         }
     }
 }
