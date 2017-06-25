@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
 
@@ -32,7 +33,11 @@ namespace RaspberryBackend
         public int scrollSpeed { get; set; }
 
         private I2cDevice _lcdDisplay;
-
+        /* Stores text that has been most recently written to LCD. 
+         * This might differ from actual hardware status caused 
+         * e.g. by an error such as a physical bitshift. 
+         * -> Use actual hardware read-back in future. */
+        public StringBuilder currentText { get; }
         public override void initiate()
         {
             try
@@ -103,6 +108,7 @@ namespace RaspberryBackend
             pulseEnable(0);
             pulseEnable(Convert.ToByte((1 << D4c)));
             Task.Delay(5).Wait();
+            currentText.Clear();
         }
 
         /// <summary>
@@ -127,7 +133,7 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// pints text in two lines
+        /// prints text in two lines
         /// </summary>
         /// <param name="text">text which shall be displayed</param>
         /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
@@ -137,9 +143,9 @@ namespace RaspberryBackend
 
             line1 = text.Substring(0, charsMaxInLine);
             line2 = text.Substring(charsMaxInLine);
-
             prints(line1);
             gotoSecondLine();
+            currentText.AppendLine();
             prints(line2);
         }
 
@@ -152,6 +158,7 @@ namespace RaspberryBackend
             for (int i = 0; i < text.Length; i++)
             {
                 this.printc(text[i]);
+                currentText.Append(text[i]); // append string to variable that you can read later on when delivering status information
             }
         }
 
