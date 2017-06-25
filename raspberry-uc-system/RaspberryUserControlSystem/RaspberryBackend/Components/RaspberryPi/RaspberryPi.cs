@@ -17,6 +17,7 @@ namespace RaspberryBackend
         protected UInt16 rockerSwitch_Pin_1 = 21;
         protected UInt16 audioShoe_Pin = 19;
         protected UInt16 teleCoil_Pin = 13;
+        protected UInt16 muxerResetPin = 18;
 
         //Single location for all Hardware Components
         private Dictionary<String, HWComponent> _hwComponents = new Dictionary<String, HWComponent>();

@@ -132,6 +132,7 @@
     <Compile Include="RaspberryPiRemoteAPI\PressPushButton.cs" />
     <Compile Include="RaspberryPiRemoteAPI\PressRockerSwitch.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ReadPin.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\ResetMux.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ResetPin.cs" />
     <Compile Include="RaspberryPiRemoteAPI\SendToLCD.cs" />
     <Compile Include="RaspberryPiRemoteAPI\SetARDVoltage.cs" />

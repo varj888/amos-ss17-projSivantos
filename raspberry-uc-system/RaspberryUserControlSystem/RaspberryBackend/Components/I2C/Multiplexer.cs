@@ -32,9 +32,10 @@ namespace RaspberryBackend
         {
             try
             {
-                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, true, false)).Wait();
+                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, false, false)).Wait();
                 I2C.connectedDevices.TryGetValue(MULTIPLEXER_I2C_ADDRESS, out multiplexer);
-
+                multiplexer.ConnectionSettings.BusSpeed = I2cBusSpeed.StandardMode;
+                Debug.WriteLine(multiplexer.ConnectionSettings.BusSpeed);
             }
             catch (Exception e)
             {
@@ -181,13 +182,16 @@ namespace RaspberryBackend
 
         /// <summary>
         /// Connect pins xi to yi. Check for valid pins before (8x10 mux), then OR with _DB15
-        /// which effectively sets the MSB to 1 to close switches
+        /// which effectively sets the MSB to 1 to close switches. For x Pins above 5 it is
+        /// necessary to add 2 to x1 due to reserved codewords. Compare documentation of ADG2108
+        /// or ADG2128.
         /// </summary>
         /// <param name="xi"></param>
         /// <param name="yi"></param>
         public void connectPins(int xi, int yi)
         {
             if (xi > 9 | yi > 7) return;
+            if (xi > 5) xi = xi + 2;
             this.write(new Byte[] { (byte)(_DB15 | (byte)(xi << 3) | (byte)(yi)), (byte)1 });
         }
 
@@ -200,6 +204,7 @@ namespace RaspberryBackend
         public void disconnectPins(int xi, int yi)
         {
             if (xi > 9 | yi > 7) return;
+            if (xi > 5) xi = xi + 2;
             this.write(new Byte[] { (byte)((byte)(xi << 3) | (byte)(yi)) });
         }
     }

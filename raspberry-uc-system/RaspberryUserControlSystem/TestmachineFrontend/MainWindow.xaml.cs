@@ -39,5 +39,10 @@ namespace TestmachineFrontend
 
             this.DataContext = this;
         }
+
+        private void resetMux_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("ResetMux", 0));
+        }
     }
 }
