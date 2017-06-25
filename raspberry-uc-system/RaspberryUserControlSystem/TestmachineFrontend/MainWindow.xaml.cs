@@ -42,5 +42,10 @@ namespace TestmachineFrontend
 
             testCallee = new TestCallee();
         }
+
+        private void resetMux_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("ResetMux", 0));
+        }
     }
 }

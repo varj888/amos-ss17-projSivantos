@@ -93,7 +93,6 @@
                             Height="26"
                             Click="connect_Pins_Click"/>
 
-
                     <CheckBox x:Name="connected_checkbox"
                               Content=""
                               HorizontalAlignment="Left"
@@ -265,6 +264,10 @@
                              Margin="353,52,0,0" TextWrapping="Wrap" Text="{Binding Path=ValueY}" VerticalAlignment="Top" Width="59"/>
                     <Button Name="setPinsButton" Content="Set pins" Click="setPinsButton_Click"
                             HorizontalAlignment="Left" Margin="223,103,0,0" VerticalAlignment="Top" Width="85" Height="28"/>
+                    <Button x:Name="resetMux" Content="Set pins" Click="resetMux_Click"
+                        HorizontalAlignment="Left" Margin="313,103,0,0" VerticalAlignment="Top" Width="85" Height="28"/>
+
+
 
                 </Grid>
             </TabItem>
