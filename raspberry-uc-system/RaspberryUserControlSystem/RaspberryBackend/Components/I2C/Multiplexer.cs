@@ -34,10 +34,8 @@ namespace RaspberryBackend
         {
             try
             {
-                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, false, false)).Wait();
+                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, true, false)).Wait();
                 I2C.connectedDevices.TryGetValue(MULTIPLEXER_I2C_ADDRESS, out multiplexer);
-                multiplexer.ConnectionSettings.BusSpeed = I2cBusSpeed.StandardMode;
-                Debug.WriteLine(multiplexer.ConnectionSettings.BusSpeed);
             }
             catch (Exception e)
             {

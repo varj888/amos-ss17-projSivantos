@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Enumeration;
 using Windows.Devices.I2c;
@@ -22,31 +23,16 @@ namespace RaspberryBackend
         {
             if (!connectedDevices.ContainsKey(deviceAdress))
             {
-                // *** Get a selector string that will return all I2C controllers on the system
-                string availableDeviceSelector = I2cDevice.GetDeviceSelector();
-
-                // *** Find the I2C bus controller device with our selector string
-                DeviceInformationCollection availableDeviceSelectors = await DeviceInformation.FindAllAsync(availableDeviceSelector).AsTask();
-                DeviceInformation deviceSelector = availableDeviceSelectors[0];
-
-                // *** Create the settings and specify the device address.
-                I2cConnectionSettings settings = new I2cConnectionSettings(deviceAdress);
-
-                // *** Create an I2cDevice with our selected bus controller and I2C settings.
-                I2cDevice device = await I2cDevice.FromIdAsync(deviceSelector.Id, settings);
-
-                connectedDevices.Add(deviceAdress, device);
-
-                setUpDevice(device, false, false);
+                await connectDeviceAsync(deviceAdress, false, false);
             }
         }
 
         /// <summary></summary
-        /// <param name="FastModeBusSpeed">True for FastMode or False for DefaulMode</param>
-        /// <param name="SharedConnectionMode">True for SharedMode or False for ExclusiveMode</param>
+        /// <param name="fastModeBusSpeed">True for FastMode or False for DefaulMode</param>
+        /// <param name="sharedConnectionMode">True for SharedMode or False for ExclusiveMode</param>
         /// <returns></returns>
         /// <see cref="connectDeviceAsync(byte)"/>
-        public static async Task connectDeviceAsync(byte deviceAdress, bool FastModeBusSpeed, bool SharedConnectionMode)
+        public static async Task connectDeviceAsync(byte deviceAdress, bool fastModeBusSpeed, bool sharedConnectionMode)
         {
             if (!connectedDevices.ContainsKey(deviceAdress))
             {
@@ -65,15 +51,21 @@ namespace RaspberryBackend
 
                 connectedDevices.Add(deviceAdress, device);
 
-                setUpDevice(device, FastModeBusSpeed, SharedConnectionMode);
+                setUpDevice(device, fastModeBusSpeed, sharedConnectionMode);
             }
         }
 
-        private static void setUpDevice(I2cDevice device, bool FastModeBusSpeed, bool SharedConnectionMode)
+        private static void setUpDevice(I2cDevice device, bool fastModeBusSpeed, bool sharedConnectionMode)
         {
+          
             I2cConnectionSettings settings = device.ConnectionSettings;
-            settings.BusSpeed = FastModeBusSpeed ? I2cBusSpeed.FastMode : I2cBusSpeed.StandardMode;
-            settings.SharingMode = SharedConnectionMode ? I2cSharingMode.Shared : I2cSharingMode.Exclusive;
+            settings.BusSpeed = fastModeBusSpeed ? I2cBusSpeed.FastMode : I2cBusSpeed.StandardMode;
+            settings.SharingMode = sharedConnectionMode ? I2cSharingMode.Shared : I2cSharingMode.Exclusive;
+
+            Debug.WriteLine("Setup Connection of I2C Device \n"
+                            + "BusSpeed : "+settings.BusSpeed +"\n"
+                            + "Mode : " + settings.SharingMode + "\n"
+            );
         }
     }
 }
