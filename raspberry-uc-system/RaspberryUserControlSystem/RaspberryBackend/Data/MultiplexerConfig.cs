@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace RaspberryBackend
 {
@@ -35,5 +36,17 @@ namespace RaspberryBackend
         /// Returns a Dictionary<int,string> containing multiplexer configurations for the specific HI, e.g.: 1 = "RockerSW", 2 = "Ground", 3 = "PB", ...
         /// </returns>
         public Dictionary<int, string> X_Pin_To_Value_Map { get => _x_pin_to_value_map; }
+
+        /// <summary>
+        /// Getter field for HI functionalities and their pins
+        /// </summary>
+        /// <returns>
+        /// Returns all pins that a specific function of the HI is mapped to, or empty when a specific feature
+        /// is unavailable for a certain model e.g.: "Ground" = 3, 4, 9 ; "RockerSW" = 8, "PB" = - , ...
+        /// </returns>
+        public int[] ValueToPins(string val)
+        {
+            return _x_pin_to_value_map.Where(pair => pair.Value.Equals(val)).Select(pair => pair.Key).ToArray<int>();
+        }
     }
 }

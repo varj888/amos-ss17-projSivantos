@@ -37,7 +37,7 @@ namespace RaspberryBackend
          * This might differ from actual hardware status caused 
          * e.g. by an error such as a physical bitshift. 
          * -> Use actual hardware read-back in future. */
-        public StringBuilder currentText { get; }
+        public StringBuilder CurrentText { get; private set; }
         public override void initiate()
         {
             try
@@ -108,7 +108,7 @@ namespace RaspberryBackend
             pulseEnable(0);
             pulseEnable(Convert.ToByte((1 << D4c)));
             Task.Delay(5).Wait();
-            currentText.Clear();
+            CurrentText.Clear();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace RaspberryBackend
             line2 = text.Substring(charsMaxInLine);
             prints(line1);
             gotoSecondLine();
-            currentText.AppendLine();
+            CurrentText.AppendLine();
             prints(line2);
         }
 
@@ -158,7 +158,7 @@ namespace RaspberryBackend
             for (int i = 0; i < text.Length; i++)
             {
                 this.printc(text[i]);
-                currentText.Append(text[i]); // append string to variable that you can read later on when delivering status information
+                CurrentText.Append(text[i]); // append string to variable that you can read later on when delivering status information
             }
         }
 
