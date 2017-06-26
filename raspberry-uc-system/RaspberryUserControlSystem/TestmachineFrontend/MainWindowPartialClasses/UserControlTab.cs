@@ -159,12 +159,11 @@ namespace TestmachineFrontend
                 return;
             }
 
-            
-            sendRequest(new Request(command, ticks));
             if (isRaspiSelected())
             {
                 this.addMessage("sendEndlessRequest", "Sent Request press release " + command + " " + ticks + " times.");
             }
+            sendRequest(new Request(command, ticks));
         }
     }
 }
