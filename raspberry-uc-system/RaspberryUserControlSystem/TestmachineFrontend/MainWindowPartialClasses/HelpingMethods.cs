@@ -30,7 +30,7 @@ namespace TestmachineFrontend
         /// <param name="request">The Request for Backend</param>
         public void sendRequest(Request request)
         {
-            if (BackendList.SelectedItems.Count != 1)
+            if (isRaspiSelected() == false)
             {
                 this.addMessage("Debug", "No raspi selected");
                 return;
@@ -58,6 +58,11 @@ namespace TestmachineFrontend
                 this.addMessage(request.command, "Result could not be received: " + e.Message);
                 return;
             }
+        }
+
+        private Boolean isRaspiSelected()
+        {
+            return BackendList.SelectedItems.Count == 1;
         }
 
         /// <summary>

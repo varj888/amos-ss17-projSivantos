@@ -1,4 +1,5 @@
 ﻿using CommonFiles.TransferObjects;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -119,14 +120,50 @@ namespace TestmachineFrontend
 
         private void Endless_VC_Up(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("EndlessVCUp", new int []{ }));
-            this.addMessage("Endless_VC_Up", "+1");
+            int ticks = 0;
+            try
+            {
+                 ticks = int.Parse(this.Ticks.Text);
+
+            }
+            catch (FormatException ex)
+            {
+                this.addMessage("Endless VC Up", "Tick value is not an integer");
+                return;
+            }
+
+            sendEndlessRequest("EndlessVCUp", ticks);
         }
 
         private void Endless_VC_Down(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("EndlessVCDown", new int[] { }));
-            this.addMessage("Endless_VC_Down", "-1");
+            int ticks = 0;
+            try
+            {
+                ticks = int.Parse(this.Ticks.Text);
+
+            }
+            catch (FormatException ex)
+            {
+                this.addMessage("Endless VC Down", "Tick value is not an integer");
+                return;
+            }
+            sendEndlessRequest("EndlessVCDown", ticks);
+        }
+
+        private void sendEndlessRequest(string command, int ticks)
+        {
+            if (ticks <= 0)
+            {
+                this.addMessage("Endless_VC_Down", "Please type in a positive, greater 0 tick count value.");
+                return;
+            }
+
+            if (isRaspiSelected())
+            {
+                this.addMessage("sendEndlessRequest", "Sent Request press release " + command + " " + ticks + " times.");
+            }
+            sendRequest(new Request(command, ticks));
         }
     }
 }
