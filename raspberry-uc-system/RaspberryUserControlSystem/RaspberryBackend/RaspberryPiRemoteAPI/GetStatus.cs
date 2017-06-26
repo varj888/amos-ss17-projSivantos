@@ -36,43 +36,77 @@ namespace RaspberryBackend
             );
             /* TODO if possible: read & return currently displayed text.
              * Depending whether or not LCD is connected, status information differs. */
-            xml.Add(new XElement("LCD", 
-                new XElement("Initialized", this.LCD.isInitialized()), 
-                new XElement("Text", this.LCD.isInitialized() ? this.LCD.CurrentText.ToString() : "")));
-            xml.Add(new XElement("Potentiometer",
-                new XElement("Initialized", this.Potentiometer.isInitialized()),
-                new XElement("Wiper", this.Potentiometer.WiperState)));
+            if (this.LCD.isInitialized())
+            {
+                xml.Add(new XElement("LCD",
+                    new XElement("Initialized", true),
+                    new XElement("Text", this.LCD.CurrentText.ToString())));
+            }
+            else
+            {
+                xml.Add(new XElement("LCD",
+                    new XElement("Initialized", false)));
+            }
+            if (this.Potentiometer.isInitialized())
+            {
+                xml.Add(new XElement("Potentiometer",
+                    new XElement("Initialized", true),
+                    new XElement("Text", this.Potentiometer.WiperState)));
+            }
+            else
+            {
+                xml.Add(new XElement("Potentiometer",
+                    new XElement("Initialized", false)));
+            }
             xml.Add(new XElement("LED",
-                new XElement("Initialized", "-"), // possible to update this later on to better reflect whether or not an LED is even attached
+                new XElement("Initialized", "?"), // possible to update this later on to better reflect whether or not an LED is even attached
                 new XElement("Status", this.readPin(24)))); // gpio interface read pin led pin 24
-            xml.Add(new XElement("Multiplexer",
-                new XElement("Initialized", this.Multiplexer.isInitialized()),
-                new XElement("Family", this.Multiplexer.family),
-                new XElement("ModelName", this.Multiplexer.model_name)
+            if(this.Multiplexer.isInitialized())
+            {
+                xml.Add(new XElement("Multiplexer",
+                    new XElement("Initialized", true),
+                    new XElement("Family", this.Multiplexer.family),
+                    new XElement("ModelName",this.Multiplexer.model_name)
                 ));
-            xml.Add(new XElement("ADConverter",
-                new XElement("Initialized", this.ADConverter.isInitialized()),
-                new XElement("Connected", this.ADConverter.isConnected()),
-                new XElement("Channel1", this.ADConverter.getDACVoltage1()),
-                new XElement("Channel2", this.ADConverter.getDACVoltage2())
+                /* Read config from XML and based on that return supported controls of current HI*/
+                MultiplexerConfig mux_config = MultiplexerConfigParser.getMultiplexerConfig(this.Multiplexer.family, this.Multiplexer.model_name);
+                xml.Add(new XElement("HI",
+                    new XElement(GPIOConfig.ROCKERSWITCH_STRING, string.Join(",", mux_config.ValueToPins(GPIOConfig.ROCKERSWITCH_STRING))),
+                    new XElement(GPIOConfig.GROUND, string.Join(",", mux_config.ValueToPins(GPIOConfig.GROUND))),
+                    new XElement(GPIOConfig.PUSHBUTTON_STRING, string.Join(",", mux_config.ValueToPins(GPIOConfig.PUSHBUTTON_STRING))),
+                    new XElement(GPIOConfig.AMR, string.Join(",", mux_config.ValueToPins(GPIOConfig.AMR))),
+                    new XElement(GPIOConfig.AUDIOINPUT, string.Join(",", mux_config.ValueToPins(GPIOConfig.AUDIOINPUT))),
+                    new XElement(GPIOConfig.REC_DET, string.Join(",", mux_config.ValueToPins(GPIOConfig.REC_DET))),
+                    new XElement(GPIOConfig.LED, string.Join(",", mux_config.ValueToPins(GPIOConfig.LED))),
+                    new XElement(GPIOConfig.M, string.Join(",", mux_config.ValueToPins(GPIOConfig.M))),
+                    new XElement(GPIOConfig.STOP_END, string.Join(",", mux_config.ValueToPins(GPIOConfig.STOP_END))),
+                    new XElement(GPIOConfig.ENDLESS_VC, string.Join(",", mux_config.ValueToPins(GPIOConfig.ENDLESS_VC))),
+                    new XElement(GPIOConfig.ARD, string.Join(",", mux_config.ValueToPins(GPIOConfig.ARD))),
+                    new XElement(GPIOConfig.DET_AUDIO, string.Join(",", mux_config.ValueToPins(GPIOConfig.DET_AUDIO))),
+                    new XElement(GPIOConfig.DET_TELE, string.Join(",", mux_config.ValueToPins(GPIOConfig.DET_TELE)))
+                    ));
+            }
+            else
+            {
+                xml.Add(new XElement("Multiplexer",
+                    new XElement("Initialized", false)
                 ));
-            /* Read config from XML and based on that return supported controls of current HI*/
-            MultiplexerConfig mux_config = MultiplexerConfigParser.getMultiplexerConfig(this.Multiplexer.family, this.Multiplexer.model_name);
-            xml.Add(new XElement("HI",
-                new XElement(GPIOConfig.ROCKERSWITCH_STRING, string.Join(",", mux_config.ValueToPins(GPIOConfig.ROCKERSWITCH_STRING))),
-                new XElement(GPIOConfig.GROUND, string.Join(",", mux_config.ValueToPins(GPIOConfig.GROUND))),
-                new XElement(GPIOConfig.PUSHBUTTON_STRING, string.Join(",", mux_config.ValueToPins(GPIOConfig.PUSHBUTTON_STRING))),
-                new XElement(GPIOConfig.AMR, string.Join(",", mux_config.ValueToPins(GPIOConfig.AMR))),
-                new XElement(GPIOConfig.AUDIOINPUT, string.Join(",", mux_config.ValueToPins(GPIOConfig.AUDIOINPUT))),
-                new XElement(GPIOConfig.REC_DET, string.Join(",", mux_config.ValueToPins(GPIOConfig.REC_DET))),
-                new XElement(GPIOConfig.LED, string.Join(",", mux_config.ValueToPins(GPIOConfig.LED))),
-                new XElement(GPIOConfig.M, string.Join(",", mux_config.ValueToPins(GPIOConfig.M))),
-                new XElement(GPIOConfig.STOP_END, string.Join(",", mux_config.ValueToPins(GPIOConfig.STOP_END))),
-                new XElement(GPIOConfig.ENDLESS_VC, string.Join(",", mux_config.ValueToPins(GPIOConfig.ENDLESS_VC))),
-                new XElement(GPIOConfig.ARD, string.Join(",", mux_config.ValueToPins(GPIOConfig.ARD))),
-                new XElement(GPIOConfig.DET_AUDIO, string.Join(",", mux_config.ValueToPins(GPIOConfig.DET_AUDIO))),
-                new XElement(GPIOConfig.DET_TELE, string.Join(",", mux_config.ValueToPins(GPIOConfig.DET_TELE)))
+            }
+            if(this.ADConverter.isInitialized())
+            {
+                xml.Add(new XElement("ADConverter",
+                    new XElement("Initialized", true),
+                    new XElement("Connected", this.ADConverter.isConnected()),
+                    new XElement("Channel1", this.ADConverter.getDACVoltage1()),
+                    new XElement("Channel2", this.ADConverter.getDACVoltage2())
                 ));
+            }
+            else
+            {
+                xml.Add(new XElement("ADConverter",
+                    new XElement("Initialized", false)
+                ));
+            }
             statusMessageCount++; // count send results for no particular reason other than ensuring order of status updates
             return new XDocument(new XElement(xml));
         }
