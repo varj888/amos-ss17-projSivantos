@@ -41,8 +41,9 @@ namespace RaspberryBackend
             for (int i = 0; i < ticks; ++i)
             {
                 activatePin(pin);
-                Task.Delay(50).Wait();
+                Task.Delay(250).Wait();
                 deactivatePin(pin);
+                Task.Delay(250).Wait();
             }
         }
     }
