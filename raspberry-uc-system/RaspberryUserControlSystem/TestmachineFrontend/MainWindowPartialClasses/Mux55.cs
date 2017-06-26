@@ -35,16 +35,8 @@ namespace TestmachineFrontend
 
         private void setPinsButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                this.addMessage("debug", x.ToString());
-                this.addMessage("debug", y.ToString());
-                getClientconnection().sendObject(new Request("ConnectPins", new object[] { (int)x, (int)y }));
-            } catch(Exception ex)
-            {
-                this.addMessage("Debug", ex.Message);
-            }
-        }
+             sendRequest(new Request("ConnectPins", new object[] { (int)x, (int)y }));
+         }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
