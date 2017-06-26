@@ -36,12 +36,11 @@ namespace RaspberryBackend
             //registerAsync();
 
             // set up the skeleton
-            Skeleton raspberryPiSkeletion = new Skeleton(raspberryPi, 54321);
+            Skeleton raspberryPiSkeleton = new Skeleton(raspberryPi, 54321);
+            raspberryPi.setSkeleton(raspberryPiSkeleton);
 
             this.InitializeComponent();
         }
-
-        
 
         private async Task registerAsync()
         {

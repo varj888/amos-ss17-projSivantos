@@ -128,13 +128,16 @@
     <Compile Include="RaspberryPiRemoteAPI\ConnectPins.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableTeleCoil.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EndlessVC.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\GetAvailableHI.cs" />
     <Compile Include="RaspberryPiRemoteAPI\PressCombination.cs" />
     <Compile Include="RaspberryPiRemoteAPI\PressPushButton.cs" />
     <Compile Include="RaspberryPiRemoteAPI\PressRockerSwitch.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ReadPin.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\ResetMux.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ResetPin.cs" />
     <Compile Include="RaspberryPiRemoteAPI\SendToLCD.cs" />
     <Compile Include="RaspberryPiRemoteAPI\SetARDVoltage.cs" />
+    <Compile Include="RaspberryPiRemoteAPI\SetHI.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ToggleBacklight_LCD.cs" />
     <Compile Include="RaspberryPiRemoteAPI\TurnHIOn.cs" />
     <Compile Include="RaspberryPiRemoteAPI\SetAnalogVolume.cs" />

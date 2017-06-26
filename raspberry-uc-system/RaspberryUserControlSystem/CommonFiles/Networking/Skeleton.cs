@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace CommonFiles.Networking
@@ -14,6 +15,7 @@ namespace CommonFiles.Networking
     public class Skeleton
     {
         private Object service;
+        private int clientCount = 0;
 
         /// <summary>
         /// Runs the server in a new Thread
@@ -46,8 +48,13 @@ namespace CommonFiles.Networking
             }
         }
 
-        private void handleRequestConnection(ObjConn<Request, Result> conn)
+    /// <summary>
+    /// Handles the requestconnection for a client.
+    /// </summary>
+    /// <param name="conn"></param>
+    private void handleRequestConnection(ObjConn<Request, Result> conn)
         {
+            this.incClientCount();
             while (true)
             {
                 //Receive a Request from the client
@@ -61,6 +68,7 @@ namespace CommonFiles.Networking
                 //Send back Result to the client
                 conn.sendObject(result);
             }
+            this.decClientCount();
         }
 
         // handling the Request by searching the method request.command and calling it
@@ -98,7 +106,40 @@ namespace CommonFiles.Networking
             {
                 return new Result(e.Message);
             }
+        }
 
+        /// <summary>
+        /// Increase the client-counter synchronously to avoid race-conditions.
+        /// </summary>
+        private void incClientCount()
+        {
+            lock (this)
+            {
+                clientCount++;
+            }
+        }
+
+        /// <summary>
+        /// Decrease the client-counter synchronously to avoid race-conditions.
+        /// </summary>
+        private void decClientCount()
+        {
+            lock (this)
+            {
+                clientCount--;
+            }
+        }
+
+        /// <summary>
+        /// Retrieve the client-counter synchronously to avoid race-conditions.
+        /// </summary>
+        /// <returns>Client counter</returns>
+        public int getClientCount()
+        {
+            lock (this)
+            {
+                return this.clientCount;
+            }
         }
     }
 }

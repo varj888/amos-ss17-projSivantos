@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -59,7 +61,6 @@ namespace RaspberryBackend
 
                     tmp.Add(model_names_list, pin_config);
                 }
-                
                 hi_dictionary.Add(family_name, tmp);
             }
         }
@@ -147,6 +148,11 @@ namespace RaspberryBackend
             }
 
             return sb.ToString();
+        }
+
+        public static string getAvailableHI()
+        {
+            return config.ToString(); ;
         }
     }
 }

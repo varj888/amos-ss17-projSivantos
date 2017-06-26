@@ -25,6 +25,8 @@ namespace RaspberryBackend
         private I2cDevice multiplexer;
         private byte _DB15 = 0x80;
         private GpioPin _reset;
+        private string currentModel = "";
+        private string currentFamily = "";
 
         private Dictionary<int, Tuple<int, string>> current_multiplexer_state = new Dictionary<int, Tuple<int, string>>();
 
@@ -32,9 +34,10 @@ namespace RaspberryBackend
         {
             try
             {
-                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, true, false)).Wait();
+                Task.Run(() => I2C.connectDeviceAsync(MULTIPLEXER_I2C_ADDRESS, false, false)).Wait();
                 I2C.connectedDevices.TryGetValue(MULTIPLEXER_I2C_ADDRESS, out multiplexer);
-
+                multiplexer.ConnectionSettings.BusSpeed = I2cBusSpeed.StandardMode;
+                Debug.WriteLine(multiplexer.ConnectionSettings.BusSpeed);
             }
             catch (Exception e)
             {
@@ -66,6 +69,8 @@ namespace RaspberryBackend
             Dictionary<int, string> X_to_value_map = mux_config.X_Pin_To_Value_Map;
             Dictionary<string, int> value_to_Y_map = GPIOConfig._gpio_to_Y_map;
 
+            current_multiplexer_state.Clear();
+
             foreach (int value_x in X_to_value_map.Keys)
             {
                 foreach (string y_value in value_to_Y_map.Keys)
@@ -81,6 +86,8 @@ namespace RaspberryBackend
                     }
                 }
             }
+            this.currentFamily = family;
+            this.currentModel = model_name;
         }
 
         /// <summary>
@@ -181,13 +188,16 @@ namespace RaspberryBackend
 
         /// <summary>
         /// Connect pins xi to yi. Check for valid pins before (8x10 mux), then OR with _DB15
-        /// which effectively sets the MSB to 1 to close switches
+        /// which effectively sets the MSB to 1 to close switches. For x Pins above 5 it is
+        /// necessary to add 2 to x1 due to reserved codewords. Compare documentation of ADG2108
+        /// or ADG2128.
         /// </summary>
         /// <param name="xi"></param>
         /// <param name="yi"></param>
         public void connectPins(int xi, int yi)
         {
             if (xi > 9 | yi > 7) return;
+            if (xi > 5) xi = xi + 2;
             this.write(new Byte[] { (byte)(_DB15 | (byte)(xi << 3) | (byte)(yi)), (byte)1 });
         }
 
@@ -200,7 +210,26 @@ namespace RaspberryBackend
         public void disconnectPins(int xi, int yi)
         {
             if (xi > 9 | yi > 7) return;
+            if (xi > 5) xi = xi + 2;
             this.write(new Byte[] { (byte)((byte)(xi << 3) | (byte)(yi)) });
+        }
+
+        /// <summary>
+        /// Retrieve current model.
+        /// </summary>
+        /// <returns>The current configuration's model written to the mux.</returns>
+        public string getCurrentModel()
+        {
+            return this.currentModel;
+        }
+
+        /// <summary>
+        /// Retrieve current model.
+        /// </summary>
+        /// <returns>The current configuration's family written to the mux.</returns>
+        public string getCurrentFamily()
+        {
+            return this.currentFamily;
         }
     }
 }

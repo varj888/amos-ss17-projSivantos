@@ -17,6 +17,7 @@ namespace RaspberryBackend
         public double TurnHIOn(double voltage)
         {
             turnHI_on(voltage);
+            this.updateLCD();
             return voltage;
         }
     }
