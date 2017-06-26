@@ -128,5 +128,35 @@ namespace TestmachineFrontend
             sendRequest(new Request("EndlessVCDown", new int[] { }));
             this.addMessage("Endless_VC_Down", "-1");
         }
+
+        private void Rockerswitch_Down_Checkbox_Changed(object sender, RoutedEventArgs e)
+        {
+            //Checkbox RS Up is activated and needs to be deactivated
+            if (rockerswitch_Down_Checkbox.IsChecked == true)
+            {
+                rockerswitch_Up_Checkbox.IsEnabled = false;
+            }
+
+            //Checkbox RS Up was deaktivated
+            if (rockerswitch_Down_Checkbox.IsChecked == false)
+            {
+                rockerswitch_Up_Checkbox.IsEnabled = true;
+            }
+        }
+
+        private void Rockerswitch_Up_Checkbox_Changed(object sender, RoutedEventArgs e)
+        {
+            //Checkbox RS Up is activated and needs to be deactivated
+            if (rockerswitch_Up_Checkbox.IsChecked == true)
+            {
+                rockerswitch_Down_Checkbox.IsEnabled = false;
+            }
+
+            //Checkbox RS Up was deaktivated and needs to be activated
+            if (rockerswitch_Up_Checkbox.IsChecked == false)
+            {
+                rockerswitch_Down_Checkbox.IsEnabled = true;
+            }
+        }
     }
 }

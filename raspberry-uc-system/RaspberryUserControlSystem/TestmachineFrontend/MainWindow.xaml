@@ -129,11 +129,11 @@
                                  Margin="126,63,0,0" VerticalAlignment="Top"
                                  IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
                     <CheckBox x:Name="rockerswitch_Down_Checkbox" HorizontalAlignment="Left"
-                        Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15"/>
+                        Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15" Checked="Rockerswitch_Down_Checkbox_Changed" Unchecked="Rockerswitch_Down_Checkbox_Changed"/>
                     <CheckBox x:Name="rockerswitch_Up_Checkbox" HorizontalAlignment="Left"
-                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15"/>
+                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15" Checked="Rockerswitch_Up_Checkbox_Changed" Unchecked="Rockerswitch_Up_Checkbox_Changed"/>
                     <Button Grid.Row="0"  Margin="344,51,28,58" Content="Combi"
-                        IsEnabled="True" Click="press_Combination"/>
+                        IsEnabled="True" Click="press_Combination" />
 
 
 
