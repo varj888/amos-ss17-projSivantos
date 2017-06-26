@@ -16,8 +16,7 @@ namespace RaspberryBackend
          * This information isn't based on hardware read-backs, but instead based
          * on values that are expected to be true. Thus HW-based errors aren't accounted for.
          * Improving this in further iteration might be necessary. */
-        private byte wiperState;
-        public byte WiperState { get => wiperState; }
+        public byte WiperState { get; private set; }
 
         public override void initiate()
         {
@@ -42,7 +41,7 @@ namespace RaspberryBackend
         public void write(byte[] dataBuffer)
         {
             potentiometer.Write(dataBuffer);
-            this.wiperState = dataBuffer[0]; // update wiperState to current value
+            this.WiperState = dataBuffer[0]; // update wiperState to current value
         }
     }
 }

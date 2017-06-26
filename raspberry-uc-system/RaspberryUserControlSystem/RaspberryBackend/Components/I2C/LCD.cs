@@ -41,7 +41,6 @@ namespace RaspberryBackend
         private StringBuilder _currentText = new StringBuilder();
         public StringBuilder CurrentText { get => _currentText; private set => _currentText = value; }
 
-        //public StringBuilder CurrentText { get ; private set; }
         public override void initiate()
         {
             try
