@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace TestmachineFrontend
 {
@@ -46,6 +47,35 @@ namespace TestmachineFrontend
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+
+        private void resetMux_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("ResetMux", 0));
+        }
+
+        private void availableHI_Click(object sender, RoutedEventArgs e)
+        {
+            sendRequest(new Request("GetAvailableHI", 0));
+        }
+
+        private void setHI_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBoxItem ci;
+            try
+            {
+                ci = (ComboBoxItem)availableHIList.Items.GetItemAt(availableHIList.SelectedIndex);
+            }
+            catch(ArgumentOutOfRangeException ex)
+            {
+                this.addMessage("setHI_Click", "No valid model selected.");
+                return;
+            }
+             
+            string model = ci.Content.ToString();
+            string family = ci.Name;
+
+            sendRequest(new Request("SetHI", new Object[] { family, model  }));
         }
     }
 }

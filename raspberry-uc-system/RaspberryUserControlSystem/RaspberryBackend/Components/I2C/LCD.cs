@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
 
@@ -131,7 +132,7 @@ namespace RaspberryBackend
         /// </summary>
         /// <param name="text">text which shall be displayed</param>
         /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
-        public void printInTwoLines(string text, int charsMaxInLine)
+        public void printInTwoLines(string text, int charsMaxInLine = 16)
         {
             string line1 = "", line2 = "";
 
@@ -144,14 +145,45 @@ namespace RaspberryBackend
         }
 
         /// <summary>
+        /// pints text in two lines
+        /// </summary>
+        /// <param name="text">text which shall be displayed</param>
+        /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
+        public void printInSecondLine(string text)
+        {
+            gotoSecondLine();
+
+            //Task.Run(() => scrollText(text)).Wait(); //if there is a problem
+            Task.Run(() => scrollText(text));
+        }
+
+        private void scrollText(string text)
+        {
+            int maxChars = 16;
+            int speedInChars = 3;
+            clrscr();
+
+            for (int i = 0; i <= text.Length - maxChars; i = i + speedInChars < text.Length ? i + speedInChars : text.Length)
+            {
+                Task.Delay(200).Wait();
+                clrscr();
+                for (int j = i; j < maxChars + i && j < text.Length; j++)
+                {
+                    printc(text.ElementAt(j));
+                }
+                Task.Delay(200).Wait();
+            }
+        }
+
+        /// <summary>
         /// Prints a string onto display
         /// </summary>
         /// <param name="text">text which shall be displayed</param>
         public void prints(string text)
         {
-            for (int i = 0; i < text.Length; i++)
+            foreach (char c in text)
             {
-                this.printc(text[i]);
+                this.printc(c);
             }
         }
 

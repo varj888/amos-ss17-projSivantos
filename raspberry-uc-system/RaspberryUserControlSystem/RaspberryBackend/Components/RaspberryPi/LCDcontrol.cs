@@ -43,12 +43,6 @@ namespace RaspberryBackend
         {
             LCD.backLight = targetState;
             LCD.write(targetState, 0);
-            displayIPAdressOnLCD();
-        }
-
-        private void displayIPAdressOnLCD()
-        {
-            writeToLCD(this.GetIpAddressAsync());
         }
 
         private string GetIpAddressAsync()
@@ -73,6 +67,25 @@ namespace RaspberryBackend
                 }
             }
             return ipAsString;
+        }
+
+        /// <summary>
+        /// Method to wrap updating the LCD with fixed information.
+        /// </summary>
+        public void updateLCD()
+        {
+            this.resetLCD();
+            this.setLCDBackgroundState(0x01);
+
+            string ip = GetIpAddressAsync();
+            string hi = Multiplexer.getCurrentModel();
+            string currentReceiver = this.getCurrentReceiver();
+            string status = (this.isInitialized()) ? "On" : "Off";
+            string vbat = ADConverter.getDACVoltage1().ToString();
+            string isConnected = (this.skeleton.getClientCount() != 0) ? "Con" : "X";
+            string print = ip + " " + isConnected + " " + currentReceiver + " " + status + " " + vbat + "V " + hi;
+
+            this.LCD.printInTwoLines(print);
         }
     }
 }

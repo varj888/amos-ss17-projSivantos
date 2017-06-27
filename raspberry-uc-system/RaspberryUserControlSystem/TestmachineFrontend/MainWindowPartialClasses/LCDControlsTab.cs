@@ -21,7 +21,7 @@ namespace TestmachineFrontend
         {
             try
             {
-                getClientconnection().sendObject(new Request("SendToLCD", "#reset"));
+                sendRequest(new Request("SendToLCD", "#reset"));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
@@ -37,7 +37,7 @@ namespace TestmachineFrontend
             lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
             try
             {
-                getClientconnection().sendObject(new Request("ToggleBacklight_LCD", lcdBacklightState));
+                sendRequest(new Request("ToggleBacklight_LCD", lcdBacklightState));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
@@ -53,7 +53,7 @@ namespace TestmachineFrontend
 
             try
             {
-                getClientconnection().sendObject(new Request("SendToLCD", text));
+                sendRequest(new Request("SendToLCD", text));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace TestmachineFrontend
 
             try
             {
-                getClientconnection().sendObject(new Request("SendToLCD", "#cancel"));
+                sendRequest(new Request("SendToLCD", "#cancel"));
                 this.addMessage("GPIO", "Request sent");
             }
             catch (Exception ex)

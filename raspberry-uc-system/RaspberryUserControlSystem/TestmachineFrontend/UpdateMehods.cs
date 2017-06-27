@@ -2,15 +2,11 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Controls;
 
 namespace TestmachineFrontend
 {
     public partial class MainWindow : Window
     {
-        private Dictionary<string, List<string>> availableHI;
         /// <summary>
         /// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend.
         /// </summary>
@@ -100,35 +96,16 @@ namespace TestmachineFrontend
 
         public void updateGUI_EndlessVCDown(Result result)
         {
-            int ticks = (int)result.value;
-            this.addMessage("updateGUI_EndlessVCDown", "Pressed released EndlessVCDown" + ticks + " times successfully.");
+            string ticks = (string)result.value;
+            Debug.WriteLine("EndlessVCDown update ticks.");
+            this.Ticks.Text = ticks.ToString();
         }
 
         public void updateGUI_EndlessVCUp(Result result)
         {
-            int ticks = (int)result.value;
-            this.addMessage("updateGUI_EndlessVCUp", "Pressed released EndlessVCUp" + ticks + " times successfully.");
-        }
-
-        public void updateGUI_SetHI(Result result)
-        {
-            addMessage(result.obj, "Successfully set HI");
-        }
-
-        public void updateGUI_GetAvailableHI(Result result)
-        {
-            this.availableHI = buildDictionary((string)result.value);
-            foreach(string family in availableHI.Keys)
-            {
-                foreach(string model in availableHI[family])
-                {
-                    ComboBoxItem element = new ComboBoxItem();
-                    element.Name = family;
-                    element.Content = model;
-                    availableHIList.Items.Add(element);
-                }
-            }
-            addMessage(result.obj, "Updated List");
+            string ticks = (string) result.value;
+            Debug.WriteLine("EndlessVCUp update ticks.");
+            this.Ticks.Text = ticks;
         }
     }
 }

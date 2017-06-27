@@ -16,6 +16,7 @@ namespace RaspberryBackend
         public string SetARDVoltage(string device)
         {
             this.setARDVoltage(device);
+            this.updateLCD();
             return device;
         }
     }

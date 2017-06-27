@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommonFiles.Networking;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 
@@ -17,6 +18,8 @@ namespace RaspberryBackend
         protected UInt16 rockerSwitch_Pin_1 = 21;
         protected UInt16 audioShoe_Pin = 19;
         protected UInt16 teleCoil_Pin = 13;
+        protected UInt16 muxerResetPin = 18;
+        private ServerSkeleton skeleton = null;
 
         //Single location for all Hardware Components
         private Dictionary<String, HWComponent> _hwComponents = new Dictionary<String, HWComponent>();
@@ -58,7 +61,6 @@ namespace RaspberryBackend
 
         private void initiateStartUpConfiguration()
         {
-            displayIPAdressOnLCD();
             Multiplexer.setResetPin(GPIOinterface.getPin(18));
             Multiplexer.setMultiplexerConfiguration("TestFamily", "TestModel");
         }
@@ -98,7 +100,7 @@ namespace RaspberryBackend
             }
             else
             {
-                throw new AggregateException("The RasPi,  at least, needs to be initialised with the Hardware Component <GPIOinterface>.");
+                throw new AggregateException("The RasPi, at least, needs to be initialised with the Hardware Component <GPIOinterface>.");
             }
         }
 
@@ -138,7 +140,6 @@ namespace RaspberryBackend
                     return false;
                 }
             }
-
             return true;
         }
 
@@ -184,6 +185,11 @@ namespace RaspberryBackend
             {
                 this.GetType().GetField(hwComponent.GetType().Name).SetValue(this, null);
             }
+        }
+
+        public void setSkeleton(ServerSkeleton s)
+        {
+            this.skeleton = s;
         }
     }
 }

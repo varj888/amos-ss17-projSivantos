@@ -93,7 +93,6 @@
                             Height="26"
                             Click="connect_Pins_Click"/>
 
-
                     <CheckBox x:Name="connected_checkbox"
                               Content=""
                               HorizontalAlignment="Left"
@@ -129,11 +128,11 @@
                                  Margin="126,63,0,0" VerticalAlignment="Top"
                                  IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
                     <CheckBox x:Name="rockerswitch_Down_Checkbox" HorizontalAlignment="Left"
-                        Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15"/>
+                        Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15" Checked="Rockerswitch_Down_Checkbox_Changed" Unchecked="Rockerswitch_Down_Checkbox_Changed"/>
                     <CheckBox x:Name="rockerswitch_Up_Checkbox" HorizontalAlignment="Left"
-                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15"/>
+                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15" Checked="Rockerswitch_Up_Checkbox_Changed" Unchecked="Rockerswitch_Up_Checkbox_Changed"/>
                     <Button Grid.Row="0"  Margin="344,51,28,58" Content="Combi"
-                        IsEnabled="True" Click="press_Combination"/>
+                        IsEnabled="True" Click="press_Combination" />
 
 
 
@@ -248,11 +247,10 @@
                     <Button Name="sample32Button"  Margin="25,0,272,0" Click="sample32Button_Click">SampleText 32 Chars</Button>
                     <Button Name="sampleGT32Button"  Margin="25,0,272,0" Click="sampleGT32Button_Click">SampleText > 32 Chars</Button>
                 </StackPanel>
-
             </TabItem>
 
             <TabItem Header="Mux 55">
-                <Grid Background="AliceBlue" Margin="5,5,5,5">
+                <Grid Background="AliceBlue" Margin="5,5,5,5" Height="314">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="107*"/>
                         <RowDefinition Height="102*"/>
@@ -265,7 +263,13 @@
                              Margin="353,52,0,0" TextWrapping="Wrap" Text="{Binding Path=ValueY}" VerticalAlignment="Top" Width="59"/>
                     <Button Name="setPinsButton" Content="Set pins" Click="setPinsButton_Click"
                             HorizontalAlignment="Left" Margin="223,103,0,0" VerticalAlignment="Top" Width="85" Height="28"/>
+                    <Button x:Name="resetMux" Content="Reset multiplexer" Click="resetMux_Click"
+                        HorizontalAlignment="Left" Margin="313,103,0,0" VerticalAlignment="Top" Width="85" Height="28"/>
 
+                    <ComboBox Name="availableHIList" HorizontalAlignment="Left" Margin="71,10,0,0" VerticalAlignment="Top" Width="123" Grid.Row="1" Height="23">
+                    </ComboBox>
+                    <Button Grid.Row="1"  Margin="223,10,150,120" Content="Update Available HIs" IsEnabled="True" Click="availableHI_Click"/>
+                    <Button Grid.Row="1"  Margin="353,10,56,120" Content="Update HI" IsEnabled="True" Click="setHI_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>
@@ -274,7 +278,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="100" Header="origin" DisplayMemberBinding="{Binding Path=origin}" />
-                    <GridViewColumn Width="450" Header="text" DisplayMemberBinding="{Binding Path=text}"/>
+                    <GridViewColumn Header="text" DisplayMemberBinding="{Binding Path=text}"/>
                 </GridView>
             </ListView.View>
         </ListView>
