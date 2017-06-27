@@ -130,5 +130,26 @@ namespace TestmachineFrontend
             }
             addMessage(result.obj, "Updated List");
         }
+
+        public void updateGUI_SetHI(Result result)
+        {
+            addMessage(result.obj, "Successfully set HI");
+        }
+
+        public void updateGUI_GetAvailableHI(Result result)
+        {
+            this.availableHI = buildDictionary((string)result.value);
+            foreach(string family in availableHI.Keys)
+            {
+                foreach(string model in availableHI[family])
+                {
+                    ComboBoxItem element = new ComboBoxItem();
+                    element.Name = family;
+                    element.Content = model;
+                    availableHIList.Items.Add(element);
+                }
+            }
+            addMessage(result.obj, "Updated List");
+        }
     }
 }

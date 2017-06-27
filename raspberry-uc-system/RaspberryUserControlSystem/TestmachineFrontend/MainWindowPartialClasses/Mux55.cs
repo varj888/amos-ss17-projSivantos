@@ -74,6 +74,7 @@ namespace TestmachineFrontend
              
             string model = ci.Content.ToString();
             string family = ci.Name;
+
             sendRequest(new Request("SetHI", new Object[] { family, model  }));
         }
     }
