@@ -40,6 +40,8 @@ namespace RaspberryBackend
             runServerStubsAsync();
 
             ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi, 54321);
+            raspberryPi.setSkeleton(raspberryPiSkeleton);
+
             this.InitializeComponent();
         }
 
