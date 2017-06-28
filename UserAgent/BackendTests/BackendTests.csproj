@@ -140,9 +140,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RaspberryBackend\RaspberryBackend.csproj">
+    <ProjectReference Include="..\Backend\Backend.csproj">
       <Project>{ec98721f-9509-4ac2-a369-652cafa6b8e9}</Project>
-      <Name>RaspberryBackend</Name>
+      <Name>Backend</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
