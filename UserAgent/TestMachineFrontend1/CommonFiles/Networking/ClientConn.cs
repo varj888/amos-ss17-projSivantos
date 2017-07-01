@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CommonFiles.Networking
@@ -20,11 +16,10 @@ namespace CommonFiles.Networking
         private ObjConn<inType, outType> objConn;
 
         /// <summary>
-        /// connects to a Server
+        /// Connects to a server
         /// </summary>
-        /// <param name="hostname">hostname of the server to connect to</param>
-        /// <param name="port">port of the server to connect to</param>
-        /// <returns></returns>
+        /// <param name="endpoint">Endpoint of the server to connect to</param>
+        /// <returns>Returns the created clientConn</returns>
         public static async Task<ClientConn<inType, outType>> connectAsync(IPEndPoint endpoint)
         {
             TcpClient socket = new TcpClient();
@@ -35,11 +30,11 @@ namespace CommonFiles.Networking
         }
 
         /// <summary>
-        /// connects to a Server
+        /// Connects to a Server
         /// </summary>
         /// <param name="hostname">hostname of the server to connect to</param>
         /// <param name="port">port of the server to connect to</param>
-        /// <returns></returns>
+        /// <returns>Returns the created ClientConn</returns>
         public static async Task<ClientConn<inType, outType>> connectAsync(string hostname, int port)
         {
             TcpClient socket = new TcpClient();

@@ -19,9 +19,11 @@ namespace TestMachineFrontend1.ViewModel
         public ICommand GetDurationCommand { get; private set; }
         public ICommand PressPushButtonCommand { get; private set; }
         public List<TabControlModel> TabItems { get; set; }
+TestCallee testCallee; 
 
         public MainWindowViewModel()
         {
+testCallee = new TestCallee();
             LoadDebugView();
             LoadDetectView();
             LoadMainTabView();
