@@ -1,0 +1,12 @@
+﻿<Application x:Class="TestMachineFrontend1.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
+             xmlns:v="clr-namespace:TestMachineFrontend1.View"
+             xmlns:local="clr-namespace:TestMachineFrontend1">
+    <!--<Application.Resources>
+        <DataTemplate DataType="{x:Type vm:DetectTabViewModel}">
+            <v:DetectTabView/>
+        </DataTemplate>
+    </Application.Resources>-->
+</Application>

@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.LCDControlsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="618" d:DesignWidth="550">
+    <Grid>
+        <StackPanel Name="Panel1" >
+            <Button x:Name="reconnectI2C" HorizontalAlignment="Center" Margin="210,5,202,0" Click="reconnectI2C_Click" Content="Reset" Width="96"/>
+
+            <Button x:Name="toggleBacklightButton" HorizontalAlignment="Center" Margin="210,5,202,0" Click="toggleBacklightButton_Click" Content="Toggle Backlight" Width="96"/>
+            <TextBlock Name="scrollSliderTextBlock" FontSize="16" Margin="411,0,10,0" >Scroll Speed</TextBlock>
+            <Slider x:Name="scrollSlider" Margin="411,0,10,0" ValueChanged="scrollSlider_ValueChanged"/>
+
+            <TextBlock Name="displayEingabeTextBlock" Margin="25,0,0,0">Eingabe für Display</TextBlock>
+            <TextBox Name="displayEingabeTextBox" Margin="25,5,10,0" />
+            <Button x:Name="sendToLcdButton" Margin="411,0,10,0" Click="sendToLcdButton_Click" Content="Send"/>
+            <Button x:Name="cancelButton" Margin="411,0,10,0" Click="cancelButton_Click" Content="Cancel"/>
+            <Button Name="sample16Button"  Margin="25,0,272,0" Click="sample16Button_Click">SampleText 16 Chars</Button>
+            <Button Name="sample32Button"  Margin="25,0,272,0" Click="sample32Button_Click">SampleText 32 Chars</Button>
+            <Button Name="sampleGT32Button"  Margin="25,0,272,0" Click="sampleGT32Button_Click">SampleText > 32 Chars</Button>
+        </StackPanel>
+        <ContentControl Content="{Binding Path=LCDControlsViewModel}" />
+    </Grid>
+</UserControl>

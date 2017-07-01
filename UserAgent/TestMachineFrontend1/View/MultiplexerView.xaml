@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.MultiplexerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="618" d:DesignWidth="550">
+    <Grid Background="AliceBlue" Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="107*"/>
+            <RowDefinition Height="102*"/>
+        </Grid.RowDefinitions>
+        <Label Content="x: " HorizontalAlignment="Left" Margin="98,48,0,0" VerticalAlignment="Top"/>
+        <Label Content="y: " HorizontalAlignment="Left" Margin="303,48,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="valueX" HorizontalAlignment="Left" Height="26" 
+                             Margin="135,52,0,0" TextWrapping="Wrap" Text="{Binding Path=ValueX}" VerticalAlignment="Top" Width="59"/>
+        <TextBox x:Name="valueY" HorizontalAlignment="Left" Height="26" 
+                             Margin="353,52,0,0" TextWrapping="Wrap" Text="{Binding Path=ValueY}" VerticalAlignment="Top" Width="59"/>
+        <Button Name="setPinsButton" Content="Set pins" Click="setPinsButton_Click"
+                            HorizontalAlignment="Left" Margin="223,103,0,0" VerticalAlignment="Top" Width="85" Height="28"/>
+
+        <ContentControl Content="{Binding Path=MultiplexerViewModel}" />
+    </Grid>
+</UserControl>

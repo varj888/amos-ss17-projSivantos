@@ -1,0 +1,170 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.UserControlsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="500">
+    <!--xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"-->
+
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:UserControlsViewModel}">
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <!--oder UserControlsViewModel-->
+    <!--TODO: check-->
+    <UserControl.DataContext>
+        <vm:MainWindowViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="134*"/>
+            <RowDefinition Height="123*"/>
+            <RowDefinition Height="101*"/>
+            <RowDefinition Height="154*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Margin="25,23,428,112"><Run Text="Buttons"/></TextBlock>
+
+        <Button Grid.Row="0"  Margin="108,17,339,94" Content="PB" 
+                            IsEnabled="True" Command="{Binding PressPushButtonCommand}"/>
+        <Button Grid.Row="0"  Margin="195,17,256,94" Content="RSD" 
+                Command="{Binding PressRockerSwitchCommand}"
+                CommandParameter="{Binding PressRockerSwitchDown}"/>
+        <Button Grid.Row="0"  Margin="278,17,173,94" Content="RSU"
+                Command="{Binding PressRockerSwitchCommand}"
+                CommandParameter="{Binding PressRockerSwitchUp}"/>
+
+        <ComboBox Name="durationBox"
+                  HorizontalAlignment="Left" Margin="416,0,0,121"
+                  VerticalAlignment="Bottom" Width="70" Height="22" 
+                  ItemsSource="{Binding Path=CurrentViewModelUserControls.DurationItems}" 
+                  SelectedValue="{Binding CurrentViewModelUserControls.SelectedDuration}"
+                  IsSynchronizedWithCurrentItem="True">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="DropDownOpened" SourceObject="{Binding ElementName=durationBox}">
+                    <i:InvokeCommandAction Command="{Binding DropDownOpenedCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+        </ComboBox>
+        <TextBlock Grid.Row="0" Margin="344,23,103,90" Text="Duration"/>
+        <CheckBox x:Name="pushButton_Checkbox" HorizontalAlignment="Left"
+                                 Margin="126,63,0,0" VerticalAlignment="Top"
+                                 IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
+        <CheckBox x:Name="rockerswitch_Down_Checkbox" HorizontalAlignment="Left"
+                        Margin="211,63,0,0" VerticalAlignment="Top" Height="14" Width="15"/>
+        <CheckBox x:Name="rockerswitch_Up_Checkbox" HorizontalAlignment="Left"
+                        Margin="293,63,0,0" VerticalAlignment="Top" IsChecked="False" Height="14" Width="15"/>
+        <Button Grid.Row="0"  Margin="359,51,28,80" Content="Combi"
+                        IsEnabled="True" Click="press_Combination"/>
+
+
+
+
+        <Slider Grid.Row="3" x:Name="soundSlider" Thumb.DragStarted="soundSlider_DragStarted"
+                        Thumb.DragCompleted="soundSlider_DragCompleted"
+                        ValueChanged="soundSlider_ValueChanged" Margin="126,115,195,8"
+                        Background="AliceBlue"/>
+        <TextBlock Grid.Row="2" Margin="7,14,418,66"><Run Text="Endless VC"/></TextBlock>
+        <TextBlock Grid.Row="2" Margin="251,16,208,66"><Run Text="Ticks"/></TextBlock>
+        <TextBox x:Name="Ticks" HorizontalAlignment="Left" Height="20"
+                        Margin="285,15,0,0" TextWrapping="Wrap" Text="0"
+                        VerticalAlignment="Top" Width="39" Grid.Row="2" RenderTransformOrigin="0.5,0.5">
+        </TextBox>
+        <Button x:Name="Endless_VC_Up" Grid.Row="2" Margin="108,14,344,66" Content="Up" 
+                Command="{Binding EndlessVcCommand}" 
+                CommandParameter="{Binding CurrentViewModelUserControls.Endless_VC_Up}"/>
+
+        <Button x:Name="Endless_VC_Down" Grid.Row="2" Margin="181,14,271,66" Content="Down" 
+                Command="{Binding EndlessVcCommand}" 
+                CommandParameter="{Binding CurrentViewModelUserControls.Endless_VC_Down}"/>
+
+        <TextBlock Margin="7,53,416,28" Grid.Row="2"><Run Text="Stop-End VC"/></TextBlock>
+        <TextBlock Margin="84,53,399,28" Grid.Row="2"><Run Text="0"/></TextBlock>
+        <Slider Name="setVolume_Slider"
+                            Maximum="127"
+                            Minimum="0"
+                            TickPlacement="BottomRight"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="3"
+                            ValueChanged="SetVolume_Slider_ValueChanged"
+                            Margin="112,53,147,16"
+                            Background="AliceBlue" Grid.Row="2"/>
+        <TextBlock Margin="359,53,103,28" Grid.Row="2"><Run Text="127"/></TextBlock>
+        <TextBox Text="{Binding ElementName=setVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                             TextAlignment="Center"
+                             Margin="399,53,53,28" Grid.Row="2" />
+
+        <TextBlock Grid.Row="3" Margin="351,111,122,5" RenderTransformOrigin="0.449,0.5"><Run Text="0"/></TextBlock>
+        <Ellipse Name="IO_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                             Margin="6,29,0,0" Grid.Row="3" Stroke="Black"
+                             VerticalAlignment="Top" Width="40"/>
+        <Ellipse Name="LED_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="58,29,0,0" Grid.Row="3" Stroke="Black"
+                        VerticalAlignment="Top" Width="40"/>
+        <Ellipse Name="Sound_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="108,29,0,0" Grid.Row="3" Stroke="Black"
+                        VerticalAlignment="Top" Width="40"/>
+        <Ellipse Name="TCoil_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="66,75,0,0" Stroke="Black"
+                        VerticalAlignment="Top" Width="40"/>
+        <Ellipse x:Name="AudioShoe_Eclipse" Fill="White" HorizontalAlignment="Left" Height="40"
+                        Margin="65,125,0,0" Stroke="Black"
+                        VerticalAlignment="Top" Width="40" Grid.RowSpan="2"/>
+
+        <TextBlock Grid.Row="3" Margin="16,75,463,49"><Run Text="I/O"/></TextBlock>
+        <TextBlock Grid.Row="3" Margin="63,75,410,49"><Run Text="LED"/></TextBlock>
+        <TextBlock Grid.Row="3" Margin="112,75,348,49"><Run Text="Sound"/></TextBlock>
+        <TextBlock Grid.Row="3" Margin="45,113,416,8"><Run Text="Power"/></TextBlock>
+        <TextBlock Margin="14,75,445,60"><Run Text="T-Coil"/></TextBlock>
+        <TextBlock Margin="14,121,443,0" Text="Audio Shoe" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="1" Margin="14,59,392,42" Text="Receiver Identity" TextWrapping="Wrap"/>
+
+        <CheckBox x:Name="checkBox2" HorizontalAlignment="Left"
+                        Margin="86,116,0,0" VerticalAlignment="Top" Grid.Row="3" Height="15" Width="16"/>
+        <TextBlock Grid.Row="3" Margin="379,111,85,9"><Run Text="Beeps"/></TextBlock>
+
+        <CheckBox x:Name="checkBox3" HorizontalAlignment="Left"
+                        Margin="418,111,0,0" VerticalAlignment="Top" Grid.Row="3" Height="15" Width="16"/>
+        <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="28"
+                        Margin="441,103,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
+                        VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="3"/>
+
+        <Button Name ="DetectTCol_Button" Grid.Row="0"  Margin="123,99,251,10" Content="Detect TCoil"
+                IsEnabled="True" DataContext="{Binding Path=CurrentViewModelDetectTab}"
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding CurrentViewModelUserControls.DetectTCol}"/>
+
+        <Button x:Name ="UndetectTCol_Button" Grid.Row="0"  Margin="251,99,122,0" Content="Undetect TCoil"
+                IsEnabled="True" Height="48" VerticalAlignment="Top"
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding CurrentViewModelUserControls.UndetectTCol}"/>
+
+        <Button Name ="DetectAudioShoe_Button" Grid.Row="1"  Margin="126,10,251,90" 
+                Content="Detect Audio Shoe" IsEnabled="True" 
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding CurrentViewModelUserControls.DetectAudioShoe}"/>
+
+        <Button x:Name ="UndetectAudioShoe_Button" Grid.Row="1"  Margin="251,10,122,90" 
+                Content="Undetect Audio Shoe" IsEnabled="True"
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding CurrentViewModelUserControls.UndetectAudioShoe}"/>
+
+        <ComboBox Name="receiverBox" HorizontalAlignment="Left" Margin="125,59,0,0" 
+                  VerticalAlignment="Top" Width="123" Grid.Row="1" Height="23"
+            ItemsSource="{Binding Path=CurrentViewModelUserControls.ReceiverItems}" 
+                  SelectedValue="{Binding CurrentViewModelUserControls.SelectedReceiverItem}"
+                  IsSynchronizedWithCurrentItem="True">
+            <!--<i:Interaction.Triggers>
+                <i:EventTrigger EventName="DropDownOpened" SourceObject="{Binding ElementName=durationBox}">
+                    <i:InvokeCommandAction Command="{Binding DropDownOpenedCommand}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>-->
+        </ComboBox>
+
+    </Grid>
+</UserControl>
