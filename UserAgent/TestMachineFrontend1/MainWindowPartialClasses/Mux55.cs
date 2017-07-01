@@ -36,7 +36,7 @@ namespace TestmachineFrontend
 
         private void setPinsButton_Click(object sender, RoutedEventArgs e)
         {
-             sendRequest(new Request("ConnectPins", new object[] { (int)x, (int)y }));
+             //sendRequest(new Request("ConnectPins", new object[] { (int)x, (int)y }));
          }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -51,31 +51,31 @@ namespace TestmachineFrontend
 
         private void resetMux_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("ResetMux", 0));
+            //sendRequest(new Request("ResetMux", 0));
         }
 
         private void availableHI_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("GetAvailableHI", 0));
+            //sendRequest(new Request("GetAvailableHI", 0));
         }
 
         private void setHI_Click(object sender, RoutedEventArgs e)
         {
             ComboBoxItem ci;
-            try
-            {
-                ci = (ComboBoxItem)availableHIList.Items.GetItemAt(availableHIList.SelectedIndex);
-            }
-            catch(ArgumentOutOfRangeException ex)
-            {
-                this.addMessage("setHI_Click", "No valid model selected.");
-                return;
-            }
+            //try
+            //{
+            //    ci = (ComboBoxItem)availableHIList.Items.GetItemAt(availableHIList.SelectedIndex);
+            //}
+            //catch(ArgumentOutOfRangeException ex)
+            //{
+            //    this.addMessage("setHI_Click", "No valid model selected.");
+            //    return;
+            //}
              
-            string model = ci.Content.ToString();
-            string family = ci.Name;
+            //string model = ci.Content.ToString();
+            //string family = ci.Name;
 
-            sendRequest(new Request("SetHI", new Object[] { family, model  }));
+            //sendRequest(new Request("SetHI", new Object[] { family, model  }));
         }
     }
 }

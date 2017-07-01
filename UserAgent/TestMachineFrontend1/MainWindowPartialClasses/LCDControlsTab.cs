@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
+//using Windows.UI.Xaml.Controls.Primitives;
 
 namespace TestmachineFrontend
 {
@@ -17,86 +17,86 @@ namespace TestmachineFrontend
         private int lcdBacklightState = 0;
         private int _scrollSpeed;
 
-        private void reconnectI2C_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                sendRequest(new Request("SendToLCD", "#reset"));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-        }
+        //private void reconnectI2C_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        sendRequest(new Request("SendToLCD", "#reset"));
+        //        this.addMessage("GPIO", "Request sent");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+        //    }
+        //}
 
-        private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
-        {
-
-
-            lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
-            try
-            {
-                sendRequest(new Request("ToggleBacklight_LCD", lcdBacklightState));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-        }
-
-        private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
-        {
-
-            string text = displayEingabeTextBox.Text;
-
-            try
-            {
-                sendRequest(new Request("SendToLCD", text));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-
-        }
-
-        private void addText(string text)
-        {
-            displayEingabeTextBox.Text = text;
-        }
-
-        private void sample16Button_Click(object sender, RoutedEventArgs e)
-        {
-            addText("Das ist ein Text");
-        }
-
-        private void sample32Button_Click(object sender, RoutedEventArgs e)
-        {
-            addText("Das ist ein Text mit 32 Zeichen!");
-        }
-
-        private void sampleGT32Button_Click(object sender, RoutedEventArgs e)
-        {
-            addText("Das ist ein Beispieltext mit mehr als 16 Zeichen. ");
-        }
+        //private void toggleBacklightButton_Click(object sender, RoutedEventArgs e)
+        //{
 
 
-        private void cancelButton_Click(object sender, RoutedEventArgs e)
-        {
+        //    lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
+        //    try
+        //    {
+        //        sendRequest(new Request("ToggleBacklight_LCD", lcdBacklightState));
+        //        this.addMessage("GPIO", "Request sent");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+        //    }
+        //}
 
-            try
-            {
-                sendRequest(new Request("SendToLCD", "#cancel"));
-                this.addMessage("GPIO", "Request sent");
-            }
-            catch (Exception ex)
-            {
-                this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
-            }
-        }
+        //private void sendToLcdButton_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //    string text = displayEingabeTextBox.Text;
+
+        //    try
+        //    {
+        //        sendRequest(new Request("SendToLCD", text));
+        //        this.addMessage("GPIO", "Request sent");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+        //    }
+
+        //}
+
+        //private void addText(string text)
+        //{
+        //    displayEingabeTextBox.Text = text;
+        //}
+
+        //private void sample16Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    addText("Das ist ein Text");
+        //}
+
+        //private void sample32Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    addText("Das ist ein Text mit 32 Zeichen!");
+        //}
+
+        //private void sampleGT32Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    addText("Das ist ein Beispieltext mit mehr als 16 Zeichen. ");
+        //}
+
+
+        //private void cancelButton_Click(object sender, RoutedEventArgs e)
+        //{
+
+        //    try
+        //    {
+        //        sendRequest(new Request("SendToLCD", "#cancel"));
+        //        this.addMessage("GPIO", "Request sent");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        this.addMessage("GPIO", "Request could not be sent: " + ex.Message);
+        //    }
+        //}
 
         private void scrollSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {

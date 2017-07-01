@@ -21,42 +21,42 @@ namespace TestmachineFrontend
             DependencyProperty.Register("IsCheckBoxChecked", typeof(bool),
               typeof(MainWindow), new UIPropertyMetadata(false));
 
-        private async void connectIP_button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPaddress), 54321)); // asynchronously creates and initializes an instance of RaspberryPi
-                connected_checkbox.IsChecked = pi1.IsConnected;
-                raspberryPis.Add(IPaddress, pi1);
-                this.BackendList.Items.Add(new RaspberryPiItem() { Name = IPaddress, Id = 45, Status = "OK", raspi = pi1 });
-            }
-            catch (FormatException fx)
-            {
-                this.addMessage("[ERROR]", "Invalid IP Address Format: " + fx.Message);
-                connected_checkbox.IsChecked = false;
-            }
-            catch (SocketException sx)
-            {
-                this.addMessage("[ERROR]", "Couldn't establish connection: " + sx.Message);
-                connected_checkbox.IsChecked = false;
+        //private async void connectIP_button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPaddress), 54321)); // asynchronously creates and initializes an instance of RaspberryPi
+        //        connected_checkbox.IsChecked = pi1.IsConnected;
+        //        raspberryPis.Add(IPaddress, pi1);
+        //        this.BackendList.Items.Add(new RaspberryPiItem() { Name = IPaddress, Id = 45, Status = "OK", raspi = pi1 });
+        //    }
+        //    catch (FormatException fx)
+        //    {
+        //        this.addMessage("[ERROR]", "Invalid IP Address Format: " + fx.Message);
+        //        connected_checkbox.IsChecked = false;
+        //    }
+        //    catch (SocketException sx)
+        //    {
+        //        this.addMessage("[ERROR]", "Couldn't establish connection: " + sx.Message);
+        //        connected_checkbox.IsChecked = false;
 
-            }
-            catch (Exception any)
-            {
-                this.addMessage("[ERROR]", "Unknown Error. " + any.Message);
-                connected_checkbox.IsChecked = false;
-            }
+        //    }
+        //    catch (Exception any)
+        //    {
+        //        this.addMessage("[ERROR]", "Unknown Error. " + any.Message);
+        //        connected_checkbox.IsChecked = false;
+        //    }
 
-            try
-            {
-                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync(new IPEndPoint(IPAddress.Parse(IPaddress), 54322));
-                await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
-            }
-            catch (Exception any)
-            {
-                this.addMessage("Error", "Error connecting the ClientSkeleton: " + any.Message);
-            }
-        }
+        //    try
+        //    {
+        //        ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync(new IPEndPoint(IPAddress.Parse(IPaddress), 54322));
+        //        await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
+        //    }
+        //    catch (Exception any)
+        //    {
+        //        this.addMessage("Error", "Error connecting the ClientSkeleton: " + any.Message);
+        //    }
+        //}
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {

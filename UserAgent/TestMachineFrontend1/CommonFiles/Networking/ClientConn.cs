@@ -77,5 +77,3 @@ namespace CommonFiles.Networking
         }
     }
 }
-
-
