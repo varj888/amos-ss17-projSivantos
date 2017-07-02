@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using RaspberryBackend.Config;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace RaspberryBackend
 {
     public partial class Operation
     {
 
+        private int batterySymbolPosition = 32;
 
         /// <summary>
         /// Set state for background in LCD. Will want to switch to toggle
@@ -45,50 +47,54 @@ namespace RaspberryBackend
             return ipAsString;
         }
 
+        private byte[] getBatterySymbol()
+        {
+            double batstatus = this.ADConverter.getDACVoltage1() / this.ADConverter.getMaxVoltage();
+            byte[] data = SymbolConfig.batterySymbol;
+
+            for(int i = 1; i <= 6; i++)
+            {
+                int counter = 6;
+                double frac = (double)i / 6.0;
+                if( batstatus < frac )
+                {
+                    data[counter - i] = 0b00010001;
+                }
+                counter--;
+            }
+
+            return data;
+        }
+
+        private byte[] getInitSymbol(bool isInit)
+        {
+            return (isInit) ? SymbolConfig.isInitSymbol : SymbolConfig.notInitSymbol;
+        }
+
         /// <summary>
         /// Method to wrap updating the LCD with fixed information.
         /// </summary>
         public void updateLCD()
         {
-            if (RasPi.isTestMode()) return;
+            if(!this.LCD.isShifting())
+            {
+                this.LCD.startShifting();
+            }
 
             LCD.resetLCD();
             this.setLCDBackgroundState(0x01);
 
             string ip = GetIpAddressAsync();
-            //string hi = StorageCfgs.Hi.Model;
-            //string currentReceiver = StorageCfgs.Hi.CurrentReceiver;
-            //string status = (RasPi.isInitialized()) ? "On" : "Off";
-            //string vbat = ADConverter.getDACVoltage1().ToString();
-            //string isConnected = (RasPi.skeleton.getClientCount() != 0) ? "Con" : "X";
-            //string print = ip + " " + isConnected + " " + currentReceiver + " " + status + " " + vbat + "V " + hi;
 
-            List<string> status = new List<string>
-            {
-                "HiModel: " +StorageCfgs.Hi.Model,
-                "Receiver : " + StorageCfgs.Hi.CurrentReceiver,
-                (RasPi.isInitialized()) ? "RasPi On" : "RasPi Off",
-                "Volt: " +ADConverter.getDACVoltage1().ToString(),
-                (RasPi.skeleton.getClientCount() != 0) ? "Con" : "X",
-            };
+            string hi = StorageCfgs.Hi.Model;
+            string currentReceiver = StorageCfgs.Hi.CurrentReceiver;
+            string print = ip + " " + currentReceiver + " " + hi;
 
-            Debug.WriteLine("\n Prepair Writing asynch on LCD... \n");
-            Task.Run(() => print(ip, status));
-        }
-
-        public async Task print(string ip, List<string> status)
-        {
-
-            foreach (string statu in status)
-            {
-                LCD.clrscr();
-                LCD.printInTwoLines(ip, statu);
-                Debug.WriteLine("Writing on LCD: \n {0} \n {1} \n", ip, statu);
-                Task.Delay(5000).Wait();
-            }
-
-            Debug.WriteLine("Writing on LCD: \n {0} \n {1} \n", ip, StorageCfgs.Hi.Model);
-            LCD.printInTwoLines(ip, StorageCfgs.Hi.Model);
+            this.LCD.createSymbol(this.getBatterySymbol(), SymbolConfig.batterySymbolAddress);
+            this.LCD.createSymbol(this.getInitSymbol(RasPi.isInitialized()), SymbolConfig.initSymbolAddress);
+            this.LCD.printInTwoLines(print);
+            this.LCD.printSymbol(SymbolConfig.batterySymbolAddress);
+            this.LCD.printSymbol(SymbolConfig.initSymbolAddress);
         }
     }
 }

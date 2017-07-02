@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
 using System.Diagnostics;
@@ -19,6 +21,7 @@ namespace RaspberryBackend
         private const byte LCD_WRITE = 0x07;
         private const byte Command_sendMode = 0;
         private const byte Data_sendMode = 1;
+        private bool cancelRequest = false;
 
         //Setup information for lcd initialization (visit lcd documentation for further information)
         public const byte EN = 0x02;
@@ -29,6 +32,11 @@ namespace RaspberryBackend
         public const byte D6c = 0x06;
         public const byte D7c = 0x07;
         public const byte BL = 0x03;
+
+        private bool shifting = false;
+        private int LCD_MAX_LENGTH = 32;
+
+        private CancellationTokenSource _cts;
 
         private byte[] _LineAddress = new byte[] { 0x00, 0x40 };
 
@@ -41,6 +49,11 @@ namespace RaspberryBackend
          * e.g. by an error such as a physical bitshift.
          * -> Use actual hardware read-back in future. */
         public StringBuilder CurrentText { get; private set; } = new StringBuilder();
+
+        public int getMaxLength()
+        {
+            return this.LCD_MAX_LENGTH;
+        }
 
         public override void initiate()
         {
@@ -280,6 +293,76 @@ namespace RaspberryBackend
             write(address, Data_sendMode);
         }
 
+        public void shiftDisplayRight()
+        {
+            write(Convert.ToByte(0x18), Command_sendMode);
+        }
 
+        public void shiftDisplayLeft()
+        {
+            write(Convert.ToByte(0x1C), Command_sendMode);
+        }
+
+        public void autoShift()
+        {
+            int counter = 0;
+            bool toggle = true;
+            while (!this._cts.IsCancellationRequested)
+            {
+                if(toggle == true)
+                {
+                    counter++;
+                    this.shiftDisplayRight();
+                } else
+                {
+                    this.shiftDisplayLeft();
+                    counter--;
+                }
+                if(counter == 9)
+                {
+                    toggle = false;
+                } else if(counter == 0)
+                {
+                    toggle = true;
+                }
+                Task.Delay(300).Wait();
+            }
+        }
+
+        public void cancelShifting()
+        {
+            if(this.isShifting())
+            {
+                this._cts.Cancel();
+                Task.Delay(300).Wait();
+                this.shifting = false;
+                this.resetCursor();
+            }
+        }
+
+        public void resetCursor()
+        {
+            write(0x1, Command_sendMode);
+        }
+
+        public bool isShifting()
+        {
+            return this.shifting;
+        }
+
+        public void startShifting()
+        {
+            if (this.isShifting()) return;
+            _cts = new CancellationTokenSource();
+            try
+            {
+                Task scrollTextTask = Task.Factory.StartNew(() => autoShift(), _cts.Token);
+            }
+            catch (OperationCanceledException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            this.shifting = true;
+        }
     }
 }
