@@ -112,6 +112,9 @@
     <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
       <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Hi.cs">
+      <Link>CommonFiles\TransferObjects\Hi.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
       <Link>CommonFiles\TransferObjects\Request.cs</Link>
     </Compile>
@@ -128,6 +131,8 @@
     <Compile Include="Config\parser\HiXmlParser.cs" />
     <Compile Include="Config\MultiplexerConfig.cs" />
     <Compile Include="Config\ReceiverConfig.cs" />
+    <Compile Include="Config\storage\StorageCfgs.cs" />
+    <Compile Include="Config\storage\StorageHandler.cs" />
     <Compile Include="Config\XPinConfig.cs" />
     <Compile Include="Config\YPinConfig.cs" />
     <Compile Include="OperationPartClasses\EnableAudioShoe.cs" />
@@ -172,7 +177,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Config\xml\PinOutInfo.xml" />
+    <Content Include="Config\xml\PinOutInfo.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

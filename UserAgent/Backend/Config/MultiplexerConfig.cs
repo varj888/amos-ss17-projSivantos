@@ -17,16 +17,6 @@ namespace RaspberryBackend
         //Dictionary which will be used to connect pins
         private Dictionary<int, int> x_to_y_map = new Dictionary<int, int>();
 
-        /// <summary>
-        /// Current Hi Family which the Multiplexer is configured on
-        /// </summary>
-        public static string HiFamily { get; private set; }
-
-        /// <summary>
-        /// Current Hi HiModel which the Multiplexer is configured on
-        /// </summary>
-        public static string HiModel { get; private set; }
-
 
         public MultiplexerConfig()
         {
@@ -35,8 +25,8 @@ namespace RaspberryBackend
 
         public MultiplexerConfig(string hiFamily, string hiModel)
         {
-            HiFamily = hiFamily;
-            HiModel = hiModel;
+            StorageCfgs.Hi.Family = hiFamily;
+            StorageCfgs.Hi.Model = hiModel;
 
             XPinConfig xPinConfig = HiXmlParser.getMultiplexerConfig(hiFamily, hiModel);
             YPinConfig yPinConfig = new YPinConfig();
@@ -64,6 +54,13 @@ namespace RaspberryBackend
             }
 
             Debug.WriteLine("====================================\n ");
+
+            saveHiConfig();
+        }
+
+        private void saveHiConfig()
+        {
+            StorageHandler<Hi>.Save(StorageCfgs.FileName_HiCfg, StorageCfgs.Hi).Wait(10000);
         }
 
         public Dictionary<int, int> getX_to_Y_Mapping()

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 
 namespace RaspberryBackend
@@ -25,6 +26,9 @@ namespace RaspberryBackend
         private RaspberryPi() { }
         public static RaspberryPi Instance { get; } = new RaspberryPi();
 
+
+        private Hi HiInfo;
+
         //flags for robustness and testing
         private bool _initialized = false;
         private bool _testMode = true;
@@ -37,7 +41,7 @@ namespace RaspberryBackend
         /// <summary>
         /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi.
         /// To add aditional hardware, just insert a new parameter in the initialize(..) call eg. initialize(... , new HWComponent).
-        /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfiguration"/>.
+        /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfigurationAsync"/>.
         /// Note: See <seealso cref="initialize(HWComponent[])"/> for detailed insight of the RasPi's initialization process.
         /// </summary>
         public void initialize()
@@ -52,10 +56,28 @@ namespace RaspberryBackend
                 );
         }
 
-        private void initiateStartUpConfiguration()
+        private async Task initiateStartUpConfigurationAsync()
         {
             Control.Multiplexer.setResetPin(Control.GPIOinterface.getPin(GpioMap.muxerResetPin));
-            Control.setMultiplexerConfiguration("TestFamily", "TestModel");
+
+            HiInfo = await StorageHandler<Hi>.Load(StorageCfgs.FileName_HiCfg);
+
+            setMulitplexerStartUpConfig();
+
+            //Task.Delay(1500).Wait(); //Uncomment if LCD does not update on startup
+            Control.updateLCD();
+        }
+
+        private void setMulitplexerStartUpConfig()
+        {
+            if (HiInfo?.Family != null)
+            {
+                Control.setMultiplexerConfiguration(HiInfo.Family, HiInfo.Model);
+            }
+            else
+            {
+                Control.setMultiplexerConfiguration("TestFamily", "TestModel");
+            }
         }
 
         /// <summary>
@@ -82,7 +104,7 @@ namespace RaspberryBackend
                 // Since the initialisation of Hardware is indipendent, the start-configuration of the RasPi which relise on them is seperated
                 if (hwComponentsInitialized())
                 {
-                    initiateStartUpConfiguration();
+                    initiateStartUpConfigurationAsync();
                 }
                 else if (!_testMode)
                 {

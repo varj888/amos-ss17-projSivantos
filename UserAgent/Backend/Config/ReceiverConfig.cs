@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace RaspberryBackend
 {
@@ -7,7 +8,21 @@ namespace RaspberryBackend
     /// </summary>
     public static class ReceiverConfig
     {
-        public static string CurrentReceiver { get; set; } = "None";
+
+        public static Tuple<string, double> SmallRight = new Tuple<string, double>("Small Right", 0.787);
+        public static Tuple<string, double> SmallLeft = new Tuple<string, double>("Small Left", 1.540);
+
+        public static Tuple<string, double> MediumRight = new Tuple<string, double>("Medium Right", 2.490);
+        public static Tuple<string, double> MediumLeft = new Tuple<string, double>("Medium Left", 3.480);
+        public static Tuple<string, double> PowerRight = new Tuple<string, double>("Power Right", 4.870);
+        public static Tuple<string, double> PowerLeft = new Tuple<string, double>("Power Left", 6.490);
+
+        public static Tuple<string, double> HighPowerRight = new Tuple<string, double>("High Power Right", 8.660);
+        public static Tuple<string, double> HighPowerLeft = new Tuple<string, double>("High Power Left", 11.000);
+
+        public static Tuple<string, double> Defective = new Tuple<string, double>("Defective", 133.700);
+        public static Tuple<string, double> NoReceiver = new Tuple<string, double>("NoReceiver", 200.0);
+
 
         /// <summary>
         /// Dictionary to represent possible receivers to detect with their respective resistance. Refer to
@@ -15,16 +30,16 @@ namespace RaspberryBackend
         /// </summary>
         public static Dictionary<string, double> DeviceResistanceMap { get; } = new Dictionary<string, double>
         {
-            {"Small Right", 0.787},
-            {"Small Left", 1.540},
-            {"Medium Right", 2.490},
-            {"Medium Left", 3.480},
-            {"Power Right", 4.870},
-            {"Power Left", 6.490},
-            {"High Power Right", 8.660},
-            {"High Power Left", 11.000},
-            {"Defective", 133.700},
-            {"No Receiver", 200.0},
+            {SmallRight.Item1, SmallRight.Item2},
+            { SmallLeft.Item1, SmallLeft.Item2 },
+            {MediumRight.Item1,MediumRight.Item2 },
+            {MediumLeft.Item1, MediumLeft.Item2 },
+            { PowerRight.Item1, PowerRight.Item2},
+            {PowerLeft.Item1, PowerLeft.Item2 },
+            { HighPowerRight.Item1, HighPowerRight.Item2},
+            {HighPowerLeft.Item1, HighPowerLeft.Item2 },
+            { Defective.Item1, Defective.Item2},
+            {NoReceiver.Item1, NoReceiver.Item2 },
         };
     }
 }

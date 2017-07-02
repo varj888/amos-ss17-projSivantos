@@ -62,11 +62,11 @@ namespace RaspberryBackend
             {
                 xml.Add(new XElement("Multiplexer",
                     new XElement("Initialized", true),
-                    new XElement("Family", MultiplexerConfig.HiFamily),
-                    new XElement("ModelName", MultiplexerConfig.HiModel)
+                    new XElement("Family", StorageCfgs.Hi.Family),
+                    new XElement("ModelName", StorageCfgs.Hi.Model)
                 ));
                 /* Read config from XML and based on that return supported controls of current HI*/
-                XPinConfig mux_config = HiXmlParser.getMultiplexerConfig(MultiplexerConfig.HiFamily, MultiplexerConfig.HiModel);
+                XPinConfig mux_config = HiXmlParser.getMultiplexerConfig(StorageCfgs.Hi.Family, StorageCfgs.Hi.Model);
                 xml.Add(new XElement("HI",
                     new XElement(YPinConfig.ROCKERSWITCH_STRING, string.Join(",", mux_config.ValueToPins(YPinConfig.ROCKERSWITCH_STRING))),
                     new XElement(YPinConfig.GROUND, string.Join(",", mux_config.ValueToPins(YPinConfig.GROUND))),

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -151,6 +152,20 @@ namespace RaspberryBackend
             prints(line2);
         }
 
+
+        /// <summary>
+        /// prints text in two lines
+        /// </summary>
+        /// <param name="text">text which shall be displayed</param>
+        /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
+        public void printInTwoLines(string textLine1, string textLine2)
+        {
+            prints(textLine1);
+            gotoSecondLine();
+            prints(textLine2);
+        }
+
+
         /// <summary>
         /// pints text in two lines
         /// </summary>
@@ -239,11 +254,6 @@ namespace RaspberryBackend
 
         }
 
-        //========================================================================================================
-        //======================== The Following methods are not used by this class ==============================
-        //======================== and shoul be moved to Commands                   ==============================
-        //========================================================================================================
-
         /// <summary>
         /// Save custom symbol to CGRAM
         /// </summary>
@@ -268,5 +278,7 @@ namespace RaspberryBackend
         {
             write(address, Data_sendMode);
         }
+
+
     }
 }

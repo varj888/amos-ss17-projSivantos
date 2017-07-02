@@ -23,13 +23,18 @@ namespace RaspberryBackend
                 Debug.Write("Invalid device provided!");
                 return device;
             }
+
             double resistance = ReceiverConfig.DeviceResistanceMap[device];
             double voltage = (ADConverter.getDACVoltage1() / (14.00 + resistance)) * resistance;
-
             Debug.WriteLine("Setting ARD for Device " + device + " to " + voltage.ToString());
 
-            ADConverter.setDACVoltage2(voltage);
-            ReceiverConfig.CurrentReceiver = device;
+            if (!RasPi.isTestMode())
+            {
+                ADConverter.setDACVoltage2(voltage);
+            }
+
+            StorageCfgs.Hi.CurrentReceiver = device;
+            StorageHandler<Hi>.Save(StorageCfgs.FileName_HiCfg, StorageCfgs.Hi).Wait(10000);
 
             this.updateLCD();
 
