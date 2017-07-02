@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace RaspberryBackend.Components
 {
@@ -15,7 +16,7 @@ namespace RaspberryBackend.Components
     /// </summary>
     class ServerStub: IDisposable, IEventReceiver
     {
-        private ObjConn<Result, Request> connection;
+        private TcpClient socket;
 
         /// <summary>
         /// Runs a server, wich waits for a client to connect
@@ -24,21 +25,24 @@ namespace RaspberryBackend.Components
         /// <returns>The created Skeleton</returns>
         public static async Task<ServerStub> createServerStubAsync(int port)
         {
-            using (TCPServer<Result, Request> requestServer = new TCPServer<Result, Request>(port))
+            using (TCPServer requestServer = new TCPServer(port))
             {
-                ObjConn<Result, Request> connection = await requestServer.acceptConnectionAsync();
-                return new ServerStub(connection);
+                TcpClient socket = await requestServer.acceptConnectionAsync();
+                return new ServerStub(socket);
             }
         }
 
-        private ServerStub(ObjConn<Result, Request> connection)
+        private ServerStub(TcpClient socket)
         {
-            this.connection = connection;
+            this.socket = socket;
         }
 
+        /// <summary>
+        /// Disposes the ServerStub
+        /// </summary>
         public void Dispose()
         {
-            connection.Dispose();
+            socket.Dispose();
         }
 
         /// <summary>
@@ -47,7 +51,7 @@ namespace RaspberryBackend.Components
         /// <param name="parameter"></param>
         public void testCall(string parameter)
         {
-            connection.sendObject(new Request("testCall", parameter));
+            Transfer.sendObject(socket.GetStream(), new Request("testCall", parameter));
         }
     }
 }

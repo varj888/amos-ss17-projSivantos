@@ -14,9 +14,7 @@ namespace CommonFiles.Networking
     /// <summary>
     /// Allows to Listen for Connections and accepting them
     /// </summary>
-    /// <typeparam name="inType">Type of the Objects, which will be received from the client</typeparam>
-    /// /// <typeparam name="outType">Type of the Objects, which will be received from the client</typeparam>
-    public class TCPServer<inType, outType>: IDisposable
+    public class TCPServer: IDisposable
     {
         private TcpListener listener;
 
@@ -36,16 +34,11 @@ namespace CommonFiles.Networking
         /// <summary>
         /// Accepts a TCP Connection to a Client
         /// </summary>
-        /// <returns>An Object representing the Connection</returns>
-        public async Task<ObjConn<inType, outType>> acceptConnectionAsync()
+        /// <returns>A socket representing the Connection</returns>
+        public async Task<TcpClient> acceptConnectionAsync()
         {
             // Accept Requests
-            TcpClient client = await listener.AcceptTcpClientAsync();
-
-            // Get a stream object for reading and writing
-            NetworkStream stream = client.GetStream();
-
-            return new ObjConn<inType, outType>(stream);
+            return await listener.AcceptTcpClientAsync();
         }
 
         // Disposes the server

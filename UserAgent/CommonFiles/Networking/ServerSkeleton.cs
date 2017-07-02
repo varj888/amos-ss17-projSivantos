@@ -1,6 +1,7 @@
 ﻿using CommonFiles.TransferObjects;
 using System;
 using System.Diagnostics;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -30,15 +31,15 @@ namespace CommonFiles.Networking
 
         private async Task runAsync(int port)
         {
-            TCPServer<Request, Result> requestServer = new TCPServer<Request, Result>(port);
+            TCPServer requestServer = new TCPServer(port);
             while (true)
             {
                 try
                 {
                     Debug.WriteLine(this.GetType().Name + "::: Awaiting request...");
-                    using (ObjConn<Request, Result> connection = await requestServer.acceptConnectionAsync())
+                    using (TcpClient socket = await requestServer.acceptConnectionAsync())
                     {
-                        handleRequestConnection(connection);
+                        handleRequestConnection(socket);
                     }
                 }
                 catch (Exception e)
@@ -52,21 +53,21 @@ namespace CommonFiles.Networking
     /// Handles the requestconnection for a client.
     /// </summary>
     /// <param name="conn"></param>
-    private void handleRequestConnection(ObjConn<Request, Result> conn)
+    private void handleRequestConnection(TcpClient socket)
         {
             this.incClientCount();
             while (true)
             {
                 //Receive a Request from the client
                 Debug.WriteLine("Awaiting Request...");
-                Request request = conn.receiveObject();
+                Request request = Transfer.receiveObject<Request>(socket.GetStream());
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameters));
 
                 //Process Request
                 Result result = Request.handleRequest(service, request);
 
                 //Send back Result to the client
-                conn.sendObject(result);
+                Transfer.sendObject(socket.GetStream(), result);
             }
             this.decClientCount();
         }
