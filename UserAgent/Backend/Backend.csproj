@@ -128,6 +128,7 @@
     <Compile Include="Config\parser\HiXmlParser.cs" />
     <Compile Include="Config\MultiplexerConfig.cs" />
     <Compile Include="Config\ReceiverConfig.cs" />
+    <Compile Include="Config\SymbolConfig.cs" />
     <Compile Include="Config\XPinConfig.cs" />
     <Compile Include="Config\YPinConfig.cs" />
     <Compile Include="OperationPartClasses\EnableAudioShoe.cs" />

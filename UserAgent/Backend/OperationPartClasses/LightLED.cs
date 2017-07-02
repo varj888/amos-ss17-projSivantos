@@ -37,6 +37,7 @@ namespace RaspberryBackend
 
             Debug.WriteLine(string.Format("Current Value of Pin {0} for writing LED is: {1} and was when requested {2} \n",
                 GPIO_PIN_ID, currentState, lastStateOnRequest));
+
             return requestedParameter.ToString();
         }
 
