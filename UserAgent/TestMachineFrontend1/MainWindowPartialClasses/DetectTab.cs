@@ -60,44 +60,44 @@ namespace TestmachineFrontend
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("ReadPin", PinID));
+            //sendRequest(new Request("ReadPin", PinID));
         }
 
         private void writePin_button_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("WritePin", PinID));
+            //sendRequest(new Request("WritePin", PinID));
         }
 
         private void reset_button_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("ResetPin", PinID));
+            //sendRequest(new Request("ResetPin", PinID));
         }
 
         private void ledOFF_button_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("LightLED", 0));
+            //sendRequest(new Request("LightLED", 0));
         }
 
         private void ledON_button_Click(object sender, RoutedEventArgs e)
         {
-            sendRequest(new Request("LightLED", 1));
+            //sendRequest(new Request("LightLED", 1));
         }
 
         private void connect_Pins_Click(object sender, RoutedEventArgs e)
         {
-            addMessage("debug", "Not yet implemented");
+            //addMessage("debug", "Not yet implemented");
         }
 
         private void setVolume_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Slider el = sender as Slider;
-            sendRequest(new Request("SetAnalogVolume", Convert.ToByte(el.Value)));
+            //sendRequest(new Request("SetAnalogVolume", Convert.ToByte(el.Value)));
         }
 
         private void vcSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Slider el = sender as Slider;
-            sendRequest(new Request("TurnHIOn", el.Value));
+            //sendRequest(new Request("TurnHIOn", el.Value));
         }
     }
 }

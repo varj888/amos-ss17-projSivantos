@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TestmachineFrontend;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
@@ -91,10 +92,12 @@ namespace TestMachineFrontend1.ViewModel
 
         private DebugViewModel debugVM;
         private RaspberryPiItem detectModel;
+        private TestCallee testCallee;
 
-        public DetectTabViewModel(DebugViewModel debugVM)
+        public DetectTabViewModel(DebugViewModel debugVM, TestCallee testCallee)
         {
             this.debugVM = debugVM;
+            this.testCallee = testCallee;
             ItemSelected = new DelegateCommand(o =>
             {
                 SelectedRaspiItem = o as RaspberryPiItem;
@@ -161,8 +164,8 @@ namespace TestMachineFrontend1.ViewModel
             }
             try
             {
-                //ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync(new IPEndPoint(IPAddress.Parse(IPaddress), 54322));
-                //await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
+                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54322));
+                await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
             }
             catch (Exception any)
             {

@@ -9,5 +9,25 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class MultiplexerViewModel : ObservableObject
     {
+        private double x;
+        public double ValueX
+        {
+            get { return x; }
+            set
+            {
+                x = value;
+                OnPropertyChanged("ValueX");
+            }
+        }
+        private double y;
+        public double ValueY
+        {
+            get { return y; }
+            set
+            {
+                y = value;
+                OnPropertyChanged("ValueY");
+            }
+        }
     }
 }

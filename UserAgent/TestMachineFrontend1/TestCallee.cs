@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestmachineFrontend
 {
-    class TestCallee: IEventReceiver
+    public class TestCallee: IEventReceiver
     {
         public void testCall(string parameter)
         {

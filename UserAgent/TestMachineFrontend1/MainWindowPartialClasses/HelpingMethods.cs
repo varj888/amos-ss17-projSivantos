@@ -13,7 +13,7 @@ namespace TestmachineFrontend
     public partial class MainWindow : Window
     {
         //Creates one time a List with all public methods in MainWindow
-        public List<string> mainMethods = getMethodNamesOf(typeof(MainWindow));
+        //public List<string> mainMethods = getMethodNamesOf(typeof(MainWindow));
 
         /// <summary>
         /// Adds a message to the GUI table

@@ -8,6 +8,7 @@ using System.Windows.Input;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
 using TestMachineFrontend1.Commands;
+using TestmachineFrontend;
 
 namespace TestMachineFrontend1.ViewModel
 {
@@ -17,13 +18,15 @@ namespace TestMachineFrontend1.ViewModel
         public ICommand ConnectIPCommand { get; private set; }
         //TODO: check if is better to use getDuration() as a simple method
         public ICommand GetDurationCommand { get; private set; }
+        public ICommand AddDebugInfoCommand { get; private set; }
+        public ICommand SendRequestCommand { get; private set; }
         public ICommand PressPushButtonCommand { get; private set; }
         public List<TabControlModel> TabItems { get; set; }
-TestCallee testCallee; 
+        private TestCallee testCallee;
 
         public MainWindowViewModel()
         {
-testCallee = new TestCallee();
+            testCallee = new TestCallee();
             LoadDebugView();
             LoadDetectView();
             LoadMainTabView();
@@ -33,6 +36,8 @@ testCallee = new TestCallee();
             LoadUserControlView();
             //LoadViewCommand = new DelegateCommand(o => this.LoadDetectTabView());
             ConnectIPCommand = new ConnectIPCommand((DetectTabViewModel)CurrentViewModelDetectTab);
+            AddDebugInfoCommand = new AddDebugInfoCommand((DebugViewModel)CurrentViewModelDebug);
+            SendRequestCommand = new SendRequestCommand((DetectTabViewModel)CurrentViewModelDetectTab);
             GetDurationCommand = new GetDurationCommand((UserControlsViewModel)CurrentViewModelUserControls);
             PressPushButtonCommand = new PressPushButtonCommand((UserControlsViewModel)CurrentViewModelUserControls,
                 (DetectTabViewModel)CurrentViewModelDetectTab, (DebugViewModel)CurrentViewModelDebug);
@@ -67,6 +72,16 @@ testCallee = new TestCallee();
                                         CurrentTabContentViewModel = (MultiplexerViewModel)CurrentViewModelMultiplexer
                                     }
                             };
+        }
+
+        public TestCallee TestCalleeProperty
+        {
+            get { return testCallee; }
+            set
+            {
+                testCallee = value;
+                OnPropertyChanged("TestCalleeProperty");
+            }
         }
 
         private ObservableObject currentViewModelDebug;
@@ -169,7 +184,7 @@ testCallee = new TestCallee();
 
         private void LoadDetectTabView()
         {
-            CurrentViewModelDetectTab = new DetectTabViewModel((DebugViewModel)CurrentViewModelDebug);
+            CurrentViewModelDetectTab = new DetectTabViewModel((DebugViewModel)CurrentViewModelDebug, TestCalleeProperty);
         }
         private void LoadLCDControlsView()
         {

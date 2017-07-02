@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\AddDebugInfoCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\EndlessVcCommand.cs" />
     <Compile Include="Commands\GetDurationCommand.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Model\UserControlsModel.cs" />
     <Compile Include="RaspberryPi.cs" />
     <Compile Include="TestCallee.cs" />
+    <Compile Include="UpdateMehods.cs" />
     <Compile Include="ViewModel\DebugViewModel.cs" />
     <Compile Include="ViewModel\DetectTabViewModel.cs" />
     <Compile Include="ViewModel\DetectViewModel.cs" />
