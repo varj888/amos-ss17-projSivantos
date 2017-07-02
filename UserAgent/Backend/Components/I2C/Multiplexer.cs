@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.Devices.I2c;
-using System.Linq;
 
 namespace RaspberryBackend
 {
@@ -25,13 +24,10 @@ namespace RaspberryBackend
         private I2cDevice multiplexer;
         private byte _DB15 = 0x80;
         private GpioPin _reset;
-        private string currentModel = "";
-        private string currentFamily = "";
 
         //private Dictionary<int, Tuple<int, string>> current_multiplexer_state = new Dictionary<int, Tuple<int, string>>();
         public Dictionary<int, Tuple<int, string>> current_multiplexer_state { get; private set; } = new Dictionary<int, Tuple<int, string>>();
-        public string family { get; private set; }
-        public string model_name { get; private set; }
+
         public override void initiate()
         {
             try
@@ -47,50 +43,7 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
-        /// <summary>
-        /// Sets the multiplexer configuation to a default HI from the XML Config file.
-        /// The HI is:
-        /// Family: "Pure", Model: "312 702 S (DN)"
-        /// </summary>
-        public void setMultiplexerConfiguration()
-        {
-            setMultiplexerConfiguration("Pure", "312 702 S (DN)");
-        }
 
-        /// <summary>
-        /// Sets the multiplexer configuation to a specific HI
-        /// </summary>
-        /// <param name="family">family name of the HI, e.g.: "Pure"</param>
-        /// <param name="model_name">model name of the HI: e.g: "312 702 S (DN)"</param>
-        public void setMultiplexerConfiguration(string family, string model_name)
-        {
-            Debug.WriteLine(this.GetType().Name + "::: Setting Multiplexer Config:");
-            this.family = family;
-            this.model_name = model_name;
-            MultiplexerConfig mux_config = MultiplexerConfigParser.getMultiplexerConfig(family, model_name);
-            Dictionary<int, string> X_to_value_map = mux_config.X_Pin_To_Value_Map;
-            Dictionary<string, int> value_to_Y_map = GPIOConfig._gpio_to_Y_map;
-
-            current_multiplexer_state.Clear();
-
-            foreach (int value_x in X_to_value_map.Keys)
-            {
-                foreach (string y_value in value_to_Y_map.Keys)
-                {
-                    if (y_value.Equals(X_to_value_map[value_x]))
-                    {
-                        if(isInitialized())
-                        {
-                            connectPins(value_x, value_to_Y_map[y_value]);
-                            Debug.WriteLine(this.GetType().Name + "::: X(" + value_x + ")[" + X_to_value_map[value_x] + "] to Y(" + value_to_Y_map[y_value] + ")[" + y_value + "]");
-                        }
-                        current_multiplexer_state.Add(value_x, new Tuple<int, string>(value_to_Y_map[y_value], y_value));
-                    }
-                }
-            }
-            this.currentFamily = family;
-            this.currentModel = model_name;
-        }
 
         /// <summary>
         /// Gets the Y pin currently connected to the X Pin
@@ -105,7 +58,6 @@ namespace RaspberryBackend
             if (current_multiplexer_state.ContainsKey(xi))
             {
                 return current_multiplexer_state[xi].Item1;
-
             }
 
             return -1;
@@ -200,7 +152,7 @@ namespace RaspberryBackend
         {
             if (xi > 9 | yi > 7) return;
             if (xi > 5) xi = xi + 2;
-            this.write(new Byte[] { (byte)(_DB15 | (byte)(xi << 3) | (byte)(yi)), (byte)1 });
+            this.write(new byte[] { (byte)(_DB15 | (byte)(xi << 3) | (byte)(yi)), (byte)1 });
         }
 
         /// <summary>
@@ -213,25 +165,7 @@ namespace RaspberryBackend
         {
             if (xi > 9 | yi > 7) return;
             if (xi > 5) xi = xi + 2;
-            this.write(new Byte[] { (byte)((byte)(xi << 3) | (byte)(yi)) });
-        }
-
-        /// <summary>
-        /// Retrieve current model.
-        /// </summary>
-        /// <returns>The current configuration's model written to the mux.</returns>
-        public string getCurrentModel()
-        {
-            return this.currentModel;
-        }
-
-        /// <summary>
-        /// Retrieve current model.
-        /// </summary>
-        /// <returns>The current configuration's family written to the mux.</returns>
-        public string getCurrentFamily()
-        {
-            return this.currentFamily;
+            this.write(new byte[] { (byte)((byte)(xi << 3) | (byte)(yi)) });
         }
     }
 }

@@ -1,179 +1,186 @@
-﻿using System;
-using CommonFiles.Networking;
+﻿using CommonFiles.Networking;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.NetworkInformation;
+using System.Reflection;
+
 
 namespace RaspberryBackend
 {
     /// <summary>
-    /// Software representation of the RaspberryPi. It contains all component representations which are phyisical connected to the Rpi.
+    /// Software representation of the RaspberryPi. It contains all component representations which are phyisically connected to the Rpi.
+    /// To add new Hardware Components, create/initialize it with initialize(). If it is desired, aditionally declare the corresponding instance field which will be automatically initialised.
+    /// For testing without connected Hardware Components, use the overloaded initialized(params HWComponents[] hwComponents) method to initialize the Raspberry Pi.
     /// </summary>
     public class RaspberryPi
     {
-        private static readonly RaspberryPi _instance = new RaspberryPi();
-        private GPIOinterface _gpioInterface;
-        private LCD _lcdDisplay;
-        private Potentiometer _potentiometer;
-        private Multiplexer _multiplexer;
-        private ADCDAC _daConverter;
-
-        private int maxCharLCD = 16;
-        private Boolean _initialized = false;
-
-        public static RaspberryPi Instance
-        {
-            get { return _instance; }
-        }
-
-        public object GpioInterface { get; internal set; }
-        public object LcdDisplay { get; internal set; }
-        public object Potentiometer { get; internal set; }
-
-        private RaspberryPi() { }
+        //Single location for all Hardware Components
+        private Dictionary<string, HWComponent> _hwComponents = new Dictionary<string, HWComponent>();
 
         /// <summary>
-        /// Default initialization of the Raspberry Pi.
-        /// Note: It initializes only one time once the gpioInterface is initialized.
+        /// The Control interface for the Raspberry Pi which contains all implemented methods which can be used to trigger features.
+        /// </summary>
+        public Operation Control { get; set; }
+
+        //Singleton pattern
+        private RaspberryPi() { }
+        public static RaspberryPi Instance { get; } = new RaspberryPi();
+
+        //flags for robustness and testing
+        private bool _initialized = false;
+        private bool _testMode = true;
+
+        /// <summary>
+        /// TODO: This is for now a workaround which is needed for LCD status update. Should not be permenant
+        /// </summary>
+        public ServerSkeleton skeleton { get; set; }
+
+        /// <summary>
+        /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi.
+        /// To add aditional hardware, just insert a new parameter in the initialize(..) call eg. initialize(... , new HWComponent).
+        /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfiguration"/>.
+        /// Note: See <seealso cref="initialize(HWComponent[])"/> for detailed insight of the RasPi's initialization process.
         /// </summary>
         public void initialize()
         {
-            _gpioInterface = new GPIOinterface();
-            _gpioInterface.initPins();
+            _testMode = false;
+            initialize(
+                new GPIOinterface(),
+                new LCD(),
+                new Potentiometer(),
+                new Multiplexer(),
+                new ADConverter()
+                );
+        }
 
-            _lcdDisplay = new LCD();
-            _lcdDisplay.initiateLCD();
-
-            _potentiometer = new Potentiometer();
-
-            _daConverter = new ADCDAC();
-            _daConverter.init();
-
-            _multiplexer = new Multiplexer(_gpioInterface.getPin(18));
-
-            _initialized = true;
-
-            _lcdDisplay.prints(Others.GetIpAddress());
+        private void initiateStartUpConfiguration()
+        {
+            Control.Multiplexer.setResetPin(Control.GPIOinterface.getPin(GpioMap.muxerResetPin));
+            Control.setMultiplexerConfiguration("TestFamily", "TestModel");
         }
 
         /// <summary>
-        /// usage example:
-        /// turns ADConverter on with
-        /// 3.3V to the channel 2 with DAC voltage 1.5
+        /// Customized initialization of the Raspberry Pi. It initialize the desired Hardware and Start-Up configuration of the Raspberry Pi.
         /// </summary>
-        public void turnHI_on(double voltage)
+        /// <param name="hwComponents">
+        /// Hardware Componens which shall be connected to the Raspi.
+        /// Enter as many components as desired devided with ','. e.g. initialize(HWComponent one, HWComponent two);
+        /// </param>
+        public void initialize(params HWComponent[] hwComponents)
         {
-            _daConverter.setDACVoltage(voltage);
+            if (hwComponents != null)
+            {
+                foreach (HWComponent hwComponent in hwComponents)
+                {
+                    System.Diagnostics.Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
+                    addToRasPi(hwComponent);
+                }
+
+                initializeHWComponents();
+
+                Control = new Operation(_hwComponents);
+
+                // Since the initialisation of Hardware is indipendent, the start-configuration of the RasPi which relise on them is seperated
+                if (hwComponentsInitialized())
+                {
+                    initiateStartUpConfiguration();
+                }
+                else if (!_testMode)
+                {
+                    throw new AggregateException("Hardware Components are (partly) not initialised thus the startconfiguration could not be initalised");
+                }
+
+
+                _initialized = true;
+            }
+            else
+            {
+                throw new AggregateException("The RasPi, at least, needs to be initialised with the Hardware Component <GPIOinterface>.");
+            }
         }
 
-        /// <summary>
-        /// Resets the single instance of the Raspberry PI representation. For now it is used for Testing.
-        /// </summary>
-        public void reset()
-        {
-            _gpioInterface = null;
-            _lcdDisplay = null;
-            _potentiometer = null;
-            _daConverter = null;
-            _multiplexer = null;
-            _initialized = false;
-        }
-
-        /// <summary>
-        /// Set the potentiometer to a value from 0000 0000 - 0111 1111
-        /// </summary>
-        /// <param name="data"></param>
-        public void setHIPower(byte[] data)
-        {
-            _potentiometer.write(data);
-        }
-
-        /// <summary>
-        /// Print string to LCD display
-        /// </summary>
-        /// <param name="s"></param>
-        public void writeToLCD(string s)
-        {
-            _lcdDisplay.clrscr();
-            _lcdDisplay.prints(s);
-        }
-
-        /// <summary>
-        /// Print two lines to LCD
-        /// </summary>
-        /// <param name="s"></param>
-        public void writeToLCDTwoLines(string s)
-        {
-            _lcdDisplay.printInTwoLines(s, maxCharLCD);
-        }
-
-        /// <summary>
-        /// Reset the LCD (clear it's screen)
-        /// </summary>
-        public void resetLCD()
-        {
-            _lcdDisplay.clrscr();
-        }
-
-        /// <summary>
-        /// Set state for background in LCD. Will want to switch to toggle
-        /// </summary>
-        /// <param name="targetState"></param>
-        public void setLCDBackgroundState(byte targetState)
-        {
-            _lcdDisplay.backLight = targetState;
-            _lcdDisplay.write(targetState, 1);
-        }
-
-        /// <summary>
-        /// Set GPIO pin to 1
-        /// </summary>
-        /// <param name="id"></param>
-        public void activatePin(UInt16 id)
-        {
-            _gpioInterface.setToOutput(id);
-            _gpioInterface.writePin(id, 1);
-        }
-
-        /// <summary>
-        /// Reset GPIO pin by settting to 0
-        /// </summary>
-        /// <param name="id"></param>
-        public void deactivatePin(UInt16 id)
-        {
-            _gpioInterface.setToOutput(id);
-            _gpioInterface.writePin(id, 0);
-        }
-
-        /// <summary>
-        /// Read pin from GPIOInterface
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public string readPin(UInt16 id)
-        {
-            return _gpioInterface.readPin(id);
-        }
 
         /// <summary>
         /// Return whether raspberrypi and it's hardware components are initialized
         /// </summary>
-        /// <returns></returns>
-        public Boolean isInitialized()
+        /// <returns>True if each HWComponent and the Raspberry Pi is initialised. False if at least one HWComponent is not initialised</returns>
+        public bool isInitialized()
         {
-            return _initialized & _gpioInterface.isInitialized() & _lcdDisplay.isInitialized() & _potentiometer.isInitialized();
+            return _initialized & hwComponentsInitialized();
+        }
+
+        public bool isTestMode()
+        {
+            return _testMode;
         }
 
         /// <summary>
-        /// Connect pins x to y on the multiplexer. Right now this is the same as _multiplexer.connectPins except no checks
-        /// are performed on the input parameters. Eventually we can check for success right here.
+        /// Deletes the current Hardware Configuration of the Raspberry Pi. For now it is used for testing. Later it can be used for dynamically auto configurate the Raspberry Pi.
         /// </summary>
-        /// <param name="xi"></param>
-        /// <param name="yi">/param>
-        public void connectPins(int xi, int yi)
+        public void reset()
         {
-            _multiplexer.connectPins(xi, yi);
+            _hwComponents = new Dictionary<string, HWComponent>();
+            Control = null;
+            _initialized = false;
         }
+
+        /// <summary>
+        /// Sets the Skeleton field in Raspberry Pi.
+        /// TODO: This is for now a workaround which is needed for LCD status update. Should not be permenant
+        /// </summary>
+        /// <param name="s"></param>
+        public void setSkeleton(ServerSkeleton s)
+        {
+            this.skeleton = s;
+        }
+
+        private void addToRasPi(HWComponent hwComponent)
+        {
+            string key = hwComponent.GetType().Name;
+            if (!_hwComponents.ContainsKey(key)) _hwComponents.Add(key, hwComponent);
+        }
+
+        private bool hwComponentsInitialized()
+        {
+            foreach (var hwComponent in _hwComponents.Values)
+            {
+                if (!hwComponent.isInitialized())
+                {
+                    System.Diagnostics.Debug.WriteLine(hwComponent.GetType().Name + " is not initialised");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        //initialization of each Hardware Component
+        private void initializeHWComponents()
+        {
+            if (!_testMode)
+            {
+                foreach (HWComponent hwcomponent in _hwComponents.Values)
+                {
+                    System.Diagnostics.Debug.WriteLine("Initialize connected Hardware : " + hwcomponent.GetType().Name);
+
+                    System.Threading.Tasks.Task.Delay(250).Wait();
+                    hwcomponent.initiate();
+
+                    System.Diagnostics.Debug.WriteLine(hwcomponent.GetType().Name + " initalized.");
+                }
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("System starts in Test-Mode. Hardware Components are not going to be connected/initialised.");
+            }
+        }
+
+        //resets all Hardware related instance Fields. For a detailed call structure see initializeClassInstanceField(HWComponent)
+        private void resetClassInstanceField()
+        {
+            foreach (var hwComponent in _hwComponents.Values)
+            {
+                Control.GetType().GetField(hwComponent.GetType().Name).SetValue(this, null);
+            }
+        }
+
     }
 }

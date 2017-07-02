@@ -34,6 +34,8 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
+        public void write(byte data) => write(new[] { data });
+
         /// <summary>
         /// Used to send data to the MCP4018 Potentiometer
         /// </summary>

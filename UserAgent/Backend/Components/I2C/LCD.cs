@@ -34,12 +34,11 @@ namespace RaspberryBackend
         public int scrollSpeed { get; set; }
 
         private I2cDevice _lcdDisplay;
-        /* Stores text that has been most recently written to LCD. 
-         * This might differ from actual hardware status caused 
-         * e.g. by an error such as a physical bitshift. 
+        /* Stores text that has been most recently written to LCD.
+         * This might differ from actual hardware status caused
+         * e.g. by an error such as a physical bitshift.
          * -> Use actual hardware read-back in future. */
-        private StringBuilder _currentText = new StringBuilder();
-        public StringBuilder CurrentText { get => _currentText; private set => _currentText = value; }
+        public StringBuilder CurrentText { get; private set; } = new StringBuilder();
 
         public override void initiate()
         {
@@ -182,6 +181,15 @@ namespace RaspberryBackend
                 Task.Delay(200).Wait();
             }
         }
+        /// <summary>
+        /// Print string to LCD display
+        /// </summary>
+        /// <param name="s"></param>
+        public void writeToLCD(string s)
+        {
+            clrscr();
+            prints(s);
+        }
 
         /// <summary>
         /// Prints a string onto display
@@ -220,6 +228,15 @@ namespace RaspberryBackend
         public void gotoxy(byte x, byte y)
         {
             write(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)), Command_sendMode);
+        }
+
+        /// <summary>
+        /// Reset the LCD (clear it's screen)
+        /// </summary>
+        public void resetLCD()
+        {
+            initiateLCD();
+
         }
 
         //========================================================================================================

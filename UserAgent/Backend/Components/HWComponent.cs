@@ -5,6 +5,8 @@
     /// </summary>
     public abstract class HWComponent
     {
+        RaspberryPi RaspberryPi = RaspberryPi.Instance;
+
         protected bool _initialized = false;
 
         /// <summary>

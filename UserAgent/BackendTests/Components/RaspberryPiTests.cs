@@ -33,40 +33,6 @@ namespace RaspberryBackendTests
             Testadconverter = new ADConverter();
         }
 
-        [TestMethod]
-        public void TestNotInitialized()
-        {
-            raspberryPi.reset();
-            System.Diagnostics.Debug.WriteLine(raspberryPi.GPIOinterface != null ? raspberryPi.GPIOinterface.ToString() : "null");
-
-            raspberryPi.initialize(testAllComponents);
-            raspberryPi.reset();
-
-            Assert.IsNull(raspberryPi.GPIOinterface);
-            Assert.IsNull(raspberryPi.LCD);
-            Assert.IsNull(raspberryPi.Potentiometer);
-            Assert.IsNull(raspberryPi.Multiplexer);
-            Assert.IsNull(raspberryPi.ADConverter);
-
-            raspberryPi.initialize(testPartComponents);
-            raspberryPi.reset();
-
-            Assert.IsNull(raspberryPi.GPIOinterface);
-            Assert.IsNull(raspberryPi.LCD);
-            Assert.IsNull(raspberryPi.Potentiometer);
-            Assert.IsNull(raspberryPi.Multiplexer);
-            Assert.IsNull(raspberryPi.ADConverter);
-
-            raspberryPi.initialize(testDuplicateComponents);
-            raspberryPi.reset();
-
-            Assert.IsNull(raspberryPi.GPIOinterface);
-            Assert.IsNull(raspberryPi.LCD);
-            Assert.IsNull(raspberryPi.Potentiometer);
-            Assert.IsNull(raspberryPi.Multiplexer);
-            Assert.IsNull(raspberryPi.ADConverter);
-        }
-
 
         [TestMethod]
         [ExpectedException(typeof(AggregateException))]
@@ -76,11 +42,11 @@ namespace RaspberryBackendTests
             raspberryPi.initialize(null);
             raspberryPi.reset();
 
-            Assert.IsNull(raspberryPi.GPIOinterface);
-            Assert.IsNull(raspberryPi.LCD);
-            Assert.IsNull(raspberryPi.Potentiometer);
-            Assert.IsNull(raspberryPi.Multiplexer);
-            Assert.IsNull(raspberryPi.ADConverter);
+            Assert.IsNull(raspberryPi.Control.GPIOinterface);
+            Assert.IsNull(raspberryPi.Control.LCD);
+            Assert.IsNull(raspberryPi.Control.Potentiometer);
+            Assert.IsNull(raspberryPi.Control.Multiplexer);
+            Assert.IsNull(raspberryPi.Control.ADConverter);
         }
 
         [TestMethod]
@@ -89,20 +55,20 @@ namespace RaspberryBackendTests
             raspberryPi.reset();
             raspberryPi.initialize(TestGpiooInterface, TestLcdDisplay, Testpotentiometer, Testmultiplexer, Testadconverter);
 
-            Assert.AreEqual(TestGpiooInterface, raspberryPi.GPIOinterface);
-            Assert.AreEqual(TestLcdDisplay, raspberryPi.LCD);
-            Assert.AreEqual(Testpotentiometer, raspberryPi.Potentiometer);
-            Assert.AreEqual(Testmultiplexer, raspberryPi.Multiplexer);
-            Assert.AreEqual(Testadconverter, raspberryPi.ADConverter);
+            Assert.AreEqual(TestGpiooInterface, raspberryPi.Control.GPIOinterface);
+            Assert.AreEqual(TestLcdDisplay, raspberryPi.Control.LCD);
+            Assert.AreEqual(Testpotentiometer, raspberryPi.Control.Potentiometer);
+            Assert.AreEqual(Testmultiplexer, raspberryPi.Control.Multiplexer);
+            Assert.AreEqual(Testadconverter, raspberryPi.Control.ADConverter);
 
             raspberryPi.reset();
             raspberryPi.initialize(testDuplicateComponents);
 
-            Assert.AreEqual(testDuplicateComponents[0], raspberryPi.GPIOinterface);
-            Assert.AreEqual(null, raspberryPi.LCD);
-            Assert.AreEqual(null, raspberryPi.Potentiometer);
-            Assert.AreEqual(testDuplicateComponents[1], raspberryPi.Multiplexer);
-            Assert.AreEqual(testDuplicateComponents[3], raspberryPi.ADConverter);
+            Assert.AreEqual(testDuplicateComponents[0], raspberryPi.Control.GPIOinterface);
+            Assert.AreEqual(null, raspberryPi.Control.LCD);
+            Assert.AreEqual(null, raspberryPi.Control.Potentiometer);
+            Assert.AreEqual(testDuplicateComponents[1], raspberryPi.Control.Multiplexer);
+            Assert.AreEqual(testDuplicateComponents[3], raspberryPi.Control.ADConverter);
         }
 
         [TestCleanup]
