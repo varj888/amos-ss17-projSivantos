@@ -19,35 +19,30 @@
     <Grid Background="AliceBlue" Margin="0,0,0,0" Height="418" VerticalAlignment="Top">
         <!--list of available devices-->
 
-
         <!--TextBox for entering the IP-Adress of a device-->
-        <!--DataContext="{Binding Path=CurrentViewModelDetectTab}"-->
-        <!--Button for establishing connection to device-->
-
-        <!--Click="connectIP_button_Click">Connect</Button>-->
-        <!--Command="{Binding ConnectIPCommand}"-->
-
-        <!--x:Name="BackendList"-->
 
         <Button x:Name="readPin_button" Margin="209,151,269,237" Content="Read pin" 
-                DataContext="{Binding Path=CurrentViewModelDetectTab}"
-                Command="{Binding SendRequestCommand}" CommandParameter="{Binding ReadPin}" />
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ReadPin}" />
+        
         <Button x:Name="writePin_button" Margin="291,151,191,237" Content="Write pin" 
-                DataContext="{Binding Path=CurrentViewModelDetectTab}"
-                Command="{Binding SendRequestCommand}" CommandParameter="{Binding WritePin}" />
-        <TextBox Margin="144,151,354,237" TextAlignment="Center" Text="{Binding PinID}" />
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.WritePin}" />
+        
+        <TextBox Margin="144,151,354,237" TextAlignment="Center" 
+                 Text="{Binding Path=CurrentViewModelDetectTab.PinID}" />
 
         <Button x:Name="reset_button" Margin="367,151,116,237" Content="Reset" 
-                DataContext="{Binding Path=CurrentViewModelDetectTab}"
-                Command="{Binding SendRequestCommand}" CommandParameter="{Binding ResetPin}" />
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ResetPin}" />
 
         <Button x:Name="ledON_button" Margin="144,85,317,307" Content="LED ON" 
-                DataContext="{Binding Path=CurrentViewModelDetectTab}"
-                Command="{Binding SendRequestCommand}" CommandParameter="{Binding RequestLEDOn}"/>
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.RequestLEDOn}"/>
 
         <Button x:Name="ledOFF_button" Margin="266,85,209,307" Content="LED OFF"  
-                DataContext="{Binding Path=CurrentViewModelDetectTab}"
-                Command="{Binding SendRequestCommand}" CommandParameter="{Binding RequestLEDOn}" />
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.RequestLEDOff}" />
 
         <TextBlock Margin="25,348,415,42"><Run Text="DACVoltage"/></TextBlock>
         <TextBlock Margin="97,348,380,42"><Run Text="0.0 V"/></TextBlock>
@@ -70,7 +65,8 @@
         <Button x:Name="connect_Pins" Content="Mux55" HorizontalAlignment="Left" 
                 DataContext="{Binding Path=CurrentViewModelDetectTab}"
                 Margin="372,85,0,0" VerticalAlignment="Top" Width="58" Height="26" 
-                Command="{Binding SendRequestCommand}" CommandParameter="{Binding ConnectPins}" />
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ConnectPins}" />
 
         <!--IsChecked="{Binding ElementName=MainWindow, Path=IsCheckBoxChecked}"-->
     </Grid>

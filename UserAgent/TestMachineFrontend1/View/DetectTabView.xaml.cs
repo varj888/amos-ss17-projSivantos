@@ -11,13 +11,13 @@ namespace TestMachineFrontend1.View
     /// </summary>
     public partial class DetectTabView : UserControl
     {
-        MainWindowViewModel vm;
+        //MainWindowViewModel vm;
         DetectTabViewModel vmCurrent;
         public DetectTabView()
         {
             InitializeComponent();
-            vm = (MainWindowViewModel)DataContext;
-            vmCurrent = (DetectTabViewModel)vm.CurrentViewModelDetectTab;
+            //vm = (MainWindowViewModel)DataContext;
+            vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
         }
 
         private void setVolume_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

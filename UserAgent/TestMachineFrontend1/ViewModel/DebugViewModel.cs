@@ -15,16 +15,22 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class DebugViewModel : ObservableObject
     {
-        private ObservableCollection<DebugModel> debugList = new ObservableCollection<DebugModel>();
-
-        public class DebugModel
-        {
-            public string Origin { get; set; }
-            public string Text { get; set; }
-        }
+        private DebugModel debugModel;
+        private ObservableCollection<DebugModel> debugList;
 
         public DebugViewModel()
         {
+            debugList = new ObservableCollection<DebugModel>();
+        }
+
+        public ObservableCollection<DebugModel> DebugList
+        {
+            get { return debugList; }
+            set
+            {
+                debugList = value;
+                OnPropertyChanged("DebugList");
+            }
         }
 
         public ObservableCollection<DebugModel> GetDebugInfo()
@@ -34,13 +40,13 @@ namespace TestMachineFrontend1.ViewModel
 
         public void AddDebugInfo(string origin, string msg)
         {
-            debugList.Add(new DebugModel { Origin = origin, Text = msg });
+            if (ReferenceEquals(debugModel, null))
+            {
+                debugModel = new DebugModel();
+            }
+            debugModel.Origin = origin;
+            debugModel.Text = msg;
+            debugList.Add(debugModel);
         }
-
-        //now AddDebugInfo
-        //public void addMessage(string origin, string msg)
-        //{
-        //    this.debug.Items.Insert(0, new DebugModel { Origin = origin, Text = msg });
-        //}
     }
 }

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TestMachineFrontend1.View"
              xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
+             xmlns:h="clr-namespace:TestMachineFrontend1.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -26,22 +27,22 @@
         </Grid.RowDefinitions>
         <!--GotFocus="RPI_IP_Entry_GotFocus"-->
         <!--PreviewTextInput="NumberValidationTextBox"-->
-        <TextBox Grid.Column="0" Margin="10 2 2 2" Text="{Binding CurrentViewModelDetectTab.IPAdressConnect}"
+        <TextBox Grid.Column="0" Margin="10 2 2 2" 
+                 Text="{Binding CurrentViewModelDetectTab.IPAdressConnect}"
                  VerticalAlignment="Top" Height="22"  TextWrapping="Wrap" ToolTip="Enter IP Address"
                  VerticalContentAlignment="Center" FontSize="12" Foreground="#FF191925" Width="100" 
                  HorizontalContentAlignment="Stretch" HorizontalAlignment="Left" />
-
-        <!--Click="Add_Connection_Button_Click"-->
+        
         <Button Name="Add_Connection_Button" Content="Add Connection" 
-                HorizontalAlignment="Right" Grid.Column="1" VerticalAlignment="Top" 
+                HorizontalAlignment="Right" 
                 Foreground="#FF4D5B6A" FontFamily="Segoe UI Semibold" Background="{x:Null}" 
-                BorderBrush="{x:Null}" Command="{Binding ConnectIPCommand}"/>
+                BorderBrush="{x:Null}" Command="{Binding ConnectIPCommand}" Margin="0,0,0,10"/>
 
         <CheckBox x:Name="connected_checkbox" Content="" 
                           IsChecked="{Binding CurrentViewModelDetectTab.IsPiConnected}"
                           HorizontalAlignment="Center" VerticalAlignment="Top" IsEnabled="False" 
                               RenderTransformOrigin="2.35,0.6" Margin="184,4,96,0"/>
-
+        
         <ListView BorderThickness="0" Width="{Binding ActualWidth}" 
                   ItemsSource="{Binding CurrentViewModelDetectTab.BackendList}"
                   SelectedItem="{Binding CurrentViewModelDetectTab.SelectedRaspiItem}"
@@ -50,11 +51,11 @@
 
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <!--Click="Connect_Click"-->
+                    <!--TODO-->
                     <MenuItem Header="Connect" />
-                    <!--Click="Disconnect_Click"-->
+                    <!--TODO-->
                     <MenuItem Header="Disconnect" />
-                    <!--Click="Delete_Click"-->
+                    <!--TODO-->
                     <MenuItem Header="Delete" />
                 </ContextMenu>
             </ListView.ContextMenu>

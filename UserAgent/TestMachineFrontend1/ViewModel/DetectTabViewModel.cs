@@ -44,6 +44,7 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        #region Requests
         public Request RequestLEDOn
         {
             get { return new Request("LightLED", 1); }
@@ -73,6 +74,7 @@ namespace TestMachineFrontend1.ViewModel
         {
             get { return new Request("ResetPin", PinID); }
         }
+        #endregion
 
         public Dictionary<String, RaspberryPi> RaspberryPis
         {
@@ -112,11 +114,8 @@ namespace TestMachineFrontend1.ViewModel
 
             set
             {
-                if (value != this.detectModel)
-                {
-                    this.detectModel = value;
-                    OnPropertyChanged("SelectedRaspiItem");
-                }
+                this.detectModel = value;
+                OnPropertyChanged("SelectedRaspiItem");
             }
         }
 
@@ -136,11 +135,13 @@ namespace TestMachineFrontend1.ViewModel
         {
             try
             {
-                var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321)); // asynchronously creates and initializes an instance of RaspberryPi
-                //TODO check
+                var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
                 IsPiConnected = pi1.IsConnected;
                 raspberryPis.Add(IPAdressConnect, pi1);
-                backendList.Add(new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 });
+                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
+                backendList.Add(raspiItem);
+                SelectedRaspiItem = raspiItem;
+                debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
             }
             catch (FormatException fx)
             {
@@ -164,7 +165,8 @@ namespace TestMachineFrontend1.ViewModel
             }
             try
             {
-                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54322));
+                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync
+                    (new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54322));
                 await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
             }
             catch (Exception any)

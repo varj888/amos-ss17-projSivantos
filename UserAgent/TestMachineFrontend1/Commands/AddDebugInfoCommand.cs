@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TestMachineFrontend1.Model;
 using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
@@ -26,7 +27,7 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            ViewModel.AddDebugInfo((parameter as DebugViewModel.DebugModel).Origin, (parameter as DebugViewModel.DebugModel).Text);
+            ViewModel.AddDebugInfo((parameter as DebugModel).Origin, (parameter as DebugModel).Text);
         }
     }
 }

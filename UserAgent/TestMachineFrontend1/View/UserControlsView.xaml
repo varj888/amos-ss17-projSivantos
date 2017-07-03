@@ -8,14 +8,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="500">
     <!--xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"-->
+    
+    <!--TODO: adapt UpdateMethods-->
 
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:UserControlsViewModel}">
         </DataTemplate>
     </UserControl.Resources>
-
-    <!--oder UserControlsViewModel-->
-    <!--TODO: check-->
+    
     <UserControl.DataContext>
         <vm:MainWindowViewModel/>
     </UserControl.DataContext>
@@ -62,9 +62,6 @@
         <Button Grid.Row="0"  Margin="359,51,28,80" Content="Combi"
                         IsEnabled="True" Click="press_Combination"/>
 
-
-
-
         <Slider Grid.Row="3" x:Name="soundSlider" Thumb.DragStarted="soundSlider_DragStarted"
                         Thumb.DragCompleted="soundSlider_DragCompleted"
                         ValueChanged="soundSlider_ValueChanged" Margin="126,115,195,8"
@@ -85,17 +82,14 @@
 
         <TextBlock Margin="7,53,416,28" Grid.Row="2"><Run Text="Stop-End VC"/></TextBlock>
         <TextBlock Margin="84,53,399,28" Grid.Row="2"><Run Text="0"/></TextBlock>
-        <Slider Name="setVolume_Slider"
-                            Maximum="127"
-                            Minimum="0"
-                            TickPlacement="BottomRight"
-                            IsSnapToTickEnabled="True"
-                            TickFrequency="3"
-                            ValueChanged="SetVolume_Slider_ValueChanged"
-                            Margin="112,53,147,16"
-                            Background="AliceBlue" Grid.Row="2"/>
+        <Slider Name="setVolume_Slider" Maximum="127" Minimum="0"
+                TickPlacement="BottomRight" IsSnapToTickEnabled="True"
+                TickFrequency="3" Margin="112,53,147,16"
+                ValueChanged="SetVolume_Slider_ValueChanged"
+                Background="AliceBlue" Grid.Row="2"/>
         <TextBlock Margin="359,53,103,28" Grid.Row="2"><Run Text="127"/></TextBlock>
-        <TextBox Text="{Binding ElementName=setVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox Text="{Binding ElementName=setVolume_Slider, Path=Value, 
+            UpdateSourceTrigger=PropertyChanged}"
                              TextAlignment="Center"
                              Margin="399,53,53,28" Grid.Row="2" />
 
@@ -134,15 +128,16 @@
                         Margin="441,103,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="3"/>
 
-        <Button Name ="DetectTCol_Button" Grid.Row="0"  Margin="123,99,251,10" Content="Detect TCoil"
-                IsEnabled="True" DataContext="{Binding Path=CurrentViewModelDetectTab}"
+        <Button Name ="DetectTCol_Button" Grid.Row="0"  Margin="123,99,251,10" 
+                Content="Detect TCoil" IsEnabled="True"
                 Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding CurrentViewModelUserControls.DetectTCol}"/>
+                CommandParameter="{Binding Path=CurrentViewModelUserControls.DetectTCol}"/>
 
-        <Button x:Name ="UndetectTCol_Button" Grid.Row="0"  Margin="251,99,122,0" Content="Undetect TCoil"
+        <Button x:Name ="UndetectTCol_Button" Grid.Row="0"  Margin="251,99,122,0" 
+                Content="Undetect TCoil"
                 IsEnabled="True" Height="48" VerticalAlignment="Top"
                 Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding CurrentViewModelUserControls.UndetectTCol}"/>
+                CommandParameter="{Binding Path=CurrentViewModelUserControls.UndetectTCol}"/>
 
         <Button Name ="DetectAudioShoe_Button" Grid.Row="1"  Margin="126,10,251,90" 
                 Content="Detect Audio Shoe" IsEnabled="True" 

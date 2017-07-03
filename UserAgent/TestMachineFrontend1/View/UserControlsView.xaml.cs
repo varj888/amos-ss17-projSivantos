@@ -30,9 +30,9 @@ namespace TestMachineFrontend1.View
         {
             InitializeComponent();
             vm = (MainWindowViewModel)DataContext;
-            vmCurrent = (DetectTabViewModel)vm.CurrentViewModelDetectTab;
-            vmUC = (UserControlsViewModel)vm.CurrentViewModelUserControls;
-            vmDebug = (DebugViewModel)vm.CurrentViewModelDebug;
+            vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
+            vmUC = MainWindowViewModel.CurrentViewModelUserControls;
+            vmDebug = MainWindowViewModel.CurrentViewModelDebug;
         }
 
         private void soundSlider_DragStarted(object sender, RoutedEventArgs e)

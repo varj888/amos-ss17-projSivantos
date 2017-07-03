@@ -14,66 +14,21 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class MainWindowViewModel : ObservableObject
     {
-        //public static ICommand LoadViewCommand { get; private set; }
-        public ICommand ConnectIPCommand { get; private set; }
-        //TODO: check if is better to use getDuration() as a simple method
-        public ICommand GetDurationCommand { get; private set; }
-        public ICommand AddDebugInfoCommand { get; private set; }
-        public ICommand SendRequestCommand { get; private set; }
-        public ICommand PressPushButtonCommand { get; private set; }
-        public List<TabControlModel> TabItems { get; set; }
+        #region Commands
+        public static ICommand ConnectIPCommand { get; private set; }
+        public static ICommand GetDurationCommand { get; private set; }
+        public static ICommand AddDebugInfoCommand { get; private set; }
+        public static ICommand SendRequestCommand { get; private set; }
+        public static ICommand PressPushButtonCommand { get; private set; }
+        public static ICommand EndlessVcCommand { get; private set; }
+        public static ICommand PressRockerSwitchCommand { get; private set; }
+
+        #endregion
+
+        #region Properties
+        public static List<TabControlModel> TabItems { get; set; }
         private TestCallee testCallee;
-
-        public MainWindowViewModel()
-        {
-            testCallee = new TestCallee();
-            LoadDebugView();
-            LoadDetectView();
-            LoadMainTabView();
-            LoadDetectTabView();
-            LoadLCDControlsView();
-            LoadMultiplexerView();
-            LoadUserControlView();
-            //LoadViewCommand = new DelegateCommand(o => this.LoadDetectTabView());
-            ConnectIPCommand = new ConnectIPCommand((DetectTabViewModel)CurrentViewModelDetectTab);
-            AddDebugInfoCommand = new AddDebugInfoCommand((DebugViewModel)CurrentViewModelDebug);
-            SendRequestCommand = new SendRequestCommand((DetectTabViewModel)CurrentViewModelDetectTab);
-            GetDurationCommand = new GetDurationCommand((UserControlsViewModel)CurrentViewModelUserControls);
-            PressPushButtonCommand = new PressPushButtonCommand((UserControlsViewModel)CurrentViewModelUserControls,
-                (DetectTabViewModel)CurrentViewModelDetectTab, (DebugViewModel)CurrentViewModelDebug);
-
-            this.TabItems = GetAllTabItems();
-        }
-
-        //public ObservableCollection<ObservableObject> TabItems { get { return tabItems; } }
-
-        public List<TabControlModel> GetAllTabItems()
-        {
-            return new List<TabControlModel>
-                            {
-                                new TabControlModel()
-                                    {
-                                        Header = "Detect",
-                                        CurrentTabContentViewModel = (DetectTabViewModel)CurrentViewModelDetectTab
-                                    },
-                                new TabControlModel()
-                                    {
-                                        Header = "User Controls",
-                                        CurrentTabContentViewModel = (UserControlsViewModel)CurrentViewModelUserControls
-                                    },
-                                new TabControlModel()
-                                    {
-                                        Header = "LCD Controls",
-                                        CurrentTabContentViewModel = (LCDControlsViewModel)CurrentViewModelLCDControls
-                                    },
-                                new TabControlModel()
-                                    {
-                                        Header = "Mux55",
-                                        CurrentTabContentViewModel = (MultiplexerViewModel)CurrentViewModelMultiplexer
-                                    }
-                            };
-        }
-
+        public static TestCallee TestCallee { get; private set; }
         public TestCallee TestCalleeProperty
         {
             get { return testCallee; }
@@ -83,122 +38,77 @@ namespace TestMachineFrontend1.ViewModel
                 OnPropertyChanged("TestCalleeProperty");
             }
         }
+        #endregion
 
-        private ObservableObject currentViewModelDebug;
+        #region ViewModels
+        public static MainWindowViewModel Instance { get; private set; }
+        public static DebugViewModel CurrentViewModelDebug { get; private set; }
+        public static DetectTabViewModel CurrentViewModelDetectTab { get; private set; }
+        public static LCDControlsViewModel CurrentViewModelLCDControls { get; private set; }
+        public static UserControlsViewModel CurrentViewModelUserControls { get; private set; }
+        public static MultiplexerViewModel CurrentViewModelMultiplexer { get; private set; }
+        public static MainTabViewModel CurrentViewModelMainTab { get; private set; }
+        public static DetectViewModel CurrentViewModelDetect { get; private set; }
+        #endregion
 
-        public ObservableObject CurrentViewModelDebug
+        static MainWindowViewModel()
         {
-            get { return currentViewModelDebug; }
-            set
-            {
-                currentViewModelDebug = value;
-                this.OnPropertyChanged("CurrentViewModelDebug");
-            }
+            TestCallee = new TestCallee();
+            InitAllViewModels();
+            InitAllCommands();
+            TabItems = GetAllTabItems();
         }
 
-        private ObservableObject currentViewModelDetectTab;
-
-        public ObservableObject CurrentViewModelDetectTab
+        public static void InitAllViewModels()
         {
-            get { return currentViewModelDetectTab; }
-            set
-            {
-                currentViewModelDetectTab = value;
-                this.OnPropertyChanged("CurrentViewModelDetectTab");
-            }
-        }
-
-        private ObservableObject currentViewModelLCDControls;
-
-        public ObservableObject CurrentViewModelLCDControls
-        {
-            get { return currentViewModelLCDControls; }
-            set
-            {
-                currentViewModelLCDControls = value;
-                this.OnPropertyChanged("CurrentViewModelLCDControls");
-            }
-        }
-
-        private ObservableObject currentViewModelUserControls;
-
-        public ObservableObject CurrentViewModelUserControls
-        {
-            get { return currentViewModelUserControls; }
-            set
-            {
-                currentViewModelUserControls = value;
-                this.OnPropertyChanged("CurrentViewModelUserControls");
-            }
-        }
-
-        private ObservableObject currentViewModelMultiplexer;
-
-        public ObservableObject CurrentViewModelMultiplexer
-        {
-            get { return currentViewModelMultiplexer; }
-            set
-            {
-                currentViewModelMultiplexer = value;
-                this.OnPropertyChanged("CurrentViewModelMultiplexer");
-            }
-        }
-
-        private ObservableObject currentViewModelMainTab;
-        public ObservableObject CurrentViewModelMainTab
-        {
-            get { return currentViewModelMainTab; }
-            set
-            {
-                currentViewModelMainTab = value;
-                this.OnPropertyChanged("CurrentViewModelMainTab");
-            }
-        }
-
-        private ObservableObject currentViewModelDetect;
-
-        public ObservableObject CurrentViewModelDetect
-        {
-            get { return currentViewModelDetect; }
-            set
-            {
-                currentViewModelDetect = value;
-                this.OnPropertyChanged("CurrentViewModelDetect");
-            }
-        }
-
-        private void LoadDebugView()
-        {
+            Instance = new MainWindowViewModel();
             CurrentViewModelDebug = new DebugViewModel();
-        }
-
-        private void LoadDetectView()
-        {
+            CurrentViewModelDetectTab = new DetectTabViewModel(CurrentViewModelDebug, TestCallee);
+            CurrentViewModelLCDControls = new LCDControlsViewModel();
+            CurrentViewModelUserControls = new UserControlsViewModel(CurrentViewModelDetectTab);
+            CurrentViewModelMultiplexer = new MultiplexerViewModel();
+            CurrentViewModelMainTab = new MainTabViewModel();
             CurrentViewModelDetect = new DetectViewModel();
         }
 
-        private void LoadMainTabView()
+        public static void InitAllCommands()
         {
-            CurrentViewModelMainTab = new MainTabViewModel();
+            ConnectIPCommand = new ConnectIPCommand(CurrentViewModelDetectTab);
+            AddDebugInfoCommand = new AddDebugInfoCommand(CurrentViewModelDebug);
+            SendRequestCommand = new SendRequestCommand(CurrentViewModelDetectTab);
+            GetDurationCommand = new GetDurationCommand(CurrentViewModelUserControls);
+            PressPushButtonCommand = new PressPushButtonCommand(CurrentViewModelUserControls,
+                CurrentViewModelDetectTab, CurrentViewModelDebug);
+            EndlessVcCommand = new EndlessVcCommand(CurrentViewModelDetectTab, CurrentViewModelDebug);
+            PressRockerSwitchCommand = new PressRockerSwitchCommand
+                (CurrentViewModelUserControls, CurrentViewModelDetectTab, CurrentViewModelDebug);
         }
 
-        private void LoadDetectTabView()
+        public static List<TabControlModel> GetAllTabItems()
         {
-            CurrentViewModelDetectTab = new DetectTabViewModel((DebugViewModel)CurrentViewModelDebug, TestCalleeProperty);
-        }
-        private void LoadLCDControlsView()
-        {
-            CurrentViewModelLCDControls = new LCDControlsViewModel();
-        }
-
-        private void LoadUserControlView()
-        {
-            CurrentViewModelUserControls = new UserControlsViewModel((DetectTabViewModel)currentViewModelDetectTab);
-        }
-
-        private void LoadMultiplexerView()
-        {
-            CurrentViewModelMultiplexer = new MultiplexerViewModel();
+            return new List<TabControlModel>
+            {
+                new TabControlModel()
+                {
+                    Header = "Detect",
+                    CurrentTabContentViewModel = CurrentViewModelDetectTab
+                },
+                new TabControlModel()
+                {
+                    Header = "User Controls",
+                    CurrentTabContentViewModel = CurrentViewModelUserControls
+                },
+                new TabControlModel()
+                {
+                    Header = "LCD Controls",
+                    CurrentTabContentViewModel = CurrentViewModelLCDControls
+                },
+                new TabControlModel()
+                {
+                    Header = "Mux55",
+                    CurrentTabContentViewModel = CurrentViewModelMultiplexer
+                }
+            };
         }
     }
 }

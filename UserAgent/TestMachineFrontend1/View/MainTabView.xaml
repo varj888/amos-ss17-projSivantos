@@ -12,6 +12,10 @@
         <DataTemplate DataType="{x:Type vm:MainTabViewModel}">
         </DataTemplate>
     </UserControl.Resources>
+    
+    <UserControl.DataContext>
+        <vm:MainWindowViewModel/>
+    </UserControl.DataContext>
     <Grid>
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="1*"/>

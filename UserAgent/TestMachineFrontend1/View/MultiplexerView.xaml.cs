@@ -29,10 +29,10 @@ namespace TestMachineFrontend1.View
         public MultiplexerView()
         {
             InitializeComponent();
-            vm = (MainWindowViewModel)DataContext;
-            vmCurrent = (DetectTabViewModel)vm.CurrentViewModelDetectTab;
-            vmDebug = (DebugViewModel)vm.CurrentViewModelDebug;
-            vmMux = (MultiplexerViewModel)vm.CurrentViewModelMultiplexer;
+            //vm = (MainWindowViewModel)DataContext;
+            vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
+            vmDebug = MainWindowViewModel.CurrentViewModelDebug;
+            vmMux = MainWindowViewModel.CurrentViewModelMultiplexer;
         }
 
         private void setPinsButton_Click(object sender, RoutedEventArgs e)

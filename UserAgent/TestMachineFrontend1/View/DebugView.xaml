@@ -18,22 +18,18 @@
     </UserControl.DataContext>
     <Grid>
         <ListView x:Name="debug"
-                  VerticalAlignment="Top" HorizontalAlignment="Stretch">
+                  VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                   ItemsSource="{Binding Path=CurrentViewModelDebug.DebugList}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  Header="Origin" Width="{Binding Path=ActualWidth, ElementName=debug, 
                         Converter={convert:PercentageConverter}, ConverterParameter='0.3'}"
-                                     DisplayMemberBinding="{Binding Path=CurrentViewModelDebug.DebugModel.Origin}" />
+                                     DisplayMemberBinding="{Binding Origin}" />
                     <GridViewColumn Header="Text" Width="{Binding Path=ActualWidth, ElementName=debug, 
                         Converter={convert:PercentageConverter}, ConverterParameter='0.7'}"
-                                    DisplayMemberBinding="{Binding Path=CurrentViewModelDebug.DebugModel.Text}"/>
+                                    DisplayMemberBinding="{Binding Text}"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <!--<ContentControl Content="{Binding Path=DebugViewModel}" />-->
-        <!--<Grid.Resources>
-            <DataTemplate DataType="{x:Type vm:DebugViewModel}">
-            </DataTemplate>
-        </Grid.Resources>-->
     </Grid>
 </UserControl>
