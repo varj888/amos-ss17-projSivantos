@@ -3,6 +3,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
+using System.Diagnostics;
 
 namespace RaspberryBackend
 {
@@ -32,16 +33,16 @@ namespace RaspberryBackend
 
             if (!folderExists)
             {
-                System.Diagnostics.Debug.WriteLine("\n Storage Folder is going to be initialized... \n");
+                Debug.WriteLine("\n Storage Folder is going to be initialized... \n");
                 //Windows user documents folder
                 StorageFolder docfolder = await KnownFolders.GetFolderForUserAsync(null, KnownFolderId.DocumentsLibrary);
                 storageFolder = await docfolder.CreateFolderAsync(StorageCfgs.StorageFolder_Cfgs, CreationCollisionOption.OpenIfExists);
                 folderExists = storageFolder != null;
-                System.Diagnostics.Debug.WriteLine(folderExists ? "\n ...Storage Folder initialized \n" : "\n ...Storage Folder initialization FAILED \n");
+                Debug.WriteLine(folderExists ? "\n ...Storage Folder initialized \n" : "\n ...Storage Folder initialization FAILED \n");
             }
 
-            System.Diagnostics.Debug.WriteLine("\n Saving File {0} , in {1} : ", FileName, folderExists ? storageFolder.Path : " NOWHERE! ");
-            System.Diagnostics.Debug.WriteLine("\n Data Content to be saved: \n " + _Data.ToString());
+            Debug.WriteLine("\n Saving File {0} , in {1} : ", FileName, folderExists ? storageFolder.Path : " NOWHERE! ");
+            Debug.WriteLine("\n Data Content to be saved: \n " + _Data.ToString());
 
 
             StorageFile _File = await storageFolder.CreateFileAsync(FileName, CreationCollisionOption.ReplaceExisting);
@@ -53,7 +54,7 @@ namespace RaspberryBackend
                 await fileStream.FlushAsync();
                 fileStream.Dispose();
 
-                System.Diagnostics.Debug.WriteLine("\n ...Data Content saved! \n ");
+                Debug.WriteLine("\n ...Data Content saved! \n ");
             }
         }
 
@@ -69,11 +70,11 @@ namespace RaspberryBackend
         {
             if (!folderExists)
             {
-                System.Diagnostics.Debug.WriteLine("\n Storage Folder is going to be initialized... \n");
+                Debug.WriteLine("\n Storage Folder is going to be initialized... \n");
                 StorageFolder docfolder = await KnownFolders.GetFolderForUserAsync(null, KnownFolderId.DocumentsLibrary);
                 storageFolder = await docfolder.CreateFolderAsync(StorageCfgs.StorageFolder_Cfgs, CreationCollisionOption.OpenIfExists);
                 folderExists = storageFolder != null;
-                System.Diagnostics.Debug.WriteLine(folderExists ? "\n ...Storage Folder initialized \n" : "\n ...Storage Folder initialization FAILED! \n");
+                Debug.WriteLine(folderExists ? "\n ...Storage Folder initialized \n" : "\n ...Storage Folder initialization FAILED! \n");
 
             }
 
@@ -83,7 +84,7 @@ namespace RaspberryBackend
             try
             {
                 Task.WaitAll();
-                System.Diagnostics.Debug.WriteLine("\n Loading File {0} , in {1}: \n ", FileName, folderExists ? storageFolder.Path : " NOWHERE! ");
+                Debug.WriteLine("\n Loading File {0} , in {1}: \n ", FileName, folderExists ? storageFolder.Path : " NOWHERE! ");
 
                 _File = await storageFolder.GetFileAsync(FileName);
 
@@ -93,7 +94,7 @@ namespace RaspberryBackend
                     DataContractSerializer Serializer = new DataContractSerializer(typeof(T));
                     Result = (T)Serializer.ReadObject(stream);
 
-                    System.Diagnostics.Debug.WriteLine("\n Data Content to be loaded: \n " + Result.ToString());
+                    Debug.WriteLine("\n Data Content to be loaded: \n " + Result.ToString());
                 }
                 return Result;
             }

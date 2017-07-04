@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
+using System.Diagnostics;
 
 namespace RaspberryBackend
 {
@@ -27,7 +28,7 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Problem with I2C " + e.Message);
+                Debug.WriteLine("Problem with I2C " + e.Message);
                 throw e;
             }
 

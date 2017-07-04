@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 
 namespace RaspberryBackend
@@ -93,7 +94,7 @@ namespace RaspberryBackend
             {
                 foreach (HWComponent hwComponent in hwComponents)
                 {
-                    System.Diagnostics.Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
+                    Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
                     addToRasPi(hwComponent);
                 }
 
@@ -167,7 +168,7 @@ namespace RaspberryBackend
             {
                 if (!hwComponent.isInitialized())
                 {
-                    System.Diagnostics.Debug.WriteLine(hwComponent.GetType().Name + " is not initialised");
+                    Debug.WriteLine(hwComponent.GetType().Name + " is not initialised");
                     return false;
                 }
             }
@@ -181,17 +182,17 @@ namespace RaspberryBackend
             {
                 foreach (HWComponent hwcomponent in _hwComponents.Values)
                 {
-                    System.Diagnostics.Debug.WriteLine("Initialize connected Hardware : " + hwcomponent.GetType().Name);
+                    Debug.WriteLine("Initialize connected Hardware : " + hwcomponent.GetType().Name);
 
                     System.Threading.Tasks.Task.Delay(250).Wait();
                     hwcomponent.initiate();
 
-                    System.Diagnostics.Debug.WriteLine(hwcomponent.GetType().Name + " initalized.");
+                    Debug.WriteLine(hwcomponent.GetType().Name + " initalized.");
                 }
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine("System starts in Test-Mode. Hardware Components are not going to be connected/initialised.");
+                Debug.WriteLine("System starts in Test-Mode. Hardware Components are not going to be connected/initialised.");
             }
         }
 

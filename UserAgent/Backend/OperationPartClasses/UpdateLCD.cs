@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace RaspberryBackend
 {
@@ -71,7 +72,7 @@ namespace RaspberryBackend
                 (RasPi.skeleton.getClientCount() != 0) ? "Con" : "X",
             };
 
-            System.Diagnostics.Debug.WriteLine("\n Prepair Writing asynch on LCD... \n");
+            Debug.WriteLine("\n Prepair Writing asynch on LCD... \n");
             Task.Run(() => print(ip, status));
         }
 
@@ -82,11 +83,11 @@ namespace RaspberryBackend
             {
                 LCD.clrscr();
                 LCD.printInTwoLines(ip, statu);
-                System.Diagnostics.Debug.WriteLine("Writing on LCD: \n {0} \n {1} \n", ip, statu);
+                Debug.WriteLine("Writing on LCD: \n {0} \n {1} \n", ip, statu);
                 Task.Delay(5000).Wait();
             }
 
-            System.Diagnostics.Debug.WriteLine("Writing on LCD: \n {0} \n {1} \n", ip, StorageCfgs.Hi.Model);
+            Debug.WriteLine("Writing on LCD: \n {0} \n {1} \n", ip, StorageCfgs.Hi.Model);
             LCD.printInTwoLines(ip, StorageCfgs.Hi.Model);
         }
     }
