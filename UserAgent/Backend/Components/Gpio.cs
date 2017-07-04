@@ -62,7 +62,7 @@ namespace RaspberryBackend
         //</summary>
         public GpioPin getPin(UInt16 id)
         {
-            if (!pins.ContainsKey(id)) throw new ArgumentException("The requested pin is not available");
+            //if (!pins.ContainsKey(id)) throw new ArgumentException("The requested pin is not available");
 
             return pins[id];
         }

@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.MainTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:MainTabViewModel}">
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    <UserControl.DataContext>
+        <vm:MainWindowViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>-->
+        <GroupBox Grid.Row="0" Header="Information" HorizontalAlignment="Stretch" Height="Auto" Margin="10" VerticalAlignment="Stretch">
+            <Label Content="Evalboard Config: UNKNOWN  | Raspberry Pi: v 3   | IP Address: UNKNOWN" 
+                   HorizontalAlignment="Left" Height="100"  VerticalAlignment="Top"/>
+        </GroupBox>
+
+    </Grid>
+</UserControl>
