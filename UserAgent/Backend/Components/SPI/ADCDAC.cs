@@ -32,6 +32,11 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
+        public double getMaxVoltage()
+        {
+            return this.MAX_VOLTAGE;
+        }
+
         /// <summary>
         /// connect to device
         /// </summary>

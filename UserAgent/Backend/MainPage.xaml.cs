@@ -1,5 +1,4 @@
 ﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
 using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
@@ -30,7 +29,7 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Something went wrong during the initialization process of the RasPi : "+e.Message);
+                Debug.WriteLine("Something went wrong during the initialization process of the RasPi : " + e.Message);
             }
 
             //register at the registry server
@@ -39,7 +38,7 @@ namespace RaspberryBackend
             // set up the skeleton
             runServerStubsAsync();
 
-            ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi, 54321);
+            ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi.Control, 54321);
             raspberryPi.setSkeleton(raspberryPiSkeleton);
 
             this.InitializeComponent();
@@ -55,8 +54,9 @@ namespace RaspberryBackend
                     using (stub = await ServerStub.createServerStubAsync(54322))
                     {
                         await handleServerStubAsync(stub);
-                    } 
-                }catch(Exception e)
+                    }
+                }
+                catch (Exception e)
                 {
                     Debug.WriteLine("error in runServerStub Loop: " + e.Message);
                 }

@@ -81,6 +81,9 @@
     <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
       <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Hi.cs">
+      <Link>CommonFiles\TransferObjects\Hi.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
       <Link>CommonFiles\TransferObjects\Request.cs</Link>
     </Compile>

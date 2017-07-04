@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
 
@@ -17,6 +19,7 @@ namespace RaspberryBackend
         private const byte LCD_WRITE = 0x07;
         private const byte Command_sendMode = 0;
         private const byte Data_sendMode = 1;
+        private bool cancelRequest = false;
 
         //Setup information for lcd initialization (visit lcd documentation for further information)
         public const byte EN = 0x02;
@@ -28,18 +31,27 @@ namespace RaspberryBackend
         public const byte D7c = 0x07;
         public const byte BL = 0x03;
 
+        private bool shifting = false;
+        private int LCD_MAX_LENGTH = 32;
+
+        private CancellationTokenSource _cts;
+
         private byte[] _LineAddress = new byte[] { 0x00, 0x40 };
 
         public byte backLight { get; set; }
         public int scrollSpeed { get; set; }
 
         private I2cDevice _lcdDisplay;
-        /* Stores text that has been most recently written to LCD. 
-         * This might differ from actual hardware status caused 
-         * e.g. by an error such as a physical bitshift. 
+        /* Stores text that has been most recently written to LCD.
+         * This might differ from actual hardware status caused
+         * e.g. by an error such as a physical bitshift.
          * -> Use actual hardware read-back in future. */
-        private StringBuilder _currentText = new StringBuilder();
-        public StringBuilder CurrentText { get => _currentText; private set => _currentText = value; }
+        public StringBuilder CurrentText { get; private set; } = new StringBuilder();
+
+        public int getMaxLength()
+        {
+            return this.LCD_MAX_LENGTH;
+        }
 
         public override void initiate()
         {
@@ -50,7 +62,7 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Problem with I2C " + e.Message);
+                Debug.WriteLine("Problem with I2C " + e.Message);
                 throw e;
             }
 
@@ -152,6 +164,20 @@ namespace RaspberryBackend
             prints(line2);
         }
 
+
+        /// <summary>
+        /// prints text in two lines
+        /// </summary>
+        /// <param name="text">text which shall be displayed</param>
+        /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
+        public void printInTwoLines(string textLine1, string textLine2)
+        {
+            prints(textLine1);
+            gotoSecondLine();
+            prints(textLine2);
+        }
+
+
         /// <summary>
         /// pints text in two lines
         /// </summary>
@@ -182,6 +208,15 @@ namespace RaspberryBackend
                 Task.Delay(200).Wait();
             }
         }
+        /// <summary>
+        /// Print string to LCD display
+        /// </summary>
+        /// <param name="s"></param>
+        public void writeToLCD(string s)
+        {
+            clrscr();
+            prints(s);
+        }
 
         /// <summary>
         /// Prints a string onto display
@@ -208,7 +243,7 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine(e.Message);
+                Debug.WriteLine(e.Message);
             }
         }
 
@@ -222,10 +257,14 @@ namespace RaspberryBackend
             write(Convert.ToByte(x | _LineAddress[y] | (1 << LCD_WRITE)), Command_sendMode);
         }
 
-        //========================================================================================================
-        //======================== The Following methods are not used by this class ==============================
-        //======================== and shoul be moved to Commands                   ==============================
-        //========================================================================================================
+        /// <summary>
+        /// Reset the LCD (clear it's screen)
+        /// </summary>
+        public void resetLCD()
+        {
+            initiateLCD();
+
+        }
 
         /// <summary>
         /// Save custom symbol to CGRAM
@@ -250,6 +289,78 @@ namespace RaspberryBackend
         public void printSymbol(byte address)
         {
             write(address, Data_sendMode);
+        }
+
+        public void shiftDisplayRight()
+        {
+            write(Convert.ToByte(0x18), Command_sendMode);
+        }
+
+        public void shiftDisplayLeft()
+        {
+            write(Convert.ToByte(0x1C), Command_sendMode);
+        }
+
+        public void autoShift()
+        {
+            int counter = 0;
+            bool toggle = true;
+            while (!this._cts.IsCancellationRequested)
+            {
+                if(toggle == true)
+                {
+                    counter++;
+                    this.shiftDisplayRight();
+                } else
+                {
+                    this.shiftDisplayLeft();
+                    counter--;
+                }
+                if(counter == 9)
+                {
+                    toggle = false;
+                } else if(counter == 0)
+                {
+                    toggle = true;
+                }
+                Task.Delay(300).Wait();
+            }
+        }
+
+        public void cancelShifting()
+        {
+            if(this.isShifting())
+            {
+                this._cts.Cancel();
+                Task.Delay(300).Wait();
+                this.shifting = false;
+                this.resetCursor();
+            }
+        }
+
+        public void resetCursor()
+        {
+            write(0x1, Command_sendMode);
+        }
+
+        public bool isShifting()
+        {
+            return this.shifting;
+        }
+
+        public void startShifting()
+        {
+            if (this.isShifting()) return;
+            _cts = new CancellationTokenSource();
+            try
+            {
+                Task scrollTextTask = Task.Factory.StartNew(() => autoShift(), _cts.Token);
+            }
+            catch (OperationCanceledException e)
+            {
+                Debug.WriteLine(e.Message);
+            }
+            this.shifting = true;
         }
     }
 }

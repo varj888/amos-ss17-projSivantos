@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace CommonFiles.Networking
@@ -14,17 +13,18 @@ namespace CommonFiles.Networking
     /// </summary>
     public class ServerSkeleton
     {
-        private Object service;
+        private Object serviceAPI;
+
         private int clientCount = 0;
 
         /// <summary>
         /// Runs the server in a new Thread
         /// </summary>
-        /// <param name="service">Service, which methods will be called on incoming Request</param>
+        /// <param name="serviceApi">Service, which methods will be called on incoming Request</param>
         /// <param name="port">Port, where the server listens for incoming Requests</param>
-        public ServerSkeleton(Object service, int port)
+        public ServerSkeleton(Object serviceAPI, int port)
         {
-            this.service = service;
+            this.serviceAPI = serviceAPI;
             Task.Factory.StartNew(() => runAsync(port));
         }
 
@@ -48,11 +48,11 @@ namespace CommonFiles.Networking
             }
         }
 
-    /// <summary>
-    /// Handles the requestconnection for a client.
-    /// </summary>
-    /// <param name="conn"></param>
-    private void handleRequestConnection(ObjConn<Request, Result> conn)
+        /// <summary>
+        /// Handles the requestconnection for a client.
+        /// </summary>
+        /// <param name="conn"></param>
+        private void handleRequestConnection(ObjConn<Request, Result> conn)
         {
             this.incClientCount();
             while (true)
@@ -63,7 +63,7 @@ namespace CommonFiles.Networking
                 Debug.WriteLine(string.Format("Received Request with content : (command= {0}) and (paramater= {1})", request.command, request.parameters));
 
                 //Process Request
-                Result result = Request.handleRequest(service, request);
+                Result result = Request.handleRequest(serviceAPI, request);
 
                 //Send back Result to the client
                 conn.sendObject(result);
@@ -80,7 +80,7 @@ namespace CommonFiles.Networking
             // Searching the method
             try
             {
-                m = service.GetType().GetMethod(request.command);
+                m = serviceAPI.GetType().GetMethod(request.command);
             }
             catch (Exception e)
             {
@@ -95,8 +95,8 @@ namespace CommonFiles.Networking
             // calling the method
             try
             {
-                object value = m.Invoke(service, request.parameters);
-                return new Result(true,service.GetType().Name, value);
+                object value = m.Invoke(serviceAPI, request.parameters);
+                return new Result(true, serviceAPI.GetType().Name, value);
             }
             catch (TargetInvocationException e)
             {
