@@ -70,6 +70,7 @@
     <Compile Include="Commands\PressPushButtonCommand.cs" />
     <Compile Include="Commands\PressRockerSwitchCommand.cs" />
     <Compile Include="Commands\SendRequestCommand.cs" />
+    <Compile Include="Commands\SetHICommand.cs" />
     <Compile Include="CommonFiles\Networking\ClientConn.cs" />
     <Compile Include="CommonFiles\Networking\ClientSkeleton.cs" />
     <Compile Include="CommonFiles\Networking\DataConn.cs" />

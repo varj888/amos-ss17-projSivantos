@@ -22,6 +22,7 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand PressPushButtonCommand { get; private set; }
         public static ICommand EndlessVcCommand { get; private set; }
         public static ICommand PressRockerSwitchCommand { get; private set; }
+        public static ICommand SetHICommand { get; private set; }
 
         #endregion
 
@@ -80,6 +81,7 @@ namespace TestMachineFrontend1.ViewModel
             PressPushButtonCommand = new PressPushButtonCommand();
             EndlessVcCommand = new EndlessVcCommand();
             PressRockerSwitchCommand = new PressRockerSwitchCommand();
+            SetHICommand = new SetHICommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()

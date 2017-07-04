@@ -77,11 +77,11 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedHI = value;
                 _selectedHIIndex = HIListItems.IndexOf(_selectedHI);
                 OnPropertyChanged("SelectedHI");
-                setHI();
+                //setHI();
             }
         }
 
-        private void setHI()
+        public void setHI()
         {
             ComboBoxItem ci;
             try
