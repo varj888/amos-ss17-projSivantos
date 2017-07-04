@@ -27,10 +27,11 @@
         </Grid.RowDefinitions>
         <!--GotFocus="RPI_IP_Entry_GotFocus"-->
         <!--PreviewTextInput="NumberValidationTextBox"-->
+        <!--VerticalContentAlignment="Center"-->
         <TextBox Grid.Column="0" Margin="10 2 2 2" 
                  Text="{Binding CurrentViewModelDetectTab.IPAdressConnect}"
                  VerticalAlignment="Top" Height="22"  TextWrapping="Wrap" ToolTip="Enter IP Address"
-                 VerticalContentAlignment="Center" FontSize="12" Foreground="#FF191925" Width="100" 
+                 FontSize="12" Foreground="#FF191925" Width="100" 
                  HorizontalContentAlignment="Stretch" HorizontalAlignment="Left" />
         
         <Button Name="Add_Connection_Button" Content="Add Connection" 

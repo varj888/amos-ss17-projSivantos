@@ -11,12 +11,7 @@ namespace TestMachineFrontend1.Commands
 {
     public class AddDebugInfoCommand : ICommand
     {
-        public DebugViewModel ViewModel { get; private set; }
-
-        public AddDebugInfoCommand(DebugViewModel viewModel)
-        {
-            ViewModel = viewModel;
-        }
+        public AddDebugInfoCommand() { }
 
         public event EventHandler CanExecuteChanged;
 
@@ -27,7 +22,8 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            ViewModel.AddDebugInfo((parameter as DebugModel).Origin, (parameter as DebugModel).Text);
+           MainWindowViewModel.CurrentViewModelDebug.AddDebugInfo
+                ((parameter as DebugModel).Origin, (parameter as DebugModel).Text);
         }
     }
 }

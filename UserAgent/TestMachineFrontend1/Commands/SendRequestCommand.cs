@@ -7,14 +7,16 @@ namespace TestMachineFrontend1.Commands
 {
     public class SendRequestCommand : ICommand
     {
-        public DetectTabViewModel ViewModel { get; private set; }
+        private UserControlsViewModel ucVM;
+        private DetectTabViewModel dtVM;
+        private DebugViewModel debugVM;
 
-        public SendRequestCommand(DetectTabViewModel viewModel)
-
+        public SendRequestCommand()
         {
-            ViewModel = viewModel;
+            ucVM = MainWindowViewModel.CurrentViewModelUserControls;
+            dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
+            debugVM = MainWindowViewModel.CurrentViewModelDebug;
         }
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -24,7 +26,22 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            ViewModel.sendRequest(parameter as Request);
+            dtVM.sendRequest(parameter as Request);
+            Result result = dtVM.getResult(parameter as Request);
+
+            if (((parameter as Request).command.Equals(ucVM.DetectTCol.command))
+                && result.value.ToString() == "High")
+            {
+                ucVM.TCoilDetected = true;
+                debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
+
+            }
+            else if ((parameter as Request).command.Equals(ucVM.UndetectTCol.command)
+                && result.value.ToString() == "Low")
+            {
+                ucVM.TCoilDetected = false;
+                debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
+            }
         }
     }
 }

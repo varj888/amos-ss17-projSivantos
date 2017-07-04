@@ -63,9 +63,9 @@ namespace TestMachineFrontend1.ViewModel
         {
             Instance = new MainWindowViewModel();
             CurrentViewModelDebug = new DebugViewModel();
-            CurrentViewModelDetectTab = new DetectTabViewModel(CurrentViewModelDebug, TestCallee);
+            CurrentViewModelDetectTab = new DetectTabViewModel(TestCallee);
             CurrentViewModelLCDControls = new LCDControlsViewModel();
-            CurrentViewModelUserControls = new UserControlsViewModel(CurrentViewModelDetectTab);
+            CurrentViewModelUserControls = new UserControlsViewModel();
             CurrentViewModelMultiplexer = new MultiplexerViewModel();
             CurrentViewModelMainTab = new MainTabViewModel();
             CurrentViewModelDetect = new DetectViewModel();
@@ -73,15 +73,13 @@ namespace TestMachineFrontend1.ViewModel
 
         public static void InitAllCommands()
         {
-            ConnectIPCommand = new ConnectIPCommand(CurrentViewModelDetectTab);
-            AddDebugInfoCommand = new AddDebugInfoCommand(CurrentViewModelDebug);
-            SendRequestCommand = new SendRequestCommand(CurrentViewModelDetectTab);
-            GetDurationCommand = new GetDurationCommand(CurrentViewModelUserControls);
-            PressPushButtonCommand = new PressPushButtonCommand(CurrentViewModelUserControls,
-                CurrentViewModelDetectTab, CurrentViewModelDebug);
-            EndlessVcCommand = new EndlessVcCommand(CurrentViewModelDetectTab, CurrentViewModelDebug);
-            PressRockerSwitchCommand = new PressRockerSwitchCommand
-                (CurrentViewModelUserControls, CurrentViewModelDetectTab, CurrentViewModelDebug);
+            ConnectIPCommand = new ConnectIPCommand();
+            AddDebugInfoCommand = new AddDebugInfoCommand();
+            SendRequestCommand = new SendRequestCommand();
+            GetDurationCommand = new GetDurationCommand();
+            PressPushButtonCommand = new PressPushButtonCommand();
+            EndlessVcCommand = new EndlessVcCommand();
+            PressRockerSwitchCommand = new PressRockerSwitchCommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()

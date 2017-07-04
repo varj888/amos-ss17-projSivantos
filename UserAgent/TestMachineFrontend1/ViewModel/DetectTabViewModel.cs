@@ -92,13 +92,15 @@ namespace TestMachineFrontend1.ViewModel
 
         private ObservableCollection<RaspberryPiItem> backendList;
 
-        private DebugViewModel debugVM;
+        //private DebugViewModel debugVM;
         private RaspberryPiItem detectModel;
         private TestCallee testCallee;
+        private DebugViewModel debugVM;
 
-        public DetectTabViewModel(DebugViewModel debugVM, TestCallee testCallee)
+        public DetectTabViewModel(/*DebugViewModel debugVM,*/ TestCallee testCallee)
         {
-            this.debugVM = debugVM;
+            //this.debugVM = debugVM;
+            debugVM = MainWindowViewModel.CurrentViewModelDebug;
             this.testCallee = testCallee;
             ItemSelected = new DelegateCommand(o =>
             {
@@ -131,6 +133,11 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        public Request GetAvailableHI
+        {
+            get { return new Request("GetAvailableHI", 0); }
+        }
+
         public async void connectIP()
         {
             try
@@ -142,6 +149,9 @@ namespace TestMachineFrontend1.ViewModel
                 backendList.Add(raspiItem);
                 SelectedRaspiItem = raspiItem;
                 debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
+                sendRequest(GetAvailableHI);
+                Result result = getResult(GetAvailableHI);
+                MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
             }
             catch (FormatException fx)
             {
@@ -192,8 +202,33 @@ namespace TestMachineFrontend1.ViewModel
                 debugVM.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
                 return;
             }
+            //Result result = getResult(request);
+            //Result result;
 
-            Result result;
+            //try
+            //{
+            //    result = getClientconnection().receiveObject();
+            //}
+            //catch (Exception e)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
+            //    return;
+            //}
+
+            //if (result.exceptionMessage == null)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "sucess");
+            //}
+            //else
+            //{
+            //    debugVM.AddDebugInfo(request.command, result.exceptionMessage);
+            //}
+
+        }
+
+        public Result getResult(Request request)
+        {
+            Result result = null;
 
             try
             {
@@ -202,7 +237,6 @@ namespace TestMachineFrontend1.ViewModel
             catch (Exception e)
             {
                 debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
-                return;
             }
 
             if (result.exceptionMessage == null)
@@ -213,9 +247,10 @@ namespace TestMachineFrontend1.ViewModel
             {
                 debugVM.AddDebugInfo(request.command, result.exceptionMessage);
             }
+            return result;
         }
 
-        private ClientConn<Result, Request> getClientconnection()
+        public ClientConn<Result, Request> getClientconnection()
         {
             if (this.SelectedRaspiItem == null && this.BackendList.Count > 0)
             {

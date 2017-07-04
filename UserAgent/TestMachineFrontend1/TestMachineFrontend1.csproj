@@ -80,6 +80,7 @@
     <Compile Include="CommonFiles\TrasferObjects\Request.cs" />
     <Compile Include="CommonFiles\TrasferObjects\Result.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
+    <Compile Include="Helpers\HelperXML.cs" />
     <Compile Include="Helpers\ListItemSelected.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\PercentageConverter.cs" />
@@ -112,9 +113,6 @@
     </Compile>
     <Compile Include="View\DebugView.xaml.cs">
       <DependentUpon>DebugView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\DetectTabViewOld.xaml.cs">
-      <DependentUpon>DetectTabViewOld.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\LCDControlsView.xaml.cs">
       <DependentUpon>LCDControlsView.xaml</DependentUpon>
@@ -150,10 +148,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DebugView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DetectTabViewOld.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

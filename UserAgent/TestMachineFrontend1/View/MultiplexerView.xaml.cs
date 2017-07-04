@@ -22,51 +22,9 @@ namespace TestMachineFrontend1.View
     /// </summary>
     public partial class MultiplexerView : UserControl
     {
-        MainWindowViewModel vm;
-        DetectTabViewModel vmCurrent;
-        DebugViewModel vmDebug;
-        MultiplexerViewModel vmMux;
         public MultiplexerView()
         {
             InitializeComponent();
-            //vm = (MainWindowViewModel)DataContext;
-            vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
-            vmDebug = MainWindowViewModel.CurrentViewModelDebug;
-            vmMux = MainWindowViewModel.CurrentViewModelMultiplexer;
-        }
-
-        private void setPinsButton_Click(object sender, RoutedEventArgs e)
-        {
-            vmCurrent.sendRequest(new Request("ConnectPins", new object[] { (int)vmMux.ValueX, (int)vmMux.ValueY }));
-        }
-
-        private void resetMux_Click(object sender, RoutedEventArgs e)
-        {
-            vmCurrent.sendRequest(new Request("ResetMux", 0));
-        }
-
-        private void availableHI_Click(object sender, RoutedEventArgs e)
-        {
-            vmCurrent.sendRequest(new Request("GetAvailableHI", 0));
-        }
-
-        private void setHI_Click(object sender, RoutedEventArgs e)
-        {
-            ComboBoxItem ci;
-            try
-            {
-                ci = (ComboBoxItem)availableHIList.Items.GetItemAt(availableHIList.SelectedIndex);
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                vmDebug.AddDebugInfo("setHI_Click", "No valid model selected.");
-                return;
-            }
-
-            string model = ci.Content.ToString();
-            string family = ci.Name;
-
-            vmCurrent.sendRequest(new Request("SetHI", new Object[] { family, model }));
         }
     }
 }

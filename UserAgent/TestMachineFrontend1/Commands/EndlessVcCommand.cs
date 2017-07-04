@@ -11,13 +11,13 @@ namespace TestMachineFrontend1.Commands
 {
     public class EndlessVcCommand : ICommand
     {
-        public DetectTabViewModel DtViewModel { get; private set; }
-        public DebugViewModel DebugViewModel { get; private set; }
+        private DetectTabViewModel dtViewModel;
+        private DebugViewModel debugViewModel;
 
-        public EndlessVcCommand(DetectTabViewModel dtViewModel, DebugViewModel debugViewModel)
+        public EndlessVcCommand()
         {
-            DtViewModel = dtViewModel;
-            DebugViewModel = debugViewModel;
+            dtViewModel = MainWindowViewModel.CurrentViewModelDetectTab;
+            debugViewModel = MainWindowViewModel.CurrentViewModelDebug;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -29,19 +29,20 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object par)
         {
-            DtViewModel.sendRequest(par as Request);
+            dtViewModel.sendRequest(par as Request);
+            dtViewModel.getResult(par as Request);
 
-            if((par as Request).command.Equals("EndlessVCUp"))
+            if ((par as Request).command.Equals("EndlessVCUp"))
             {
-                DebugViewModel.AddDebugInfo("Endless_VC_Up", "+1");
+                debugViewModel.AddDebugInfo("Endless_VC_Up", "+1");
             }
             else if((par as Request).command.Equals("EndlessVCUp"))
             {
-                DebugViewModel.AddDebugInfo("Endless_VC_Down", "-1");
+                debugViewModel.AddDebugInfo("Endless_VC_Down", "-1");
             }
             else
             {
-                DebugViewModel.AddDebugInfo("Unknown command", "");
+                debugViewModel.AddDebugInfo("Unknown command", "");
             }
         }
     }

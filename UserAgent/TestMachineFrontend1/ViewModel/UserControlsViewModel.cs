@@ -14,9 +14,9 @@ namespace TestMachineFrontend1.ViewModel
     public class UserControlsViewModel : ObservableObject
     {
         private DetectTabViewModel dtVM;
-        public UserControlsViewModel(DetectTabViewModel dtVM)
+        public UserControlsViewModel()
         {
-            this.dtVM = dtVM;
+            dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
             initDurationComboBox();
             initReceiverComboBox();
         }
@@ -96,12 +96,10 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedReceiverItem = value;
                 _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem);
                 OnPropertyChanged("SelectedReceiverItem");
-                //TODO: check!
-
-                //int a = this.receiverBox.SelectedIndex;
-                //ComboBoxItem s = (ComboBoxItem)receiverBox.Items[a];
-                //sendRequest(new Request("SetARDVoltage", s.Content));
-                dtVM.sendRequest(new Request("SetARDVoltage", _selectedReceiverItem.Content));
+                Request request = new Request("SetARDVoltage", _selectedReceiverItem.Content);
+                dtVM.sendRequest(request);
+                //kann nicht bevor der Initialisierung des Receiver aufgerufen werden!!!
+                //dtVM.getResult(request);
             }
         }
 
@@ -149,6 +147,22 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedDurationIndex = value;
                 OnPropertyChanged("SelectedDurationIndex");
             }
+        }
+
+        private bool tCoilDetected;
+        public bool TCoilDetected
+        {
+            get { return tCoilDetected; }
+            set
+            {
+                tCoilDetected = value;
+                OnPropertyChanged("TCoilDetected");
+            }
+        }
+
+        public Request PressPushButton
+        {
+            get { return new Request("PressPushButton", getDuration()); }
         }
 
         public Request PressRockerSwitchUp

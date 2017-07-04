@@ -22,14 +22,12 @@ namespace TestMachineFrontend1.View
     /// </summary>
     public partial class UserControlsView : UserControl
     {
-        MainWindowViewModel vm;
         DetectTabViewModel vmCurrent;
         UserControlsViewModel vmUC;
         DebugViewModel vmDebug;
         public UserControlsView()
         {
             InitializeComponent();
-            vm = (MainWindowViewModel)DataContext;
             vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
             vmUC = MainWindowViewModel.CurrentViewModelUserControls;
             vmDebug = MainWindowViewModel.CurrentViewModelDebug;
@@ -74,7 +72,9 @@ namespace TestMachineFrontend1.View
                 {
                     param[2] = 1;
                 }
-                vmCurrent.sendRequest(new Request("PressCombination", param));
+                Request request = new Request("PressCombination", param);
+                vmCurrent.sendRequest(request);
+                vmCurrent.getResult(request);
             }
             else
             {
@@ -82,24 +82,30 @@ namespace TestMachineFrontend1.View
             }
         }
 
-        private void receiverUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            int a = this.receiverBox.SelectedIndex;
-            ComboBoxItem s = (ComboBoxItem)receiverBox.Items[a];
-           vmCurrent.sendRequest(new Request("SetARDVoltage", s.Content));
-        }
+        //private void receiverUpdate_Click(object sender, RoutedEventArgs e)
+        //{
+        //    int a = this.receiverBox.SelectedIndex;
+        //    ComboBoxItem s = (ComboBoxItem)receiverBox.Items[a];
+        //    Request request = new Request("SetARDVoltage", s.Content);
+        //    vmCurrent.sendRequest(request);
+        //    vmCurrent.getResult(request);
+        //}
 
-        private void Endless_VC_Up_Click(object sender, RoutedEventArgs e)
-        {
-           vmCurrent.sendRequest(new Request("EndlessVCUp", new int[] { }));
-            vmDebug.AddDebugInfo("Endless_VC_Up", "+1");
-        }
+        //private void Endless_VC_Up_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Request request = new Request("EndlessVCUp", new int[] { });
+        //    vmCurrent.sendRequest(request);
+        //    vmCurrent.getResult(request);
+        //    vmDebug.AddDebugInfo("Endless_VC_Up", "+1");
+        //}
 
-        private void Endless_VC_Down_Click(object sender, RoutedEventArgs e)
-        {
-            vmCurrent.sendRequest(new Request("EndlessVCDown", new int[] { }));
-            vmDebug.AddDebugInfo("Endless_VC_Down", "-1");
-        }
+        //private void Endless_VC_Down_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Request request = new Request("EndlessVCDown", new int[] { });
+        //    vmCurrent.sendRequest(request);
+        //    vmCurrent.getResult(request);
+        //    vmDebug.AddDebugInfo("Endless_VC_Down", "-1");
+        //}
 
         private void SetVolume_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {

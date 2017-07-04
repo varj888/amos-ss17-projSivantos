@@ -11,11 +11,11 @@ namespace TestMachineFrontend1.Commands
 {
     public class GetDurationCommand : ICommand
     {
-        public UserControlsViewModel ViewModel { get; private set; }
+        private UserControlsViewModel viewModel;
 
-        public GetDurationCommand(UserControlsViewModel viewModel)
+        public GetDurationCommand()
         {
-            ViewModel = viewModel;
+            viewModel = MainWindowViewModel.CurrentViewModelUserControls;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -27,7 +27,7 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            ViewModel.getDuration();
+            viewModel.getDuration();
         }
     }
 }

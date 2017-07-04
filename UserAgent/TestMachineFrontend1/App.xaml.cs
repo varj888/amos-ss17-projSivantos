@@ -16,31 +16,8 @@ namespace TestMachineFrontend1
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            ////base.OnStartup(e);
-
-            //var window = new MainWindow();
-            ////window.DataContext = new MainWindowViewModel();
-            ////{ DataContext = new MainWindowViewModel() };
-            ////window.Show();
-            //MainWindow = window;
-            //MainWindow.Show();
-
             base.OnStartup(e);
-
-            //MainWindow app = new MainWindow();
-            //MainWindowViewModel context = new MainWindowViewModel();
-            //TestMachineFrontend1.MainWindow.Instance.DataContext = context;
             TestMachineFrontend1.MainWindow.Instance.Show();
         }
-
-        //public App()
-        //{
-        //    Startup += App_Startup;
-        //}
-
-        //void App_Startup(object sender, StartupEventArgs e)
-        //{
-        //    TestMachineFrontend1.MainWindow.Instance.Show();
-        //}
     }
 }

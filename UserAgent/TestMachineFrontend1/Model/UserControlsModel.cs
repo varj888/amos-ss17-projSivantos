@@ -9,6 +9,5 @@ namespace TestMachineFrontend1.Model
 {
     public class UserControlsModel : ObservableObject
     {
-        //no functionality implemented yet
     }
 }
