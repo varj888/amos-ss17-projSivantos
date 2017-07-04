@@ -62,11 +62,11 @@
 
         <TextBlock Margin="531,348,9,42"><Run Text="V"/></TextBlock>
 
-        <!--Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ConnectPins}"-->
+        
         <Button x:Name="connect_Pins" Content="Mux55" HorizontalAlignment="Left" 
                 Margin="372,85,0,0" VerticalAlignment="Top" Width="58" Height="26" 
-                 />
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ConnectPins}" />
 
         <!--IsChecked="{Binding ElementName=MainWindow, Path=IsCheckBoxChecked}"-->
     </Grid>

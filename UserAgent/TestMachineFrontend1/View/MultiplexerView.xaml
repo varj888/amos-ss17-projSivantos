@@ -27,18 +27,18 @@
         <TextBox x:Name="valueY" HorizontalAlignment="Left" Height="26"
                              Margin="353,52,0,0" TextWrapping="Wrap" Text="{Binding Path=CurrentViewModelMultiplexer.ValueY}" VerticalAlignment="Top" Width="59"/>
         <!--Click="setPinsButton_Click"-->
-        <!--Command="{Binding SendRequestCommand}"
-                CommandParameter="{Binding CurrentViewModelMultiplexer.ConnectPins}"-->
+        
         <Button Name="setPinsButton" Content="Set pins" HorizontalAlignment="Left" 
                 Margin="223,103,0,0" VerticalAlignment="Top" Width="85" Height="28"
-                />
+               Command="{Binding SendRequestCommand}"
+                CommandParameter="{Binding CurrentViewModelMultiplexer.ConnectPins}" />
 
         <!--Click="resetMux_Click"-->
-        <!--Command="{Binding SendRequestCommand}"
-                CommandParameter="{Binding CurrentViewModelMultiplexer.ResetMux}"-->
+        
         <Button x:Name="resetMux" Content="Reset multiplexer" HorizontalAlignment="Left" 
                 Margin="313,103,0,0" VerticalAlignment="Top" Width="85" Height="28"
-                />
+              Command="{Binding SendRequestCommand}"
+                CommandParameter="{Binding CurrentViewModelMultiplexer.ResetMux}"  />
 
         <ComboBox Name="availableHIList" HorizontalAlignment="Left" Margin="71,10,0,0" 
                   VerticalAlignment="Top" Width="123" Grid.Row="1" Height="23"
