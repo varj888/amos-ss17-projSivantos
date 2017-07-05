@@ -18,6 +18,8 @@ namespace CommonFiles.Networking
     {
         private TcpListener listener;
 
+        public EventHandler<TcpClient> connectionAccepted;
+
         /// <summary>
         /// creates a Server wich will listen on a port for TCP Connections
         /// </summary>
@@ -31,20 +33,36 @@ namespace CommonFiles.Networking
             listener.Start();
         }
 
-        /// <summary>
-        /// Accepts a TCP Connection to a Client
-        /// </summary>
-        /// <returns>A socket representing the Connection</returns>
-        public async Task<TcpClient> acceptConnectionAsync()
+        public async Task runServerLoop()
         {
-            // Accept Requests
-            return await listener.AcceptTcpClientAsync();
+            while (true)
+            {
+                TcpClient socket;
+                try
+                {
+                    socket = await listener.AcceptTcpClientAsync();
+                }catch(Exception e)
+                {
+                    Debug.WriteLine("Error Accepting Connection: " + e.Message);
+                    continue;
+                }
+                onConnectionAccepted(socket);
+            }
         }
 
         // Disposes the server
         public void Dispose()
         {
             listener.Stop();
+        }
+
+        private void onConnectionAccepted(TcpClient socket)
+        {
+            EventHandler<TcpClient> handler = connectionAccepted;
+            if (connectionAccepted != null)
+            {
+                handler(this, socket);
+            }
         }
     }
 

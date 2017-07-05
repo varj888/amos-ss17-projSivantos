@@ -19,7 +19,7 @@ namespace RaspberryBackend
         protected UInt16 audioShoe_Pin = 19;
         protected UInt16 teleCoil_Pin = 13;
         protected UInt16 muxerResetPin = 18;
-        private ServerSkeleton skeleton = null;
+        //private ServerSkeleton skeleton = null;
 
         //Single location for all Hardware Components
         private Dictionary<String, HWComponent> _hwComponents = new Dictionary<String, HWComponent>();
@@ -187,9 +187,9 @@ namespace RaspberryBackend
             }
         }
 
-        public void setSkeleton(ServerSkeleton s)
-        {
-            this.skeleton = s;
-        }
+        //public void setSkeleton(ServerSkeleton s)
+        //{
+            //this.skeleton = s;
+        //}
     }
 }

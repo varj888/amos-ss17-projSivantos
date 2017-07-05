@@ -3,6 +3,7 @@ using CommonFiles.TransferObjects;
 using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
@@ -16,6 +17,8 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
         RaspberryPi raspberryPi = null;
+        BackChannel backChannel;
+        RequestHandler requestHandler;
 
         public MainPage()
         {
@@ -36,41 +39,30 @@ namespace RaspberryBackend
             //register at the registry server
             //registerAsync();
 
-            // set up the skeleton
-            runServerStubsAsync();
-
-            ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi, 54321);
-            raspberryPi.setSkeleton(raspberryPiSkeleton);
+            //ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi, 54321);
+            //raspberryPi.setSkeleton(raspberryPiSkeleton);
+            init();
 
             this.InitializeComponent();
         }
 
-        private async Task runServerStubsAsync()
+        async void init()
         {
-            while (true)
-            {
-                try
-                {
-                    ServerStub stub;
-                    using (stub = await ServerStub.createServerStubAsync(54322))
-                    {
-                        await handleServerStubAsync(stub);
-                    } 
-                }catch(Exception e)
-                {
-                    Debug.WriteLine("error in runServerStub Loop: " + e.Message);
-                }
-            }
+            backChannel = new BackChannel();
+            requestHandler = new RequestHandler();
+
+            TCPServer server = new TCPServer(54321);
+            server.connectionAccepted += handleConnection;
+            await server.runServerLoop();
         }
 
-        private async Task handleServerStubAsync(ServerStub stub)
+        private void handleConnection(Object sender, TcpClient socket)
         {
-            while (true)
-            {
-                stub.testCall("Second RPC connection Test");
-                await Task.Delay(3000);
-            }
+            backChannel.setClient(socket);
+            RequestHandler.runRequestHandlerLoop(raspberryPi, backChannel, socket);
         }
+
+       
 
         //private async Task registerAsync()
         //{

@@ -31,11 +31,11 @@ namespace RaspberryBackendTests
         [TestInitialize]
         public async Task setUp()
         {
-            tcpServer = new TCPServer(_PORT);
-            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(_LOCALHOST), _PORT);
-            tcpClient = await ClientConn<Result,Request>.connectAsync(endpoint);
+        //    tcpServer = new TCPServer(_PORT);
+        //    IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(_LOCALHOST), _PORT);
+        //    tcpClient = await ClientConn<Result,Request>.connectAsync(endpoint);
 
-            socket = await tcpServer.acceptConnectionAsync();
+        //    socket = await tcpServer.acceptConnectionAsync();
         }
 
         [TestMethod]

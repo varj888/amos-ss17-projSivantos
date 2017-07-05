@@ -97,9 +97,6 @@
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\Networking\ServerSkeleton.cs">
-      <Link>CommonFiles\Networking\ServerSkeleton.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
       <Link>CommonFiles\Networking\TCPServer.cs</Link>
     </Compile>
@@ -118,7 +115,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\ServerStub.cs" />
+    <Compile Include="Components\BackChannel.cs" />
+    <Compile Include="Components\RequestHandler.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableAudioShoe.cs" />
     <Compile Include="RaspberryPiRemoteAPI\ConnectPins.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableTeleCoil.cs" />

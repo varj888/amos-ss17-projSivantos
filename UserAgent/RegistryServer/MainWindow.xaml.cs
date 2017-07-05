@@ -23,13 +23,13 @@ namespace RegistryServer
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ServerSkeleton registryServiceSkeleton;
+        //private ServerSkeleton registryServiceSkeleton;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            registryServiceSkeleton = new ServerSkeleton(new RegistryService(), 54320);
+            //registryServiceSkeleton = new ServerSkeleton(new RegistryService(), 54320);
         }
 
     }

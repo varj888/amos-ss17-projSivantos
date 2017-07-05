@@ -82,10 +82,10 @@ namespace RaspberryBackend
             string currentReceiver = this.getCurrentReceiver();
             string status = (this.isInitialized()) ? "On" : "Off";
             string vbat = ADConverter.getDACVoltage1().ToString();
-            string isConnected = (this.skeleton.getClientCount() != 0) ? "Con" : "X";
-            string print = ip + " " + isConnected + " " + currentReceiver + " " + status + " " + vbat + "V " + hi;
+            //string isConnected = (this.skeleton.getClientCount() != 0) ? "Con" : "X";
+            //string print = ip + " " + isConnected + " " + currentReceiver + " " + status + " " + vbat + "V " + hi;
 
-            this.LCD.printInTwoLines(print);
+            //this.LCD.printInTwoLines(print);
         }
     }
 }
