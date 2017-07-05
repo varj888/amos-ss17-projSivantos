@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Windows.Devices.Gpio;
 
 
 namespace RaspberryBackend
@@ -67,6 +68,28 @@ namespace RaspberryBackend
 
             //Task.Delay(1500).Wait(); //Uncomment if LCD does not update on startup
             Control.updateLCD();
+
+            Control.GPIOinterface.registerEventHandler(5, Pin_ValueChanged);
+
+            while (true)
+            {
+                Control.ADConverter.setADCRefVoltage(1.5);
+                Debug.WriteLine("ADC In2 Voltage is: {0}", Control.ADConverter.getADCVoltage2());
+                Task.Delay(1000).Wait();
+            }
+        }
+
+        private void Pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
+        {
+            if (args.Edge == GpioPinEdge.FallingEdge )
+            {
+                //TODO: read and check voltage Control.ADConverter.getADCVoltage2()
+                Debug.WriteLine("pressed");
+            }
+            else if (args.Edge == GpioPinEdge.RisingEdge)
+            {
+                Debug.WriteLine("released");
+            }
         }
 
         private void setMulitplexerStartUpConfig()
