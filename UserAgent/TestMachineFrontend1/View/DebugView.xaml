@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.DebugView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
+             xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
+             mc:Ignorable="d" 
+             Height="600" Width="320" MaxWidth="500">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:DebugViewModel}">
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <vm:MainWindowViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <ListView x:Name="debug"
+                  VerticalAlignment="Top" HorizontalAlignment="Stretch"
+                   ItemsSource="{Binding Path=CurrentViewModelDebug.DebugList}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn  Header="Origin" Width="{Binding Path=ActualWidth, ElementName=debug, 
+                        Converter={convert:PercentageConverter}, ConverterParameter='0.3'}"
+                                     DisplayMemberBinding="{Binding Origin}" />
+                    <GridViewColumn Header="Text" Width="{Binding Path=ActualWidth, ElementName=debug, 
+                        Converter={convert:PercentageConverter}, ConverterParameter='0.7'}"
+                                    DisplayMemberBinding="{Binding Text}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

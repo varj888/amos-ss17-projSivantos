@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace RaspberryBackendTests
 {
@@ -17,7 +16,7 @@ namespace RaspberryBackendTests
         [TestMethod]
         public void TestCreateMultiplexerConfig()
         {
-            MultiplexerConfig conf = MultiplexerConfigParser.getMultiplexerConfig(_FAMILY, _MODEL);
+            MultiplexerConfig conf = HiXmlParser.getMultiplexerConfig(_FAMILY, _MODEL);
 
             Dictionary<int, string> dic = conf.X_Pin_To_Value_Map;
 

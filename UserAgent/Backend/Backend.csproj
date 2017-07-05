@@ -106,6 +106,9 @@
     <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
       <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Hi.cs">
+      <Link>CommonFiles\TransferObjects\Hi.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
       <Link>CommonFiles\TransferObjects\Request.cs</Link>
     </Compile>
@@ -115,6 +118,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Components\BackChannel.cs" />
     <Compile Include="Components\RequestHandler.cs" />
     <Compile Include="RaspberryPiRemoteAPI\EnableAudioShoe.cs" />
@@ -136,21 +140,51 @@
     <Compile Include="RaspberryPiRemoteAPI\TurnHIOn.cs" />
     <Compile Include="RaspberryPiRemoteAPI\SetAnalogVolume.cs" />
     <Compile Include="RaspberryPiRemoteAPI\WritePin.cs" />
+=======
+    <Compile Include="Components\RaspberryPi.cs" />
+    <Compile Include="Components\Operations.cs" />
+    <Compile Include="Components\ServerStub.cs" />
+    <Compile Include="Config\GpioMap.cs" />
+    <Compile Include="Config\parser\HiXmlParser.cs" />
+    <Compile Include="Config\MultiplexerConfig.cs" />
+    <Compile Include="Config\ReceiverConfig.cs" />
+    <Compile Include="Config\storage\StorageCfgs.cs" />
+    <Compile Include="Config\storage\StorageHandler.cs" />
+    <Compile Include="Config\SymbolConfig.cs" />
+    <Compile Include="Config\XPinConfig.cs" />
+    <Compile Include="Config\YPinConfig.cs" />
+    <Compile Include="OperationPartClasses\EnableAudioShoe.cs" />
+    <Compile Include="OperationPartClasses\ConnectPins.cs" />
+    <Compile Include="OperationPartClasses\EnableTeleCoil.cs" />
+    <Compile Include="OperationPartClasses\EndlessVC.cs" />
+    <Compile Include="OperationPartClasses\GetTeleCoilStatus.cs" />
+    <Compile Include="OperationPartClasses\GetAvailableHI.cs" />
+    <Compile Include="OperationPartClasses\PressCombination.cs" />
+    <Compile Include="OperationPartClasses\PressPushButton.cs" />
+    <Compile Include="OperationPartClasses\PressRockerSwitch.cs" />
+    <Compile Include="OperationPartClasses\ReadPin.cs" />
+    <Compile Include="OperationPartClasses\ResetMux.cs" />
+    <Compile Include="OperationPartClasses\ResetPin.cs" />
+    <Compile Include="OperationPartClasses\SendToLCD.cs" />
+    <Compile Include="OperationPartClasses\SetARDVoltage.cs" />
+    <Compile Include="OperationPartClasses\GetAudioShoeStatus.cs" />
+    <Compile Include="OperationPartClasses\SetMultiplexerConfiguration.cs" />
+    <Compile Include="OperationPartClasses\SetHI.cs" />
+    <Compile Include="OperationPartClasses\GetStatus.cs" />
+    <Compile Include="OperationPartClasses\ToggleBacklight_LCD.cs" />
+    <Compile Include="OperationPartClasses\TurnHIOn.cs" />
+    <Compile Include="OperationPartClasses\SetAnalogVolume.cs" />
+    <Compile Include="OperationPartClasses\WritePin.cs" />
+>>>>>>> refs/remotes/origin/master
     <Compile Include="Components\Gpio.cs" />
-    <Compile Include="Components\GPIOConfig.cs" />
     <Compile Include="Components\I2C\I2C.cs" />
     <Compile Include="Components\HWComponent.cs" />
-    <Compile Include="Components\RaspberryPi\GPIOcontrol.cs" />
-    <Compile Include="Components\RaspberryPi\LCDcontrol.cs" />
-    <Compile Include="Components\RaspberryPi\HIcontrol.cs" />
+    <Compile Include="OperationPartClasses\UpdateLCD.cs" />
     <Compile Include="Components\SPI\ADCDAC.cs" />
-    <Compile Include="Data\config\MultiplexerConfigParser.cs" />
-    <Compile Include="Data\MultiplexerConfig.cs" />
     <Compile Include="Components\I2C\Multiplexer.cs" />
     <Compile Include="Components\I2C\LCD.cs" />
     <Compile Include="Components\I2C\Potentiometer.cs" />
-    <Compile Include="Components\RaspberryPi\RaspberryPi.cs" />
-    <Compile Include="RaspberryPiRemoteAPI\LightLED.cs" />
+    <Compile Include="OperationPartClasses\LightLED.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -162,7 +196,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\config\PinOutInfo.xml" />
+    <Content Include="Config\xml\PinOutInfo.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.DetectTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
+             xmlns:c="clr-namespace:TestMachineFrontend1.Commands"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="550">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:DetectTabViewModel}">
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <vm:MainWindowViewModel/>
+    </UserControl.DataContext>
+    <Grid Background="AliceBlue" Margin="0,0,0,0" Height="418" VerticalAlignment="Top">
+        <!--list of available devices-->
+
+        <!--TextBox for entering the IP-Adress of a device-->
+
+        <Button x:Name="readPin_button" Margin="209,151,269,237" Content="Read pin" 
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ReadPin}" />
+        
+        <Button x:Name="writePin_button" Margin="291,151,191,237" Content="Write pin" 
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.WritePin}" />
+        
+        <TextBox Margin="144,151,354,237" TextAlignment="Center" 
+                 Text="{Binding Path=CurrentViewModelDetectTab.PinID}" />
+
+        <Button x:Name="reset_button" Margin="367,151,116,237" Content="Reset" 
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ResetPin}" />
+
+        <Button x:Name="ledON_button" Margin="144,85,317,307" Content="LED ON" 
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.RequestLEDOn}"/>
+
+        <Button x:Name="ledOFF_button" Margin="266,85,209,307" Content="LED OFF"  
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.RequestLEDOff}" />
+
+        <TextBlock Margin="25,348,415,42"><Run Text="DACVoltage"/></TextBlock>
+        <TextBlock Margin="97,348,380,42"><Run Text="0.0 V"/></TextBlock>
+        <Slider Name="vcSlider" 
+                            Maximum="1.5"
+                            Minimum="0.0"
+                            TickPlacement="BottomRight"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="0.1"
+                            ValueChanged="vcSlider_ValueChanged"
+                            Margin="132,348,120,42" />
+
+        <TextBlock Margin="424,348,88,42"><Run Text="1.5 V"/></TextBlock>
+        <TextBox Text="{Binding ElementName=vcSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                             TextAlignment="Center" 
+                             Margin="451,348,25,42" />
+
+        <TextBlock Margin="531,348,9,42"><Run Text="V"/></TextBlock>
+
+        
+        <Button x:Name="connect_Pins" Content="Mux55" HorizontalAlignment="Left" 
+                Margin="372,85,0,0" VerticalAlignment="Top" Width="58" Height="26" 
+                Command="{Binding SendRequestCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.ConnectPins}" />
+
+        <!--IsChecked="{Binding ElementName=MainWindow, Path=IsCheckBoxChecked}"-->
+    </Grid>
+</UserControl>

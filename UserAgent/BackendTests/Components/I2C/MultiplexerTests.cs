@@ -1,26 +1,38 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend;
-using System;
 
 namespace RaspberryBackendTests
 {
     [TestClass]
     public class MultiplexerTests
     {
+        HWComponent[] hwComponents;
 
         private Multiplexer mux;
-        
+        private MultiplexerConfig muxCfg;
+        private RaspberryPi rasPi;
+        private Operation ops;
+
+
         [TestInitialize]
         public void setUp()
         {
-            mux = new Multiplexer();
+            rasPi = RaspberryPi.Instance;
+
+            hwComponents = new HWComponent[] { new GPIOinterface(), new LCD(), new Potentiometer(), new Multiplexer(), new ADConverter() };
+            rasPi.initialize(hwComponents);
+
+            mux = rasPi.Control.Multiplexer;
+            ops = rasPi.Control;
+
         }
 
         //Tests if unknown requests creates the corresponding exception
         [TestMethod]
         public void TestSetDefaultMultiplexerConfig()
         {
-            mux.setMultiplexerConfiguration();
+
+            muxCfg = ops.setMultiplexerConfiguration();
 
             Assert.AreEqual(mux.get_Value_conntected_to_X(0), "");
             Assert.AreEqual(mux.get_Value_conntected_to_X(1), "RockerSW");
@@ -34,21 +46,22 @@ namespace RaspberryBackendTests
             Assert.AreEqual(mux.get_Value_conntected_to_X(9), "PB");
 
             Assert.AreEqual(mux.get_Y_conntected_to_X(0), -1);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(1), GPIOConfig._gpio_to_Y_map["RockerSW"]);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(2), GPIOConfig._gpio_to_Y_map["Ground"]);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(3), GPIOConfig._gpio_to_Y_map["Ground"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(1), muxCfg.Value_To_Y_Pin_Map["RockerSW"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(2), muxCfg.Value_To_Y_Pin_Map["Ground"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(3), muxCfg.Value_To_Y_Pin_Map["Ground"]);
             Assert.AreEqual(mux.get_Y_conntected_to_X(4), -1);
             Assert.AreEqual(mux.get_Y_conntected_to_X(5), -1);
             Assert.AreEqual(mux.get_Y_conntected_to_X(6), -1);
             Assert.AreEqual(mux.get_Y_conntected_to_X(7), -1);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(8), GPIOConfig._gpio_to_Y_map["Ground"]);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(9), GPIOConfig._gpio_to_Y_map["PB"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(8), muxCfg.Value_To_Y_Pin_Map["Ground"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(9), muxCfg.Value_To_Y_Pin_Map["PB"]);
         }
 
         [TestMethod]
         public void TestSetMultiplexerConfig()
         {
-            mux.setMultiplexerConfiguration("D9_RIC13", "702 S (DN)");
+
+            muxCfg = ops.setMultiplexerConfiguration("D9_RIC13", "702 S (DN)");
 
             Assert.AreEqual(mux.get_Value_conntected_to_X(0), "Ground");
             Assert.AreEqual(mux.get_Value_conntected_to_X(1), "Ground");
@@ -61,23 +74,23 @@ namespace RaspberryBackendTests
             Assert.AreEqual(mux.get_Value_conntected_to_X(8), "");
             Assert.AreEqual(mux.get_Value_conntected_to_X(9), "RockerSW");
 
-            Assert.AreEqual(mux.get_Y_conntected_to_X(0), GPIOConfig._gpio_to_Y_map["Ground"]);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(1), GPIOConfig._gpio_to_Y_map["Ground"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(0), muxCfg.Value_To_Y_Pin_Map["Ground"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(1), muxCfg.Value_To_Y_Pin_Map["Ground"]);
             Assert.AreEqual(mux.get_Y_conntected_to_X(2), -1);
             Assert.AreEqual(mux.get_Y_conntected_to_X(3), -1);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(4), GPIOConfig._gpio_to_Y_map["REC_DET"]);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(5), GPIOConfig._gpio_to_Y_map["Ground"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(4), muxCfg.Value_To_Y_Pin_Map["REC_DET"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(5), muxCfg.Value_To_Y_Pin_Map["Ground"]);
             Assert.AreEqual(mux.get_Y_conntected_to_X(6), -1);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(7), GPIOConfig._gpio_to_Y_map["Ground"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(7), muxCfg.Value_To_Y_Pin_Map["Ground"]);
             Assert.AreEqual(mux.get_Y_conntected_to_X(8), -1);
-            Assert.AreEqual(mux.get_Y_conntected_to_X(9), GPIOConfig._gpio_to_Y_map["RockerSW"]);
+            Assert.AreEqual(mux.get_Y_conntected_to_X(9), muxCfg.Value_To_Y_Pin_Map["RockerSW"]);
         }
 
 
         [TestCleanup]
         public void tearDown()
         {
-           
+
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
 using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
@@ -33,27 +32,53 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                Debug.WriteLine("Something went wrong during the initialization process of the RasPi : "+e.Message);
+                Debug.WriteLine("Something went wrong during the initialization process of the RasPi : " + e.Message);
             }
 
             //register at the registry server
             //registerAsync();
 
+<<<<<<< HEAD
             //ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi, 54321);
             //raspberryPi.setSkeleton(raspberryPiSkeleton);
             init();
+=======
+            // set up the skeleton
+            runServerStubsAsync();
+
+            ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi.Control, 54321);
+            raspberryPi.setSkeleton(raspberryPiSkeleton);
+>>>>>>> refs/remotes/origin/master
 
             this.InitializeComponent();
         }
 
         async void init()
         {
+<<<<<<< HEAD
             backChannel = new BackChannel();
             requestHandler = new RequestHandler();
 
             TCPServer server = new TCPServer(54321);
             server.connectionAccepted += handleConnection;
             await server.runServerLoop();
+=======
+            while (true)
+            {
+                try
+                {
+                    ServerStub stub;
+                    using (stub = await ServerStub.createServerStubAsync(54322))
+                    {
+                        await handleServerStubAsync(stub);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("error in runServerStub Loop: " + e.Message);
+                }
+            }
+>>>>>>> refs/remotes/origin/master
         }
 
         private void handleConnection(Object sender, TcpClient socket)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Devices.I2c;
+using System.Diagnostics;
 
 namespace RaspberryBackend
 {
@@ -27,12 +28,14 @@ namespace RaspberryBackend
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine("Problem with I2C " + e.Message);
+                Debug.WriteLine("Problem with I2C " + e.Message);
                 throw e;
             }
 
             _initialized = true;
         }
+
+        public void write(byte data) => write(new[] { data });
 
         /// <summary>
         /// Used to send data to the MCP4018 Potentiometer

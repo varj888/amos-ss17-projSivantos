@@ -62,6 +62,8 @@ namespace RaspberryBackend
         //</summary>
         public GpioPin getPin(UInt16 id)
         {
+            //if (!pins.ContainsKey(id)) throw new ArgumentException("The requested pin is not available");
+
             return pins[id];
         }
 
@@ -70,7 +72,7 @@ namespace RaspberryBackend
         //</summary>
         public void registerEventHandler(UInt16 id, TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs> f)
         {
-            pins[id].ValueChanged += f;
+            getPin(id).ValueChanged += f;
         }
 
         //<summary>
@@ -80,11 +82,11 @@ namespace RaspberryBackend
         {
             if (id < 9)
             {
-                pins[id].SetDriveMode(GpioPinDriveMode.InputPullUp);
+                getPin(id).SetDriveMode(GpioPinDriveMode.InputPullUp);
             }
             else
             {
-                pins[id].SetDriveMode(GpioPinDriveMode.InputPullDown);
+                getPin(id).SetDriveMode(GpioPinDriveMode.InputPullDown);
             }
         }
 
@@ -93,7 +95,8 @@ namespace RaspberryBackend
         //</summary>
         public void setToOutput(UInt16 id)
         {
-            pins[id].SetDriveMode(GpioPinDriveMode.Output);
+
+            getPin(id).SetDriveMode(GpioPinDriveMode.Output);
         }
 
         //<summary>
@@ -101,7 +104,7 @@ namespace RaspberryBackend
         //</summary>
         public void writePin(UInt16 id, uint v)
         {
-            pins[id].Write((v == 0) ? PIN_LOW : PIN_HIGH);
+            getPin(id).Write((v == 0) ? PIN_LOW : PIN_HIGH);
         }
 
         //<summary>
@@ -109,7 +112,27 @@ namespace RaspberryBackend
         //</summary>
         public string readPin(UInt16 id)
         {
-            return pins[id].Read().ToString();
+            return getPin(id).Read().ToString();
+        }
+
+        /// <summary>
+        /// Set GPIO pin to 1
+        /// </summary>
+        /// <param name="id"></param>
+        public void activatePin(UInt16 id)
+        {
+            setToOutput(id);
+            writePin(id, 1);
+        }
+
+        /// <summary>
+        /// Reset GPIO pin by settting to 0
+        /// </summary>
+        /// <param name="id"></param>
+        public void deactivatePin(UInt16 id)
+        {
+            setToOutput(id);
+            writePin(id, 0);
         }
     }
 }
