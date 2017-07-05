@@ -46,44 +46,46 @@
         </DataTemplate>
     </Window.Resources>
 
-    <Grid x:Name="MainViewGrid">
-        <!--NEW_VIEW-->
+    <Viewbox Grid.Row="1" Grid.Column="1"  StretchDirection="Both">
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="8*"/>
-            <ColumnDefinition Width="6*"/>
-        </Grid.ColumnDefinitions>
+        <Grid x:Name="MainViewGrid">
+            <!--NEW_VIEW-->
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="7*"/>
-        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Column="2" Grid.RowSpan="2" 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+
+            <ContentControl Grid.Column="2" Grid.RowSpan="2" 
                         Width="{Binding Path=ActualWidth, ElementName=MainViewGrid, 
                         Converter={convert:PercentageConverter}, ConverterParameter='0.3'}"
                         VerticalAlignment="Top"
-                        Content="{Binding Path=CurrentViewModelDebug}"/>
-        <ContentControl Grid.Column="1" Grid.Row="0" Content="{Binding Path=CurrentViewModelMainTab}"/>
-        <ContentControl Grid.Column="0" Grid.RowSpan="2" Content="{Binding Path=CurrentViewModelDetect}"/>
+                        Content="{Binding Path=CurrentViewModelDebug}" Margin="554,0,-3,0"/>
+            <ContentControl Grid.Column="1" Grid.Row="0" Content="{Binding Path=CurrentViewModelMainTab}" Grid.ColumnSpan="2" Height="75" Margin="0,0,367.5,0" VerticalAlignment="Top"/>
+            <ContentControl Grid.Column="0" Grid.RowSpan="2" Content="{Binding Path=CurrentViewModelDetect}"/>
 
-        <TabControl Grid.Row="1" Grid.Column="1" ItemsSource="{Binding TabItems}" >
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Header}" />
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <ContentControl Content="{Binding CurrentTabContentViewModel}" />
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
+            <TabControl Grid.Column="1" ItemsSource="{Binding TabItems}" Grid.ColumnSpan="2" Margin="0,80,367.5,0" Grid.RowSpan="2" >
+                <TabControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Header}" />
+                    </DataTemplate>
+                </TabControl.ItemTemplate>
+                <TabControl.ContentTemplate>
+                    <DataTemplate>
+                        <ContentControl Content="{Binding CurrentTabContentViewModel}" />
+                    </DataTemplate>
+                </TabControl.ContentTemplate>
+            </TabControl>
 
 
-        <!--OLD_VIEW-->
-        <!--
+            <!--OLD_VIEW-->
+            <!--
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="2*"/>
@@ -105,10 +107,11 @@
             </TabControl.ContentTemplate>
         </TabControl>
         -->
-        <!--TabStripPlacement="Left"-->
-        <!--<ContentControl Grid.Row="0" Content="{Binding Path=CurrentViewModelDetectTab}"/>-->
+            <!--TabStripPlacement="Left"-->
+            <!--<ContentControl Grid.Row="0" Content="{Binding Path=CurrentViewModelDetectTab}"/>-->
 
-        <!--<ContentControl Grid.Row="0" Content="{Binding Path=CurrentViewModelUserControls}"/>-->
-        <!--<ContentControl Grid.Row="2" Content="{Binding Path=CurrentViewModelLCDControls}"/>-->          
-    </Grid>
+            <!--<ContentControl Grid.Row="0" Content="{Binding Path=CurrentViewModelUserControls}"/>-->
+            <!--<ContentControl Grid.Row="2" Content="{Binding Path=CurrentViewModelLCDControls}"/>-->
+        </Grid>
+    </Viewbox>
 </Window>

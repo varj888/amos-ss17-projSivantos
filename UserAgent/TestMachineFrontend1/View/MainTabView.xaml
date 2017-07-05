@@ -23,7 +23,7 @@
         </Grid.RowDefinitions>-->
         <GroupBox Grid.Row="0" Header="Information" HorizontalAlignment="Stretch" Height="Auto" Margin="10" VerticalAlignment="Stretch">
             <Label Content="Evalboard Config: UNKNOWN  | Raspberry Pi: v 3   | IP Address: UNKNOWN" 
-                   HorizontalAlignment="Left" Height="100"  VerticalAlignment="Top"/>
+                   HorizontalAlignment="Left" Height="35"  VerticalAlignment="Top"/>
         </GroupBox>
 
     </Grid>
