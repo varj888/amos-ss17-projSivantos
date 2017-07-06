@@ -1,6 +1,6 @@
 namespace CommonFiles.RPCInterfaces
 {
-    interface IEventReceiver
+    interface IRaspberryPiOperations
     {
         void testCall(string parameter);
     }

@@ -20,11 +20,14 @@ namespace RaspberryBackend.Components
                 try
                 {
                     request = Transfer.receiveObject<Request>(socket.GetStream());
-                }catch(Exception e)
+                }
+                catch(Exception e)
                 {
                     Debug.WriteLine("Error receiving Object :" + e.Message);
                     return;
                 }
+
+                Debug.WriteLine(callee);
                 Result result = Request.handleRequest(callee, request);
                 backchannel.sendObject(result);
             }

@@ -85,17 +85,6 @@ namespace RaspberryBackend
             this.setLCDBackgroundState(0x01);
 
             string ip = GetIpAddressAsync();
-<<<<<<< HEAD:UserAgent/Backend/Components/RaspberryPi/LCDcontrol.cs
-            string hi = Multiplexer.getCurrentModel();
-            string currentReceiver = this.getCurrentReceiver();
-            string status = (this.isInitialized()) ? "On" : "Off";
-            string vbat = ADConverter.getDACVoltage1().ToString();
-            //string isConnected = (this.skeleton.getClientCount() != 0) ? "Con" : "X";
-            //string print = ip + " " + isConnected + " " + currentReceiver + " " + status + " " + vbat + "V " + hi;
-
-            //this.LCD.printInTwoLines(print);
-=======
-
             string hi = StorageCfgs.Hi.Model;
             string currentReceiver = StorageCfgs.Hi.CurrentReceiver;
             string print = ip + " " + currentReceiver + " " + hi;
@@ -105,7 +94,6 @@ namespace RaspberryBackend
             this.LCD.printInTwoLines(print);
             this.LCD.printSymbol(SymbolConfig.batterySymbolAddress);
             this.LCD.printSymbol(SymbolConfig.initSymbolAddress);
->>>>>>> refs/remotes/origin/master:UserAgent/Backend/OperationPartClasses/UpdateLCD.cs
         }
     }
 }
