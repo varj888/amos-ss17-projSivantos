@@ -28,17 +28,6 @@ namespace TestMachineFrontend1.ViewModel
 
         #region Properties
         public static List<TabControlModel> TabItems { get; set; }
-        private TestCallee testCallee;
-        public static TestCallee TestCallee { get; private set; }
-        public TestCallee TestCalleeProperty
-        {
-            get { return testCallee; }
-            set
-            {
-                testCallee = value;
-                OnPropertyChanged("TestCalleeProperty");
-            }
-        }
         #endregion
 
         #region ViewModels
@@ -54,7 +43,6 @@ namespace TestMachineFrontend1.ViewModel
 
         static MainWindowViewModel()
         {
-            TestCallee = new TestCallee();
             InitAllViewModels();
             InitAllCommands();
             TabItems = GetAllTabItems();
@@ -64,7 +52,7 @@ namespace TestMachineFrontend1.ViewModel
         {
             Instance = new MainWindowViewModel();
             CurrentViewModelDebug = new DebugViewModel();
-            CurrentViewModelDetectTab = new DetectTabViewModel(TestCallee);
+            CurrentViewModelDetectTab = new DetectTabViewModel();
             CurrentViewModelLCDControls = new LCDControlsViewModel();
             CurrentViewModelUserControls = new UserControlsViewModel();
             CurrentViewModelMultiplexer = new MultiplexerViewModel();

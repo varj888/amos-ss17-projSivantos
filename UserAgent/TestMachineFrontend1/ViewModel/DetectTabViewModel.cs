@@ -94,14 +94,12 @@ namespace TestMachineFrontend1.ViewModel
 
         //private DebugViewModel debugVM;
         private RaspberryPiItem detectModel;
-        private TestCallee testCallee;
         private DebugViewModel debugVM;
 
-        public DetectTabViewModel(/*DebugViewModel debugVM,*/ TestCallee testCallee)
+        public DetectTabViewModel(/*DebugViewModel debugVM,*/)
         {
             //this.debugVM = debugVM;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
-            this.testCallee = testCallee;
             ItemSelected = new DelegateCommand(o =>
             {
                 SelectedRaspiItem = o as RaspberryPiItem;
@@ -172,16 +170,6 @@ namespace TestMachineFrontend1.ViewModel
                 debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
                 //TODO check
                 IsPiConnected = false;
-            }
-            try
-            {
-                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync
-                    (new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54322));
-                await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
-            }
-            catch (Exception any)
-            {
-                debugVM.AddDebugInfo("Error", "Error connecting the ClientSkeleton: " + any.Message);
             }
         }
 
