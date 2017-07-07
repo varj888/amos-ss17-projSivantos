@@ -1,4 +1,5 @@
-﻿using CommonFiles.TransferObjects;
+﻿using CommonFiles.Networking;
+using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -139,7 +140,7 @@ namespace TestMachineFrontend1.ViewModel
             Result result = null;
             try
             {
-                result = detectTabVM.getClientconnection().receiveObject();
+                result = Transfer.receiveObject<Result>(detectTabVM.getClientconnection().GetStream());
             }
             catch (Exception e)
             {

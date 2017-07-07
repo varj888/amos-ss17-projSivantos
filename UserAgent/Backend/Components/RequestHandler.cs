@@ -26,8 +26,6 @@ namespace RaspberryBackend.Components
                     Debug.WriteLine("Error receiving Object :" + e.Message);
                     return;
                 }
-
-                Debug.WriteLine(callee);
                 Result result = Request.handleRequest(callee, request);
                 backchannel.sendObject(result);
             }

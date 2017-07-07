@@ -36,15 +36,12 @@ namespace RaspberryBackend
                 testOperations = new TestOperations();
             }
 
-            //register at the registry server
-            //registerAsync();
-
-            init();
+            initAsync();
 
             this.InitializeComponent();
         }
 
-        async void init()
+        async void initAsync()
         {
             backChannel = new BackChannel();
 
@@ -66,15 +63,8 @@ namespace RaspberryBackend
             {
                 RequestHandler.runRequestHandlerLoop(testOperations, backChannel, socket);
             }
+
+            socket.Dispose();
         }
-
-       
-
-        //private async Task registerAsync()
-        //{
-        //    ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
-        //    string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
-        //    conn.sendObject(new Request("register", values));
-        //}
     }
 }

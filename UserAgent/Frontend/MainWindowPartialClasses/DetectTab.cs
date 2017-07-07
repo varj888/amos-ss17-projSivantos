@@ -46,16 +46,6 @@ namespace TestmachineFrontend
                 this.addMessage("[ERROR]", "Unknown Error. " + any.Message);
                 connected_checkbox.IsChecked = false;
             }
-
-            try
-            {
-                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync(new IPEndPoint(IPAddress.Parse(IPaddress), 54322));
-                await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
-            }
-            catch (Exception any)
-            {
-                this.addMessage("Error", "Error connecting the ClientSkeleton: " + any.Message);
-            }
         }
 
         private void readPin_button_Click(object sender, RoutedEventArgs e)

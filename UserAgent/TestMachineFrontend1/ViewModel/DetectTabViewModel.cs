@@ -195,7 +195,7 @@ namespace TestMachineFrontend1.ViewModel
 
             try
             {
-                getClientconnection().sendObject(request);
+                Transfer.sendObject(getClientconnection().GetStream(), request);
             }
             catch (Exception ex)
             {
@@ -232,7 +232,7 @@ namespace TestMachineFrontend1.ViewModel
 
             try
             {
-                result = getClientconnection().receiveObject();
+                result = Transfer.receiveObject<Result>(getClientconnection().GetStream());
             }
             catch (Exception e)
             {
@@ -250,14 +250,14 @@ namespace TestMachineFrontend1.ViewModel
             return result;
         }
 
-        public ClientConn<Result, Request> getClientconnection()
+        public TcpClient getClientconnection()
         {
             if (this.SelectedRaspiItem == null && this.BackendList.Count > 0)
             {
                 this.SelectedRaspiItem = this.BackendList.ElementAt(0);
             }
             var c = (RaspberryPiItem)this.SelectedRaspiItem;
-            return c.raspi.clientConnection;
+            return c.raspi.socket;
         }
     }
 }

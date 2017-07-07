@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace RaspberryBackend.CommonFiles.RemoteInterfaces
+namespace RaspberryBackend
 {
     interface IRaspberryPiOperations
     {
@@ -28,7 +28,6 @@ namespace RaspberryBackend.CommonFiles.RemoteInterfaces
         string SetAnalogVolume(byte requestedVolumeLevel);
         string SetARDVoltage(string device);
         string SetHI(string family, string model);
-        MultiplexerConfig setMultiplexerConfiguration(string family, string model_name);
         string ToggleBacklight_LCD(int requestedParameter);
         double TurnHIOn(double voltage);
         void updateLCD();

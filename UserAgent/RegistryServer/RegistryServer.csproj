@@ -55,14 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\CommonFiles\Networking\ServerSkeleton.cs">
-      <Link>CommonFiles\Networking\ServerSkeleton.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\Transfer.cs">
       <Link>CommonFiles\Networking\Transfer.cs</Link>
-    </Compile>
-    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
-      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
     <Compile Include="RegistryService.cs" />
     <Page Include="MainWindow.xaml">
@@ -118,6 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CommonFiles\RPCInterfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

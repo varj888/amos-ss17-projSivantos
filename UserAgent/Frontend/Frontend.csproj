@@ -63,9 +63,6 @@
     <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
       <Link>CommonFiles\Networking\ClientConn.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\Networking\ClientSkeleton.cs">
-      <Link>CommonFiles\Networking\ClientSkeleton.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
@@ -74,9 +71,6 @@
     </Compile>
     <Compile Include="..\CommonFiles\Networking\Transfer.cs">
       <Link>CommonFiles\Networking\Transfer.cs</Link>
-    </Compile>
-    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
-      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Hi.cs">
       <Link>CommonFiles\TransferObjects\Hi.cs</Link>
@@ -90,7 +84,6 @@
     <Compile Include="DebugContent.cs" />
     <Compile Include="MainWindowPartialClasses\UpdateMethods.cs" />
     <Compile Include="RaspberryPi.cs" />
-    <Compile Include="TestCallee.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -136,7 +129,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CommonFiles\RPCInterfaces\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

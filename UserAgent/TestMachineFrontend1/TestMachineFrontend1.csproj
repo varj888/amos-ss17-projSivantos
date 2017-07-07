@@ -63,6 +63,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\CommonFiles\Networking\Transfer.cs">
+      <Link>CommonFiles\Networking\Transfer.cs</Link>
+    </Compile>
     <Compile Include="Commands\AddDebugInfoCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\EndlessVcCommand.cs" />

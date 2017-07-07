@@ -115,8 +115,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CommonFiles\RemoteInterfaces\IRaspberryPiOperations.cs" />
     <Compile Include="Components\BackChannel.cs" />
+    <Compile Include="Components\IRaspberryPiOperations.cs" />
     <Compile Include="Components\RequestHandler.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Components\Operations.cs" />
