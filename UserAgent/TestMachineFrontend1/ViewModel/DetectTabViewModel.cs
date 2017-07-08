@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TestmachineFrontend;
@@ -147,9 +148,11 @@ namespace TestMachineFrontend1.ViewModel
                 backendList.Add(raspiItem);
                 SelectedRaspiItem = raspiItem;
                 debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
-                sendRequest(GetAvailableHI);
-                Result result = getResult(GetAvailableHI);
-                MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
+                //sendRequest(GetAvailableHI);
+                //Result result = getResult(GetAvailableHI);
+                //MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
+                SynchronizationContext uiContext = SynchronizationContext.Current;
+                await Task.Run(() => ReceiveResultLoop(uiContext));
             }
             catch (FormatException fx)
             {
@@ -190,52 +193,37 @@ namespace TestMachineFrontend1.ViewModel
                 debugVM.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
                 return;
             }
-            //Result result = getResult(request);
-            //Result result;
-
-            //try
-            //{
-            //    result = getClientconnection().receiveObject();
-            //}
-            //catch (Exception e)
-            //{
-            //    debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
-            //    return;
-            //}
-
-            //if (result.exceptionMessage == null)
-            //{
-            //    debugVM.AddDebugInfo(request.command, "sucess");
-            //}
-            //else
-            //{
-            //    debugVM.AddDebugInfo(request.command, result.exceptionMessage);
-            //}
-
         }
 
-        public Result getResult(Request request)
+        private async Task ReceiveResultLoop(SynchronizationContext uiContext)
         {
-            Result result = null;
+            while (true)
+            {
+                Result result;
 
-            try
-            {
-                result = Transfer.receiveObject<Result>(getClientconnection().GetStream());
-            }
-            catch (Exception e)
-            {
-                debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
-            }
+                try
+                {
+                    result = await Transfer.receiveObjectAsync<Result>(getClientconnection().GetStream());
+                }catch(Exception e)
+                {
+                    uiContext.Send((object state) => debugVM.AddDebugInfo("ResultLoop", "Result could not be received: " + e.Message), null);
+                    return;
+                }
 
-            if (result.exceptionMessage == null)
-            {
-                debugVM.AddDebugInfo(request.command, "sucess");
+                if(result.exceptionMessage == null)
+                {
+                    uiContext.Send((object state) => debugVM.AddDebugInfo("some Result", "sucess"), null);
+                }
+                else
+                {
+                    uiContext.Send((object state) => debugVM.AddDebugInfo("some Result", result.exceptionMessage), null);
+                }
             }
-            else
-            {
-                debugVM.AddDebugInfo(request.command, result.exceptionMessage);
-            }
-            return result;
+        }
+
+        private void onReceiveObjectException()
+        {
+            
         }
 
         public TcpClient getClientconnection()

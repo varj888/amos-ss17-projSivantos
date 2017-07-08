@@ -101,7 +101,7 @@ namespace TestMachineFrontend1.ViewModel
             Request request = new Request("SetHI", new Object[] { family, model });
 
             detectTabVM.sendRequest(request);
-            detectTabVM.getResult(request);
+            //detectTabVM.getResult(request);
         }
 
         public Request GetAvailableHI
