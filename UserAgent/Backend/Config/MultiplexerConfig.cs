@@ -58,9 +58,9 @@ namespace RaspberryBackend
             saveHiConfig();
         }
 
-        private void saveHiConfig()
+        private async void saveHiConfig()
         {
-            StorageHandler<Hi>.Save(StorageCfgs.FileName_HiCfg, StorageCfgs.Hi).Wait(10000);
+            await StorageHandler<Hi>.Save(StorageCfgs.FileName_HiCfg, StorageCfgs.Hi);
         }
 
         public Dictionary<int, int> getX_to_Y_Mapping()
