@@ -71,9 +71,26 @@ namespace RaspberryBackend
 
             Control.GPIOinterface.registerEventHandler(5, Pin_ValueChanged);
 
+            await Task.Factory.StartNew(start_ADC_voltage_detect_1);
+            await Task.Factory.StartNew(start_ADC_voltage_detect_2);
+
+        }
+
+        private void start_ADC_voltage_detect_1()
+        {
             while (true)
             {
-                Control.ADConverter.setADCRefVoltage(1.5);
+                //Control.ADConverter.setADCRefVoltage(1.5);
+                Debug.WriteLine("ADC In1 Voltage is: {0}", Control.ADConverter.getADCVoltage1());
+                Task.Delay(1000).Wait();
+            }
+        }
+
+        private void start_ADC_voltage_detect_2()
+        {
+            while (true)
+            {
+                //Control.ADConverter.setADCRefVoltage(1.5);
                 Debug.WriteLine("ADC In2 Voltage is: {0}", Control.ADConverter.getADCVoltage2());
                 Task.Delay(1000).Wait();
             }

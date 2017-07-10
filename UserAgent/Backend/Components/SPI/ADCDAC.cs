@@ -109,6 +109,8 @@ namespace RaspberryBackend
             _adConvert.SetADCrefVoltage(v);
         }
 
+ 
+
         /// <summary>
         /// Wrapper around setDACVoltage so set channels without knowing their addresss
         /// </summary>
@@ -130,6 +132,11 @@ namespace RaspberryBackend
         public double getADCVoltage2()
         {
             return _adConvert.ReadADCVoltage(2);
+        }
+
+        public double getADCVoltage1()
+        {
+            return _adConvert.ReadADCVoltage(1);
         }
     }
 }
