@@ -13,7 +13,7 @@ namespace CommonFiles.Networking
     /// <typeparam name="outType">Type of Objects send to the server</typeparam>
     public class ClientConn<inType, outType> : IDisposable
     {
-        private ObjConn<inType, outType> objConn;
+        private TcpClient socket;
 
         /// <summary>
         /// Connects to a server
@@ -22,11 +22,7 @@ namespace CommonFiles.Networking
         /// <returns>Returns the created clientConn</returns>
         public static async Task<ClientConn<inType, outType>> connectAsync(IPEndPoint endpoint)
         {
-            TcpClient socket = new TcpClient();
-            await socket.ConnectAsync(endpoint.Address, endpoint.Port);
-            NetworkStream stream = socket.GetStream();
-            ObjConn<inType, outType> objConn = new ObjConn<inType, outType>(stream);
-            return new ClientConn<inType, outType>(objConn);
+            return await connectAsync(endpoint.Address.ToString(), endpoint.Port);
         }
 
         /// <summary>
@@ -39,15 +35,13 @@ namespace CommonFiles.Networking
         {
             TcpClient socket = new TcpClient();
             await socket.ConnectAsync(hostname, port);
-            NetworkStream stream = socket.GetStream();
-            ObjConn<inType, outType> objConn = new ObjConn<inType, outType>(stream);
-            return new ClientConn<inType, outType>(objConn);
+            return new ClientConn<inType, outType>(socket);
         }
 
         // private constructor to avoid instantiation without calling connect
-        private ClientConn(ObjConn<inType, outType> objConn)
+        private ClientConn(TcpClient socket)
         {
-            this.objConn = objConn;
+            this.socket = socket;
         }
 
         /// <summary>
@@ -56,7 +50,7 @@ namespace CommonFiles.Networking
         /// <param name="obj"></param>
         public void sendObject(outType obj)
         {
-            objConn.sendObject(obj);
+            Transfer.sendObject(socket.GetStream(), obj);
         }
 
         /// <summary>
@@ -65,7 +59,7 @@ namespace CommonFiles.Networking
         /// <returns></returns>
         public inType receiveObject()
         {
-            return objConn.receiveObject();
+            return Transfer.receiveObject<inType>(socket.GetStream());
         }
 
         /// <summary>
@@ -73,7 +67,7 @@ namespace CommonFiles.Networking
         /// </summary>
         public void Dispose()
         {
-            objConn.Dispose();
+            socket.Dispose();
         }
     }
 }

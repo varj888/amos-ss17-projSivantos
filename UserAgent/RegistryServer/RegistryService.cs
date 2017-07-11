@@ -9,19 +9,23 @@ namespace RegistryServer
 {
     public class RegistryService
     {
-        private List<string[]> registeredDevices;
+        private Dictionary<string, string> registeredDevices;
 
         public RegistryService()
         {
-            registeredDevices = new List<string[]>();
+            registeredDevices = new Dictionary<string, string>();
         }
 
-        public void register(Object argument)
+        public void register(string hostname, string status)
         {
-            string[] values = (string[])argument;
-            registeredDevices.Add(values);
-            Debug.WriteLine(values[0]);   
-            Debug.WriteLine(values[1]);
+            registeredDevices[hostname] = status;
+            Debug.WriteLine(hostname);
+            Debug.WriteLine(status);
+        }
+
+        public Dictionary<string, string> getRegisteredDevices()
+        {
+            return registeredDevices;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CommonFiles.TransferObjects;
+﻿using CommonFiles.Networking;
+using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -100,7 +101,7 @@ namespace TestMachineFrontend1.ViewModel
             Request request = new Request("SetHI", new Object[] { family, model });
 
             detectTabVM.sendRequest(request);
-            detectTabVM.getResult(request);
+            //detectTabVM.getResult(request);
         }
 
         public Request GetAvailableHI
@@ -139,7 +140,7 @@ namespace TestMachineFrontend1.ViewModel
             Result result = null;
             try
             {
-                result = detectTabVM.getClientconnection().receiveObject();
+                result = Transfer.receiveObject<Result>(detectTabVM.getClientconnection().GetStream());
             }
             catch (Exception e)
             {

@@ -15,7 +15,7 @@ namespace TestmachineFrontend1
     /// </summary>
     public sealed class RaspberryPi
     {
-        public ClientConn<Result, Request> clientConnection;
+        public TcpClient socket;
         public IPEndPoint endpoint { get; private set; }
         private static UInt16 counter;
         public String name { get; set; }
@@ -52,8 +52,9 @@ namespace TestmachineFrontend1
         {
             try
             {
+                socket = new TcpClient();
                 Console.WriteLine("[x] Connecting to: " + this.endpoint.Address + " ...");
-                clientConnection = await ClientConn<Result, Request>.connectAsync(this.endpoint); // port usually 54321
+                await socket.ConnectAsync(endpoint.Address, endpoint.Port); // port usually 54321
                 /* Connection established, set IsConnected to true because async call returned. */
                 IsConnected = true;
                 /* Fire the Connected event handler. Unused currently. */
@@ -79,7 +80,7 @@ namespace TestmachineFrontend1
         {
             try
             {
-                clientConnection.sendObject(new Request("ReadPin", PinID));
+                Transfer.sendObject(socket.GetStream(), new Request("ReadPin", PinID));
                 return;
 
             }
@@ -94,7 +95,7 @@ namespace TestmachineFrontend1
         {
             try
             {
-                clientConnection.sendObject(new Request("WritePin", PinID));
+                Transfer.sendObject(socket.GetStream(),new Request("WritePin", PinID));
                 return;
 
             }
@@ -110,7 +111,7 @@ namespace TestmachineFrontend1
 
             try
             {
-                clientConnection.sendObject(new Request("ResetPin", PinID));
+                Transfer.sendObject(socket.GetStream(), new Request("ResetPin", PinID));
                 return;
 
             }
@@ -127,11 +128,11 @@ namespace TestmachineFrontend1
             {
                 if (light_on)
                 {
-                    clientConnection.sendObject(new Request("LightLED", 1));
+                    Transfer.sendObject(socket.GetStream(), new Request("LightLED", 1));
                 }
                 else
                 {
-                    clientConnection.sendObject(new Request("LightLED", 0));
+                    Transfer.sendObject(socket.GetStream(), new Request("LightLED", 0));
                 }
                 return;
 

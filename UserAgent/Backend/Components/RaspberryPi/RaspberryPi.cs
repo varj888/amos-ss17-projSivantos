@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using Windows.Devices.Gpio;
-using RaspberryBackend.Components;
+
 
 namespace RaspberryBackend
 {
@@ -14,41 +11,45 @@ namespace RaspberryBackend
     /// To add new Hardware Components, create/initialize it with initialize(). If it is desired, aditionally declare the corresponding instance field which will be automatically initialised.
     /// For testing without connected Hardware Components, use the overloaded initialized(params HWComponents[] hwComponents) method to initialize the Raspberry Pi.
     /// </summary>
-    public class RaspberryPi
+    public partial class RaspberryPi
     {
-        //Single location for all Hardware Components
-        private Dictionary<string, HWComponent> _hwComponents = new Dictionary<string, HWComponent>();
+        protected UInt16 pushButton_Pin = 26;
+        protected UInt16 rockerSwitch_Pin_0 = 20;
+        protected UInt16 rockerSwitch_Pin_1 = 21;
+        protected UInt16 audioShoe_Pin = 19;
+        protected UInt16 teleCoil_Pin = 13;
+        protected UInt16 muxerResetPin = 18;
+        //private ServerSkeleton skeleton = null;
 
-        /// <summary>
-        /// The Control interface for the Raspberry Pi which contains all implemented methods which can be used to trigger features.
-        /// </summary>
-        public Operation Control { get; set; }
+        //Single location for all Hardware Components
+        private Dictionary<String, HWComponent> _hwComponents = new Dictionary<String, HWComponent>();
 
         //Singleton pattern
+        private static readonly RaspberryPi _instance = new RaspberryPi();
         private RaspberryPi() { }
-        public static RaspberryPi Instance { get; } = new RaspberryPi();
-        public BackChannel backChannel { get; private set; }
-
-        private Hi HiInfo;
-
-        public void setBackChannel(BackChannel backChannel)
-        {
-            this.backChannel = backChannel;
-        }
+        public static RaspberryPi Instance { get => _instance; }
 
         //flags for robustness and testing
         private bool _initialized = false;
-        private bool _testMode = true;
+        private bool testMode = true;
+
+        /// Hardware Components of the RasPi as Instance Fields.
+        /// Note: Both Type and declared name need to be identical otherwise automatation of initialization fails.
+        public readonly GPIOinterface GPIOinterface;
+        public readonly LCD LCD;
+        public readonly Potentiometer Potentiometer;
+        public readonly Multiplexer Multiplexer;
+        public readonly ADConverter ADConverter;
 
         /// <summary>
         /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi.
         /// To add aditional hardware, just insert a new parameter in the initialize(..) call eg. initialize(... , new HWComponent).
-        /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfigurationAsync"/>.
+        /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfiguration"/>.
         /// Note: See <seealso cref="initialize(HWComponent[])"/> for detailed insight of the RasPi's initialization process.
         /// </summary>
         public void initialize()
         {
-            _testMode = false;
+            testMode = false;
             initialize(
                 new GPIOinterface(),
                 new LCD(),
@@ -58,28 +59,10 @@ namespace RaspberryBackend
                 );
         }
 
-        private async Task initiateStartUpConfigurationAsync()
+        private void initiateStartUpConfiguration()
         {
-            Control.Multiplexer.setResetPin(Control.GPIOinterface.getPin(GpioMap.muxerResetPin));
-
-            HiInfo = await StorageHandler<Hi>.Load(StorageCfgs.FileName_HiCfg);
-
-            setMulitplexerStartUpConfig();
-
-            //Task.Delay(1500).Wait(); //Uncomment if LCD does not update on startup
-            Control.updateLCD();
-        }
-
-        private void setMulitplexerStartUpConfig()
-        {
-            if (HiInfo?.Family != null)
-            {
-                Control.setMultiplexerConfiguration(HiInfo.Family, HiInfo.Model);
-            }
-            else
-            {
-                Control.setMultiplexerConfiguration("TestFamily", "TestModel");
-            }
+            Multiplexer.setResetPin(GPIOinterface.getPin(18));
+            Multiplexer.setMultiplexerConfiguration("TestFamily", "TestModel");
         }
 
         /// <summary>
@@ -95,24 +78,23 @@ namespace RaspberryBackend
             {
                 foreach (HWComponent hwComponent in hwComponents)
                 {
-                    Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
+                    System.Diagnostics.Debug.WriteLine("Add new Hardware to Pi: " + hwComponent.GetType().Name);
                     addToRasPi(hwComponent);
+
+                    initializeClassInstanceField(hwComponent);
                 }
 
                 initializeHWComponents();
 
-                Control = new Operation(_hwComponents);
-
                 // Since the initialisation of Hardware is indipendent, the start-configuration of the RasPi which relise on them is seperated
                 if (hwComponentsInitialized())
                 {
-                    initiateStartUpConfigurationAsync();
+                    initiateStartUpConfiguration();
                 }
-                else if (!_testMode)
+                else if (!testMode)
                 {
                     throw new AggregateException("Hardware Components are (partly) not initialised thus the startconfiguration could not be initalised");
                 }
-
 
                 _initialized = true;
             }
@@ -127,14 +109,9 @@ namespace RaspberryBackend
         /// Return whether raspberrypi and it's hardware components are initialized
         /// </summary>
         /// <returns>True if each HWComponent and the Raspberry Pi is initialised. False if at least one HWComponent is not initialised</returns>
-        public bool isInitialized()
+        public Boolean isInitialized()
         {
             return _initialized & hwComponentsInitialized();
-        }
-
-        public bool isTestMode()
-        {
-            return _testMode;
         }
 
         /// <summary>
@@ -142,8 +119,8 @@ namespace RaspberryBackend
         /// </summary>
         public void reset()
         {
-            _hwComponents = new Dictionary<string, HWComponent>();
-            Control = null;
+            resetClassInstanceField();
+            _hwComponents = new Dictionary<String, HWComponent>();
             _initialized = false;
         }
 
@@ -159,7 +136,7 @@ namespace RaspberryBackend
             {
                 if (!hwComponent.isInitialized())
                 {
-                    Debug.WriteLine(hwComponent.GetType().Name + " is not initialised");
+                    System.Diagnostics.Debug.WriteLine(hwComponent.GetType().Name + " is not initialised");
                     return false;
                 }
             }
@@ -169,21 +146,35 @@ namespace RaspberryBackend
         //initialization of each Hardware Component
         private void initializeHWComponents()
         {
-            if (!_testMode)
+            if (!testMode)
             {
                 foreach (HWComponent hwcomponent in _hwComponents.Values)
                 {
-                    Debug.WriteLine("Initialize connected Hardware : " + hwcomponent.GetType().Name);
+                    System.Diagnostics.Debug.WriteLine("Initialize connected Hardware : " + hwcomponent.GetType().Name);
 
                     System.Threading.Tasks.Task.Delay(250).Wait();
                     hwcomponent.initiate();
 
-                    Debug.WriteLine(hwcomponent.GetType().Name + " initalized.");
+                    System.Diagnostics.Debug.WriteLine(hwcomponent.GetType().Name + " initalized.");
                 }
             }
             else
             {
-                Debug.WriteLine("System starts in Test-Mode. Hardware Components are not going to be connected/initialised.");
+                System.Diagnostics.Debug.WriteLine("System starts in Test-Mode. Hardware Components are not going to be connected/initialised.");
+            }
+        }
+
+        //initiates a declared instance field in the Raspberry Pi Class
+        private void initializeClassInstanceField(HWComponent hwComponent)
+        {
+            String instanceFieldName = hwComponent.GetType().Name;
+            Type rasPiClassType = this.GetType();
+            FieldInfo classInstanceField = rasPiClassType.GetField(instanceFieldName);
+
+            if (classInstanceField != null && classInstanceField.GetValue(this) == null)
+            {
+                var fieldValue = Convert.ChangeType(hwComponent, hwComponent.GetType());
+                classInstanceField.SetValue(this, fieldValue);
             }
         }
 
@@ -192,9 +183,13 @@ namespace RaspberryBackend
         {
             foreach (var hwComponent in _hwComponents.Values)
             {
-                Control.GetType().GetField(hwComponent.GetType().Name).SetValue(this, null);
+                this.GetType().GetField(hwComponent.GetType().Name).SetValue(this, null);
             }
         }
 
+        //public void setSkeleton(ServerSkeleton s)
+        //{
+            //this.skeleton = s;
+        //}
     }
 }

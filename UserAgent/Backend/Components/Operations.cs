@@ -5,13 +5,14 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.UI.Xaml.Controls;
+using CommonFiles.TransferObjects;
 
 namespace RaspberryBackend
 {
     /// <summary>
     /// Super class for each Operation. Will be initialized by RaspberryPi
     /// </summary>
-    public partial class Operation
+    public partial class Operation: IRaspberryPiOperations
     {
         /// <summary>
         /// For now this is needed because some operation check the Initialization state of the RasPi.
@@ -43,7 +44,7 @@ namespace RaspberryBackend
 
             // register event handler for LED input on GPIO Pin 5
             // to detect HI LED Status
-            GPIOinterface.registerEventHandler(GpioMap.led_input_Pin, Pin_ValueChanged);
+            GPIOinterface.registerEventHandler(GpioMap.led_input_Pin, Led_statusChanged);
         }
 
         //initiates a declared instance field in the Raspberry Pi Class
@@ -60,14 +61,18 @@ namespace RaspberryBackend
             }
         }
 
-        private void Pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
+        private void Led_statusChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
         {
             if (args.Edge == GpioPinEdge.FallingEdge)
             {
+                Result res = new Result(true, "Led_statusChanged", true);
+                RasPi.backChannel.sendObject(res);
                 Debug.WriteLine("Physical pushbutton has been pressed.");
             }
             else if (args.Edge == GpioPinEdge.RisingEdge)
             {
+                Result res = new Result(true, "Led_statusChanged", false);
+                RasPi.backChannel.sendObject(res);
                 Debug.WriteLine("Physical pushbutton has been released.");
             }
 

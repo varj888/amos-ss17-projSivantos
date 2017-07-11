@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CommonFiles.TransferObjects
@@ -9,6 +10,7 @@ namespace CommonFiles.TransferObjects
     /// it will be initialised with an exception if the request was not executed sucessful
     /// </summary>
     [DataContract]
+    [KnownType(typeof(Dictionary<string, string>))]
     public class Result
     {
         private Result(bool success, string obj, Object value, String exceptionMessage)

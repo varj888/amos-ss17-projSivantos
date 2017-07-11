@@ -30,20 +30,20 @@ namespace TestMachineFrontend1.Commands
         public void Execute(object par)
         {
             dtViewModel.sendRequest(par as Request);
-            dtViewModel.getResult(par as Request);
+            //dtViewModel.getResult(par as Request);
 
-            if ((par as Request).command.Equals("EndlessVCUp"))
-            {
-                debugViewModel.AddDebugInfo("Endless_VC_Up", "+1");
-            }
-            else if((par as Request).command.Equals("EndlessVCUp"))
-            {
-                debugViewModel.AddDebugInfo("Endless_VC_Down", "-1");
-            }
-            else
-            {
-                debugViewModel.AddDebugInfo("Unknown command", "");
-            }
+            //if ((par as Request).command.Equals("EndlessVCUp"))
+            //{
+            //    debugViewModel.AddDebugInfo("Endless_VC_Up", "+1");
+            //}
+            //else if((par as Request).command.Equals("EndlessVCUp"))
+            //{
+            //    debugViewModel.AddDebugInfo("Endless_VC_Down", "-1");
+            //}
+            //else
+            //{
+            //    debugViewModel.AddDebugInfo("Unknown command", "");
+            //}
         }
     }
 }
