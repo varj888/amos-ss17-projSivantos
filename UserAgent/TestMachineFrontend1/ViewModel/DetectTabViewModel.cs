@@ -237,8 +237,7 @@ namespace TestMachineFrontend1.ViewModel
                 {
                     uiContext.Send((object state) => debugVM.AddDebugInfo(result.value.ToString(), "sucess"), null);
                     string updateMethodName = "updateGui_" + result.obj.ToString();
-                    var updateMethod = typeof(MainWindowViewModel).GetMethod(updateMethodName).Invoke(MainWindowViewModel.Instance, new object[]{});
-
+                    typeof(MainWindowViewModel).GetMethod(updateMethodName).Invoke(MainWindowViewModel.Instance, new object[] { result });
                 }
                 else
                 {

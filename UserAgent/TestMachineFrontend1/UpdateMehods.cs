@@ -13,7 +13,7 @@ namespace TestMachineFrontend1.ViewModel
         /// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend.
         /// </summary>
         /// <param name="result">The responded result from Backend. It is either "High" or "Low"</param>
-        public void updateGUI_EnableTeleCoil(Result result)
+        public void updateGui_EnableTeleCoil(Result result)
         {
             Debug.WriteLine("Update Method aufgerufen");
         }
