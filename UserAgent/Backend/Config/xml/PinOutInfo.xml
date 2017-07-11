@@ -3,7 +3,7 @@
     <family name="TestFamily">
       <model name="TestModel">
         <Pin number="1" value="ARD" />
-        <Pin number="2" value="" />
+        <Pin number="2" value="LED" />
         <Pin number="3" value="PB" />
         <Pin number="4" value="DET_AUDIO" />
         <Pin number="5" value="DET_TELE" />

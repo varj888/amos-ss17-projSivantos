@@ -82,7 +82,7 @@ namespace RaspberryBackend
             //happens only if ADCDAC is actually connected
             if (_adConvert.IsConnected)
             {
-                Debug.WriteLine(channel.ToString() + "   " + voltage.ToString());
+                Debug.WriteLine(channel + "   " + voltage);
                 _adConvert.SetDACVoltage(channel, voltage);
                 if (channel == CHANNEL_1)
                 {
@@ -104,6 +104,13 @@ namespace RaspberryBackend
             return currentDACVoltage2;
         }
 
+        internal void setADCRefVoltage(double v)
+        {
+            _adConvert.SetADCrefVoltage(v);
+        }
+
+ 
+
         /// <summary>
         /// Wrapper around setDACVoltage so set channels without knowing their addresss
         /// </summary>
@@ -120,6 +127,17 @@ namespace RaspberryBackend
         public void setDACVoltage2(double voltage)
         {
             this.setDACVoltage(voltage, this.CHANNEL_2);
+        }
+
+        public void readADCVoltage(int times, byte channel)
+        {
+            if (channel < 1 || channel > 2) return;
+
+            for (int i = 0; i < times; i++)
+            {
+                Debug.WriteLine("ADC In1 Voltage is: {0}", _adConvert.ReadADCVoltage(channel));
+                Task.Delay(1000).Wait();
+            }
         }
     }
 }

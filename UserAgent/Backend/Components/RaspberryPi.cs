@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Windows.Devices.Gpio;
 
 
 namespace RaspberryBackend
