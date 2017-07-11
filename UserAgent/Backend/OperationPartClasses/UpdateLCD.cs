@@ -1,10 +1,8 @@
 ﻿using RaspberryBackend.Config;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
-using System.Threading.Tasks;
 
 namespace RaspberryBackend
 {
@@ -52,11 +50,11 @@ namespace RaspberryBackend
             double batstatus = this.ADConverter.getDACVoltage1() / this.ADConverter.getMaxVoltage();
             byte[] data = SymbolConfig.batterySymbol;
 
-            for(int i = 1; i <= 6; i++)
+            for (int i = 1; i <= 6; i++)
             {
                 int counter = 6;
                 double frac = (double)i / 6.0;
-                if( batstatus < frac )
+                if (batstatus < frac)
                 {
                     data[counter - i] = 0b00010001;
                 }
@@ -76,7 +74,9 @@ namespace RaspberryBackend
         /// </summary>
         public void updateLCD()
         {
-            if(!this.LCD.isShifting())
+            if (RasPi.isTestMode()) return;
+
+            if (!this.LCD.isShifting())
             {
                 this.LCD.startShifting();
             }
