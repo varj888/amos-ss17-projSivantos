@@ -3,6 +3,7 @@ using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -106,6 +107,28 @@ namespace TestMachineFrontend1.ViewModel
                 SelectedRaspiItem = o as RaspberryPiItem;
             });
             backendList = new ObservableCollection<RaspberryPiItem>();
+
+            printRegisteredDevices();
+        }
+
+        private async void printRegisteredDevices()
+        {
+            Dictionary<string, string> registeredDevices;
+            try
+            {
+                registeredDevices = await getRegisteredDevices();
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine("getRegisteredDevices: " + e.Message);
+                return;
+            }
+
+            foreach (var device in registeredDevices)
+            {
+                Debug.WriteLine(device.Key);
+                Debug.WriteLine(device.Value);
+            }
         }
 
         public RaspberryPiItem SelectedRaspiItem
@@ -221,9 +244,15 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        private void onReceiveObjectException()
+        private async Task<Dictionary<string, string>> getRegisteredDevices()
         {
-            
+            TcpClient registryServerSocket = new TcpClient();
+            await registryServerSocket.ConnectAsync("MarcoPC", 54320);
+            Request request = new Request("getRegisteredDevices", new object[] { });
+            Transfer.sendObject(registryServerSocket.GetStream(), request);
+            Result result = await Transfer.receiveObjectAsync<Result>(registryServerSocket.GetStream());
+            registryServerSocket.Close();
+            return (Dictionary<string, string>)result.value;
         }
 
         public TcpClient getClientconnection()

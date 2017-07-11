@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,13 +24,32 @@ namespace RegistryServer
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private ServerSkeleton registryServiceSkeleton;
+        RegistryService service;
+        TCPServer server;
+        BackChannel backChannel;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            //registryServiceSkeleton = new ServerSkeleton(new RegistryService(), 54320);
+            service = new RegistryService();
+            backChannel = new BackChannel();
+
+            initServer();
+        }
+
+        async Task initServer()
+        {
+            server = new TCPServer(54320);
+            server.connectionAccepted += handleConnection;
+            await server.runServerLoop();
+        }
+
+        private async void handleConnection(Object sender, TcpClient socket)
+        {
+            backChannel.setClient(socket);
+            RequestHandler.runRequestHandlerLoop(service, backChannel, socket);
+            socket.Dispose();
         }
 
     }

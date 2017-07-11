@@ -58,7 +58,9 @@
     <Compile Include="..\CommonFiles\Networking\Transfer.cs">
       <Link>CommonFiles\Networking\Transfer.cs</Link>
     </Compile>
+    <Compile Include="BackChannel.cs" />
     <Compile Include="RegistryService.cs" />
+    <Compile Include="RequestHandler.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
