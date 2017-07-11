@@ -2,32 +2,21 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Media;
+using TestMachineFrontend1.ViewModel;
 
-namespace TestmachineFrontend
+namespace TestMachineFrontend1.ViewModel
 {
-    public partial class MainWindow : Window
+    public partial class MainWindowViewModel
     {
+       
         /// <summary>
         /// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend.
         /// </summary>
         /// <param name="result">The responded result from Backend. It is either "High" or "Low"</param>
-        //public void updateGUI_EnableTeleCoil(Result result)
-        //{
-        //    string value = (string)result.value;
-
-        //    if (value != null)
-        //    {
-        //        if (value.Equals("High"))
-        //        {
-        //            TCoil_Eclipse.Fill = new SolidColorBrush(Colors.Green);
-        //        }
-        //        else if (value.Equals("Low"))
-        //        {
-        //            TCoil_Eclipse.Fill = new SolidColorBrush(Colors.Red);
-        //        }
-        //    }
-        //    addMessage("Update", "ToggleTeleCoil completed");
-        //}
+        public void updateGUI_EnableTeleCoil(Result result)
+        {
+            Debug.WriteLine("Update Method aufgerufen");
+        }
 
         ///// <summary>
         ///// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend

@@ -8,11 +8,10 @@ using System.Windows.Input;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
 using TestMachineFrontend1.Commands;
-using TestmachineFrontend;
 
 namespace TestMachineFrontend1.ViewModel
 {
-    public class MainWindowViewModel : ObservableObject
+    public partial class MainWindowViewModel : ObservableObject
     {
         #region Commands
         public static ICommand ConnectIPCommand { get; private set; }
@@ -27,6 +26,7 @@ namespace TestMachineFrontend1.ViewModel
         #endregion
 
         #region Properties
+
         public static List<TabControlModel> TabItems { get; set; }
         #endregion
 

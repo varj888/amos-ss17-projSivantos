@@ -7,10 +7,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TestmachineFrontend;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
@@ -235,11 +235,14 @@ namespace TestMachineFrontend1.ViewModel
 
                 if(result.exceptionMessage == null)
                 {
-                    uiContext.Send((object state) => debugVM.AddDebugInfo("some Result", "sucess"), null);
+                    uiContext.Send((object state) => debugVM.AddDebugInfo(result.value.ToString(), "sucess"), null);
+                    string updateMethodName = "updateGui_" + result.obj.ToString();
+                    var updateMethod = typeof(MainWindowViewModel).GetMethod(updateMethodName).Invoke(MainWindowViewModel.Instance, new object[]{});
+
                 }
                 else
                 {
-                    uiContext.Send((object state) => debugVM.AddDebugInfo("some Result", result.exceptionMessage), null);
+                    uiContext.Send((object state) => debugVM.AddDebugInfo(result.value.ToString(), result.exceptionMessage), null);
                 }
             }
         }
