@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Windows.Devices.Gpio;
-
+using RaspberryBackend.Components;
 
 namespace RaspberryBackend
 {
@@ -27,9 +27,14 @@ namespace RaspberryBackend
         //Singleton pattern
         private RaspberryPi() { }
         public static RaspberryPi Instance { get; } = new RaspberryPi();
-
+        public BackChannel backChannel { get; private set; }
 
         private Hi HiInfo;
+
+        public void setBackChannel(BackChannel backChannel)
+        {
+            this.backChannel = backChannel;
+        }
 
         //flags for robustness and testing
         private bool _initialized = false;

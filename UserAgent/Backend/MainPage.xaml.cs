@@ -40,6 +40,7 @@ namespace RaspberryBackend
             }
 
             backChannel = new BackChannel();
+            raspberryPi.setBackChannel(backChannel);
             runServerLoop();
 
             this.InitializeComponent();

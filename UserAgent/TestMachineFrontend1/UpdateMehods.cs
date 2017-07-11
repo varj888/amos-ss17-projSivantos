@@ -18,6 +18,10 @@ namespace TestMachineFrontend1.ViewModel
             Debug.WriteLine("Update Method aufgerufen");
         }
 
+        public void updateGui_Led_statusChanged(Result result)
+        {
+            Debug.WriteLine("update LED Status: " + result.obj + " , " + result.value);
+        }
         ///// <summary>
         ///// Updates a UI element respectlivly to the result of a sent command from Frontend to Backend
         ///// </summary>

@@ -14,7 +14,7 @@ namespace RaspberryBackend.Components
     /// <summary>
     /// Socket, which can be used by multiple threads for sending
     /// </summary>
-    class BackChannel
+    public class BackChannel
     {
         private TcpClient socket;
        
