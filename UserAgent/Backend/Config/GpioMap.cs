@@ -8,6 +8,7 @@
         public static readonly ushort rockerSwitchDownPin = 20;
         public static readonly ushort rockerSwitchUpPin = 21;
         public static readonly ushort pushButton_Pin = 26;
+        public static readonly ushort led_input_Pin = 5;
 
     }
 }

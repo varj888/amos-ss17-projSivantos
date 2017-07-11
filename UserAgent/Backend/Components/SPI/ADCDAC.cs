@@ -129,14 +129,15 @@ namespace RaspberryBackend
             this.setDACVoltage(voltage, this.CHANNEL_2);
         }
 
-        public double getADCVoltage2()
+        public void readADCVoltage(int times, byte channel)
         {
-            return _adConvert.ReadADCVoltage(2);
-        }
+            if (channel < 1 || channel > 2) return;
 
-        public double getADCVoltage1()
-        {
-            return _adConvert.ReadADCVoltage(1);
+            for (int i = 0; i < times; i++)
+            {
+                Debug.WriteLine("ADC In1 Voltage is: {0}", _adConvert.ReadADCVoltage(channel));
+                Task.Delay(1000).Wait();
+            }
         }
     }
 }
