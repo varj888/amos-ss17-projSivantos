@@ -1,11 +1,7 @@
 ﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
 using RaspberryBackend.Components;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net;
-using System.Net.Sockets;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
@@ -19,15 +15,13 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
         RaspberryPi raspberryPi = null;
-        TCPServer server;
-        TestOperations testOperations = null;
-        BackChannel backChannel;
 
         public MainPage()
         {
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
 
+            // try catch, because i have exception in function pulseEnable
             try
             {
                 // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components)
@@ -36,77 +30,53 @@ namespace RaspberryBackend
             catch (Exception e)
             {
                 Debug.WriteLine("Something went wrong during the initialization process of the RasPi : " + e.Message);
-                testOperations = new TestOperations();
             }
 
-            backChannel = new BackChannel();
-            raspberryPi.setBackChannel(backChannel);
-            runServerLoop();
+            //register at the registry server
+            //registerAsync();
+
+            // set up the skeleton
+            runServerStubsAsync();
+
+            ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi.Control, 54321);
+            raspberryPi.setSkeleton(raspberryPiSkeleton);
 
             this.InitializeComponent();
         }
 
-        private async Task runServerLoop()
+        private async Task runServerStubsAsync()
         {
-            TcpListener listener = new TcpListener(IPAddress.Any, 54321);
             while (true)
             {
-                listener.Start(1);
-
                 try
                 {
-                    await register("available");
+                    ServerStub stub;
+                    using (stub = await ServerStub.createServerStubAsync(54322))
+                    {
+                        await handleServerStubAsync(stub);
+                    }
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("Error registering at the registryServer :" + e.Message);
+                    Debug.WriteLine("error in runServerStub Loop: " + e.Message);
                 }
-
-                TcpClient clientSocket;
-                try
-                {
-                     clientSocket = await listener.AcceptTcpClientAsync();
-                }catch(Exception e)
-                {
-                    Debug.WriteLine("Error Accepting Connection " + e.Message);
-                    listener.Stop();
-                    continue;
-                }
-               
-                listener.Stop();
-
-                try
-                {
-                    await register("connected");
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error registering at the registryServer :" + e.Message);
-                }
-
-                backChannel.setClient(clientSocket);
-
-                //if the raspberry pi could not be created, testOperations will be used
-                if (testOperations == null)
-                {
-                    RequestHandler.runRequestHandlerLoop(raspberryPi.Control, backChannel, clientSocket);
-                }
-                else
-                {
-                    RequestHandler.runRequestHandlerLoop(testOperations, backChannel, clientSocket);
-                }
-
-                clientSocket.Dispose();
             }
         }
 
-        async Task register(string status)
+        private async Task handleServerStubAsync(ServerStub stub)
         {
-            TcpClient registryServerSocket = new TcpClient();
-            await registryServerSocket.ConnectAsync("MarcoPC", 54320);
-            Request request = new Request("register", new object[] { "MarcoPC", status });
-            Transfer.sendObject(registryServerSocket.GetStream(), request);
-            registryServerSocket.Dispose();
+            while (true)
+            {
+                stub.testCall("Second RPC connection Test");
+                await Task.Delay(3000);
+            }
         }
+
+        //private async Task registerAsync()
+        //{
+        //    ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
+        //    string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
+        //    conn.sendObject(new Request("register", values));
+        //}
     }
 }

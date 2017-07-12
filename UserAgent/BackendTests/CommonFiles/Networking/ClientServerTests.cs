@@ -6,7 +6,6 @@ using CommonFiles.TransferObjects;
 using CommonFiles.Networking;
 using System.Threading.Tasks;
 using System.Net;
-using System.Net.Sockets;
 
 namespace RaspberryBackendTests
 {
@@ -23,19 +22,19 @@ namespace RaspberryBackendTests
         private const string _TESTCOMMAND_2 = "TestCommand_2";
         private const int _TESTPARAM_2 = 2;
 
-        TCPServer tcpServer;
+        TCPServer<Request, Result> tcpServer;
         ClientConn<Result, Request> tcpClient;
 
-        TcpClient socket;
+        ObjConn<Request, Result> connection;
 
         [TestInitialize]
         public async Task setUp()
         {
-        //    tcpServer = new TCPServer(_PORT);
-        //    IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(_LOCALHOST), _PORT);
-        //    tcpClient = await ClientConn<Result,Request>.connectAsync(endpoint);
+            tcpServer = new TCPServer<Request, Result>(_PORT);
+            IPEndPoint endpoint = new IPEndPoint(IPAddress.Parse(_LOCALHOST), _PORT);
+            tcpClient = await ClientConn<Result,Request>.connectAsync(endpoint);
 
-        //    socket = await tcpServer.acceptConnectionAsync();
+            connection = await tcpServer.acceptConnectionAsync();
         }
 
         [TestMethod]

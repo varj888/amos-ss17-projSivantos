@@ -85,6 +85,7 @@ namespace RaspberryBackend
             this.setLCDBackgroundState(0x01);
 
             string ip = GetIpAddressAsync();
+
             string hi = StorageCfgs.Hi.Model;
             string currentReceiver = StorageCfgs.Hi.CurrentReceiver;
             string print = ip + " " + currentReceiver + " " + hi;

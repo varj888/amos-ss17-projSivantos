@@ -74,7 +74,7 @@ namespace TestMachineFrontend1.View
                 }
                 Request request = new Request("PressCombination", param);
                 vmCurrent.sendRequest(request);
-                //vmCurrent.getResult(request);
+                vmCurrent.getResult(request);
             }
             else
             {

@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Windows.Devices.Gpio;
-using RaspberryBackend.Components;
+
 
 namespace RaspberryBackend
 {
@@ -27,18 +27,18 @@ namespace RaspberryBackend
         //Singleton pattern
         private RaspberryPi() { }
         public static RaspberryPi Instance { get; } = new RaspberryPi();
-        public BackChannel backChannel { get; private set; }
+
 
         private Hi HiInfo;
-
-        public void setBackChannel(BackChannel backChannel)
-        {
-            this.backChannel = backChannel;
-        }
 
         //flags for robustness and testing
         private bool _initialized = false;
         private bool _testMode = true;
+
+        /// <summary>
+        /// TODO: This is for now a workaround which is needed for LCD status update. Should not be permenant
+        /// </summary>
+        public ServerSkeleton skeleton { get; set; }
 
         /// <summary>
         /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi.
@@ -145,6 +145,16 @@ namespace RaspberryBackend
             _hwComponents = new Dictionary<string, HWComponent>();
             Control = null;
             _initialized = false;
+        }
+
+        /// <summary>
+        /// Sets the Skeleton field in Raspberry Pi.
+        /// TODO: This is for now a workaround which is needed for LCD status update. Should not be permenant
+        /// </summary>
+        /// <param name="s"></param>
+        public void setSkeleton(ServerSkeleton s)
+        {
+            this.skeleton = s;
         }
 
         private void addToRasPi(HWComponent hwComponent)

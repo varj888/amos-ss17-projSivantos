@@ -24,7 +24,7 @@ namespace TestMachineFrontend1.View
             //TODO check
             Request request = new Request("SetAnalogVolume", Convert.ToByte(el.Value));
             vmCurrent.sendRequest(request);
-            //vmCurrent.getResult(request);
+            vmCurrent.getResult(request);
             //sendRequest(new Request("SetAnalogVolume", Convert.ToByte(el.Value)));
         }
 
@@ -34,7 +34,7 @@ namespace TestMachineFrontend1.View
             //TODO check
             Request request = new Request("TurnHIOn", el.Value);
             vmCurrent.sendRequest(request);
-            //vmCurrent.getResult(request);
+            vmCurrent.getResult(request);
             //sendRequest(new Request("TurnHIOn", el.Value));
         }
     }

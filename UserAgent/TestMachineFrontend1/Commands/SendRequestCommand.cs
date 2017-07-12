@@ -27,21 +27,21 @@ namespace TestMachineFrontend1.Commands
         public void Execute(object parameter)
         {
             dtVM.sendRequest(parameter as Request);
-            //Result result = dtVM.getResult(parameter as Request);
+            Result result = dtVM.getResult(parameter as Request);
 
-            //if (((parameter as Request).command.Equals(ucVM.DetectTCol.command))
-            //    && result.value.ToString() == "High")
-            //{
-            //    ucVM.TCoilDetected = true;
-            //    debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
+            if (((parameter as Request).command.Equals(ucVM.DetectTCol.command))
+                && result.value.ToString() == "High")
+            {
+                ucVM.TCoilDetected = true;
+                debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
 
-            //}
-            //else if ((parameter as Request).command.Equals(ucVM.UndetectTCol.command)
-            //    && result.value.ToString() == "Low")
-            //{
-            //    ucVM.TCoilDetected = false;
-            //    debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
-            //}
+            }
+            else if ((parameter as Request).command.Equals(ucVM.UndetectTCol.command)
+                && result.value.ToString() == "Low")
+            {
+                ucVM.TCoilDetected = false;
+                debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
+            }
         }
     }
 }

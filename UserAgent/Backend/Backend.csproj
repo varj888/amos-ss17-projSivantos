@@ -94,14 +94,23 @@
     <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
       <Link>CommonFiles\Networking\ClientConn.cs</Link>
     </Compile>
+    <Compile Include="..\CommonFiles\Networking\DataConn.cs">
+      <Link>CommonFiles\Networking\DataConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
+      <Link>CommonFiles\Networking\ObjConn.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\ServerSkeleton.cs">
+      <Link>CommonFiles\Networking\ServerSkeleton.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
       <Link>CommonFiles\Networking\TCPServer.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\Networking\Transfer.cs">
-      <Link>CommonFiles\Networking\Transfer.cs</Link>
+    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
+      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Hi.cs">
       <Link>CommonFiles\TransferObjects\Hi.cs</Link>
@@ -115,12 +124,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\BackChannel.cs" />
-    <Compile Include="Components\IRaspberryPiOperations.cs" />
-    <Compile Include="Components\RequestHandler.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Components\Operations.cs" />
-    <Compile Include="Components\TestOperations.cs" />
+    <Compile Include="Components\ServerStub.cs" />
     <Compile Include="Config\GpioMap.cs" />
     <Compile Include="Config\parser\HiXmlParser.cs" />
     <Compile Include="Config\MultiplexerConfig.cs" />

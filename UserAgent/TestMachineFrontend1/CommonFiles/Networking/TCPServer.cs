@@ -16,7 +16,7 @@ namespace CommonFiles.Networking
     /// </summary>
     /// <typeparam name="inType">Type of the Objects, which will be received from the client</typeparam>
     /// /// <typeparam name="outType">Type of the Objects, which will be received from the client</typeparam>
-    public class TCPServer<inType, outType>: IDisposable
+    public class TCPServer<inType, outType> : IDisposable
     {
         private TcpListener listener;
 

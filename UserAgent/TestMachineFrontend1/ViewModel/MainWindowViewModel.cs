@@ -8,10 +8,11 @@ using System.Windows.Input;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
 using TestMachineFrontend1.Commands;
+using TestmachineFrontend;
 
 namespace TestMachineFrontend1.ViewModel
 {
-    public partial class MainWindowViewModel : ObservableObject
+    public class MainWindowViewModel : ObservableObject
     {
         #region Commands
         public static ICommand ConnectIPCommand { get; private set; }
@@ -26,8 +27,18 @@ namespace TestMachineFrontend1.ViewModel
         #endregion
 
         #region Properties
-
         public static List<TabControlModel> TabItems { get; set; }
+        private TestCallee testCallee;
+        public static TestCallee TestCallee { get; private set; }
+        public TestCallee TestCalleeProperty
+        {
+            get { return testCallee; }
+            set
+            {
+                testCallee = value;
+                OnPropertyChanged("TestCalleeProperty");
+            }
+        }
         #endregion
 
         #region ViewModels
@@ -43,6 +54,7 @@ namespace TestMachineFrontend1.ViewModel
 
         static MainWindowViewModel()
         {
+            TestCallee = new TestCallee();
             InitAllViewModels();
             InitAllCommands();
             TabItems = GetAllTabItems();
@@ -52,7 +64,7 @@ namespace TestMachineFrontend1.ViewModel
         {
             Instance = new MainWindowViewModel();
             CurrentViewModelDebug = new DebugViewModel();
-            CurrentViewModelDetectTab = new DetectTabViewModel();
+            CurrentViewModelDetectTab = new DetectTabViewModel(TestCallee);
             CurrentViewModelLCDControls = new LCDControlsViewModel();
             CurrentViewModelUserControls = new UserControlsViewModel();
             CurrentViewModelMultiplexer = new MultiplexerViewModel();

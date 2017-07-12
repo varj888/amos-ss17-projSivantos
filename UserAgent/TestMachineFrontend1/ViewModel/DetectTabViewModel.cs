@@ -3,14 +3,12 @@ using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TestmachineFrontend;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
@@ -96,39 +94,19 @@ namespace TestMachineFrontend1.ViewModel
 
         //private DebugViewModel debugVM;
         private RaspberryPiItem detectModel;
+        private TestCallee testCallee;
         private DebugViewModel debugVM;
 
-        public DetectTabViewModel(/*DebugViewModel debugVM,*/)
+        public DetectTabViewModel(/*DebugViewModel debugVM,*/ TestCallee testCallee)
         {
             //this.debugVM = debugVM;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
+            this.testCallee = testCallee;
             ItemSelected = new DelegateCommand(o =>
             {
                 SelectedRaspiItem = o as RaspberryPiItem;
             });
             backendList = new ObservableCollection<RaspberryPiItem>();
-
-            printRegisteredDevices();
-        }
-
-        private async void printRegisteredDevices()
-        {
-            Dictionary<string, string> registeredDevices;
-            try
-            {
-                registeredDevices = await getRegisteredDevices();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("getRegisteredDevices: " + e.Message);
-                return;
-            }
-
-            foreach (var device in registeredDevices)
-            {
-                Debug.WriteLine(device.Key);
-                Debug.WriteLine(device.Value);
-            }
         }
 
         public RaspberryPiItem SelectedRaspiItem
@@ -171,11 +149,9 @@ namespace TestMachineFrontend1.ViewModel
                 backendList.Add(raspiItem);
                 SelectedRaspiItem = raspiItem;
                 debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
-                //sendRequest(GetAvailableHI);
-                //Result result = getResult(GetAvailableHI);
-                //MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
-                SynchronizationContext uiContext = SynchronizationContext.Current;
-                await Task.Run(() => ReceiveResultLoop(uiContext));
+                sendRequest(GetAvailableHI);
+                Result result = getResult(GetAvailableHI);
+                MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
             }
             catch (FormatException fx)
             {
@@ -197,6 +173,16 @@ namespace TestMachineFrontend1.ViewModel
                 //TODO check
                 IsPiConnected = false;
             }
+            try
+            {
+                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync
+                    (new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54322));
+                await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
+            }
+            catch (Exception any)
+            {
+                debugVM.AddDebugInfo("Error", "Error connecting the ClientSkeleton: " + any.Message);
+            }
         }
 
         public void sendRequest(Request request)
@@ -209,62 +195,69 @@ namespace TestMachineFrontend1.ViewModel
 
             try
             {
-                Transfer.sendObject(getClientconnection().GetStream(), request);
+                getClientconnection().sendObject(request);
             }
             catch (Exception ex)
             {
                 debugVM.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
                 return;
             }
+            //Result result = getResult(request);
+            //Result result;
+
+            //try
+            //{
+            //    result = getClientconnection().receiveObject();
+            //}
+            //catch (Exception e)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
+            //    return;
+            //}
+
+            //if (result.exceptionMessage == null)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "sucess");
+            //}
+            //else
+            //{
+            //    debugVM.AddDebugInfo(request.command, result.exceptionMessage);
+            //}
+
         }
 
-        private async Task ReceiveResultLoop(SynchronizationContext uiContext)
+        public Result getResult(Request request)
         {
-            while (true)
+            Result result = null;
+
+            try
             {
-                Result result;
-
-                try
-                {
-                    result = await Transfer.receiveObjectAsync<Result>(getClientconnection().GetStream());
-                }catch(Exception e)
-                {
-                    uiContext.Send((object state) => debugVM.AddDebugInfo("ResultLoop", "Result could not be received: " + e.Message), null);
-                    return;
-                }
-
-                if(result.exceptionMessage == null)
-                {
-                    uiContext.Send((object state) => debugVM.AddDebugInfo(result.value.ToString(), "sucess"), null);
-                    string updateMethodName = "updateGui_" + result.obj.ToString();
-                    typeof(MainWindowViewModel).GetMethod(updateMethodName).Invoke(MainWindowViewModel.Instance, new object[] { result });
-                }
-                else
-                {
-                    uiContext.Send((object state) => debugVM.AddDebugInfo(result.value.ToString(), result.exceptionMessage), null);
-                }
+                result = getClientconnection().receiveObject();
             }
+            catch (Exception e)
+            {
+                debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
+            }
+
+            if (result.exceptionMessage == null)
+            {
+                debugVM.AddDebugInfo(request.command, "sucess");
+            }
+            else
+            {
+                debugVM.AddDebugInfo(request.command, result.exceptionMessage);
+            }
+            return result;
         }
 
-        private async Task<Dictionary<string, string>> getRegisteredDevices()
-        {
-            TcpClient registryServerSocket = new TcpClient();
-            await registryServerSocket.ConnectAsync("MarcoPC", 54320);
-            Request request = new Request("getRegisteredDevices", new object[] { });
-            Transfer.sendObject(registryServerSocket.GetStream(), request);
-            Result result = await Transfer.receiveObjectAsync<Result>(registryServerSocket.GetStream());
-            registryServerSocket.Close();
-            return (Dictionary<string, string>)result.value;
-        }
-
-        public TcpClient getClientconnection()
+        public ClientConn<Result, Request> getClientconnection()
         {
             if (this.SelectedRaspiItem == null && this.BackendList.Count > 0)
             {
                 this.SelectedRaspiItem = this.BackendList.ElementAt(0);
             }
             var c = (RaspberryPiItem)this.SelectedRaspiItem;
-            return c.raspi.socket;
+            return c.raspi.clientConnection;
         }
     }
 }
