@@ -135,7 +135,7 @@ namespace RaspberryBackend
 
             for (int i = 0; i < times; i++)
             {
-                Debug.WriteLine("ADC In1 Voltage is: {0}", _adConvert.ReadADCVoltage(channel));
+                Debug.WriteLine("ADC In" + channel + " Voltage is: {0}", _adConvert.ReadADCVoltage(channel));
                 Task.Delay(1000).Wait();
             }
         }
