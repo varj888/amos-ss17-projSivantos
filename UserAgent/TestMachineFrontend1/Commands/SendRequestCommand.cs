@@ -8,13 +8,14 @@ namespace TestMachineFrontend1.Commands
     public class SendRequestCommand : ICommand
     {
         private UserControlsViewModel ucVM;
-        private DetectTabViewModel dtVM;
+        //private DetectTabViewModel dtVM;
         private DebugViewModel debugVM;
+        MainWindowViewModel mwVM = MainWindowViewModel.Instance;
 
         public SendRequestCommand()
         {
             ucVM = MainWindowViewModel.CurrentViewModelUserControls;
-            dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
+            //dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
         }
         public event EventHandler CanExecuteChanged;
@@ -26,7 +27,9 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            dtVM.sendRequest(parameter as Request);
+            //dtVM.sendRequest(parameter as Request);
+            mwVM.sendRequest(parameter as Request);
+
             //Result result = dtVM.getResult(parameter as Request);
 
             //if (((parameter as Request).command.Equals(ucVM.DetectTCol.command))

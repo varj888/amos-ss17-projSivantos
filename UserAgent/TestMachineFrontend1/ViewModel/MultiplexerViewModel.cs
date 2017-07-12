@@ -16,14 +16,15 @@ namespace TestMachineFrontend1.ViewModel
         private Dictionary<string, List<string>> availableHI;
         private HelperXML helperXML;
         private DebugViewModel debugVM;
-        private DetectTabViewModel detectTabVM;
+        MainWindowViewModel mwVM = MainWindowViewModel.Instance;
+        //private DetectTabViewModel detectTabVM;
         public MultiplexerViewModel()
         {
             availableHI = new Dictionary<string, List<string>>();
             HIListItems = new ObservableCollection<ComboBoxItem>();
             helperXML = new HelperXML();
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
-            detectTabVM = MainWindowViewModel.CurrentViewModelDetectTab;
+            //detectTabVM = MainWindowViewModel.CurrentViewModelDetectTab;
         }
         private double x;
         public double ValueX
@@ -100,7 +101,9 @@ namespace TestMachineFrontend1.ViewModel
 
             Request request = new Request("SetHI", new Object[] { family, model });
 
-            detectTabVM.sendRequest(request);
+            //detectTabVM.sendRequest(request);
+            mwVM.sendRequest(request);
+
             //detectTabVM.getResult(request);
         }
 
@@ -140,7 +143,7 @@ namespace TestMachineFrontend1.ViewModel
             Result result = null;
             try
             {
-                result = Transfer.receiveObject<Result>(detectTabVM.getClientconnection().GetStream());
+                result = Transfer.receiveObject<Result>(/*detectTabVM*/mwVM.getClientconnection().GetStream());
             }
             catch (Exception e)
             {

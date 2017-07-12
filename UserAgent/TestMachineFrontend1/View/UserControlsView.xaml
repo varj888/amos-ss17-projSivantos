@@ -14,6 +14,8 @@
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:UserControlsViewModel}">
         </DataTemplate>
+        <!--<DataTemplate DataType="{x:Type vm:MainWindowViewModel}">
+        </DataTemplate>-->
     </UserControl.Resources>
     
     <UserControl.DataContext>

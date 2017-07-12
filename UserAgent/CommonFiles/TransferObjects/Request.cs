@@ -64,7 +64,7 @@ namespace CommonFiles.TransferObjects
             try
             {
                 object value = m.Invoke(callee, request.parameters);
-                return new Result(true, callee.GetType().Name, value);
+                return new Result(true, request.command, value);
             }
             catch (TargetInvocationException e)
             {

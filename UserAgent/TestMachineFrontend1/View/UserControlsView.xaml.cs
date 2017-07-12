@@ -22,13 +22,14 @@ namespace TestMachineFrontend1.View
     /// </summary>
     public partial class UserControlsView : UserControl
     {
-        DetectTabViewModel vmCurrent;
+        //DetectTabViewModel vmCurrent;
         UserControlsViewModel vmUC;
         DebugViewModel vmDebug;
+        MainWindowViewModel mwVM = MainWindowViewModel.Instance;
         public UserControlsView()
         {
             InitializeComponent();
-            vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
+            //vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
             vmUC = MainWindowViewModel.CurrentViewModelUserControls;
             vmDebug = MainWindowViewModel.CurrentViewModelDebug;
         }
@@ -73,7 +74,8 @@ namespace TestMachineFrontend1.View
                     param[2] = 1;
                 }
                 Request request = new Request("PressCombination", param);
-                vmCurrent.sendRequest(request);
+                //vmCurrent.sendRequest(request);
+                mwVM.sendRequest(request);
                 //vmCurrent.getResult(request);
             }
             else

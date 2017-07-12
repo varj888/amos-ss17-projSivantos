@@ -11,11 +11,12 @@ namespace TestMachineFrontend1.View
     /// </summary>
     public partial class DetectTabView : UserControl
     {
-        DetectTabViewModel vmCurrent;
+        //DetectTabViewModel vmCurrent;
+        MainWindowViewModel mwVM = MainWindowViewModel.Instance;
         public DetectTabView()
         {
             InitializeComponent();
-            vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
+            //vmCurrent = MainWindowViewModel.CurrentViewModelDetectTab;
         }
 
         private void setVolume_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -23,7 +24,7 @@ namespace TestMachineFrontend1.View
             Slider el = sender as Slider;
             //TODO check
             Request request = new Request("SetAnalogVolume", Convert.ToByte(el.Value));
-            vmCurrent.sendRequest(request);
+            mwVM.sendRequest(request);
             //vmCurrent.getResult(request);
             //sendRequest(new Request("SetAnalogVolume", Convert.ToByte(el.Value)));
         }
@@ -33,7 +34,7 @@ namespace TestMachineFrontend1.View
             Slider el = sender as Slider;
             //TODO check
             Request request = new Request("TurnHIOn", el.Value);
-            vmCurrent.sendRequest(request);
+            mwVM.sendRequest(request);
             //vmCurrent.getResult(request);
             //sendRequest(new Request("TurnHIOn", el.Value));
         }

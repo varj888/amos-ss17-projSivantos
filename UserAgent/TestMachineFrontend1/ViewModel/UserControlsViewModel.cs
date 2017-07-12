@@ -13,10 +13,11 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class UserControlsViewModel : ObservableObject
     {
-        private DetectTabViewModel dtVM;
+        //private DetectTabViewModel dtVM;
+        MainWindowViewModel mwVM = MainWindowViewModel.Instance;
         public UserControlsViewModel()
         {
-            dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
+            //dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
             initDurationComboBox();
             initReceiverComboBox();
         }
@@ -97,7 +98,8 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem);
                 OnPropertyChanged("SelectedReceiverItem");
                 Request request = new Request("SetARDVoltage", _selectedReceiverItem.Content);
-                dtVM.sendRequest(request);
+                //dtVM.sendRequest(request);
+                mwVM.sendRequest(request);
                 //kann nicht bevor der Initialisierung des Receiver aufgerufen werden!!!
                 //dtVM.getResult(request);
             }

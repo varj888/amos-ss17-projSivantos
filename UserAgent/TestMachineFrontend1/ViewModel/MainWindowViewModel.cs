@@ -9,6 +9,12 @@ using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
 using TestMachineFrontend1.Commands;
 using TestmachineFrontend;
+using TestmachineFrontend1;
+using CommonFiles.Networking;
+using System.Net.Sockets;
+using CommonFiles.TransferObjects;
+using System.Threading;
+using System.Net;
 
 namespace TestMachineFrontend1.ViewModel
 {
@@ -97,6 +103,116 @@ namespace TestMachineFrontend1.ViewModel
                     CurrentTabContentViewModel = CurrentViewModelMultiplexer
                 }
             };
+        }
+
+        public async void connectIP()
+        {
+            try
+            {
+                var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(CurrentViewModelDetectTab.IPAdressConnect), 54321));
+                CurrentViewModelDetectTab.IsPiConnected = pi1.IsConnected;
+                CurrentViewModelDetectTab.raspberryPis.Add(CurrentViewModelDetectTab.IPAdressConnect, pi1);
+                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = CurrentViewModelDetectTab.IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
+                CurrentViewModelDetectTab.BackendList.Add(raspiItem);
+                CurrentViewModelDetectTab.SelectedRaspiItem = raspiItem;
+                CurrentViewModelDebug.AddDebugInfo("[SUCCESS]", "Connection established");
+                //sendRequest(GetAvailableHI);
+                //Result result = getResult(GetAvailableHI);
+                //MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
+                SynchronizationContext uiContext = SynchronizationContext.Current;
+                await Task.Run(() => ReceiveResultLoop(uiContext));
+            }
+            catch (FormatException fx)
+            {
+                CurrentViewModelDebug.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
+
+                //TODO check
+                CurrentViewModelDetectTab.IsPiConnected = false;
+            }
+            catch (SocketException sx)
+            {
+                CurrentViewModelDebug.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
+                //TODO check
+                CurrentViewModelDetectTab.IsPiConnected = false;
+
+            }
+            catch (Exception any)
+            {
+                CurrentViewModelDebug.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
+                //TODO check
+                CurrentViewModelDetectTab.IsPiConnected = false;
+            }
+        }
+
+        public void sendRequest(Request request)
+        {
+            if (CurrentViewModelDetectTab.SelectedRaspiItem == null)
+            {
+                CurrentViewModelDebug.AddDebugInfo("Debug", "No raspi selected");
+                return;
+            }
+
+            try
+            {
+                Transfer.sendObject(getClientconnection().GetStream(), request);
+            }
+            catch (Exception ex)
+            {
+                CurrentViewModelDebug.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
+                return;
+            }
+        }
+
+        private async Task ReceiveResultLoop(SynchronizationContext uiContext)
+        {
+            while (true)
+            {
+                Result result;
+
+                try
+                {
+                    result = await Transfer.receiveObjectAsync<Result>(getClientconnection().GetStream());
+                }
+                catch (Exception e)
+                {
+                    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo("ResultLoop", "Result could not be received: " + e.Message), null);
+                    return;
+                }
+
+                if (result.exceptionMessage == null)
+                {
+                    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), "sucess"), null);
+
+                    if ((result.obj.Equals(CurrentViewModelUserControls.DetectTCol.command))
+                        && result.value.ToString() == "High")
+                    {
+                        CurrentViewModelUserControls.TCoilDetected = true;
+                        CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
+
+                    }
+                    else if (result.obj.Equals(CurrentViewModelUserControls.UndetectTCol.command)
+                        && result.value.ToString() == "Low")
+                    {
+                        CurrentViewModelUserControls.TCoilDetected = false;
+                        CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
+                    }
+                }
+                else
+                {
+                    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), result.exceptionMessage), null);
+                }
+            }
+        }
+
+
+        public TcpClient getClientconnection()
+        {
+            if (CurrentViewModelDetectTab.SelectedRaspiItem == null && CurrentViewModelDetectTab.BackendList.Count > 0)
+            {
+                CurrentViewModelDetectTab.SelectedRaspiItem = CurrentViewModelDetectTab.BackendList.ElementAt(0);
+            }
+            var c = (RaspberryPiItem)CurrentViewModelDetectTab.SelectedRaspiItem;
+            return c.raspi.socket;
         }
     }
 }

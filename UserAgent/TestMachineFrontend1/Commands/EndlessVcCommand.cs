@@ -11,12 +11,13 @@ namespace TestMachineFrontend1.Commands
 {
     public class EndlessVcCommand : ICommand
     {
-        private DetectTabViewModel dtViewModel;
+        //private DetectTabViewModel dtViewModel;
         private DebugViewModel debugViewModel;
+        MainWindowViewModel mwVM = MainWindowViewModel.Instance;
 
         public EndlessVcCommand()
         {
-            dtViewModel = MainWindowViewModel.CurrentViewModelDetectTab;
+            //dtViewModel = MainWindowViewModel.CurrentViewModelDetectTab;
             debugViewModel = MainWindowViewModel.CurrentViewModelDebug;
         }
 
@@ -29,7 +30,10 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object par)
         {
-            dtViewModel.sendRequest(par as Request);
+            //dtViewModel.sendRequest(par as Request);
+
+            mwVM.sendRequest(par as Request);
+
             //dtViewModel.getResult(par as Request);
 
             //if ((par as Request).command.Equals("EndlessVCUp"))
