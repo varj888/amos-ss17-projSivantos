@@ -1,8 +1,12 @@
 ﻿using RaspberryBackend.Config;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RaspberryBackend
 {
@@ -10,6 +14,8 @@ namespace RaspberryBackend
     {
 
         private int batterySymbolPosition = 32;
+        private CancellationTokenSource _cts;
+        private Task writingOnLcd;
 
         /// <summary>
         /// Set state for background in LCD. Will want to switch to toggle
@@ -76,10 +82,14 @@ namespace RaspberryBackend
         {
             if (RasPi.isTestMode()) return;
 
-            if (!this.LCD.isShifting())
+            _cts?.Cancel();
+
+            Debug.Write("**** Cancel Task");
+            while (writingOnLcd != null && !writingOnLcd.IsCanceled && !writingOnLcd.IsCompleted)
             {
-                this.LCD.startShifting();
+                Debug.Write(".");
             }
+            Debug.WriteLine(" ****");
 
             LCD.resetLCD();
             this.setLCDBackgroundState(0x01);
@@ -87,13 +97,51 @@ namespace RaspberryBackend
             string ip = GetIpAddressAsync();
             string hi = StorageCfgs.Hi.Model;
             string currentReceiver = StorageCfgs.Hi.CurrentReceiver;
-            string print = ip + " " + currentReceiver + " " + hi;
+            //string print = ip + " " + currentReceiver + " " + hi;
+
+            List<string> line1 = new List<string> { ip, hi, currentReceiver };
+
 
             this.LCD.createSymbol(this.getBatterySymbol(), SymbolConfig.batterySymbolAddress);
             this.LCD.createSymbol(this.getInitSymbol(RasPi.isInitialized()), SymbolConfig.initSymbolAddress);
-            this.LCD.printInTwoLines(print);
-            this.LCD.printSymbol(SymbolConfig.batterySymbolAddress);
-            this.LCD.printSymbol(SymbolConfig.initSymbolAddress);
+
+            _cts = new CancellationTokenSource();
+
+            writingOnLcd = Task.Run(() => printOnLcd(line1), _cts.Token);
+
+
         }
+
+        private void printOnLcd(List<string> line1)
+        {
+
+            while (!_cts.IsCancellationRequested)
+            {
+                foreach (var content in line1)
+                {
+                    LCD.prints(content);
+                    LCD.gotoSecondLine();
+                    LCD.prints("<Akt>");
+                    LCD.prints(" ");
+                    this.LCD.printSymbol(SymbolConfig.batterySymbolAddress);
+                    LCD.prints(" ");
+                    this.LCD.printSymbol(SymbolConfig.initSymbolAddress);
+                    LCD.prints(" ");
+                    LCD.prints("<Vol>");
+
+                    try
+                    {
+                        Task.Delay(3500).Wait(_cts.Token);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                    }
+
+                    LCD.clrscr();
+                }
+            }
+        }
+
     }
 }

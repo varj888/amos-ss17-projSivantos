@@ -19,7 +19,7 @@ namespace RaspberryBackend
         private const byte LCD_WRITE = 0x07;
         private const byte Command_sendMode = 0;
         private const byte Data_sendMode = 1;
-        private bool cancelRequest = false;
+        private int LCD_MAX_LENGTH = 32;
 
         //Setup information for lcd initialization (visit lcd documentation for further information)
         public const byte EN = 0x02;
@@ -31,9 +31,8 @@ namespace RaspberryBackend
         public const byte D7c = 0x07;
         public const byte BL = 0x03;
 
+        private bool cancelRequest = false;
         private bool shifting = false;
-        private int LCD_MAX_LENGTH = 32;
-
         private CancellationTokenSource _cts;
 
         private byte[] _LineAddress = new byte[] { 0x00, 0x40 };
@@ -142,7 +141,7 @@ namespace RaspberryBackend
         /// <summary>
         /// skip to second line
         /// </summary>
-        private void gotoSecondLine()
+        public void gotoSecondLine()
         {
             write(0xc0, Command_sendMode);
         }
@@ -178,18 +177,6 @@ namespace RaspberryBackend
         }
 
 
-        /// <summary>
-        /// pints text in two lines
-        /// </summary>
-        /// <param name="text">text which shall be displayed</param>
-        /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
-        public void printInSecondLine(string text)
-        {
-            gotoSecondLine();
-
-            //Task.Run(() => scrollText(text)).Wait(); //if there is a problem
-            Task.Run(() => scrollText(text));
-        }
 
         private void scrollText(string text)
         {
@@ -301,25 +288,32 @@ namespace RaspberryBackend
             write(Convert.ToByte(0x1C), Command_sendMode);
         }
 
+
+        //===========================================
+        //================ SHIFTING ================
+
+
         public void autoShift()
         {
             int counter = 0;
             bool toggle = true;
             while (!this._cts.IsCancellationRequested)
             {
-                if(toggle == true)
+                if (toggle == true)
                 {
                     counter++;
                     this.shiftDisplayRight();
-                } else
+                }
+                else
                 {
                     this.shiftDisplayLeft();
                     counter--;
                 }
-                if(counter == 9)
+                if (counter == 9)
                 {
                     toggle = false;
-                } else if(counter == 0)
+                }
+                else if (counter == 0)
                 {
                     toggle = true;
                 }
@@ -329,7 +323,7 @@ namespace RaspberryBackend
 
         public void cancelShifting()
         {
-            if(this.isShifting())
+            if (this.isShifting())
             {
                 this._cts.Cancel();
                 Task.Delay(300).Wait();
@@ -350,11 +344,13 @@ namespace RaspberryBackend
 
         public void startShifting()
         {
+            cancelShifting();
+
             if (this.isShifting()) return;
             _cts = new CancellationTokenSource();
             try
             {
-                Task scrollTextTask = Task.Factory.StartNew(() => autoShift(), _cts.Token);
+                Task scrollTextTask = Task.Factory.StartNew(autoShift);
             }
             catch (OperationCanceledException e)
             {
