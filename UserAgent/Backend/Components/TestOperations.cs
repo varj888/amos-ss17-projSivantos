@@ -12,7 +12,10 @@ namespace RaspberryBackend
     {
         public string ConnectPins(int x, int y)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("ConnectPins");
+            Debug.WriteLine(x);
+            Debug.WriteLine(y);
+            return null;
         }
 
         public string EnableAudioShoe(int value)
@@ -55,6 +58,7 @@ namespace RaspberryBackend
             Debug.WriteLine("LightLED");
             Debug.WriteLine(requestedParameter);
             return requestedParameter.ToString();
+            //throw new NotImplementedException();
         }
 
         public string PressCombination(int[] param)

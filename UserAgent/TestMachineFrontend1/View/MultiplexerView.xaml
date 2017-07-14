@@ -30,8 +30,7 @@
         
         <Button Name="setPinsButton" Content="Set pins" HorizontalAlignment="Left" 
                 Margin="223,103,0,0" VerticalAlignment="Top" Width="85" Height="28"
-               Command="{Binding SendRequestCommand}"
-                CommandParameter="{Binding CurrentViewModelMultiplexer.ConnectPins}" />
+               Command="{Binding ConnectPinsCommand}"/>
 
         <!--Click="resetMux_Click"-->
         

@@ -28,7 +28,7 @@ namespace TestMachineFrontend1.Commands
         public void Execute(object parameter)
         {
             //dtVM.sendRequest(parameter as Request);
-            mwVM.sendRequest(parameter as Request);
+            //mwVM.sendRequest(parameter as Request);
 
             //Result result = dtVM.getResult(parameter as Request);
 

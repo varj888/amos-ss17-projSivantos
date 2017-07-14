@@ -77,10 +77,13 @@
     </Compile>
     <Compile Include="Commands\AddDebugInfoCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
+    <Compile Include="Commands\ConnectPinsCommand.cs" />
     <Compile Include="Commands\EndlessVcCommand.cs" />
     <Compile Include="Commands\GetDurationCommand.cs" />
+    <Compile Include="Commands\LEDOnCommand.cs" />
     <Compile Include="Commands\PressPushButtonCommand.cs" />
     <Compile Include="Commands\PressRockerSwitchCommand.cs" />
+    <Compile Include="Commands\ResetMuxCommand.cs" />
     <Compile Include="Commands\SendRequestCommand.cs" />
     <Compile Include="Commands\SetHICommand.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />

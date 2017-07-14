@@ -45,38 +45,42 @@ namespace TestMachineFrontend1.ViewModel
                 OnPropertyChanged("IsPiConnected");
             }
         }
-
-        #region Requests
-        public Request RequestLEDOn
+        public bool on
         {
-            get { return new Request("LightLED", 1); }
+            get { return true; }
         }
 
-        public Request RequestLEDOff
-        {
-            get { return new Request("LightLED", 0); }
-        }
+        //#region Requests
+        //public Request RequestLEDOn
+        //{
+        //    get { return new Request("LightLED", 1); }
+        //}
 
-        public Request ConnectPins
-        {
-            get { return new Request("ConnectPins", 0); }
-        }
+        //public Request RequestLEDOff
+        //{
+        //    get { return new Request("LightLED", 0); }
+        //}
 
-        public Request ReadPin
-        {
-            get { return new Request("ReadPin", PinID); }
-        }
+        //public Request ConnectPins
+        //{
+        //    get { return new Request("ConnectPins", 0); }
+        //}
 
-        public Request WritePin
-        {
-            get { return new Request("WritePin", PinID); }
-        }
+        //public Request ReadPin
+        //{
+        //    get { return new Request("ReadPin", PinID); }
+        //}
 
-        public Request ResetPin
-        {
-            get { return new Request("ResetPin", PinID); }
-        }
-        #endregion
+        //public Request WritePin
+        //{
+        //    get { return new Request("WritePin", PinID); }
+        //}
+
+        //public Request ResetPin
+        //{
+        //    get { return new Request("ResetPin", PinID); }
+        //}
+        //#endregion
 
         public Dictionary<String, RaspberryPi> RaspberryPis
         {
@@ -113,22 +117,22 @@ namespace TestMachineFrontend1.ViewModel
 
         private async void printRegisteredDevices()
         {
-            Dictionary<string, string> registeredDevices;
-            try
-            {
-                registeredDevices = await getRegisteredDevices();
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine("getRegisteredDevices: " + e.Message);
-                return;
-            }
+            //Dictionary<string, string> registeredDevices;
+            //try
+            //{
+            //    registeredDevices = await getRegisteredDevices();
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine("getRegisteredDevices: " + e.Message);
+            //    return;
+            //}
 
-            foreach (var device in registeredDevices)
-            {
-                Debug.WriteLine(device.Key);
-                Debug.WriteLine(device.Value);
-            }
+            //foreach (var device in registeredDevices)
+            //{
+            //    Debug.WriteLine(device.Key);
+            //    Debug.WriteLine(device.Value);
+            //}
         }
 
         public RaspberryPiItem SelectedRaspiItem
@@ -155,10 +159,10 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        public Request GetAvailableHI
-        {
-            get { return new Request("GetAvailableHI", 0); }
-        }
+        //public Request GetAvailableHI
+        //{
+        //    get { return new Request("GetAvailableHI", 0); }
+        //}
 
         //public async void connectIP()
         //{
@@ -244,16 +248,17 @@ namespace TestMachineFrontend1.ViewModel
         //    }
         //}
 
-        private async Task<Dictionary<string, string>> getRegisteredDevices()
-        {
-            TcpClient registryServerSocket = new TcpClient();
-            await registryServerSocket.ConnectAsync("MarcoPC", 54320);
-            Request request = new Request("getRegisteredDevices", new object[] { });
-            Transfer.sendObject(registryServerSocket.GetStream(), request);
-            Result result = await Transfer.receiveObjectAsync<Result>(registryServerSocket.GetStream());
-            registryServerSocket.Close();
-            return (Dictionary<string, string>)result.value;
-        }
+        //private async Task<Dictionary<string, string>> getRegisteredDevices()
+        //{
+        //    TcpClient registryServerSocket = new TcpClient();
+        //    await registryServerSocket.ConnectAsync("MarcoPC", 54320);
+        //    Request request = new Request("getRegisteredDevices", new object[] { });
+        //    Transfer.sendObject(registryServerSocket.GetStream(), request);
+        //    Object result = await Transfer.receiveObjectAsync(registryServerSocket.GetStream());
+        //    registryServerSocket.Close();
+        //    return (Dictionary<string, string>)result.value;
+        //    return null;
+        //}
 
         //public TcpClient getClientconnection()
         //{

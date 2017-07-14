@@ -97,9 +97,9 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedReceiverItem = value;
                 _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem);
                 OnPropertyChanged("SelectedReceiverItem");
-                Request request = new Request("SetARDVoltage", _selectedReceiverItem.Content);
+                //Request request = new Request("SetARDVoltage", _selectedReceiverItem.Content);
                 //dtVM.sendRequest(request);
-                mwVM.sendRequest(request);
+                //mwVM.sendRequest(request);
                 //kann nicht bevor der Initialisierung des Receiver aufgerufen werden!!!
                 //dtVM.getResult(request);
             }
@@ -160,51 +160,6 @@ namespace TestMachineFrontend1.ViewModel
                 tCoilDetected = value;
                 OnPropertyChanged("TCoilDetected");
             }
-        }
-
-        public Request PressPushButton
-        {
-            get { return new Request("PressPushButton", getDuration()); }
-        }
-
-        public Request PressRockerSwitchUp
-        {
-            get { return new Request("PressRockerSwitch", new int[] { 1, getDuration() }); }
-        }
-
-        public Request PressRockerSwitchDown
-        {
-            get { return new Request("PressRockerSwitch", new int[] { 0, getDuration() }); }
-        }
-
-        public Request DetectTCol
-        {
-            get { return new Request("EnableTeleCoil", 1); }
-        }
-
-        public Request UndetectTCol
-        {
-            get { return new Request("EnableTeleCoil", 0); }
-        }
-
-        public Request DetectAudioShoe
-        {
-            get { return new Request("EnableAudioShoe", 1); }
-        }
-
-        public Request UndetectAudioShoe
-        {
-            get { return new Request("EnableAudioShoe", 0); }
-        }
-
-        public Request Endless_VC_Up
-        {
-            get { return new Request("EndlessVCUp", new int[] { }); }
-        }
-
-        public Request Endless_VC_Down
-        {
-            get { return new Request("EndlessVCDown", new int[] { }); }
         }
 
         public int getDuration()

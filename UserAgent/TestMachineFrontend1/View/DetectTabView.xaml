@@ -37,8 +37,8 @@
                 CommandParameter="{Binding Path=CurrentViewModelDetectTab.ResetPin}" />
 
         <Button x:Name="ledON_button" Margin="144,85,317,307" Content="LED ON" 
-                Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelDetectTab.RequestLEDOn}"/>
+                Command="{Binding LEDOnCommand}"
+                CommandParameter="{Binding Path=CurrentViewModelDetectTab.On}"/>
 
         <Button x:Name="ledOFF_button" Margin="266,85,209,307" Content="LED OFF"  
                 Command="{Binding SendRequestCommand}" 

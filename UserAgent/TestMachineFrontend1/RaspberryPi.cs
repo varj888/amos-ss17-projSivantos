@@ -1,148 +1,210 @@
 ﻿using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TestmachineFrontend1
 {
+   
     /// <summary>
-    /// Software representation of the RaspberryPi. It contains all component representations which are phyisical connected to the Rpi. 
+    /// Allows to remotely call operations of the raspberry Pi.
+    /// Runs a ReceiveLoop in an own Task for receiving TOs
     /// </summary>
     public sealed class RaspberryPi
     {
-        public TcpClient socket;
-        public IPEndPoint endpoint { get; private set; }
-        private static UInt16 counter;
-        public String name { get; set; }
-        public int ID { get; private set; }
+        private TcpClient _socket;
+        private Dictionary<Type, Action<object>> _TOHandlerMap;
+        private ConcurrentQueue<TaskCompletionSource<SuccessResult>> _answers;
 
         /// <summary>
-        ///     Event occurs when connection is made.
+        /// Creates and connects to the RaspberryPi
         /// </summary>
-        public event EventHandler Connected;
+        /// <param name="endpoint">Contains the IP-Address and Port for connection</param>
+        /// <returns>The created Raspberry Pi Class</returns>
+        public static async Task<RaspberryPi> CreateAsync(IPEndPoint endpoint)
+        {
+            TcpClient socket = new TcpClient();
+            await socket.ConnectAsync(endpoint.Address, endpoint.Port);
+            return new RaspberryPi(socket);
+        }
 
         /// <summary>
-        ///     Event triggers when a connection is established.
+        /// Allows to register for received TOs.
+        /// If a TO is received in the receive loop, the action will be called in an own thread with the TO as parameter
         /// </summary>
-        public bool IsConnected { get; private set; }
-
-        public static async Task<RaspberryPi> Create(IPEndPoint endpoint)
+        /// <typeparam name="T">Type of the TO</typeparam>
+        /// <param name="action">Registered Action</param>
+        public void registerActionForTO<T>(Action<T> action)
         {
-            var raspberryPi = new RaspberryPi(endpoint);
-            await raspberryPi.Initialize();
-            return raspberryPi;
-        }
-        // Private constructor because due to its async nature of networking actual initialization can't occur here.
-        // Instead a pseudo-factory is employed that returns an initialized, connected RaspberryPi Object to the Caller,
-        // because the instance relies on an already established connection.
-        private RaspberryPi(IPEndPoint endpoint)
-        {
-            this.endpoint = endpoint;
-            counter++; //currently unused
-            ID = counter;
-        }
-        // Does necessary asynchronous work to initialize / connect RaspberryPi.
-        // Note that this function might throw an exception when connection can't be established.
-        private async Task Initialize()
-        {
-            try
+            if (_TOHandlerMap.ContainsKey(typeof(T)))
             {
-                socket = new TcpClient();
-                Console.WriteLine("[x] Connecting to: " + this.endpoint.Address + " ...");
-                await socket.ConnectAsync(endpoint.Address, endpoint.Port); // port usually 54321
-                /* Connection established, set IsConnected to true because async call returned. */
-                IsConnected = true;
-                /* Fire the Connected event handler. Unused currently. */
-                Connected?.Invoke(this, EventArgs.Empty);
+                _TOHandlerMap[typeof(T)] += (to => action((T)to));
             }
-            /* If host is offline, display the socket exception and stop running */
-            catch (SocketException sx)
+            else
             {
-                IsConnected = false;
-                Console.WriteLine("[ERROR] Connection couldn't be established. Host offline. ", sx);
-                throw new SocketException(sx.ErrorCode);
-            }
-            /* If initialization fails, display the exception and stop running */
-            catch (Exception ex)
-            {
-                IsConnected = false;
-                Console.WriteLine("[ERROR] Connection couldn't be established for unknown reasons.");
-                throw new Exception("Connection couldn't be established for unknown reasons.", ex);
+                _TOHandlerMap.Add(typeof(T), to => action((T)to));
             }
         }
 
-        public void readPin(UInt16 PinID)
+        private RaspberryPi(TcpClient socket)
         {
-            try
-            {
-                Transfer.sendObject(socket.GetStream(), new Request("ReadPin", PinID));
-                return;
+            _socket = socket;
+            initToMap();
+            _answers = new ConcurrentQueue<TaskCompletionSource<SuccessResult>>();
+            Task.Run(() => ReceiveLoop());
+        }
 
-            }
-            catch (Exception ex)
+        private void initToMap()
+        {
+            _TOHandlerMap = new Dictionary<Type, Action<Object>>();
+            registerActionForTO<SuccessResult>(onSuccessResult);
+            registerActionForTO<ExceptionResult>(onExceptionResult);
+        }
+
+        private async Task<Object> sendRequest(Request request)
+        {
+            TaskCompletionSource<SuccessResult> answer = new TaskCompletionSource<SuccessResult>();
+            _answers.Enqueue(answer);
+            Transfer.sendObject(_socket.GetStream(), request);
+            return (await answer.Task).result;
+        }
+
+        private async Task ReceiveLoop()
+        {
+            while (true)
             {
-                Console.WriteLine("[ERROR] Request could not be sent: " + ex.Message);
-                throw new Exception("Request could not be sent:", ex);
+                Object transferObject = await Transfer.receiveObjectAsync(_socket.GetStream());
+                _TOHandlerMap[transferObject.GetType()].Invoke(transferObject);
             }
         }
 
-        public void writePin(UInt16 PinID)
+        private void onSuccessResult(SuccessResult successResult)
         {
-            try
+            TaskCompletionSource<SuccessResult> answer;
+            if (_answers.TryDequeue(out answer))
             {
-                Transfer.sendObject(socket.GetStream(),new Request("WritePin", PinID));
-                return;
-
+                answer.SetResult(successResult);
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine("[ERROR] Request could not be sent: " + ex.Message);
-                throw new Exception("Request could not be sent:", ex);
+                throw new Exception("Result without Request");
             }
         }
 
-        public void resetPin(UInt16 PinID)
+        private void onExceptionResult(ExceptionResult excptionResult)
         {
-
-            try
+            TaskCompletionSource<SuccessResult> answer;
+            if (_answers.TryDequeue(out answer))
             {
-                Transfer.sendObject(socket.GetStream(), new Request("ResetPin", PinID));
-                return;
-
+                answer.SetException(new RequestExecutionException(excptionResult.exceptionMessage));
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine("[ERROR] Request could not be sent: " + ex.Message);
-                throw new Exception("Request could not be sent:", ex);
+                throw new Exception("Result without Request");
             }
         }
 
-        public void lightLED(Boolean light_on)
+        public async Task<string> LightLED(int value)
         {
-            try
-            {
-                if (light_on)
-                {
-                    Transfer.sendObject(socket.GetStream(), new Request("LightLED", 1));
-                }
-                else
-                {
-                    Transfer.sendObject(socket.GetStream(), new Request("LightLED", 0));
-                }
-                return;
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[ERROR] Request could not be sent: " + ex.Message);
-                throw new Exception("Request could not be sent:", ex);
-            }
+            return (string)await sendRequest(new Request("LightLED", value));
         }
 
+        public async Task<string> ConnectPins(int valueX, int valueY)
+        {
+            return (string)await sendRequest(new Request("ConnectPins", new object[] { valueX, valueY }));
+        }
+
+        public async Task<string> ResetMux(int v)
+        {
+            return (string)await sendRequest(new Request("ResetMux", v));
+        }
+
+        public async Task<string> SetHI(string family, string model)
+        {
+            return (string)await sendRequest(new Request("SetHI", new object[] { family, model }));  
+        }
+
+        public async Task<string> GetAvailableHI(int v)
+        {
+            return (string)await sendRequest(new Request("GetAvailableHI", v));
+        }
+
+        public async Task<string> PressPushButton(int duration)
+        {
+            return (string)await sendRequest(new Request("PressPushButton", duration));
+        }
+
+        public async Task<string> PressRockerSwitchDown(int duration)
+        {
+            return (string)await sendRequest(new Request("PressRockerSwitch", new int[] { 0, duration }));
+        }
+
+        public async Task<string> PressRockerSwitchUp(int duration)
+        {
+            return (string)await sendRequest(new Request("PressRockerSwitch", new int[] { 1, duration }));
+        }
+
+        public async Task<string> PressCombination(int[] param)
+        {
+            return (string)await sendRequest(new Request("PressCombination", param));
+        }
+        
+        public async Task<string> DetectTeleCoil()
+        {
+            return (string)await sendRequest(new Request("EnableTeleCoil", 1));
+        }
+
+        public async Task<string> UndetectTeleCoil()
+        {
+            return (string)await sendRequest(new Request("EnableTeleCoil", 0));
+        }
+
+        public async Task<string> DetectAudioShoe()
+        {
+            return (string)await sendRequest(new Request("DetectAudioShoe", 1));    
+        }
+
+        public async Task<string> UndetectAudioShoe()
+        {
+            return (string)await sendRequest(new Request("DetectAudioShoe", 0));
+        }
+
+        public async Task<string> EndlessVCUp(int ticks)
+        {
+            return (string)await sendRequest(new Request("EndlessVCUp", ticks));
+        }
+
+        public async Task<string> EndlessVCDown(int ticks)
+        {
+            return (string)await sendRequest(new Request("EndlessVCDown", ticks));
+        }
+
+        public async Task<string> SetAnalogVolume(byte requestedVolumeLevel)
+        {
+            return (string)await sendRequest(new Request("SetAnalogVolume", requestedVolumeLevel));
+        }
+
+        public async Task<string> TurnHIOn(double voltage)
+        {
+            return (string)await sendRequest(new Request("TurnHIOn", voltage));
+        }
+
+        public async Task<string> SendToLCD(string text)
+        {
+            return (string)await sendRequest(new Request("SendToLCD", text));
+        }
+
+        public async Task<string> ToggleBacklight_LCD(int requestedParameter)
+        {
+            return (string)await sendRequest(new Request("ToggleBacklight_LCD", requestedParameter));
+        }
     }
 }

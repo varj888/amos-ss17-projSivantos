@@ -41,7 +41,7 @@ namespace CommonFiles.TransferObjects
         /// <param name="callee">Objekt, which method will be called</param>
         /// <param name="request">This parameter is used by handleRequest to determine the called method and their parameters</param>
         /// <returns>Returns the result of the called Method</returns>
-        public static Result handleRequest(Object callee, Request request)
+        public static Object handleRequest(Object callee, Request request)
         {
             MethodInfo m;
 
@@ -52,27 +52,27 @@ namespace CommonFiles.TransferObjects
             }
             catch (Exception e)
             {
-                return new Result(e.Message);
+                return new ExceptionResult(e.Message);
             }
 
             if (m == null)
             {
-                return new Result("Command not found");
+                return new ExceptionResult("Command not found");
             }
 
             // calling the method
             try
             {
                 object value = m.Invoke(callee, request.parameters);
-                return new Result(true, request.command, value);
+                return new SuccessResult(value);
             }
             catch (TargetInvocationException e)
             {
-                return new Result(e.GetBaseException().Message);
+                return new ExceptionResult(e.GetBaseException().Message);
             }
             catch (Exception e)
             {
-                return new Result(e.Message);
+                return new ExceptionResult(e.Message);
             }
         }
     }

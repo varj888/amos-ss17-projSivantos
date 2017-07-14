@@ -3,6 +3,7 @@ using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace TestMachineFrontend1.ViewModel
         private Dictionary<string, List<string>> availableHI;
         private HelperXML helperXML;
         private DebugViewModel debugVM;
+
         MainWindowViewModel mwVM = MainWindowViewModel.Instance;
         //private DetectTabViewModel detectTabVM;
         public MultiplexerViewModel()
@@ -83,7 +85,19 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        public void setHI()
+        public async Task ResetMux()
+        {
+            //String result = await MainWindowViewModel.raspberryPi.ResetMux(0);
+            //Debug.WriteLine(result);
+        }
+
+        public async Task ConnectPins()
+        {
+            //String result = await MainWindowViewModel.raspberryPi.ConnectPins((int)ValueX, (int)ValueY);
+            //Debug.WriteLine(result);
+        }
+
+        public async Task setHI()
         {
             ComboBoxItem ci;
             try
@@ -99,57 +113,43 @@ namespace TestMachineFrontend1.ViewModel
             string model = ci.Content.ToString();
             string family = ci.Name;
 
-            Request request = new Request("SetHI", new Object[] { family, model });
-
-            //detectTabVM.sendRequest(request);
-            mwVM.sendRequest(request);
-
-            //detectTabVM.getResult(request);
+            //Result result = await MainWindowViewModel.raspberryPi.SetHI(family, model);
+            //Debug.WriteLine(result.value);
         }
 
-        public Request GetAvailableHI
-        {
-            get { return new Request("GetAvailableHI", 0); }
-        }
+        //public Request GetAvailableHI
+        //{
+        //    get { return new Request("GetAvailableHI", 0); }
+        //}
 
-        public Request ConnectPins
-        {
-            get { return new Request("ConnectPins", new object[] { (int)ValueX, (int)ValueY }); }
-        }
+        //public void getAvailableHI(Result result)
+        //{
+        //    availableHI = helperXML.buildDictionary((string)result.value);
+        //    foreach (string family in availableHI.Keys)
+        //    {
+        //        foreach (string model in availableHI[family])
+        //        {
+        //            ComboBoxItem element = new ComboBoxItem();
+        //            element.Name = family;
+        //            element.Content = model;
+        //            HIListItems.Add(element);
+        //        }
+        //    }
+        //    debugVM.AddDebugInfo(result.obj, "Updated List");
+        //}
 
-        public Request ResetMux
-        {
-            get { return new Request("ResetMux", 0); }
-        }
-
-        public void getAvailableHI(Result result)
-        {
-            availableHI = helperXML.buildDictionary((string)result.value);
-            foreach (string family in availableHI.Keys)
-            {
-                foreach (string model in availableHI[family])
-                {
-                    ComboBoxItem element = new ComboBoxItem();
-                    element.Name = family;
-                    element.Content = model;
-                    HIListItems.Add(element);
-                }
-            }
-            debugVM.AddDebugInfo(result.obj, "Updated List");
-        }
-
-        public Result getResult(Request request)
-        {
-            Result result = null;
-            try
-            {
-                result = Transfer.receiveObject<Result>(/*detectTabVM*/mwVM.getClientconnection().GetStream());
-            }
-            catch (Exception e)
-            {
-                debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
-            }
-            return result;
-        }
+        //public Result getResult(Request request)
+        //{
+        //    Result result = null;
+        //    try
+        //    {
+        //        result = Transfer.receiveObject<Result>(/*detectTabVM*/mwVM.getClientconnection().GetStream());
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
+        //    }
+        //    return result;
+        //}
     }
 }

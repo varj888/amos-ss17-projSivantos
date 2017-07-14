@@ -5,37 +5,53 @@ using System.Runtime.Serialization;
 namespace CommonFiles.TransferObjects
 {
     /// <summary>
-    /// Objects of this type will be received by the Testmachines as Responses to Requests
-    /// exceptionMessage is null if the request was executed sucessful
-    /// it will be initialised with an exception if the request was not executed sucessful
+    /// Objects of this type will be received by the Testmachines as Responses to sucessfully executed Requests
     /// </summary>
     [DataContract]
     [KnownType(typeof(Dictionary<string, string>))]
-    public class Result
+    public class SuccessResult
     {
-        private Result(bool success, string obj, Object value, String exceptionMessage)
-        {
-            this.exceptionMessage = exceptionMessage;
-            this.success = success;
-            this.obj = obj;
-            this.value = value;
-        }
-
-        public Result(bool success, string obj, Object value) : this(success, obj, value, null)
-        {
-        }
-
-        public Result(String exceptionMessage) : this(false, null, null, exceptionMessage)
-        {
-        }
-
+        /// <summary>
+        /// Result of a Request
+        /// </summary>
         [DataMember]
-        public bool success;
+        public object result;
+
+        public SuccessResult(Object result)
+        {
+            this.result = result;
+        }
+    }
+
+    [DataContract]
+    public class ExceptionResult
+    {
         [DataMember]
         public string exceptionMessage;
-        [DataMember]
-        public string obj;
-        [DataMember]
-        public Object value;
+
+        public ExceptionResult(string exceptionMessage)
+        {
+            this.exceptionMessage = exceptionMessage;
+        }
+    }
+
+    /// <summary>
+    /// Exeption, which is thrown as result of a ExceptionResult
+    /// </summary>
+    public class RequestExecutionException : Exception
+    {
+        public RequestExecutionException()
+        {
+        }
+
+        public RequestExecutionException(string message)
+            : base(message)
+        {
+        }
+
+        public RequestExecutionException(string message, Exception inner)
+            : base(message, inner)
+        {
+        }
     }
 }

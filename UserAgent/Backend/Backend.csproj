@@ -91,9 +91,6 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
-      <Link>CommonFiles\Networking\ClientConn.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>

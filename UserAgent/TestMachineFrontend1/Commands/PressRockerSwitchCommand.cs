@@ -35,7 +35,7 @@ namespace TestMachineFrontend1.Commands
             if (ucViewModel.getDuration() != -1)
             {
                 //dtViewModel.sendRequest(parameter as Request);
-                mwVM.sendRequest(parameter as Request);
+                //mwVM.sendRequest(parameter as Request);
 
                 //dtViewModel.getResult(parameter as Request);
             }

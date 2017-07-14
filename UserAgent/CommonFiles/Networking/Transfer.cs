@@ -122,6 +122,7 @@ namespace CommonFiles.Networking
         /// <param name="obj">Object, which will be send</param>
         public static void sendObject(NetworkStream stream, Object obj)
         {
+            sendByteArray(stream, Encoding.ASCII.GetBytes(obj.GetType().FullName));
             sendByteArray(stream, Encoding.ASCII.GetBytes(Serializer.Serialize(obj)));
         }
 
@@ -132,27 +133,30 @@ namespace CommonFiles.Networking
         /// <param name="obj">Object, which will be send</param>
         public static async Task sendObjectAsync(NetworkStream stream, Object obj)
         {
+            await sendByteArrayAsync(stream, Encoding.ASCII.GetBytes(obj.GetType().FullName));
             await sendByteArrayAsync(stream, Encoding.ASCII.GetBytes(Serializer.Serialize(obj)));
         }
 
         /// <summary>
-        /// receives an Object of type T from a Stream
+        /// receives an Object from a Stream
         /// </summary>
         /// <param name="stream">Stream used for sending</param>
         /// <returns>Object received from the stream</returns>
-        public static T receiveObject<T>(NetworkStream stream)
+        public static Object receiveObject(NetworkStream stream)
         {
-            return (T)Serializer.Deserialize(Encoding.ASCII.GetString(receiveByteArray(stream)), typeof(T));
+            Type t = Type.GetType(Encoding.ASCII.GetString(receiveByteArray(stream)));
+            return Serializer.Deserialize(Encoding.ASCII.GetString(receiveByteArray(stream)), t);
         }
 
         /// <summary>
-        /// receives an Object of type T from a Stream
+        /// receives an Object from a Stream
         /// </summary>
         /// <param name="stream">Stream used for sending</param>
         /// <returns>Object received from the stream</returns>
-        public static async Task<T> receiveObjectAsync<T>(NetworkStream stream)
+        public static async Task<Object> receiveObjectAsync(NetworkStream stream)
         {
-            return (T)Serializer.Deserialize(Encoding.ASCII.GetString(await receiveByteArrayAsync(stream)), typeof(T));
+            Type t = Type.GetType(Encoding.ASCII.GetString(await receiveByteArrayAsync(stream)));
+            return Serializer.Deserialize(Encoding.ASCII.GetString(await receiveByteArrayAsync(stream)), t);
         }
     }
 }

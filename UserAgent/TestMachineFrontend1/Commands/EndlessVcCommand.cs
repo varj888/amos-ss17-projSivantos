@@ -32,7 +32,7 @@ namespace TestMachineFrontend1.Commands
         {
             //dtViewModel.sendRequest(par as Request);
 
-            mwVM.sendRequest(par as Request);
+            //mwVM.sendRequest(par as Request);
 
             //dtViewModel.getResult(par as Request);
 

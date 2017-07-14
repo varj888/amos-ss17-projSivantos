@@ -8,10 +8,8 @@ using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class SetHICommand : ICommand
+    class ResetMuxCommand : ICommand
     {
-        public SetHICommand() { }
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -21,7 +19,7 @@ namespace TestMachineFrontend1.Commands
 
         public async void Execute(object parameter)
         {
-            await MainWindowViewModel.CurrentViewModelMultiplexer.setHI();
+            await MainWindowViewModel.CurrentViewModelMultiplexer.ResetMux(); ;
         }
     }
 }

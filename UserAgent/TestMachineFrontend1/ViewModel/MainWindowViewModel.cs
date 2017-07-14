@@ -29,6 +29,7 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand EndlessVcCommand { get; private set; }
         public static ICommand PressRockerSwitchCommand { get; private set; }
         public static ICommand SetHICommand { get; private set; }
+        public static ICommand LEDOnCommand { get; private set; }
 
         #endregion
 
@@ -76,6 +77,7 @@ namespace TestMachineFrontend1.ViewModel
             EndlessVcCommand = new EndlessVcCommand();
             PressRockerSwitchCommand = new PressRockerSwitchCommand();
             SetHICommand = new SetHICommand();
+            LEDOnCommand = new LEDOnCommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()
@@ -105,12 +107,18 @@ namespace TestMachineFrontend1.ViewModel
             };
         }
 
+        /// <summary>
+        /// todo: use the raspberry Pi dictionary or something like that
+        /// </summary>
+        public static RaspberryPi raspberryPi;
+
         public async void connectIP()
         {
             try
             {
-                var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(CurrentViewModelDetectTab.IPAdressConnect), 54321));
-                CurrentViewModelDetectTab.IsPiConnected = pi1.IsConnected;
+                var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(CurrentViewModelDetectTab.IPAdressConnect), 54321));
+                raspberryPi = pi1;
+                CurrentViewModelDetectTab.IsPiConnected = true;
                 CurrentViewModelDetectTab.raspberryPis.Add(CurrentViewModelDetectTab.IPAdressConnect, pi1);
                 RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = CurrentViewModelDetectTab.IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
                 CurrentViewModelDetectTab.BackendList.Add(raspiItem);
@@ -144,76 +152,66 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        public void sendRequest(Request request)
+        public void invokeRaspberryPi(Request request)
         {
-            if (CurrentViewModelDetectTab.SelectedRaspiItem == null)
-            {
-                CurrentViewModelDebug.AddDebugInfo("Debug", "No raspi selected");
-                return;
-            }
+            //if (CurrentViewModelDetectTab.SelectedRaspiItem == null)
+            //{
+            //    CurrentViewModelDebug.AddDebugInfo("Debug", "No raspi selected");
+            //    return;
+            //}
 
-            try
-            {
-                Transfer.sendObject(getClientconnection().GetStream(), request);
-            }
-            catch (Exception ex)
-            {
-                CurrentViewModelDebug.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
-                return;
-            }
+            //try
+            //{
+            //    Transfer.sendObject(getClientconnection().GetStream(), request);
+            //}
+            //catch (Exception ex)
+            //{
+            //    CurrentViewModelDebug.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
+            //    return;
+            //}
         }
 
         private async Task ReceiveResultLoop(SynchronizationContext uiContext)
         {
             while (true)
             {
-                Result result;
+                //Object result = raspberryPi.getNotification();
 
-                try
-                {
-                    result = await Transfer.receiveObjectAsync<Result>(getClientconnection().GetStream());
-                }
-                catch (Exception e)
-                {
-                    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo("ResultLoop", "Result could not be received: " + e.Message), null);
-                    return;
-                }
+                //if (result.exceptionMessage == null)
+                //{
+                //    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), "sucess"), null);
 
-                if (result.exceptionMessage == null)
-                {
-                    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), "sucess"), null);
+                    //if ((result.obj.Equals(CurrentViewModelUserControls.DetectTCol.command))
+                    //    && result.value.ToString() == "High")
+                    //{
+                    //    CurrentViewModelUserControls.TCoilDetected = true;
+                    //    CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
 
-                    if ((result.obj.Equals(CurrentViewModelUserControls.DetectTCol.command))
-                        && result.value.ToString() == "High")
-                    {
-                        CurrentViewModelUserControls.TCoilDetected = true;
-                        CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
-
-                    }
-                    else if (result.obj.Equals(CurrentViewModelUserControls.UndetectTCol.command)
-                        && result.value.ToString() == "Low")
-                    {
-                        CurrentViewModelUserControls.TCoilDetected = false;
-                        CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
-                    }
-                }
-                else
-                {
-                    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), result.exceptionMessage), null);
-                }
+                    //}
+                    //else if (result.obj.Equals(CurrentViewModelUserControls.UndetectTCol.command)
+                    //    && result.value.ToString() == "Low")
+                    //{
+                    //    CurrentViewModelUserControls.TCoilDetected = false;
+                    //    CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
+                    //}
+                //}
+                //else
+                //{
+                //    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), result.exceptionMessage), null);
+                //}
             }
         }
 
 
-        public TcpClient getClientconnection()
-        {
-            if (CurrentViewModelDetectTab.SelectedRaspiItem == null && CurrentViewModelDetectTab.BackendList.Count > 0)
-            {
-                CurrentViewModelDetectTab.SelectedRaspiItem = CurrentViewModelDetectTab.BackendList.ElementAt(0);
-            }
-            var c = (RaspberryPiItem)CurrentViewModelDetectTab.SelectedRaspiItem;
-            return c.raspi.socket;
-        }
+        //public TcpClient getClientconnection()
+        //{
+        //    if (CurrentViewModelDetectTab.SelectedRaspiItem == null && CurrentViewModelDetectTab.BackendList.Count > 0)
+        //    {
+        //        CurrentViewModelDetectTab.SelectedRaspiItem = CurrentViewModelDetectTab.BackendList.ElementAt(0);
+        //    }
+        //    var c = (RaspberryPiItem)CurrentViewModelDetectTab.SelectedRaspiItem;
+        //    return c.raspi.socket;
+        //}
     }
 }
 

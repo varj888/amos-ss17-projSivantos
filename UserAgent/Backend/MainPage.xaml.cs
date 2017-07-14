@@ -54,7 +54,7 @@ namespace RaspberryBackend
 
                 try
                 {
-                    await register("available");
+                    //await register("available");
                 }
                 catch (Exception e)
                 {
@@ -76,7 +76,7 @@ namespace RaspberryBackend
 
                 try
                 {
-                    await register("connected");
+                    //await register("connected");
                 }
                 catch (Exception e)
                 {

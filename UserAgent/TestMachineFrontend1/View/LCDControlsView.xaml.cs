@@ -35,8 +35,8 @@ namespace TestMachineFrontend1.View
         {
             try
             {
-                MainWindowViewModel.SendRequestCommand.Execute
-                    (new Request("SendToLCD", "#reset"));
+                //MainWindowViewModel.SendRequestCommand.Execute
+                //    (new Request("SendToLCD", "#reset"));
                 MainWindowViewModel.AddDebugInfoCommand.Execute
                     (new DebugModel { Origin = "GPIO", Text = "Request sent" });
             }
@@ -52,8 +52,8 @@ namespace TestMachineFrontend1.View
             lcdBacklightState = lcdBacklightState == 0 ? 1 : 0;
             try
             {
-                MainWindowViewModel.SendRequestCommand.Execute
-                    (new Request("ToggleBacklight_LCD", lcdBacklightState));
+                //MainWindowViewModel.SendRequestCommand.Execute
+                //    (new Request("ToggleBacklight_LCD", lcdBacklightState));
                 MainWindowViewModel.AddDebugInfoCommand.Execute
                     (new DebugModel { Origin = "GPIO", Text = "Request sent" });
             }
@@ -71,7 +71,7 @@ namespace TestMachineFrontend1.View
 
             try
             {
-                MainWindowViewModel.SendRequestCommand.Execute(new Request("SendToLCD", text));
+                //MainWindowViewModel.SendRequestCommand.Execute(new Request("SendToLCD", text));
                 MainWindowViewModel.AddDebugInfoCommand.Execute
                     (new DebugModel { Origin = "GPIO", Text = "Request sent" });
             }
@@ -107,7 +107,7 @@ namespace TestMachineFrontend1.View
 
             try
             {
-                MainWindowViewModel.SendRequestCommand.Execute(new Request("SendToLCD", "#cancel"));
+                //MainWindowViewModel.SendRequestCommand.Execute(new Request("SendToLCD", "#cancel"));
                 MainWindowViewModel.AddDebugInfoCommand.Execute
                     (new DebugModel { Origin = "GPIO", Text = "Request sent" });
             }

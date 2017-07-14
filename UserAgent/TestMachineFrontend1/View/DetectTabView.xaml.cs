@@ -23,8 +23,8 @@ namespace TestMachineFrontend1.View
         {
             Slider el = sender as Slider;
             //TODO check
-            Request request = new Request("SetAnalogVolume", Convert.ToByte(el.Value));
-            mwVM.sendRequest(request);
+            //Request request = new Request("SetAnalogVolume", Convert.ToByte(el.Value));
+            //mwVM.sendRequest(request);
             //vmCurrent.getResult(request);
             //sendRequest(new Request("SetAnalogVolume", Convert.ToByte(el.Value)));
         }
@@ -33,8 +33,8 @@ namespace TestMachineFrontend1.View
         {
             Slider el = sender as Slider;
             //TODO check
-            Request request = new Request("TurnHIOn", el.Value);
-            mwVM.sendRequest(request);
+            //Request request = new Request("TurnHIOn", el.Value);
+            //mwVM.sendRequest(request);
             //vmCurrent.getResult(request);
             //sendRequest(new Request("TurnHIOn", el.Value));
         }
