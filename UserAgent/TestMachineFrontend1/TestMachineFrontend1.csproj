@@ -38,6 +38,7 @@
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
@@ -57,6 +58,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.14\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -98,16 +102,23 @@
     <Compile Include="ViewModel\DebugViewModel.cs" />
     <Compile Include="ViewModel\DetectTabViewModel.cs" />
     <Compile Include="ViewModel\DetectViewModel.cs" />
+    <Compile Include="ViewModel\DisconnectedViewModel.cs" />
     <Compile Include="ViewModel\LCDControlsViewModel.cs" />
     <Compile Include="ViewModel\MainTabViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\MultiplexerViewModel.cs" />
+    <Compile Include="ViewModel\RemoteControllerTitleBarViewModel.cs" />
+    <Compile Include="ViewModel\RemoteControllerViewModel.cs" />
+    <Compile Include="ViewModel\RPIListViewModel.cs" />
     <Compile Include="ViewModel\UserControlsViewModel.cs" />
     <Compile Include="View\DetectTabView.xaml.cs">
       <DependentUpon>DetectTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DetectView.xaml.cs">
       <DependentUpon>DetectView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DisconnectedView.xaml.cs">
+      <DependentUpon>DisconnectedView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainTabView.xaml.cs">
       <DependentUpon>MainTabView.xaml</DependentUpon>
@@ -120,6 +131,15 @@
     </Compile>
     <Compile Include="View\MultiplexerView.xaml.cs">
       <DependentUpon>MultiplexerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RemoteControllerTitleBarView.xaml.cs">
+      <DependentUpon>RemoteControllerTitleBarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RemoteControllerView.xaml.cs">
+      <DependentUpon>RemoteControllerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RPIListView.xaml.cs">
+      <DependentUpon>RPIListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControlsView.xaml.cs">
       <DependentUpon>UserControlsView.xaml</DependentUpon>
@@ -144,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\DisconnectedView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +181,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MultiplexerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RemoteControllerTitleBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RemoteControllerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RPIListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -183,6 +219,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -192,10 +229,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="img\logo.jpg" />
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
+    <Resource Include="img\audio_shoe_512_off.png" />
+    <Resource Include="img\audio_shoe_512_on_left.png" />
+    <Resource Include="img\audio_shoe_512_on_left_gradient.png" />
+    <Resource Include="img\audio_shoe_512_on_right.png" />
+    <Resource Include="img\audio_shoe_512_on_right_gradient.png" />
+    <Resource Include="img\cancel.png" />
+    <Resource Include="img\disconnected.png" />
+    <Resource Include="img\led_512_off.png" />
+    <Resource Include="img\led_512_on_left.png" />
+    <Resource Include="img\led_512_on_left_gradient.png" />
+    <Resource Include="img\led_512_on_right.png" />
+    <Resource Include="img\led_512_on_right_gradient.png" />
+    <Resource Include="img\led_off.png" />
+    <Resource Include="img\led_on.png" />
+    <Resource Include="img\loading.gif" />
+    <Resource Include="img\logo.png" />
+    <Resource Include="img\telecoil_512_off.png" />
+    <Resource Include="img\telecoil_512_on_left_gradient.png" />
+    <Resource Include="img\telecoil_512_on_right_gradient.png" />
+    <Resource Include="img\telecoil_512_right_on.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

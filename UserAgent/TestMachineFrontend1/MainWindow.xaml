@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
         xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
         mc:Ignorable="d"
-        Title="{Binding DeviceName}" Height="600" Width="1150">
+        Title="RPI User Agent" Height="500" Width="850" MinHeight="500" MinWidth="850">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -44,74 +44,47 @@
             DataType="{x:Type vm:UserControlsViewModel}">
             <v:UserControlsView />
         </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type vm:RPIListViewModel}">
+            <v:RPIListView />
+        </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type vm:DisconnectedViewModel}">
+            <v:DisconnectedView />
+        </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type vm:RemoteControllerViewModel}">
+            <v:RemoteControllerView />
+        </DataTemplate>
+        <DataTemplate
+            DataType="{x:Type vm:RemoteControllerTitleBarViewModel}">
+            <v:RemoteControllerTitleBarView />
+        </DataTemplate>
     </Window.Resources>
 
-    <Viewbox Grid.Row="1" Grid.Column="1"  StretchDirection="Both">
-
-        <Grid x:Name="MainViewGrid">
-            <!--NEW_VIEW-->
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="8*"/>
-                <ColumnDefinition Width="6*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="7*"/>
-            </Grid.RowDefinitions>
-
-            <!--Width="{Binding Path=ActualWidth, ElementName=MainViewGrid, 
-                        Converter={convert:PercentageConverter}, ConverterParameter='0.3'}"-->
-            <ContentControl Grid.Column="2" Grid.RowSpan="2"
-                        VerticalAlignment="Top"
-                        Content="{Binding Path=CurrentViewModelDebug}" Margin="582,10,25,-10"/>
-            <ContentControl Grid.Column="1" Grid.Row="0" Content="{Binding Path=CurrentViewModelMainTab}" Grid.ColumnSpan="2" Height="75" Margin="0,0,367.5,0" VerticalAlignment="Top"/>
-            <ContentControl Grid.Column="0" Grid.RowSpan="2" Content="{Binding Path=CurrentViewModelDetect}"/>
-
-            <TabControl Grid.Column="1" ItemsSource="{Binding TabItems}" Grid.ColumnSpan="2" Margin="0,80,367.5,0" Grid.RowSpan="2" >
-                <TabControl.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Header}" />
-                    </DataTemplate>
-                </TabControl.ItemTemplate>
-                <TabControl.ContentTemplate>
-                    <DataTemplate>
-                        <ContentControl Content="{Binding CurrentTabContentViewModel}" />
-                    </DataTemplate>
-                </TabControl.ContentTemplate>
-            </TabControl>
-
-
-            <!--OLD_VIEW-->
-            <!--
-        <Grid.RowDefinitions>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
+    <Grid Name="MainGrid" HorizontalAlignment="Stretch" Width="Auto">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Name="ListColumn" Width="1*" MinWidth="280"/>
+            <ColumnDefinition xmlns:comment="Aligning grid splitter in its own auto-sized column to prevent overlapping to adjacent cells."
+                              Width="Auto"/>
+            <ColumnDefinition Name="CoreColumn" Width="2*" MinWidth="560"/>
         </Grid.ColumnDefinitions>
-        <ContentControl Grid.Row="1" Content="{Binding Path=CurrentViewModelDebug}"/>
-        
-        <TabControl Grid.Row="0" ItemsSource="{Binding TabItems}" >
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Header}" />
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <ContentControl Content="{Binding CurrentTabContentViewModel}" />
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-        </TabControl>
-        -->
-            <!--TabStripPlacement="Left"-->
-            <!--<ContentControl Grid.Row="0" Content="{Binding Path=CurrentViewModelDetectTab}"/>-->
+        <GridSplitter HorizontalAlignment="Right" 
+                  VerticalAlignment="Stretch" 
+                  Grid.Column="1" ResizeBehavior="PreviousAndNext"
+                  Width="1" Background="#FFB9C3CF"/>
+        <ContentControl Content="{Binding Path=CurrentViewModelRPIList}" Grid.Column="0"></ContentControl>
+        <Grid Name="RemoteControllerGrid" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30px"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
+            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" Grid.Row="0"></ContentControl>
 
-            <!--<ContentControl Grid.Row="0" Content="{Binding Path=CurrentViewModelUserControls}"/>-->
-            <!--<ContentControl Grid.Row="2" Content="{Binding Path=CurrentViewModelLCDControls}"/>-->
         </Grid>
-    </Viewbox>
+        <ContentControl Visibility="Hidden" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Column="2"></ContentControl>
+
+    </Grid>
+
 </Window>

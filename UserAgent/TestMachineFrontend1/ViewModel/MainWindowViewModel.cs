@@ -50,6 +50,13 @@ namespace TestMachineFrontend1.ViewModel
         public static MultiplexerViewModel CurrentViewModelMultiplexer { get; private set; }
         public static MainTabViewModel CurrentViewModelMainTab { get; private set; }
         public static DetectViewModel CurrentViewModelDetect { get; private set; }
+        public static RPIListViewModel CurrentViewModelRPIList { get; private set; }
+        public static DisconnectedViewModel CurrentViewModelDisconnected { get; private set; }
+        public static RemoteControllerViewModel CurrentViewModelRemoteController { get; private set; }
+        public static RemoteControllerTitleBarViewModel CurrentViewModelRemoteControllerTitleBar { get; private set; }
+
+
+
         #endregion
 
         static MainWindowViewModel()
@@ -70,6 +77,10 @@ namespace TestMachineFrontend1.ViewModel
             CurrentViewModelMultiplexer = new MultiplexerViewModel();
             CurrentViewModelMainTab = new MainTabViewModel();
             CurrentViewModelDetect = new DetectViewModel();
+            CurrentViewModelRPIList = new RPIListViewModel();
+            CurrentViewModelDisconnected = new DisconnectedViewModel();
+            CurrentViewModelRemoteController = new RemoteControllerViewModel();
+            CurrentViewModelRemoteControllerTitleBar = new RemoteControllerTitleBarViewModel();
         }
 
         public static void InitAllCommands()
