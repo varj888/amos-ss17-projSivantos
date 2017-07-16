@@ -102,6 +102,7 @@
     <Compile Include="RaspberryPi.cs" />
     <Compile Include="TestCallee.cs" />
     <Compile Include="UpdateMehods.cs" />
+    <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\DebugViewModel.cs" />
     <Compile Include="ViewModel\DetectTabViewModel.cs" />
     <Compile Include="ViewModel\DetectViewModel.cs" />
@@ -114,6 +115,9 @@
     <Compile Include="ViewModel\RemoteControllerViewModel.cs" />
     <Compile Include="ViewModel\RPIListViewModel.cs" />
     <Compile Include="ViewModel\UserControlsViewModel.cs" />
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DetectTabView.xaml.cs">
       <DependentUpon>DetectTabView.xaml</DependentUpon>
     </Compile>
@@ -147,7 +151,11 @@
     <Compile Include="View\UserControlsView.xaml.cs">
       <DependentUpon>UserControlsView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -155,7 +163,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
