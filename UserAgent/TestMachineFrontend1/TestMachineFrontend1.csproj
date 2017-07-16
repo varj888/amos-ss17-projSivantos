@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>img\logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -252,6 +255,9 @@
     <Resource Include="img\telecoil_512_on_left_gradient.png" />
     <Resource Include="img\telecoil_512_on_right_gradient.png" />
     <Resource Include="img\telecoil_512_right_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="img\logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
