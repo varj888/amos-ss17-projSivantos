@@ -91,6 +91,7 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
       <Link>CommonFiles\Networking\ClientConn.cs</Link>
     </Compile>
@@ -100,6 +101,8 @@
     <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
       <Link>CommonFiles\Networking\ObjConn.cs</Link>
     </Compile>
+=======
+>>>>>>> asynchronous-networking
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>

@@ -48,6 +48,7 @@ namespace RaspberryBackend
         {
             while (true)
             {
+<<<<<<< HEAD
                 try
                 {
                     ServerStub stub;
@@ -55,6 +56,35 @@ namespace RaspberryBackend
                     {
                         await handleServerStubAsync(stub);
                     }
+=======
+                listener.Start(1);
+
+                try
+                {
+                    //await register("available");
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Error registering at the registryServer :" + e.Message);
+                }
+
+                TcpClient clientSocket;
+                try
+                {
+                     clientSocket = await listener.AcceptTcpClientAsync();
+                }catch(Exception e)
+                {
+                    Debug.WriteLine("Error Accepting Connection " + e.Message);
+                    listener.Stop();
+                    continue;
+                }
+               
+                listener.Stop();
+
+                try
+                {
+                    //await register("connected");
+>>>>>>> asynchronous-networking
                 }
                 catch (Exception e)
                 {
