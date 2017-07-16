@@ -22,8 +22,8 @@
         <Border Name="LeftHeaderBorderControl" BorderBrush="#FFB9C3CF" BorderThickness="0,0,0,1" 
                 Grid.Column="0" Grid.Row="0" Background="#FFF9F9F9">
             <DockPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=LeftHeaderBorderControl}">
-                <TextBox  Name="RPI_IP_Entry" Text="{Binding CurrentViewModelRemoteController.IPAdressConnect}"
-                          Grid.Column="0" Margin="10 2 2 2" 
+                <TextBox  Name="RPI_IP_Entry" Text="{Binding CurrentViewModelRemoteController.IPAdressConnect}" PreviewTextInput="NumberValidationTextBox"
+                          Grid.Column="0" Margin="5 2 2 2" 
                          VerticalAlignment="Stretch" Height="22"  TextWrapping="Wrap" 
                          ToolTip="Enter IP Address" VerticalContentAlignment="Center" FontSize="12" 
                          Foreground="#FF323C46" Width="150" HorizontalContentAlignment="Stretch" 
@@ -43,7 +43,7 @@
                 </Grid>
                 <Button Name="Refresh_Button" Content="↺" HorizontalAlignment="Right" 
                             VerticalAlignment="Center" Foreground="#FF323C46" FontFamily="Segoe UI Semibold" 
-                            Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,10,0"
+                            Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,5,0"
                             FontSize="14" Visibility="Visible"/>
             </DockPanel>
         </Border>
