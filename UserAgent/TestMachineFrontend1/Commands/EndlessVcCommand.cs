@@ -11,13 +11,15 @@ namespace TestMachineFrontend1.Commands
 {
     public class EndlessVcCommand : ICommand
     {
-        private DetectTabViewModel dtViewModel;
+        //private DetectTabViewModel dtViewModel;
         private DebugViewModel debugViewModel;
+        private RemoteControllerViewModel remoteVM;
 
         public EndlessVcCommand()
         {
-            dtViewModel = MainWindowViewModel.CurrentViewModelDetectTab;
+            //dtViewModel = MainWindowViewModel.CurrentViewModelDetectTab;
             debugViewModel = MainWindowViewModel.CurrentViewModelDebug;
+            remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -29,8 +31,8 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object par)
         {
-            dtViewModel.sendRequest(par as Request);
-            dtViewModel.getResult(par as Request);
+            remoteVM.sendRequest(par as Request);
+            remoteVM.getResult(par as Request);
 
             if ((par as Request).command.Equals("EndlessVCUp"))
             {

@@ -79,7 +79,7 @@ namespace TestMachineFrontend1.ViewModel
             CurrentViewModelDetect = new DetectViewModel();
             CurrentViewModelRPIList = new RPIListViewModel();
             CurrentViewModelDisconnected = new DisconnectedViewModel();
-            CurrentViewModelRemoteController = new RemoteControllerViewModel();
+            CurrentViewModelRemoteController = new RemoteControllerViewModel(TestCallee);
             CurrentViewModelRemoteControllerTitleBar = new RemoteControllerTitleBarViewModel();
         }
 

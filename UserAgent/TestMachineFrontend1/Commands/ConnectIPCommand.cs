@@ -11,11 +11,11 @@ namespace TestMachineFrontend1.Commands
 {
     public class ConnectIPCommand : ICommand
     {
-        private DetectTabViewModel viewModel;
+        private RemoteControllerViewModel remoteVM;
 
         public ConnectIPCommand()
         {
-            viewModel = MainWindowViewModel.CurrentViewModelDetectTab;
+            remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
 
         public event EventHandler CanExecuteChanged;
@@ -27,7 +27,7 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            viewModel.connectIP();
+            remoteVM.connectIP();
         }
     }
 }

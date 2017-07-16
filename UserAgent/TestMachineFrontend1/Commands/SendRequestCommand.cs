@@ -7,15 +7,17 @@ namespace TestMachineFrontend1.Commands
 {
     public class SendRequestCommand : ICommand
     {
-        private UserControlsViewModel ucVM;
-        private DetectTabViewModel dtVM;
+        //private UserControlsViewModel ucVM;
+        //private DetectTabViewModel dtVM;
+        private RemoteControllerViewModel remoteVM;
         private DebugViewModel debugVM;
 
         public SendRequestCommand()
         {
-            ucVM = MainWindowViewModel.CurrentViewModelUserControls;
-            dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
+            //ucVM = MainWindowViewModel.CurrentViewModelUserControls;
+            //dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
+            remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
         public event EventHandler CanExecuteChanged;
 
@@ -26,20 +28,20 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            dtVM.sendRequest(parameter as Request);
-            Result result = dtVM.getResult(parameter as Request);
+            remoteVM.sendRequest(parameter as Request);
+            Result result = remoteVM.getResult(parameter as Request);
 
-            if (((parameter as Request).command.Equals(ucVM.DetectTCol.command))
+            if (((parameter as Request).command.Equals(remoteVM.DetectTCol.command))
                 && result.value.ToString() == "High")
             {
-                ucVM.TCoilDetected = true;
+                remoteVM.TCoilDetected = true;
                 debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
 
             }
-            else if ((parameter as Request).command.Equals(ucVM.UndetectTCol.command)
+            else if ((parameter as Request).command.Equals(remoteVM.UndetectTCol.command)
                 && result.value.ToString() == "Low")
             {
-                ucVM.TCoilDetected = false;
+                remoteVM.TCoilDetected = false;
                 debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
             }
         }

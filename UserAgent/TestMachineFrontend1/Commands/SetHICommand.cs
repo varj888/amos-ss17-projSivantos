@@ -21,7 +21,7 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            MainWindowViewModel.CurrentViewModelMultiplexer.setHI();
+            MainWindowViewModel.CurrentViewModelRemoteController.setHI();
         }
     }
 }
