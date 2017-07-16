@@ -28,22 +28,22 @@ namespace TestMachineFrontend1.Commands
 
         public void Execute(object parameter)
         {
-            remoteVM.sendRequest(parameter as Request);
-            Result result = remoteVM.getResult(parameter as Request);
+            //remoteVM.sendRequest(parameter as Request);
+            //Result result = remoteVM.getResult(parameter as Request);
 
-            if (((parameter as Request).command.Equals(remoteVM.DetectTCol.command))
-                && result.value.ToString() == "High")
-            {
-                remoteVM.TCoilDetected = true;
-                debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
+            //if (((parameter as Request).command.Equals(remoteVM.DetectTCol.command))
+            //    && result.value.ToString() == "High")
+            //{
+            //    remoteVM.TCoilDetected = true;
+            //    debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
 
-            }
-            else if ((parameter as Request).command.Equals(remoteVM.UndetectTCol.command)
-                && result.value.ToString() == "Low")
-            {
-                remoteVM.TCoilDetected = false;
-                debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
-            }
+            //}
+            //else if ((parameter as Request).command.Equals(remoteVM.UndetectTCol.command)
+            //    && result.value.ToString() == "Low")
+            //{
+            //    remoteVM.TCoilDetected = false;
+            //    debugVM.AddDebugInfo("Update", "ToggleTeleCoil completed");
+            //}
         }
     }
 }

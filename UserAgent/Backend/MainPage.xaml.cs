@@ -2,6 +2,8 @@
 using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
@@ -15,6 +17,8 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
         RaspberryPi raspberryPi = null;
+        TestOperations testOperations = null;
+        BackChannel backChannel;
 
         public MainPage()
         {
@@ -26,37 +30,24 @@ namespace RaspberryBackend
             {
                 // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components)
                 raspberryPi.initialize();
+                testOperations = new TestOperations();
             }
             catch (Exception e)
             {
                 Debug.WriteLine("Something went wrong during the initialization process of the RasPi : " + e.Message);
             }
 
-            //register at the registry server
-            //registerAsync();
-
-            // set up the skeleton
-            runServerStubsAsync();
-
-            ServerSkeleton raspberryPiSkeleton = new ServerSkeleton(raspberryPi.Control, 54321);
-            raspberryPi.setSkeleton(raspberryPiSkeleton);
+            backChannel = new BackChannel();
+            serverLoop();
 
             this.InitializeComponent();
         }
 
-        private async Task runServerStubsAsync()
+        private async Task serverLoop()
         {
+            TcpListener listener = new TcpListener(IPAddress.Any, 54321);
             while (true)
             {
-<<<<<<< HEAD
-                try
-                {
-                    ServerStub stub;
-                    using (stub = await ServerStub.createServerStubAsync(54322))
-                    {
-                        await handleServerStubAsync(stub);
-                    }
-=======
                 listener.Start(1);
 
                 try
@@ -84,29 +75,35 @@ namespace RaspberryBackend
                 try
                 {
                     //await register("connected");
->>>>>>> asynchronous-networking
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine("error in runServerStub Loop: " + e.Message);
+                    Debug.WriteLine("Error registering at the registryServer :" + e.Message);
                 }
+
+                backChannel.setClient(clientSocket);
+
+                //if the raspberry pi could not be created, testOperations will be used
+                if (testOperations == null)
+                {
+                    RequestHandler.runRequestHandlerLoop(raspberryPi.Control, backChannel, clientSocket);
+                }
+                else
+                {
+                    RequestHandler.runRequestHandlerLoop(testOperations, backChannel, clientSocket);
+                }
+
+                clientSocket.Dispose();
             }
         }
 
-        private async Task handleServerStubAsync(ServerStub stub)
+        async Task register(string status)
         {
-            while (true)
-            {
-                stub.testCall("Second RPC connection Test");
-                await Task.Delay(3000);
-            }
+            //TcpClient registryServerSocket = new TcpClient();
+            //await registryServerSocket.ConnectAsync("MarcoPC", 54320);
+            //Request request = new Request("register", new object[] { "MarcoPC", status });
+            //Transfer.sendObject(registryServerSocket.GetStream(), request);
+            //registryServerSocket.Dispose();
         }
-
-        //private async Task registerAsync()
-        //{
-        //    ClientConn<Result, Request> conn = await ClientConn<Result, Request>.connectAsync("MarcoPC", 54320);
-        //    string[] values = new string[] { Others.getHostname(), Others.GetIpAddress() };
-        //    conn.sendObject(new Request("register", values));
-        //}
     }
 }

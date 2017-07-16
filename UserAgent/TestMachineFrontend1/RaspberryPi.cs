@@ -20,17 +20,9 @@ namespace TestmachineFrontend1
     /// </summary>
     public sealed class RaspberryPi
     {
-<<<<<<< HEAD
-        public ClientConn<Result, Request> clientConnection;
-        public IPEndPoint endpoint { get; private set; }
-        private static UInt16 counter;
-        public String name { get; set; }
-        public int ID { get; private set; }
-=======
         private TcpClient _socket;
         private Dictionary<Type, Action<object>> _TOHandlerMap;
         private ConcurrentQueue<TaskCompletionSource<SuccessResult>> _answers;
->>>>>>> asynchronous-networking
 
         /// <summary>
         /// Creates and connects to the RaspberryPi
@@ -89,17 +81,8 @@ namespace TestmachineFrontend1
         {
             while (true)
             {
-<<<<<<< HEAD
-                Console.WriteLine("[x] Connecting to: " + this.endpoint.Address + " ...");
-                clientConnection = await ClientConn<Result, Request>.connectAsync(this.endpoint); // port usually 54321
-                /* Connection established, set IsConnected to true because async call returned. */
-                IsConnected = true;
-                /* Fire the Connected event handler. Unused currently. */
-                Connected?.Invoke(this, EventArgs.Empty);
-=======
                 Object transferObject = await Transfer.receiveObjectAsync(_socket.GetStream());
                 _TOHandlerMap[transferObject.GetType()].Invoke(transferObject);
->>>>>>> asynchronous-networking
             }
         }
 
@@ -121,13 +104,7 @@ namespace TestmachineFrontend1
             TaskCompletionSource<SuccessResult> answer;
             if (_answers.TryDequeue(out answer))
             {
-<<<<<<< HEAD
-                clientConnection.sendObject(new Request("ReadPin", PinID));
-                return;
-
-=======
                 answer.SetException(new RequestExecutionException(excptionResult.exceptionMessage));
->>>>>>> asynchronous-networking
             }
             else
             {
@@ -137,15 +114,8 @@ namespace TestmachineFrontend1
 
         public async Task<string> LightLED(int value)
         {
-<<<<<<< HEAD
-            try
-            {
-                clientConnection.sendObject(new Request("WritePin", PinID));
-                return;
-=======
             return (string)await sendRequest(new Request("LightLED", value));
         }
->>>>>>> asynchronous-networking
 
         public async Task<string> ConnectPins(int valueX, int valueY)
         {
@@ -157,17 +127,10 @@ namespace TestmachineFrontend1
             return (string)await sendRequest(new Request("ResetMux", v));
         }
 
-<<<<<<< HEAD
-            try
-            {
-                clientConnection.sendObject(new Request("ResetPin", PinID));
-                return;
-=======
         public async Task<string> SetHI(string family, string model)
         {
             return (string)await sendRequest(new Request("SetHI", new object[] { family, model }));  
         }
->>>>>>> asynchronous-networking
 
         public async Task<string> GetAvailableHI(int v)
         {
@@ -176,22 +139,8 @@ namespace TestmachineFrontend1
 
         public async Task<string> PressPushButton(int duration)
         {
-<<<<<<< HEAD
-            try
-            {
-                if (light_on)
-                {
-                    clientConnection.sendObject(new Request("LightLED", 1));
-                }
-                else
-                {
-                    clientConnection.sendObject(new Request("LightLED", 0));
-                }
-                return;
-=======
             return (string)await sendRequest(new Request("PressPushButton", duration));
         }
->>>>>>> asynchronous-networking
 
         public async Task<string> PressRockerSwitchDown(int duration)
         {

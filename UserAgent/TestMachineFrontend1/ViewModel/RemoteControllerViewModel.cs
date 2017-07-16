@@ -22,15 +22,13 @@ namespace TestMachineFrontend1.ViewModel
         #region VariableDefinishions
         private RaspberryPiItem detectModel;
         private DebugViewModel debugVM;
-        private TestCallee testCallee;
         private Dictionary<String, RaspberryPi> raspberryPis = new Dictionary<string, RaspberryPi>();
         #endregion
 
-        public RemoteControllerViewModel(TestCallee testCallee)
+        public RemoteControllerViewModel()
         {
             //this.debugVM = debugVM;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
-            this.testCallee = testCallee;
             ItemSelected = new DelegateCommand(o =>
             {
                 SelectedRaspiItem = o as RaspberryPiItem;
@@ -274,8 +272,8 @@ namespace TestMachineFrontend1.ViewModel
         {
             try
             {
-                var pi1 = await RaspberryPi.Create(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
-                IsPiConnected = pi1.IsConnected;
+                var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
+                IsPiConnected = true;
                 raspberryPis.Add(IPAdressConnect, pi1);
                 RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
                 backendList.Add(raspiItem);
@@ -304,16 +302,6 @@ namespace TestMachineFrontend1.ViewModel
                 debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
                 //TODO check
                 IsPiConnected = false;
-            }
-            try
-            {
-                ClientSkeleton clientSkeletion = await ClientSkeleton.createClientSkeletonAsync
-                    (new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54322));
-                await Task.Factory.StartNew(() => clientSkeletion.runRequestLoop(testCallee));
-            }
-            catch (Exception any)
-            {
-                debugVM.AddDebugInfo("Error", "Error connecting the ClientSkeleton: " + any.Message);
             }
         }
 
@@ -419,56 +407,56 @@ namespace TestMachineFrontend1.ViewModel
 
         public void sendRequest(Request request)
         {
-            if (this.SelectedRaspiItem == null)
-            {
-                debugVM.AddDebugInfo("Debug", "No raspi selected");
-                return;
-            }
+            //if (this.SelectedRaspiItem == null)
+            //{
+            //    debugVM.AddDebugInfo("Debug", "No raspi selected");
+            //    return;
+            //}
 
-            try
-            {
-                getClientconnection().sendObject(request);
-            }
-            catch (Exception ex)
-            {
-                debugVM.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
-                return;
-            }
+            //try
+            //{
+            //    getClientconnection().sendObject(request);
+            //}
+            //catch (Exception ex)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
+            //    return;
+            //}
         }
 
         public Result getResult(Request request)
         {
             Result result = null;
 
-            try
-            {
-                result = getClientconnection().receiveObject();
-            }
-            catch (Exception e)
-            {
-                debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
-            }
+            //try
+            //{
+            //    result = getClientconnection().receiveObject();
+            //}
+            //catch (Exception e)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
+            //}
 
-            if (result.exceptionMessage == null)
-            {
-                debugVM.AddDebugInfo(request.command, "sucess");
-            }
-            else
-            {
-                debugVM.AddDebugInfo(request.command, result.exceptionMessage);
-            }
+            //if (result.exceptionMessage == null)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "sucess");
+            //}
+            //else
+            //{
+            //    debugVM.AddDebugInfo(request.command, result.exceptionMessage);
+            //}
             return result;
         }
 
-        public ClientConn<Result, Request> getClientconnection()
-        {
-            if (this.SelectedRaspiItem == null && this.BackendList.Count > 0)
-            {
-                this.SelectedRaspiItem = this.BackendList.ElementAt(0);
-            }
-            var c = (RaspberryPiItem)this.SelectedRaspiItem;
-            return c.raspi.clientConnection;
-        }
+        //public ClientConn<Result, Request> getClientconnection()
+        //{
+        //    if (this.SelectedRaspiItem == null && this.BackendList.Count > 0)
+        //    {
+        //        this.SelectedRaspiItem = this.BackendList.ElementAt(0);
+        //    }
+        //    var c = (RaspberryPiItem)this.SelectedRaspiItem;
+        //    return c.raspi.clientConnection;
+        //}
         #endregion
     }
 }

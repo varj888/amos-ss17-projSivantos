@@ -36,11 +36,6 @@ namespace RaspberryBackend
         private bool _testMode = true;
 
         /// <summary>
-        /// TODO: This is for now a workaround which is needed for LCD status update. Should not be permenant
-        /// </summary>
-        public ServerSkeleton skeleton { get; set; }
-
-        /// <summary>
         /// Default initialization of the Raspberry Pi. It initialize the preconfigured Hardware of the RasPi.
         /// To add aditional hardware, just insert a new parameter in the initialize(..) call eg. initialize(... , new HWComponent).
         /// To modify the Start-Up Configuration use aditionally <see cref="initiateStartUpConfigurationAsync"/>.
@@ -145,16 +140,6 @@ namespace RaspberryBackend
             _hwComponents = new Dictionary<string, HWComponent>();
             Control = null;
             _initialized = false;
-        }
-
-        /// <summary>
-        /// Sets the Skeleton field in Raspberry Pi.
-        /// TODO: This is for now a workaround which is needed for LCD status update. Should not be permenant
-        /// </summary>
-        /// <param name="s"></param>
-        public void setSkeleton(ServerSkeleton s)
-        {
-            this.skeleton = s;
         }
 
         private void addToRasPi(HWComponent hwComponent)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace CommonFiles.TransferObjects
@@ -7,12 +8,8 @@ namespace CommonFiles.TransferObjects
     /// Objects of this type will be received by the Testmachines as Responses to sucessfully executed Requests
     /// </summary>
     [DataContract]
-<<<<<<< HEAD
-    public class Result
-=======
     [KnownType(typeof(Dictionary<string, string>))]
     public class SuccessResult
->>>>>>> asynchronous-networking
     {
         /// <summary>
         /// Result of a Request
@@ -24,6 +21,12 @@ namespace CommonFiles.TransferObjects
         {
             this.result = result;
         }
+    }
+
+    //Todo: Delete this class later. It is just for merge
+    public class Result
+    {
+
     }
 
     [DataContract]

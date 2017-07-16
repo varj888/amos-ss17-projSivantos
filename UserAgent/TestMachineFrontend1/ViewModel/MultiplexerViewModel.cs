@@ -120,31 +120,31 @@ namespace TestMachineFrontend1.ViewModel
 
         public void getAvailableHI(Result result)
         {
-            availableHI = helperXML.buildDictionary((string)result.value);
-            foreach (string family in availableHI.Keys)
-            {
-                foreach (string model in availableHI[family])
-                {
-                    ComboBoxItem element = new ComboBoxItem();
-                    element.Name = family;
-                    element.Content = model;
-                    HIListItems.Add(element);
-                }
-            }
-            debugVM.AddDebugInfo(result.obj, "Updated List");
+            //availableHI = helperXML.buildDictionary((string)result.value);
+            //foreach (string family in availableHI.Keys)
+            //{
+            //    foreach (string model in availableHI[family])
+            //    {
+            //        ComboBoxItem element = new ComboBoxItem();
+            //        element.Name = family;
+            //        element.Content = model;
+            //        HIListItems.Add(element);
+            //    }
+            //}
+            //debugVM.AddDebugInfo(result.obj, "Updated List");
         }
 
         public Result getResult(Request request)
         {
             Result result = null;
-            try
-            {
-                result = detectTabVM.getClientconnection().receiveObject();
-            }
-            catch (Exception e)
-            {
-                debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
-            }
+            //try
+            //{
+            //    result = detectTabVM.getClientconnection().receiveObject();
+            //}
+            //catch (Exception e)
+            //{
+            //    debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
+            //}
             return result;
         }
     }

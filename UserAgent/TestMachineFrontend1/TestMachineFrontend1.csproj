@@ -67,6 +67,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\CommonFiles\Networking\Serializer.cs">
+      <Link>CommonFiles\Networking\Serializer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\Transfer.cs">
+      <Link>CommonFiles\Networking\Transfer.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
+      <Link>CommonFiles\TrasferObjects\Request.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\TransferObjects\Result.cs">
+      <Link>CommonFiles\TrasferObjects\Result.cs</Link>
+    </Compile>
     <Compile Include="Commands\AddDebugInfoCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\EndlessVcCommand.cs" />
@@ -75,15 +87,6 @@
     <Compile Include="Commands\PressRockerSwitchCommand.cs" />
     <Compile Include="Commands\SendRequestCommand.cs" />
     <Compile Include="Commands\SetHICommand.cs" />
-    <Compile Include="CommonFiles\Networking\ClientConn.cs" />
-    <Compile Include="CommonFiles\Networking\ClientSkeleton.cs" />
-    <Compile Include="CommonFiles\Networking\DataConn.cs" />
-    <Compile Include="CommonFiles\Networking\ObjConn.cs" />
-    <Compile Include="CommonFiles\Networking\Serializer.cs" />
-    <Compile Include="CommonFiles\Networking\TCPServer.cs" />
-    <Compile Include="CommonFiles\RPCInterfaces\IEventReceiver.cs" />
-    <Compile Include="CommonFiles\TrasferObjects\Request.cs" />
-    <Compile Include="CommonFiles\TrasferObjects\Result.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\HelperXML.cs" />
     <Compile Include="Helpers\ListItemSelected.cs" />
@@ -97,7 +100,6 @@
     <Compile Include="Model\TabControlModel.cs" />
     <Compile Include="Model\UserControlsModel.cs" />
     <Compile Include="RaspberryPi.cs" />
-    <Compile Include="TestCallee.cs" />
     <Compile Include="UpdateMehods.cs" />
     <Compile Include="ViewModel\DebugViewModel.cs" />
     <Compile Include="ViewModel\DetectTabViewModel.cs" />
