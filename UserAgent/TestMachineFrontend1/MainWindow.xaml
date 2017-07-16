@@ -62,11 +62,11 @@
                 <RowDefinition Height="7*"/>
             </Grid.RowDefinitions>
 
-            <ContentControl Grid.Column="2" Grid.RowSpan="2" 
-                        Width="{Binding Path=ActualWidth, ElementName=MainViewGrid, 
-                        Converter={convert:PercentageConverter}, ConverterParameter='0.3'}"
+            <!--Width="{Binding Path=ActualWidth, ElementName=MainViewGrid, 
+                        Converter={convert:PercentageConverter}, ConverterParameter='0.3'}"-->
+            <ContentControl Grid.Column="2" Grid.RowSpan="2"
                         VerticalAlignment="Top"
-                        Content="{Binding Path=CurrentViewModelDebug}" Margin="554,0,-3,0"/>
+                        Content="{Binding Path=CurrentViewModelDebug}" Margin="582,10,25,-10"/>
             <ContentControl Grid.Column="1" Grid.Row="0" Content="{Binding Path=CurrentViewModelMainTab}" Grid.ColumnSpan="2" Height="75" Margin="0,0,367.5,0" VerticalAlignment="Top"/>
             <ContentControl Grid.Column="0" Grid.RowSpan="2" Content="{Binding Path=CurrentViewModelDetect}"/>
 

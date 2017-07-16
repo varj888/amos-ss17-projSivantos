@@ -161,7 +161,7 @@
         <CheckBox x:Name="checkBox3" HorizontalAlignment="Left"
                         Margin="418,111,0,0" VerticalAlignment="Top" Grid.Row="3" Height="15" Width="16"/>
         <TextBox x:Name="textBox3" HorizontalAlignment="Left" Height="28"
-                        Margin="441,103,0,0" TextWrapping="Wrap" Text="{Binding //TODO}"
+                        Margin="441,103,0,0" TextWrapping="Wrap"
                         VerticalAlignment="Top" Width="47" IsEnabled="False" Grid.Row="3"/>
 
         
