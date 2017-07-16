@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
         xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
         mc:Ignorable="d"
-        Title="RPI User Agent" Height="500" Width="850" MinHeight="500" MinWidth="850">
+        Title="RPI User Agent" Height="500" Width="1050" MinHeight="500" MinWidth="850">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -68,6 +68,8 @@
             <ColumnDefinition xmlns:comment="Aligning grid splitter in its own auto-sized column to prevent overlapping to adjacent cells."
                               Width="Auto"/>
             <ColumnDefinition Name="CoreColumn" Width="2*" MinWidth="560"/>
+            <ColumnDefinition Name="DebugColumn" Width="1*" MinWidth="200"/>
+
         </Grid.ColumnDefinitions>
         <GridSplitter HorizontalAlignment="Right" 
                   VerticalAlignment="Stretch" 
@@ -78,13 +80,16 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="30px"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
+
             </Grid.RowDefinitions>
             <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
             <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" Grid.Row="0"></ContentControl>
 
         </Grid>
         <ContentControl Visibility="Hidden" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Column="2"></ContentControl>
-
+        <Grid Grid.Column="3" Background="#FFF9F9F9">
+            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelDebug}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ></ContentControl>
+        </Grid>
     </Grid>
 
 </Window>
