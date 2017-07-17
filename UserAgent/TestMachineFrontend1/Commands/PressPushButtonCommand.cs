@@ -40,6 +40,7 @@ namespace TestMachineFrontend1.Commands
             {
                 debugVM.AddDebugInfo("PressPushButton :", e.Message);
                 return;
+            }
         }
     }
 }

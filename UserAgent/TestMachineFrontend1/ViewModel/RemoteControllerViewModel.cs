@@ -178,14 +178,16 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        private Task<ComboBoxItem>  _selectedReceiverItem;
-        public Task<ComboBoxItem> SelectedReceiverItem
+        //TODO: find the way to run this async!
+        //option: button on the right side of receiverListBox
+        private ComboBoxItem  _selectedReceiverItem;
+        public ComboBoxItem SelectedReceiverItem
         {
             get { return _selectedReceiverItem; }
             set
             {
                 _selectedReceiverItem = value;
-                _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem.Result);
+                _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem);
                 OnPropertyChanged("SelectedReceiverItem");
                 SetARDVoltageAsync().RunSynchronously();
                 //Task<string> task = RaspberryPiInstance.SetARDVoltage((ContentControl)_selectedReceiverItem.Content);
@@ -199,7 +201,7 @@ namespace TestMachineFrontend1.ViewModel
 
         public async Task SetARDVoltageAsync()
         {
-            await RaspberryPiInstance.SetARDVoltage((ContentControl)_selectedReceiverItem.Result);
+            await RaspberryPiInstance.SetARDVoltage(_selectedReceiverItem);
         }
 
         private int _selectedReceiverItemIndex;

@@ -94,8 +94,8 @@ namespace RaspberryBackend
                 xml.Add(new XElement("ADConverter",
                     new XElement("Initialized", true),
                     new XElement("Connected", this.ADConverter.isConnected()),
-                    new XElement("Channel1", this.ADConverter.getDACVoltage1()),
-                    new XElement("Channel2", this.ADConverter.getDACVoltage2())
+                    new XElement("Channel1", this.ADConverter.CurrentDACVoltage1),
+                    new XElement("Channel2", this.ADConverter.CurrentDACVoltage2)
                 ));
             }
             else

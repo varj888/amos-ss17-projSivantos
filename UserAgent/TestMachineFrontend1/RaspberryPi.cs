@@ -113,9 +113,9 @@ namespace TestmachineFrontend1
             }
         }
 
-        public async Task<string> ToggleLED()
+        public async Task<bool> CheckLEDStatus()
         {
-            return (string) await sendRequest(new Request("ToggleLED", new int[] { }));
+            return (bool)await sendRequest(new Request("CheckLEDStatus", 0));
         }
 
         public async Task<string> LightLED(int value)

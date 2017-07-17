@@ -416,8 +416,8 @@
                             </Button>
                             <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
                                     Height="20px" Width="50px"
-                                    Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectTCol}">
+                                    Command="{Binding UndetectTCoilCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectTCol}"-->
                                 <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
@@ -558,9 +558,13 @@
                                    Source="..\img\led_512_off.png"></Image>
                             <Image MaxHeight="200px" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" 
                                    Source="..\img\led_512_on_right_gradient.png" Visibility="{Binding Path=CurrentViewModelRemoteController.ToggleLEDButton}"></Image>
-                            <ToggleButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,14,2" 
-                                          Grid.Row="2" Style="{StaticResource AnimatedSwitch}" Width="16" Height="16"
-                                          Command="{Binding ToggleLEDCommand}" />
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2,1,2,3" 
+                                          Grid.Row="2" Style="{StaticResource RedButtonFilled}"  Width="216" Height="16"
+                                          Command="{Binding CheckLEDStatusCommand}" >
+                                <StackPanel>
+                                    <TextBlock Text="Check LED Status" FontFamily="Arial" FontSize="8"/>
+                                </StackPanel>
+                            </Button>
 
                         </Grid>
                     </Border>

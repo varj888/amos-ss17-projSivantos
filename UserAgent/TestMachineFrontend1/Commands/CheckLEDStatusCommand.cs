@@ -1,39 +1,54 @@
-﻿using CommonFiles.TransferObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using CommonFiles.TransferObjects;
 using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
 {
-    class LEDOnCommand : ICommand
+    public class CheckLEDStatusCommand : ICommand
     {
         RemoteControllerViewModel remoteVM;
         DebugViewModel debugVM;
-        public LEDOnCommand()
+
+        public CheckLEDStatusCommand()
         {
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
         }
 
         public event EventHandler CanExecuteChanged;
+
         public bool CanExecute(object parameter)
         {
             return true;
         }
+
         public async void Execute(object parameter)
         {
-            String result;
+            bool ledStatus = false;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.ToggleLED();
+
+                ledStatus = await remoteVM.RaspberryPiInstance.CheckLEDStatus();
+                debugVM.AddDebugInfo("CheckLEDStatus", ledStatus.ToString());
             }
             catch (Exception e)
             {
+
+            }
+
+            if (ledStatus)
+            {
+                remoteVM.ToggleLEDButton = Visibility.Visible;
+            }
+            else
+            {
+                remoteVM.ToggleLEDButton = Visibility.Hidden;
             }
         }
     }

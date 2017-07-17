@@ -19,8 +19,11 @@ namespace RaspberryBackend
         private readonly double MAX_VOLTAGE = 1.5;
         private readonly double STANDARD_VOLTAGE = 1.0;
 
-        private double currentDACVoltage1 = -1;
-        private double currentDACVoltage2 = -1;
+        public double CurrentDACVoltage1 { get; private set; } = -1;
+        public double CurrentDACVoltage2 { get; private set; } = -1;
+
+        public double CurrentADCVoltage1 { get; } = -1;
+        public double CurrentADCVoltage2 { get; private set; } = -1;
 
         public override void initiate()
         {
@@ -86,22 +89,13 @@ namespace RaspberryBackend
                 _adConvert.SetDACVoltage(channel, voltage);
                 if (channel == CHANNEL_1)
                 {
-                    currentDACVoltage1 = voltage;
+                    CurrentDACVoltage1 = voltage;
                 }
                 else if (channel == CHANNEL_2)
                 {
-                    currentDACVoltage2 = voltage;
+                    CurrentDACVoltage2 = voltage;
                 }
             }
-        }
-
-        public double getDACVoltage1()
-        {
-            return currentDACVoltage1;
-        }
-        public double getDACVoltage2()
-        {
-            return currentDACVoltage2;
         }
 
         internal void setADCRefVoltage(double v)
@@ -109,7 +103,7 @@ namespace RaspberryBackend
             _adConvert.SetADCrefVoltage(v);
         }
 
- 
+
 
         /// <summary>
         /// Wrapper around setDACVoltage so set channels without knowing their addresss
@@ -129,15 +123,31 @@ namespace RaspberryBackend
             this.setDACVoltage(voltage, this.CHANNEL_2);
         }
 
-        public void readADCVoltage(int times, byte channel)
+        public double readADCVoltage1()
         {
-            if (channel < 1 || channel > 2) return;
+            return _adConvert.ReadADCVoltage(this.CHANNEL_1);
+        }
 
+        public double readADCVoltage2()
+        {
+            return _adConvert.ReadADCVoltage(this.CHANNEL_2);
+        }
+
+        public double updateCurrentADCVoltage2Average(int times)
+        {
+            double sum = 0.0;
             for (int i = 0; i < times; i++)
             {
-                Debug.WriteLine("ADC In" + channel + " Voltage is: {0}", _adConvert.ReadADCVoltage(channel));
-                Task.Delay(1000).Wait();
+                Debug.WriteLine("ADC In2 Voltage is: {0}", readADCVoltage2());
+                sum += readADCVoltage2();
+
+                Task.Delay(250).Wait();
             }
+
+            double average = sum / times;
+
+            CurrentADCVoltage2 = average;
+            return average;
         }
     }
 }

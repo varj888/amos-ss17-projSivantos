@@ -47,7 +47,7 @@ namespace RaspberryBackend
 
         private byte[] getBatterySymbol()
         {
-            double batstatus = this.ADConverter.getDACVoltage1() / this.ADConverter.getMaxVoltage();
+            double batstatus = this.ADConverter.CurrentDACVoltage1 / this.ADConverter.getMaxVoltage();
             byte[] data = SymbolConfig.batterySymbol;
 
             for (int i = 1; i <= 6; i++)

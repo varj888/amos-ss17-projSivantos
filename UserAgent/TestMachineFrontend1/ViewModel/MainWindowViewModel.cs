@@ -23,10 +23,13 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand EndlessVcCommand { get; private set; }
         public static ICommand PressRockerSwitchCommand { get; private set; }
         public static ICommand SetHICommand { get; private set; }
-        public static ICommand LEDOnCommand { get; private set; }
-        public static ICommand ToggleLEDCommand { get; private set; }
         public static ICommand PressRockerSwitchUpCommand { get; private set; }
         public static ICommand PressRockerSwitchDownCommand { get; private set; }
+        public static ICommand CheckLEDStatusCommand { get; private set; }
+        public static ICommand DetectTCoilCommand { get; private set; }
+        public static ICommand UndetectTCoilCommand { get; private set; }
+        public static ICommand DetectAudioShueCommand { get; private set; }
+        public static ICommand UndetectAudioShueCommand { get; private set; }
 
         #endregion
 
@@ -85,10 +88,13 @@ namespace TestMachineFrontend1.ViewModel
             EndlessVcCommand = new EndlessVcCommand();
             PressRockerSwitchCommand = new PressRockerSwitchUpCommand();
             SetHICommand = new SetHICommand();
-            LEDOnCommand = new LEDOnCommand();
-            ToggleLEDCommand = new ToggleLEDCommand();
             PressRockerSwitchUpCommand = new PressRockerSwitchUpCommand();
             PressRockerSwitchDownCommand = new PressRockerSwitchDownCommand();
+            CheckLEDStatusCommand = new CheckLEDStatusCommand();
+            DetectAudioShueCommand = new DetectAudioShueCommand();
+            UndetectAudioShueCommand = new UndetectAudioShueCommand();
+            DetectTCoilCommand = new DetectTCoilCommand();
+            UndetectTCoilCommand = new UndetectTCoilCommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()
