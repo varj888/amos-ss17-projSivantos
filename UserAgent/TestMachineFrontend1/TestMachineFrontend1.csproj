@@ -83,6 +83,7 @@
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\EndlessVcCommand.cs" />
     <Compile Include="Commands\GetDurationCommand.cs" />
+    <Compile Include="Commands\LEDOnCommand.cs" />
     <Compile Include="Commands\PressPushButtonCommand.cs" />
     <Compile Include="Commands\PressRockerSwitchCommand.cs" />
     <Compile Include="Commands\SendRequestCommand.cs" />

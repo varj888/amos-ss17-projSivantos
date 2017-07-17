@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using CommonFiles.TransferObjects;
 using TestMachineFrontend1.ViewModel;
+using System.Diagnostics;
 
 namespace TestMachineFrontend1.Commands
 {
@@ -14,11 +15,11 @@ namespace TestMachineFrontend1.Commands
         //private UserControlsViewModel ucViewModel;
         //private DetectTabViewModel dtViewModel;
         private RemoteControllerViewModel remoteVM;
-        private DebugViewModel debugViewModel;
+        private DebugViewModel debugVM;
 
         public PressPushButtonCommand()
         {
-            debugViewModel = MainWindowViewModel.CurrentViewModelDebug;
+            debugVM = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
 
@@ -29,17 +30,30 @@ namespace TestMachineFrontend1.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            if (remoteVM.getDuration() != -1)
+            //if (remoteVM.getDuration() != -1)
+            //{
+            //    remoteVM.sendRequest(parameter as Request);
+            //    remoteVM.getResult(parameter as Request);
+            //}
+            //else
+            //{
+            //    debugViewModel.AddDebugInfo("Debug", "Invalid duration");
+            //}
+
+            String result;
+            try
             {
-                remoteVM.sendRequest(parameter as Request);
-                remoteVM.getResult(parameter as Request);
+                result = await remoteVM.RaspberryPiInstance.PressPushButton(remoteVM.getDuration());
+                debugVM.AddDebugInfo("PressPushButton", result);
             }
-            else
+            catch (Exception e)
             {
-                debugViewModel.AddDebugInfo("Debug", "Invalid duration");
+                debugVM.AddDebugInfo("PressPushButton :", e.Message);
+                return;
             }
+            //debugVM.AddDebugInfo("PressPushButton: ", result);
         }
     }
 }

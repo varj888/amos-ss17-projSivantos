@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,9 +20,11 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class RemoteControllerViewModel : ObservableObject
     {
-        #region VariableDefinishions
+        #region VarDefinishions
         private RaspberryPiItem detectModel;
         private DebugViewModel debugVM;
+        private Dictionary<string, List<string>> availableHI;
+        private HelperXML helperXML;
         private Dictionary<String, RaspberryPi> raspberryPis = new Dictionary<string, RaspberryPi>();
         #endregion
 
@@ -29,6 +32,9 @@ namespace TestMachineFrontend1.ViewModel
         {
             //this.debugVM = debugVM;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
+            availableHI = new Dictionary<string, List<string>>();
+            HIListItems = new ObservableCollection<ComboBoxItem>();
+            helperXML = new HelperXML();
             ItemSelected = new DelegateCommand(o =>
             {
                 SelectedRaspiItem = o as RaspberryPiItem;
@@ -218,6 +224,10 @@ namespace TestMachineFrontend1.ViewModel
                 OnPropertyChanged("IsPiConnected");
             }
         }
+
+        public bool IsRockerSwitchUp { get; set; }
+        public bool IsRockerSwitchDown { get; set; }
+        public bool IsPushButtonUp { get; set; }
         #endregion
 
         #region Commands
@@ -268,42 +278,199 @@ namespace TestMachineFrontend1.ViewModel
 
         #region Methods
 
-        public async void connectIP()
+        /// <summary>
+
+        /// todo: use the raspberry Pi dictionary or something like that
+
+        /// </summary>
+
+        public static RaspberryPi raspberryPi;
+        public RaspberryPi RaspberryPiInstance
         {
-            try
+            get { return raspberryPi; }
+            set
             {
-                var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
-                IsPiConnected = true;
-                raspberryPis.Add(IPAdressConnect, pi1);
-                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
-                backendList.Add(raspiItem);
-                SelectedRaspiItem = raspiItem;
-                debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
-                sendRequest(GetAvailableHI);
-                Result result = getResult(GetAvailableHI);
-                MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
-            }
-            catch (FormatException fx)
-            {
-                debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
-
-                //TODO check
-                IsPiConnected = false;
-            }
-            catch (SocketException sx)
-            {
-                debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
-                //TODO check
-                IsPiConnected = false;
-
-            }
-            catch (Exception any)
-            {
-                debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
-                //TODO check
-                IsPiConnected = false;
+                raspberryPi = value;
+                //OnPropertyChanged("RaspberryPiInstance");
             }
         }
+
+
+
+        public async void connectIP()
+
+        {
+
+            try
+
+            {
+
+                var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
+
+                raspberryPi = pi1;
+
+                IsPiConnected = true;
+
+                raspberryPis.Add(IPAdressConnect, pi1);
+
+                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
+
+                BackendList.Add(raspiItem);
+
+                SelectedRaspiItem = raspiItem;
+
+                debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
+
+                sendRequest(GetAvailableHI);
+
+                Result result = getResult(GetAvailableHI);
+
+                getAvailableHI(result);
+
+                SynchronizationContext uiContext = SynchronizationContext.Current;
+
+                await Task.Run(() => ReceiveResultLoop(uiContext));
+
+            }
+
+            catch (FormatException fx)
+
+            {
+
+                debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
+
+
+
+                //TODO check
+
+                IsPiConnected = false;
+
+            }
+
+            catch (SocketException sx)
+
+            {
+
+                debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
+
+                //TODO check
+
+                IsPiConnected = false;
+
+
+
+            }
+
+            catch (Exception any)
+
+            {
+
+                debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
+
+                //TODO check
+
+                IsPiConnected = false;
+
+            }
+
+        }
+
+        private async Task ReceiveResultLoop(SynchronizationContext uiContext)
+
+        {
+
+            while (true)
+
+            {
+
+                //Object result = raspberryPi.getNotification();
+
+
+
+                //if (result.exceptionMessage == null)
+
+                //{
+
+                //    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), "sucess"), null);
+
+
+
+                //if ((result.obj.Equals(CurrentViewModelUserControls.DetectTCol.command))
+
+                //    && result.value.ToString() == "High")
+
+                //{
+
+                //    CurrentViewModelUserControls.TCoilDetected = true;
+
+                //    CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
+
+
+
+                //}
+
+                //else if (result.obj.Equals(CurrentViewModelUserControls.UndetectTCol.command)
+
+                //    && result.value.ToString() == "Low")
+
+                //{
+
+                //    CurrentViewModelUserControls.TCoilDetected = false;
+
+                //    CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
+
+                //}
+
+                //}
+
+                //else
+
+                //{
+
+                //    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), result.exceptionMessage), null);
+
+                //}
+
+            }
+
+        }
+
+        //public async void connectIP()
+        //{
+        //    try
+        //    {
+        //        var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
+        //        IsPiConnected = true;
+        //        raspberryPis.Add(IPAdressConnect, pi1);
+        //        RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
+        //        backendList.Add(raspiItem);
+        //        SelectedRaspiItem = raspiItem;
+        //        debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
+        //        sendRequest(GetAvailableHI);
+        //        Result result = getResult(GetAvailableHI);
+        //        MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
+        //    }
+        //    catch (FormatException fx)
+        //    {
+        //        debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
+
+        //        //TODO check
+        //        IsPiConnected = false;
+        //    }
+        //    catch (SocketException sx)
+        //    {
+        //        debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
+        //        //TODO check
+        //        IsPiConnected = false;
+
+        //    }
+        //    catch (Exception any)
+        //    {
+        //        debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
+        //        //TODO check
+        //        IsPiConnected = false;
+        //    }
+        //}
 
         public void setHI()
         {
@@ -325,6 +492,23 @@ namespace TestMachineFrontend1.ViewModel
 
             sendRequest(request);
             getResult(request);
+        }
+
+        //TODO: Result ???
+        public void getAvailableHI(Result result)
+        {
+            availableHI = helperXML.buildDictionary(result.ToString());
+            foreach (string family in availableHI.Keys)
+            {
+                foreach (string model in availableHI[family])
+                {
+                    ComboBoxItem element = new ComboBoxItem();
+                    element.Name = family;
+                    element.Content = model;
+                    HIListItems.Add(element);
+                }
+            }
+            debugVM.AddDebugInfo(result.ToString(), "Updated List");
         }
 
         private void initDurationComboBox()

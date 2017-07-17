@@ -31,6 +31,7 @@ namespace TestMachineFrontend1.View
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
 
+        //TODO
         private void press_Combination(object sender, RoutedEventArgs e)
         {
             if (remoteVM.getDuration() != -1)
@@ -43,18 +44,18 @@ namespace TestMachineFrontend1.View
                 param[param.Length - 1] = remoteVM.getDuration();
 
                 int duration = remoteVM.getDuration();
-                //if (rockerswitch_Down_Checkbox.IsChecked == true)
-                //{
-                //    param[0] = 1;
-                //}
-                //if (rockerswitch_Up_Checkbox.IsChecked == true)
-                //{
-                //    param[1] = 1;
-                //}
-                //if (pushButton_Checkbox.IsChecked == true)
-                //{
-                //    param[2] = 1;
-                //}
+                if (Push_Checkbox.IsChecked == true)
+                {
+                    param[0] = 1;
+                }
+                if (RockerSwitchUp_Checkbox.IsChecked == true)
+                {
+                    param[1] = 1;
+                }
+                if (RockerSwitchDown_Checkbox.IsChecked == true)
+                {
+                    param[2] = 1;
+                }
                 Request request = new Request("PressCombination", param);
                 remoteVM.sendRequest(request);
                 remoteVM.getResult(request);

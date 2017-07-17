@@ -15,6 +15,8 @@
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type vm:UserControlsViewModel}">
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DebugViewModel}">
+            </DataTemplate>
             <Style x:Key="AnimatedSwitch" TargetType="{x:Type ToggleButton}">
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="Background" Value="#FAFAFB" />
@@ -323,36 +325,36 @@
                             <Button Name="Push_Button" MaxHeight="60px" HorizontalAlignment="Center" Margin="10,15" 
                                     Grid.Row="1" Style="{StaticResource RedButtonFilled}" Width="100px"
                                     Command="{Binding PressPushButtonCommand}"
-                                    CommandParameter="{Binding CurrentViewModelRemoteController.PressPushButton}">
+                                    CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressPushButton}">
                                 <StackPanel>
                                     <TextBlock Text="Push Button" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="Push_Checkbox" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
-                                 IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
+                                 IsChecked="{Binding IsPushButtonUp}" IsEnabled="True" Height="14" Width="15"/>
                             <Button Name="RockerSwitchUp_Button" MaxHeight="60px"   HorizontalAlignment="Center" 
                                     Margin="10,15"  Grid.Row="1" Grid.Column="1" Style="{StaticResource RedButtonFilled}"  
                                     Width="100px" Command="{Binding PressRockerSwitchCommand}"
-                                    CommandParameter="{Binding CurrentViewModelRemoteController.PressRockerSwitchUp}">
+                                    CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchUp}">
                                 <StackPanel>
                                     <TextBlock Text="Rocker ?" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="RockerSwitchUp_Checkbox" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
-                                 IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
+                                 IsChecked="{Binding IsRockerSwitchUp}" IsEnabled="True" Height="14" Width="15"/>
                             <Button Name="RockerSwitchDown_Button" MaxHeight="60px"  HorizontalAlignment="Center" Margin="10,15"  
                                     Grid.Row="1" Grid.Column="2" Style="{StaticResource RedButtonFilled}"  Width="100px"
                                     Command="{Binding PressRockerSwitchCommand}"
-                                    CommandParameter="{Binding CurrentViewModelRemoteController.PressRockerSwitchDown}">
+                                    CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchDown}">
                                 <StackPanel>
                                     <TextBlock Text="Rocker ?" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="RockerSwitchDown_Checkbox" Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
-                                 IsChecked="False" IsEnabled="True" Height="14" Width="15"/>
+                                 IsChecked="{Binding IsRockerSwitchDown}" IsEnabled="True" Height="14" Width="15"/>
                             <Button MaxHeight="60px" HorizontalAlignment="Center" Margin="15,15"  
                                     Grid.Row="1" Grid.Column="3" Style="{StaticResource RedButtonFilled}"  
                                     Width="100px" Click="press_Combination">
@@ -364,7 +366,7 @@
                   HorizontalAlignment="Center" 
                   VerticalAlignment="Center" Width="100" Height="18" 
                   ItemsSource="{Binding Path=CurrentViewModelRemoteController.DurationItems}" 
-                  SelectedValue="{Binding CurrentViewModelRemoteController.SelectedDuration}"
+                  SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedDuration}"
                   IsSynchronizedWithCurrentItem="True"></ComboBox>
                             <TextBlock  Grid.Row="0" Grid.Column="2"   HorizontalAlignment="Right" VerticalAlignment="Center"  Text="Duration"/>
                         </Grid>
@@ -407,7 +409,7 @@
                             <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
                                     Height="20px" Width="50px"
                                     Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding CurrentViewModelRemoteController.DetectTCol}">
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectTCol}">
                                 <StackPanel>
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
@@ -415,7 +417,7 @@
                             <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
                                     Height="20px" Width="50px"
                                     Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding CurrentViewModelRemoteController.UndetectTCol}">
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectTCol}">
                                 <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
@@ -458,14 +460,14 @@
                                         </Ellipse>-->
                             <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
                                     Height="20px" Width="50px" Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding CurrentViewModelRemoteController.DetectAudioShoe}">
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectAudioShoe}">
                                 <StackPanel>
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
                             <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
                                     Height="20px" Width="50px" Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding CurrentViewModelRemoteController.UndetectAudioShoe}">
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectAudioShoe}">
                                 <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
@@ -556,7 +558,7 @@
                                    Source="..\img\led_512_off.png"></Image>
                             <ToggleButton HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,14,2" 
                                           Grid.Row="2" Style="{StaticResource AnimatedSwitch}" Width="16" Height="16"
-                                          />
+                                          Command="{Binding LEDOnCommand}"/>
 
                         </Grid>
                     </Border>
@@ -577,18 +579,20 @@
 
                             <StackPanel HorizontalAlignment="Center"  Grid.Row="1" Orientation="Horizontal" Margin="10,0">
                                 <TextBox Text="{Binding ElementName=setVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="20px" Height="20px"  TextAlignment="Center" />
-                                <Slider  VerticalAlignment="Center" Name="setVolume_Slider" Maximum="127" Minimum="0" TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="3" Width="100px" Margin="10,0" />
+                                <Slider  VerticalAlignment="Center" Name="setVolume_Slider" Maximum="127" Minimum="0" 
+                                         TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="3" 
+                                         Width="100px" Margin="10,0" />
                                 <Border Margin="2,2"  Grid.Row="1" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
                                 <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
                                         Command="{Binding EndlessVcCommand}" 
-                CommandParameter="{Binding CurrentViewModelRemoteController.Endless_VC_Up}">
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Up}">
                                     <StackPanel>
                                         <TextBlock Text="?" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
                                         Command="{Binding EndlessVcCommand}" 
-                CommandParameter="{Binding CurrentViewModelRemoteController.Endless_VC_Down}">
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Down}">
                                     <StackPanel>
                                         <TextBlock Text="?" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
@@ -622,11 +626,14 @@
 
                             <StackPanel HorizontalAlignment="Center"  Grid.Row="1" Orientation="Horizontal" Margin="10,0">
                                 <TextBox Text="{Binding ElementName=power_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="20px" Height="20px"  TextAlignment="Center" />
-                                <Slider  VerticalAlignment="Center" Name="power_Slider" Maximum="127" Minimum="0" 
-                                         TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="3" Width="100px" 
-                                         Margin="10,0" Thumb.DragStarted="power_Slider_DragStarted"
-                        Thumb.DragCompleted="power_Slider_DragCompleted"
-                        ValueChanged="power_Slider_ValueChanged" />
+                                <Slider  VerticalAlignment="Center" Name="power_Slider" Maximum="1.5"
+                            Minimum="0.0"
+                            TickPlacement="BottomRight"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="0.1"
+                            ValueChanged="power_Slider_ValueChanged"
+                                         Width="100px" Margin="10,0" Thumb.DragStarted="power_Slider_DragStarted"
+                        Thumb.DragCompleted="power_Slider_DragCompleted" />
                                 <Border Margin="2,2"  Grid.Row="1" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
                                 <Button Margin="15,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
                                         >
