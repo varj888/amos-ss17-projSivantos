@@ -45,7 +45,6 @@ namespace TestMachineFrontend1.ViewModel
 
             initDurationComboBox();
             initReceiverComboBox();
-            //initToggleLED();
         }
 
         #region Properties
@@ -250,6 +249,28 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        public Visibility isPiConnectedStatus = Visibility.Hidden;
+        public Visibility IsPiConnectedStatus
+        {
+            get { return isPiConnectedStatus; }
+            set
+            {
+                isPiConnectedStatus = value;
+                OnPropertyChanged("IsPiConnectedStatus");
+            }
+        }
+
+        private Visibility isPiDisconnected = Visibility.Visible;
+        public Visibility IsPiDisconnected
+        {
+            get { return isPiDisconnected; }
+            set
+            {
+                isPiDisconnected = value;
+                OnPropertyChanged("IsPiDisconnected");
+            }
+        }
+
         public bool IsRockerSwitchUp { get; set; }
         public bool IsRockerSwitchDown { get; set; }
         public bool IsPushButtonUp { get; set; }
@@ -329,8 +350,9 @@ namespace TestMachineFrontend1.ViewModel
                 var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
 
                 raspberryPi = pi1;
-
                 IsPiConnected = true;
+                IsPiConnectedStatus = Visibility.Visible;
+                IsPiDisconnected = Visibility.Hidden;
 
                 raspberryPis.Add(IPAdressConnect, pi1);
 

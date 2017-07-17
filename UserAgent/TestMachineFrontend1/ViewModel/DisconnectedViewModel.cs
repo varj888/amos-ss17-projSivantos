@@ -9,5 +9,11 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class DisconnectedViewModel : ObservableObject
     {
+        RemoteControllerViewModel remoteVM;
+        //public DisconnectedViewModel()
+        //{
+        //    remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
+        //    remoteVM.IsPiDisconnected = true;
+        //}
     }
 }
