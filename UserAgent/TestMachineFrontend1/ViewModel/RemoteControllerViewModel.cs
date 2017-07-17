@@ -189,7 +189,7 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedReceiverItem = value;
                 _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem);
                 OnPropertyChanged("SelectedReceiverItem");
-                SetARDVoltageAsync().RunSynchronously();
+                //SetARDVoltageAsync().RunSynchronously();
                 //Task<string> task = RaspberryPiInstance.SetARDVoltage((ContentControl)_selectedReceiverItem.Content);
                 //task.Result;
                 //Request request = new Request("SetARDVoltage", _selectedReceiverItem.Content);
