@@ -45,7 +45,7 @@ namespace TestMachineFrontend1.ViewModel
 
             initDurationComboBox();
             initReceiverComboBox();
-            initToggleLED();
+            //initToggleLED();
         }
 
         #region Properties
@@ -155,7 +155,7 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        public Visibility _toggleLEDButton;
+        public Visibility _toggleLEDButton = Visibility.Hidden;
 
         public Visibility ToggleLEDButton
         {
@@ -163,7 +163,7 @@ namespace TestMachineFrontend1.ViewModel
             set
             {
                 _toggleLEDButton = value;
-                OnPropertyChanged("ToggleLED");
+                OnPropertyChanged("ToggleLEDButton");
             }
         }
 

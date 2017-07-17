@@ -36,6 +36,7 @@ namespace TestMachineFrontend1.Commands
             }
             catch (Exception e)
             {
+
             }
 
             if (result == "High")
