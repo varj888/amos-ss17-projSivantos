@@ -496,10 +496,10 @@
                                 <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
                                 <ComboBox Name="receiverBox" HorizontalAlignment="Center"
-                  VerticalAlignment="Center" Width="100" Grid.Row="2" Height="23"
+                  VerticalAlignment="Center" Width="84" Grid.Row="1" Height="22"
                   ItemsSource="{Binding Path=CurrentViewModelRemoteController.ReceiverItems}" 
                   SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedReceiverItem}"
-                  IsSynchronizedWithCurrentItem="True"></ComboBox>
+                  IsSynchronizedWithCurrentItem="True" Margin="6,44,23,44"></ComboBox>
                             </Grid>
                         </Border>
                         <Border Name="UpdateHIBorder" Margin="5,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="0" Grid.Column="2" Grid.RowSpan="1" Grid.ColumnSpan="1">
@@ -589,16 +589,16 @@
                                          TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="3" 
                                          Width="100px" Margin="10,0" />
                                 <Border Margin="2,2"  Grid.Row="1" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
-                                <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
-                                    <!--Command="{Binding EndlessVcCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Up}"-->
+                                <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
+                                    Command="{Binding EndlessVcUpCommand}">
+                                    <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Up}"-->
                                     <StackPanel>
                                         <TextBlock Text="▲" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
-                                    <!--Command="{Binding EndlessVcCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Down}"-->
+                                <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
+                                    Command="{Binding EndlessVcDownCommand}">
+                                    <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Down}"-->
                                     <StackPanel>
                                         <TextBlock Text="▼" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>

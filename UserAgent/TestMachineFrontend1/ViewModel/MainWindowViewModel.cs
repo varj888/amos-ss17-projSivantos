@@ -30,6 +30,8 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand UndetectTCoilCommand { get; private set; }
         public static ICommand DetectAudioShueCommand { get; private set; }
         public static ICommand UndetectAudioShueCommand { get; private set; }
+        public static ICommand EndlessVcUpCommand { get; private set; }
+        public static ICommand EndlessVcDownCommand { get; private set; }
         public static ICommand GetRaspiConfigCommand { get; private set; }
 
         #endregion
@@ -86,7 +88,7 @@ namespace TestMachineFrontend1.ViewModel
             SendRequestCommand = new SendRequestCommand();
             GetDurationCommand = new GetDurationCommand();
             PressPushButtonCommand = new PressPushButtonCommand();
-            EndlessVcCommand = new EndlessVcCommand();
+            EndlessVcCommand = new EndlessVcUpCommand();
             PressRockerSwitchCommand = new PressRockerSwitchUpCommand();
             SetHICommand = new SetHICommand();
             PressRockerSwitchUpCommand = new PressRockerSwitchUpCommand();
@@ -96,6 +98,8 @@ namespace TestMachineFrontend1.ViewModel
             UndetectAudioShueCommand = new UndetectAudioShueCommand();
             DetectTCoilCommand = new DetectTCoilCommand();
             UndetectTCoilCommand = new UndetectTCoilCommand();
+            EndlessVcUpCommand = new EndlessVcUpCommand();
+            EndlessVcDownCommand = new EndlessVcDownCommand();
             GetRaspiConfigCommand = new GetRaspiConfigCommand();
         }
 
