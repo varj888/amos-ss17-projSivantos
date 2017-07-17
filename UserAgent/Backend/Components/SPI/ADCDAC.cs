@@ -85,7 +85,7 @@ namespace RaspberryBackend
             //happens only if ADCDAC is actually connected
             if (_adConvert.IsConnected)
             {
-                Debug.WriteLine(channel + "   " + voltage);
+                Debug.WriteLine(this.GetType() + "::: Setting Voltage. Channel: " + channel +", Voltage: " + voltage);
                 _adConvert.SetDACVoltage(channel, voltage);
                 if (channel == CHANNEL_1)
                 {

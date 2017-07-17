@@ -1,6 +1,7 @@
 ﻿using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,19 +69,21 @@ namespace TestMachineFrontend1.View
             }
         }
 
-        private void power_Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private async void Power_Slider_OnValueChanged(object sender, RoutedEventArgs e)
         {
-
+            Slider slide = sender as Slider;
+            await remoteVM.RaspberryPiInstance.ChangePowerVoltage(slide.Value);
+            vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
         }
 
-        private void power_Slider_DragStarted(object sender, RoutedEventArgs e)
+        private void Button_Power_On_OnClick(object sender, RoutedEventArgs e)
         {
-
+            remoteVM.CurrentPowerVoltage = 1.3;
         }
 
-        private void power_Slider_DragCompleted(object sender, RoutedEventArgs e)
+        private void Button_Power_OFF_OnClick(object sender, RoutedEventArgs e)
         {
-
+            remoteVM.CurrentPowerVoltage = 0.0;
         }
     }
 }

@@ -496,10 +496,10 @@
                                 <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
                                 <ComboBox Name="receiverBox" HorizontalAlignment="Center"
-                  VerticalAlignment="Center" Width="84" Grid.Row="1" Height="22"
+                  VerticalAlignment="Center" Width="100" Grid.Row="2" Height="23"
                   ItemsSource="{Binding Path=CurrentViewModelRemoteController.ReceiverItems}" 
                   SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedReceiverItem}"
-                  IsSynchronizedWithCurrentItem="True" Margin="6,44,23,44"></ComboBox>
+                  IsSynchronizedWithCurrentItem="True"></ComboBox>
                             </Grid>
                         </Border>
                         <Border Name="UpdateHIBorder" Margin="5,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="0" Grid.Column="2" Grid.RowSpan="1" Grid.ColumnSpan="1">
@@ -589,16 +589,16 @@
                                          TickPlacement="BottomRight" IsSnapToTickEnabled="True" TickFrequency="3" 
                                          Width="100px" Margin="10,0" />
                                 <Border Margin="2,2"  Grid.Row="1" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
-                                <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
-                                    Command="{Binding EndlessVcUpCommand}">
-                                    <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Up}"-->
+                                <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
+                                    <!--Command="{Binding EndlessVcCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Up}"-->
                                     <StackPanel>
                                         <TextBlock Text="▲" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
                                 </Button>
-                                <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
-                                    Command="{Binding EndlessVcDownCommand}">
-                                    <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Down}"-->
+                                <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
+                                    <!--Command="{Binding EndlessVcCommand}" 
+                CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Down}"-->
                                     <StackPanel>
                                         <TextBlock Text="▼" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
@@ -630,28 +630,30 @@
                             <Label Margin="10,0" Grid.Row="0" Grid.RowSpan="2" Content="POWER" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
-                            <StackPanel HorizontalAlignment="Center"  Grid.Row="1" Orientation="Horizontal" Margin="10,0">
-                                <TextBox Text="{Binding ElementName=power_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="20px" Height="20px"  TextAlignment="Center" />
-                                <Slider  VerticalAlignment="Center" Name="power_Slider" Maximum="1.5"
-                            Minimum="0.0"
-                            TickPlacement="BottomRight"
-                            IsSnapToTickEnabled="True"
-                            TickFrequency="0.1"
-                            ValueChanged="power_Slider_ValueChanged"
-                                         Width="100px" Margin="10,0" Thumb.DragStarted="power_Slider_DragStarted"
-                        Thumb.DragCompleted="power_Slider_DragCompleted" />
-                                <Border Margin="2,2"  Grid.Row="1" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
-                                <Button Margin="15,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
-                                        >
-                                    <StackPanel>
-                                        <TextBlock Text="ON" FontFamily="Arial" FontSize="8"/>
-                                    </StackPanel>
-                                </Button>
-                                <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
-                                    <StackPanel>
-                                        <TextBlock Text="OFF" FontFamily="Arial" FontSize="8"/>
-                                    </StackPanel>
-                                </Button>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0">
+                                <TextBox Text="{Binding ElementName=Power_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="20px" Height="20px" TextAlignment="Center" Margin="0,0,2,0" />
+                                <Slider  VerticalAlignment="Center" Name="Power_Slider" 
+                                         Maximum="1.5"
+                                         Minimum="0.0"
+                                         TickPlacement="BottomRight"
+                                         IsSnapToTickEnabled="True"
+                                         TickFrequency="0.1"
+                                         Value="{Binding Path=CurrentViewModelRemoteController.CurrentPowerVoltage}"
+                                         ValueChanged="Power_Slider_OnValueChanged" Width="150" Height="19" />
+                                <Border Margin="10,0" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
+                                <StackPanel Orientation="Horizontal" Width="59">
+                                    <Button Click="Button_Power_On_OnClick"  HorizontalAlignment="Right" Margin="0,0,0,4" Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
+                                        <StackPanel>
+                                            <TextBlock Text="ON" FontFamily="Arial" FontSize="8"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Click="Button_Power_OFF_OnClick" Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px" Margin="4,0,35,4">
+                                        <StackPanel>
+                                            <TextBlock Text="OFF" FontFamily="Arial" FontSize="8"/>
+                                        </StackPanel>
+                                    </Button>
+                                </StackPanel>
+
                             </StackPanel>
                         </Grid>
                     </Border>

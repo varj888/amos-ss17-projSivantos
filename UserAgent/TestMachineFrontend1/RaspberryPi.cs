@@ -114,6 +114,10 @@ namespace TestmachineFrontend1
         }
 
 
+        public async Task<double> ChangePowerVoltage(double voltage)
+        {
+            return (double) await sendRequest(new Request("ChangePowerVoltage", voltage));
+        }
         public async Task<string> GetRaspiConfig()
         {
             return (string) await sendRequest(new Request("GetRaspiConfig", 0));

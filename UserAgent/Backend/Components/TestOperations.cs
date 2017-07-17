@@ -126,6 +126,11 @@ namespace RaspberryBackend
             throw new NotImplementedException();
         }
 
+        public double ChangePowerVoltage(double voltage)
+        {
+            throw new NotImplementedException();
+        }
+
         public double TurnHIOn(double voltage)
         {
             throw new NotImplementedException();

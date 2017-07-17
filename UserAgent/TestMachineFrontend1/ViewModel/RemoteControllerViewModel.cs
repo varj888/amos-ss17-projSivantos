@@ -351,6 +351,17 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        private double _currentPowerVoltage = 0.0;
+        public double CurrentPowerVoltage
+        {
+            get { return _currentPowerVoltage; }
+            set
+            {
+                _currentPowerVoltage = value;
+                OnPropertyChanged("CurrentPowerVoltage");
+            }
+        }
+
         public async void connectIP()
         {
             try

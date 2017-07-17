@@ -30,7 +30,7 @@ namespace RaspberryBackend
         string SetARDVoltage(string device);
         string SetHI(string family, string model);
         string ToggleBacklight_LCD(int requestedParameter);
-        double TurnHIOn(double voltage);
+        double ChangePowerVoltage(double voltage);
         void updateLCD();
         string WritePin(UInt16 id);
 
