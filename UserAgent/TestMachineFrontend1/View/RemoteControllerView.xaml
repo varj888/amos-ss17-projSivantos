@@ -497,8 +497,8 @@
 
                                 <ComboBox Name="receiverBox" HorizontalAlignment="Center"
                   VerticalAlignment="Center" Width="100" Grid.Row="2" Height="23"
-                  ItemsSource="{Binding Path=CurrentViewModelUserControls.ReceiverItems}" 
-                  SelectedValue="{Binding CurrentViewModelUserControls.SelectedReceiverItem}"
+                  ItemsSource="{Binding Path=CurrentViewModelRemoteController.ReceiverItems}" 
+                  SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedReceiverItem}"
                   IsSynchronizedWithCurrentItem="True"></ComboBox>
                             </Grid>
                         </Border>
@@ -519,10 +519,10 @@
                                 <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <ComboBox Name="availableHIList" HorizontalAlignment="Center"
-                  VerticalAlignment="Center" Width="90" Height="23" Margin="2,0"
-                  ItemsSource="{Binding CurrentViewModelUserControls.HIListItems}"
-                  SelectedItem="{Binding CurrentViewModelUserControls.SelectedHI}"
-                  IsSynchronizedWithCurrentItem="True"/>
+                                              VerticalAlignment="Center" Width="90" Height="23" Margin="2,0"
+                                              ItemsSource="{Binding Path=CurrentViewModelRemoteController.HIListItems}"
+                                              SelectedItem="{Binding Path=CurrentViewModelRemoteController.SelectedHI}"
+                                              IsSynchronizedWithCurrentItem="True"/>
                                     <Button  VerticalAlignment="Center" Margin="2,0" Style="{StaticResource RedButtonFilled}" 
                                              Height="20px" Width="15px"
                                              IsEnabled="True" Command="{Binding SetHICommand}">

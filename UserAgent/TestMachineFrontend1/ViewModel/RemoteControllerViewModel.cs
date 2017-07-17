@@ -22,7 +22,7 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class RemoteControllerViewModel : ObservableObject
     {
-        #region VarDefinishions
+        #region VarDefinitions
         private RaspberryPiItem detectModel;
         private DebugViewModel debugVM;
         private Dictionary<string, List<string>> availableHI;
@@ -310,12 +310,8 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-
-
         public async void connectIP()
-
         {
-
             try
 
             {
@@ -336,11 +332,14 @@ namespace TestMachineFrontend1.ViewModel
 
                 debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
 
-                sendRequest(GetAvailableHI);
+                //sendRequest(GetAvailableHI);
 
-                Result result = getResult(GetAvailableHI);
+                //Result result = getResult(GetAvailableHI);
+                String result = await RaspberryPiInstance.GetAvailableHI(1);
 
                 getAvailableHI(result);
+
+                //getAvailableHI(result.ToString());
 
                 SynchronizationContext uiContext = SynchronizationContext.Current;
 
@@ -487,7 +486,7 @@ namespace TestMachineFrontend1.ViewModel
         //    }
         //}
 
-        public void setHI()
+        public async Task setHI()
         {
             ComboBoxItem ci;
             try
@@ -503,16 +502,28 @@ namespace TestMachineFrontend1.ViewModel
             string model = ci.Content.ToString();
             string family = ci.Name;
 
-            Request request = new Request("SetHI", new Object[] { family, model });
+            //Request request = new Request("SetHI", new Object[] { family, model });
 
-            sendRequest(request);
-            getResult(request);
+            //sendRequest(request);
+            //getResult(request);
+
+            String result = "";
+            try
+            {
+
+                result = await RaspberryPiInstance.SetHI(family, model);
+                debugVM.AddDebugInfo("SetHI", result);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         //TODO: Result ???
-        public void getAvailableHI(Result result)
+        public void getAvailableHI(string result)
         {
-            availableHI = helperXML.buildDictionary(result.ToString());
+            availableHI = helperXML.buildDictionary(result);
             foreach (string family in availableHI.Keys)
             {
                 foreach (string model in availableHI[family])
@@ -523,7 +534,8 @@ namespace TestMachineFrontend1.ViewModel
                     HIListItems.Add(element);
                 }
             }
-            debugVM.AddDebugInfo(result.ToString(), "Updated List");
+            OnPropertyChanged("HIListItems");
+            //debugVM.AddDebugInfo(result.ToString(), "Updated List");
         }
 
         private void initDurationComboBox()

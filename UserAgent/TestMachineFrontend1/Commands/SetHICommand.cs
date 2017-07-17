@@ -19,9 +19,9 @@ namespace TestMachineFrontend1.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
-            MainWindowViewModel.CurrentViewModelRemoteController.setHI();
+           await MainWindowViewModel.CurrentViewModelRemoteController.setHI();
         }
     }
 }
