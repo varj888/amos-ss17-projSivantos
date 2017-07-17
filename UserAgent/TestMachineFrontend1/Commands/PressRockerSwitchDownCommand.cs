@@ -9,17 +9,13 @@ using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class PressRockerSwitchCommand : ICommand
+    public class PressRockerSwitchDownCommand : ICommand
     {
-        //private UserControlsViewModel ucViewModel;
-        //private DetectTabViewModel dtViewModel;
         private DebugViewModel debugViewModel;
         private RemoteControllerViewModel remoteVM;
 
-        public PressRockerSwitchCommand()
+        public PressRockerSwitchDownCommand()
         {
-            //ucViewModel = MainWindowViewModel.CurrentViewModelUserControls;
-            //dtViewModel = MainWindowViewModel.CurrentViewModelDetectTab;
             debugViewModel = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
@@ -31,12 +27,12 @@ namespace TestMachineFrontend1.Commands
             return true;
         }
 
-        public void Execute(object parameter)
+        public async void Execute(object parameter)
         {
             if (remoteVM.getDuration() != -1)
             {
-                remoteVM.sendRequest(parameter as Request);
-                remoteVM.getResult(parameter as Request);
+                await remoteVM.RaspberryPiInstance.PressRockerSwitchDown(remoteVM.getDuration());
+                debugViewModel.AddDebugInfo("PressRockerSwitchDown", "success");
             }
             else
             {

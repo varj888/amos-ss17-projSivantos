@@ -1,23 +1,22 @@
-﻿using System;
+﻿using CommonFiles.TransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CommonFiles.TransferObjects;
 using TestMachineFrontend1.ViewModel;
-using System.Diagnostics;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class PressPushButtonCommand : ICommand
+    public class PressRockerSwitchUpCommand : ICommand
     {
+        private DebugViewModel debugViewModel;
         private RemoteControllerViewModel remoteVM;
-        private DebugViewModel debugVM;
 
-        public PressPushButtonCommand()
+        public PressRockerSwitchUpCommand()
         {
-            debugVM = MainWindowViewModel.CurrentViewModelDebug;
+            debugViewModel = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
 
@@ -30,16 +29,15 @@ namespace TestMachineFrontend1.Commands
 
         public async void Execute(object parameter)
         {
-            String result;
-            try
+            if (remoteVM.getDuration() != -1)
             {
-                result = await remoteVM.RaspberryPiInstance.PressPushButton(remoteVM.getDuration());
-                debugVM.AddDebugInfo("PressPushButton", result);
+                await remoteVM.RaspberryPiInstance.PressRockerSwitchUp(remoteVM.getDuration());
+                debugViewModel.AddDebugInfo("PressRockerSwitchUp", "success");
             }
-            catch (Exception e)
+            else
             {
-                debugVM.AddDebugInfo("PressPushButton :", e.Message);
-                return;
+                debugViewModel.AddDebugInfo("Debug", "Invalid duration");
+            }
         }
     }
 }

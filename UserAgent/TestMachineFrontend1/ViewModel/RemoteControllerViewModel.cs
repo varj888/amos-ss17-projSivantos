@@ -178,20 +178,28 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        private ComboBoxItem _selectedReceiverItem;
-        public ComboBoxItem SelectedReceiverItem
+        private Task<ComboBoxItem>  _selectedReceiverItem;
+        public Task<ComboBoxItem> SelectedReceiverItem
         {
             get { return _selectedReceiverItem; }
             set
             {
                 _selectedReceiverItem = value;
-                _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem);
+                _selectedReceiverItemIndex = DurationItems.IndexOf(_selectedReceiverItem.Result);
                 OnPropertyChanged("SelectedReceiverItem");
-                Request request = new Request("SetARDVoltage", _selectedReceiverItem.Content);
-                sendRequest(request);
+                SetARDVoltageAsync().RunSynchronously();
+                //Task<string> task = RaspberryPiInstance.SetARDVoltage((ContentControl)_selectedReceiverItem.Content);
+                //task.Result;
+                //Request request = new Request("SetARDVoltage", _selectedReceiverItem.Content);
+                //sendRequest(request);
                 //kann nicht bevor der Initialisierung des Receiver aufgerufen werden!!!
                 //dtVM.getResult(request);
             }
+        }
+
+        public async Task SetARDVoltageAsync()
+        {
+            await RaspberryPiInstance.SetARDVoltage((ContentControl)_selectedReceiverItem.Result);
         }
 
         private int _selectedReceiverItemIndex;

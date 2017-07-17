@@ -25,6 +25,8 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand SetHICommand { get; private set; }
         public static ICommand LEDOnCommand { get; private set; }
         public static ICommand ToggleLEDCommand { get; private set; }
+        public static ICommand PressRockerSwitchUpCommand { get; private set; }
+        public static ICommand PressRockerSwitchDownCommand { get; private set; }
 
         #endregion
 
@@ -81,10 +83,12 @@ namespace TestMachineFrontend1.ViewModel
             GetDurationCommand = new GetDurationCommand();
             PressPushButtonCommand = new PressPushButtonCommand();
             EndlessVcCommand = new EndlessVcCommand();
-            PressRockerSwitchCommand = new PressRockerSwitchCommand();
+            PressRockerSwitchCommand = new PressRockerSwitchUpCommand();
             SetHICommand = new SetHICommand();
             LEDOnCommand = new LEDOnCommand();
             ToggleLEDCommand = new ToggleLEDCommand();
+            PressRockerSwitchUpCommand = new PressRockerSwitchUpCommand();
+            PressRockerSwitchDownCommand = new PressRockerSwitchDownCommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()

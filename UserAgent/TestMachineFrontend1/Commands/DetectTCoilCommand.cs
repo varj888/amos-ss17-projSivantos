@@ -10,12 +10,12 @@ using System.Diagnostics;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class PressPushButtonCommand : ICommand
+    public class DetectTCoilCommand : ICommand
     {
         private RemoteControllerViewModel remoteVM;
         private DebugViewModel debugVM;
 
-        public PressPushButtonCommand()
+        public DetectTCoilCommand()
         {
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
@@ -33,13 +33,16 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.PressPushButton(remoteVM.getDuration());
-                debugVM.AddDebugInfo("PressPushButton", result);
+                result = await remoteVM.RaspberryPiInstance.DetectTeleCoil();
+                remoteVM.TCoilDetected = true;
+                debugVM.AddDebugInfo("DetectTeleCoil", result);
             }
             catch (Exception e)
             {
-                debugVM.AddDebugInfo("PressPushButton :", e.Message);
+                debugVM.AddDebugInfo("DetectTeleCoil :", e.Message);
                 return;
+            }
         }
     }
 }
+

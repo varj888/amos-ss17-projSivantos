@@ -324,8 +324,8 @@
 
                             <Button Name="Push_Button" MaxHeight="60px" HorizontalAlignment="Center" Margin="10,15" 
                                     Grid.Row="1" Style="{StaticResource RedButtonFilled}" Width="100px"
-                                    Command="{Binding PressPushButtonCommand}"
-                                    CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressPushButton}">
+                                    Command="{Binding PressPushButtonCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressPushButton}"-->
                                 <StackPanel>
                                     <TextBlock Text="Push Button" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
@@ -335,8 +335,8 @@
                                  IsChecked="{Binding IsPushButtonUp}" IsEnabled="True" Height="14" Width="15"/>
                             <Button Name="RockerSwitchUp_Button" MaxHeight="60px"   HorizontalAlignment="Center" 
                                     Margin="10,15"  Grid.Row="1" Grid.Column="1" Style="{StaticResource RedButtonFilled}"  
-                                    Width="100px" Command="{Binding PressRockerSwitchCommand}"
-                                    CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchUp}">
+                                    Width="100px" Command="{Binding PressRockerSwitchUpCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchUp}"-->
                                 <StackPanel>
                                     <TextBlock Text="Rocker ▲" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
@@ -346,8 +346,8 @@
                                  IsChecked="{Binding IsRockerSwitchUp}" IsEnabled="True" Height="14" Width="15"/>
                             <Button Name="RockerSwitchDown_Button" MaxHeight="60px"  HorizontalAlignment="Center" Margin="10,15"  
                                     Grid.Row="1" Grid.Column="2" Style="{StaticResource RedButtonFilled}"  Width="100px"
-                                    Command="{Binding PressRockerSwitchCommand}"
-                                    CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchDown}">
+                                    Command="{Binding PressRockerSwitchDownCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchDown}"-->
                                 <StackPanel>
                                     <TextBlock Text="Rocker ▼" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
@@ -408,8 +408,8 @@
                                         </Ellipse>-->
                             <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
                                     Height="20px" Width="50px"
-                                    Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectTCol}">
+                                    Command="{Binding DetectTCoilCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectTCol}"-->
                                 <StackPanel>
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
@@ -459,15 +459,15 @@
                                             </Ellipse.Fill>
                                         </Ellipse>-->
                             <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
-                                    Height="20px" Width="50px" Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectAudioShoe}">
+                                    Height="20px" Width="50px" Command="{Binding DetectAudioShueCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectAudioShoe}"-->
                                 <StackPanel>
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
                             <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
-                                    Height="20px" Width="50px" Command="{Binding SendRequestCommand}" 
-                CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectAudioShoe}">
+                                    Height="20px" Width="50px" Command="{Binding UndetectAudioShueCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectAudioShoe}"-->
                                 <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>

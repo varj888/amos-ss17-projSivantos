@@ -7,15 +7,11 @@ namespace TestMachineFrontend1.Commands
 {
     public class SendRequestCommand : ICommand
     {
-        //private UserControlsViewModel ucVM;
-        //private DetectTabViewModel dtVM;
         private RemoteControllerViewModel remoteVM;
         private DebugViewModel debugVM;
 
         public SendRequestCommand()
         {
-            //ucVM = MainWindowViewModel.CurrentViewModelUserControls;
-            //dtVM = MainWindowViewModel.CurrentViewModelDetectTab;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }

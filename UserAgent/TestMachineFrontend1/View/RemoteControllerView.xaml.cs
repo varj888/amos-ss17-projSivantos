@@ -32,7 +32,7 @@ namespace TestMachineFrontend1.View
         }
 
         //TODO
-        private void press_Combination(object sender, RoutedEventArgs e)
+        private async void press_Combination(object sender, RoutedEventArgs e)
         {
             if (remoteVM.getDuration() != -1)
             {
@@ -56,9 +56,11 @@ namespace TestMachineFrontend1.View
                 {
                     param[2] = 1;
                 }
-                Request request = new Request("PressCombination", param);
-                remoteVM.sendRequest(request);
-                remoteVM.getResult(request);
+                await remoteVM.RaspberryPiInstance.PressCombination(param);
+                vmDebug.AddDebugInfo("PressCombination", "success");
+                //Request request = new Request("PressCombination", param);
+                //remoteVM.sendRequest(request);
+                //remoteVM.getResult(request);
             }
             else
             {

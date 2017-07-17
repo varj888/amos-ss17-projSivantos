@@ -10,6 +10,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace TestmachineFrontend1
 {
@@ -130,6 +131,11 @@ namespace TestmachineFrontend1
         public async Task<string> ResetMux(int v)
         {
             return (string)await sendRequest(new Request("ResetMux", v));
+        }
+
+        public async Task<string> SetARDVoltage(ContentControl content)
+        {
+            return (string)await sendRequest(new Request("SetARDVoltage", content.Content));
         }
 
         public async Task<string> SetHI(string family, string model)
