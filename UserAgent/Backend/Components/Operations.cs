@@ -40,10 +40,6 @@ namespace RaspberryBackend
             {
                 initializeClassInstanceField(hwComponent);
             }
-
-            // register event handler for LED input on GPIO Pin 5
-            // to detect HI LED Status
-            GPIOinterface.registerEventHandler(GpioMap.led_input_Pin, Pin_ValueChanged);
         }
 
         //initiates a declared instance field in the Raspberry Pi Class
@@ -58,20 +54,6 @@ namespace RaspberryBackend
                 var fieldValue = Convert.ChangeType(hwComponent, hwComponent.GetType());
                 classInstanceField.SetValue(this, fieldValue);
             }
-        }
-
-        private void Pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
-        {
-            if (args.Edge == GpioPinEdge.FallingEdge)
-            {
-                Debug.WriteLine("Physical pushbutton has been pressed.");
-            }
-            else if (args.Edge == GpioPinEdge.RisingEdge)
-            {
-                Debug.WriteLine("Physical pushbutton has been released.");
-            }
-
-            ADConverter.readADCVoltage(5, 2);
         }
     }
 }
