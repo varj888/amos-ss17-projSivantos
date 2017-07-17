@@ -88,6 +88,7 @@
     <Compile Include="Commands\PressRockerSwitchCommand.cs" />
     <Compile Include="Commands\SendRequestCommand.cs" />
     <Compile Include="Commands\SetHICommand.cs" />
+    <Compile Include="Commands\ToggleLEDCommand.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\HelperXML.cs" />
     <Compile Include="Helpers\ListItemSelected.cs" />

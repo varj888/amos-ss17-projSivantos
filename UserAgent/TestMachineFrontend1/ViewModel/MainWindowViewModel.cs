@@ -24,6 +24,7 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand PressRockerSwitchCommand { get; private set; }
         public static ICommand SetHICommand { get; private set; }
         public static ICommand LEDOnCommand { get; private set; }
+        public static ICommand ToggleLEDCommand { get; private set; }
 
         #endregion
 
@@ -83,6 +84,7 @@ namespace TestMachineFrontend1.ViewModel
             PressRockerSwitchCommand = new PressRockerSwitchCommand();
             SetHICommand = new SetHICommand();
             LEDOnCommand = new LEDOnCommand();
+            ToggleLEDCommand = new ToggleLEDCommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()

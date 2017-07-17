@@ -1,20 +1,20 @@
-﻿using CommonFiles.TransferObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
 {
-    class LEDOnCommand : ICommand
+    public class ToggleLEDCommand : ICommand
     {
         RemoteControllerViewModel remoteVM;
         DebugViewModel debugVM;
-        public LEDOnCommand()
+
+        public ToggleLEDCommand()
         {
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
@@ -27,14 +27,27 @@ namespace TestMachineFrontend1.Commands
         }
         public async void Execute(object parameter)
         {
-            String result;
+            String result = "";
             try
             {
+                
                 result = await remoteVM.RaspberryPiInstance.ToggleLED();
+                debugVM.AddDebugInfo("ToggleLED", result);
             }
             catch (Exception e)
             {
             }
+
+            if (result == "High")
+            {
+                remoteVM.ToggleLEDButton = Visibility.Visible;
+            }
+            else
+            {
+                remoteVM.ToggleLEDButton = Visibility.Hidden;
+            }
+
+
         }
     }
 }

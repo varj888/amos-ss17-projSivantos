@@ -11,7 +11,7 @@ namespace RaspberryBackend
     /// <summary>
     /// Super class for each Operation. Will be initialized by RaspberryPi
     /// </summary>
-    public partial class Operation
+    public partial class Operation : IRaspberryPiOperations
     {
         /// <summary>
         /// For now this is needed because some operation check the Initialization state of the RasPi.

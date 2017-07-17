@@ -9,7 +9,9 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TestmachineFrontend;
 using TestmachineFrontend1;
@@ -43,6 +45,7 @@ namespace TestMachineFrontend1.ViewModel
 
             initDurationComboBox();
             initReceiverComboBox();
+            initToggleLED();
         }
 
         #region Properties
@@ -149,6 +152,18 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedDuration = value;
                 _selectedDurationIndex = DurationItems.IndexOf(_selectedDuration);
                 OnPropertyChanged("SelectedDuration");
+            }
+        }
+
+        public Visibility _toggleLEDButton;
+
+        public Visibility ToggleLEDButton
+        {
+            get { return _toggleLEDButton; }
+            set
+            {
+                _toggleLEDButton = value;
+                OnPropertyChanged("ToggleLED");
             }
         }
 
@@ -563,6 +578,11 @@ namespace TestMachineFrontend1.ViewModel
             ReceiverItems.Add(item10);
             ReceiverItems.Add(item11);
             SelectedReceiverItem = ReceiverItems.First();
+        }
+
+        public void initToggleLED()
+        {
+            ToggleLEDButton = Visibility.Hidden;
         }
         public int getDuration()
         {

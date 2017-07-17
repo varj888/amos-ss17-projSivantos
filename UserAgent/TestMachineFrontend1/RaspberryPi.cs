@@ -112,6 +112,11 @@ namespace TestmachineFrontend1
             }
         }
 
+        public async Task<string> ToggleLED()
+        {
+            return (string) await sendRequest(new Request("ToggleLED", new int[] { }));
+        }
+
         public async Task<string> LightLED(int value)
         {
             return (string)await sendRequest(new Request("LightLED", value));

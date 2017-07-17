@@ -18,6 +18,7 @@ namespace RaspberryBackend
         XDocument getStatusXML();
         string getTeleCoilStatus();
         string LightLED(Int32 requestedParameter);
+        string ToggleLED(int[] param);
         string PressCombination(int[] param);
         string PressPushButton(int duration);
         string PressRockerSwitch(int[] param);

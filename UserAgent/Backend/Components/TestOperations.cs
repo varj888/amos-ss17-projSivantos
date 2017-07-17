@@ -61,6 +61,11 @@ namespace RaspberryBackend
             //throw new NotImplementedException();
         }
 
+        public string ToggleLED(int[] param)
+        {
+            throw new NotImplementedException();
+        }
+
         public string PressCombination(int[] param)
         {
             throw new NotImplementedException();

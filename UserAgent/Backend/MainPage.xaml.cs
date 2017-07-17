@@ -17,7 +17,7 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
         RaspberryPi raspberryPi = null;
-        TestOperations testOperations = null;
+        IRaspberryPiOperations operations = null;
         BackChannel backChannel;
 
         public MainPage()
@@ -30,7 +30,8 @@ namespace RaspberryBackend
             {
                 // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components)
                 raspberryPi.initialize();
-                testOperations = new TestOperations();
+                //operations = new TestOperations();
+                operations = raspberryPi.Control;
             }
             catch (Exception e)
             {
@@ -83,14 +84,14 @@ namespace RaspberryBackend
 
                 backChannel.setClient(clientSocket);
 
-                //if the raspberry pi could not be created, testOperations will be used
-                if (testOperations == null)
+                //if the raspberry pi could not be created, operations will be used
+                if (operations == null)
                 {
                     RequestHandler.runRequestHandlerLoop(raspberryPi.Control, backChannel, clientSocket);
                 }
                 else
                 {
-                    RequestHandler.runRequestHandlerLoop(testOperations, backChannel, clientSocket);
+                    RequestHandler.runRequestHandlerLoop(operations, backChannel, clientSocket);
                 }
 
                 clientSocket.Dispose();
