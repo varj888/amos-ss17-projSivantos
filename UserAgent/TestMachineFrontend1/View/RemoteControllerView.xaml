@@ -338,7 +338,7 @@
                                     Width="100px" Command="{Binding PressRockerSwitchCommand}"
                                     CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchUp}">
                                 <StackPanel>
-                                    <TextBlock Text="Rocker ?" FontFamily="Arial" FontSize="10"/>
+                                    <TextBlock Text="Rocker ▲" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="RockerSwitchUp_Checkbox" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center"
@@ -349,7 +349,7 @@
                                     Command="{Binding PressRockerSwitchCommand}"
                                     CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchDown}">
                                 <StackPanel>
-                                    <TextBlock Text="Rocker ?" FontFamily="Arial" FontSize="10"/>
+                                    <TextBlock Text="Rocker ▼" FontFamily="Arial" FontSize="10"/>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="RockerSwitchDown_Checkbox" Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Center"
@@ -589,24 +589,24 @@
                                         Command="{Binding EndlessVcCommand}" 
                 CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Up}">
                                     <StackPanel>
-                                        <TextBlock Text="?" FontFamily="Arial" FontSize="8"/>
+                                        <TextBlock Text="▲" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
                                         Command="{Binding EndlessVcCommand}" 
                 CommandParameter="{Binding Path=CurrentViewModelRemoteController.Endless_VC_Down}">
                                     <StackPanel>
-                                        <TextBlock Text="?" FontFamily="Arial" FontSize="8"/>
+                                        <TextBlock Text="▼" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
                                 </Button>
-                                <Label Margin="2,-10"  Content="TICKS" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46">
+                                <!--<Label Margin="2,-10"  Content="TICKS" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46">
                                     <Label.LayoutTransform>
                                         <TransformGroup>
                                             <RotateTransform Angle="90" />
                                             <ScaleTransform ScaleX="-1" ScaleY="-1"/>
                                         </TransformGroup>
                                     </Label.LayoutTransform>
-                                </Label>
+                                </Label>-->
                                 <TextBox Width="20px" Height="20px"  TextAlignment="Center" />
                             </StackPanel>
                         </Grid>
@@ -640,12 +640,12 @@
                                 <Button Margin="15,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
                                         >
                                     <StackPanel>
-                                        <TextBlock Text="?" FontFamily="Arial" FontSize="8"/>
+                                        <TextBlock Text="ON" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
                                 </Button>
                                 <Button Grid.Row="1"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
                                     <StackPanel>
-                                        <TextBlock Text="?" FontFamily="Arial" FontSize="8"/>
+                                        <TextBlock Text="OFF" FontFamily="Arial" FontSize="8"/>
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
