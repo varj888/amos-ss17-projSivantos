@@ -30,6 +30,7 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand UndetectTCoilCommand { get; private set; }
         public static ICommand DetectAudioShueCommand { get; private set; }
         public static ICommand UndetectAudioShueCommand { get; private set; }
+        public static ICommand GetRaspiConfigCommand { get; private set; }
 
         #endregion
 
@@ -95,6 +96,7 @@ namespace TestMachineFrontend1.ViewModel
             UndetectAudioShueCommand = new UndetectAudioShueCommand();
             DetectTCoilCommand = new DetectTCoilCommand();
             UndetectTCoilCommand = new UndetectTCoilCommand();
+            GetRaspiConfigCommand = new GetRaspiConfigCommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()

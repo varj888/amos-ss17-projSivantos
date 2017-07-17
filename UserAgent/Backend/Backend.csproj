@@ -129,6 +129,7 @@
     <Compile Include="OperationPartClasses\ConnectPins.cs" />
     <Compile Include="OperationPartClasses\EnableTeleCoil.cs" />
     <Compile Include="OperationPartClasses\EndlessVC.cs" />
+    <Compile Include="OperationPartClasses\GetRaspiConfiguration.cs" />
     <Compile Include="OperationPartClasses\GetTeleCoilStatus.cs" />
     <Compile Include="OperationPartClasses\GetAvailableHI.cs" />
     <Compile Include="OperationPartClasses\PressCombination.cs" />

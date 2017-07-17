@@ -86,6 +86,7 @@
     <Compile Include="Commands\DetectTCoilCommand.cs" />
     <Compile Include="Commands\EndlessVcCommand.cs" />
     <Compile Include="Commands\GetDurationCommand.cs" />
+    <Compile Include="Commands\GetRaspiConfigCommand.cs" />
     <Compile Include="Commands\PressPushButtonCommand.cs" />
     <Compile Include="Commands\PressRockerSwitchDownCommand.cs" />
     <Compile Include="Commands\PressRockerSwitchUpCommand.cs" />

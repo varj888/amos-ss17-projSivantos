@@ -668,12 +668,20 @@
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30px"/>
-                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="197*"/>
+                            <RowDefinition Height="35*"/>
 
                         </Grid.RowDefinitions>
-                        <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="DEVICE STATUS" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
-                        <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
-                        <TextBox Name="XMLStatus_TextBox"  TextWrapping="Wrap" Grid.Row="1" Text="" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10"/>
+                        <Label Margin="19,0" Grid.Column="0" Grid.Row="0" Content="DEVICE STATUS" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black" Height="26" Width="103"/>
+                        <Border Margin="2,0,2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
+                        <TextBox Name="RaspiConfig" Text="{Binding Path=CurrentViewModelRemoteController.RaspiConfigString}" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,3"/>
+                        <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" Width="121"
+                                Command="{Binding GetRaspiConfigCommand}" Margin="10,4,10,9"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectTCol}"-->
+                            <StackPanel>
+                                <TextBlock Text="Get Raspi Config" FontFamily="Arial" FontSize="8"/>
+                            </StackPanel>
+                        </Button>
 
                     </Grid>
                 </Border>

@@ -320,6 +320,16 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        private string _raspiConfigString;
+        public string RaspiConfigString {
+            get { return _raspiConfigString;  }
+            set
+            {
+                _raspiConfigString = value;
+                OnPropertyChanged("RaspiConfigString");
+            }
+        }
+
         public async void connectIP()
         {
             try
