@@ -10,12 +10,12 @@ using System.Diagnostics;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class DetectAudioShueCommand : ICommand
+    public class DetectAudioShoeCommand : ICommand
     {
         private RemoteControllerViewModel remoteVM;
         private DebugViewModel debugVM;
 
-        public DetectAudioShueCommand()
+        public DetectAudioShoeCommand()
         {
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
