@@ -60,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Frontend\Frontend.csproj">
+    <ProjectReference Include="..\Frontend\DebugFrontend.csproj">
       <Project>{dd11f37e-6df9-444d-8800-8416524b2366}</Project>
-      <Name>Frontend</Name>
+      <Name>DebugFrontend</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

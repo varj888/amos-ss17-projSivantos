@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.12
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E6B6976C-7639-424F-B421-63EEA6F6319C}"
 EndProject
@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B552F48F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "Backend\Backend.csproj", "{EC98721F-9509-4AC2-A369-652CAFA6B8E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontend", "Frontend\Frontend.csproj", "{DD11F37E-6DF9-444D-8800-8416524B2366}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DebugFrontend", "Frontend\DebugFrontend.csproj", "{DD11F37E-6DF9-444D-8800-8416524B2366}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryServer", "RegistryServer\RegistryServer.csproj", "{88CF0DE1-DAE6-4B04-AAB7-03A94C01577C}"
 EndProject
@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontendTests", "FrontendTe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendTests", "BackendTests\BackendTests.csproj", "{E084E7BF-2808-4BF4-98C2-9CEB10E10CD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMachineFrontend1", "TestMachineFrontend1\TestMachineFrontend1.csproj", "{361538AF-32C1-4D11-94F4-B17BF54F9F15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductionFrontend", "TestMachineFrontend1\ProductionFrontend.csproj", "{361538AF-32C1-4D11-94F4-B17BF54F9F15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -145,5 +145,6 @@ Global
 		{88CF0DE1-DAE6-4B04-AAB7-03A94C01577C} = {E6B6976C-7639-424F-B421-63EEA6F6319C}
 		{F99E92A3-C4F6-4538-ABFA-6EA537245CBC} = {B552F48F-90CF-4E8F-96EA-661BA9594351}
 		{E084E7BF-2808-4BF4-98C2-9CEB10E10CD1} = {B552F48F-90CF-4E8F-96EA-661BA9594351}
+		{361538AF-32C1-4D11-94F4-B17BF54F9F15} = {E6B6976C-7639-424F-B421-63EEA6F6319C}
 	EndGlobalSection
 EndGlobal
