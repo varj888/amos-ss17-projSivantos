@@ -60,12 +60,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Frontend\DebugFrontend.csproj">
-      <Project>{dd11f37e-6df9-444d-8800-8416524b2366}</Project>
-      <Name>DebugFrontend</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="dll\TestmachineFrontendTests.dll" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
