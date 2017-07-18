@@ -97,6 +97,9 @@
     <Compile Include="..\CommonFiles\Networking\Transfer.cs">
       <Link>CommonFiles\Networking\Transfer.cs</Link>
     </Compile>
+    <Compile Include="..\CommonFiles\RPCInterface\IRaspberryPiOperations.cs">
+      <Link>CommonFiles\RPCInterface\IRaspberryPiOperations.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Hi.cs">
       <Link>CommonFiles\TransferObjects\Hi.cs</Link>
     </Compile>
@@ -110,7 +113,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Backchannel.cs" />
-    <Compile Include="Components\IRaspberryPiOperations.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Components\Operations.cs" />
     <Compile Include="Components\RequestHandler.cs" />

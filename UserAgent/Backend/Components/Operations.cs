@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.UI.Xaml.Controls;
+using CommonFiles.RPCInterface;
 
 namespace RaspberryBackend
 {
