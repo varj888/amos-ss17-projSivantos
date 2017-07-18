@@ -36,11 +36,11 @@ namespace TestMachineFrontend1.Commands
                 result = await remoteVM.RaspberryPiInstance.DetectAudioShoe();
                 //TODO Property for color-binding
                 //remoteVM.TCoilDetected = false;
-                debugVM.AddDebugInfo("DetectAudioShue", result);
+                debugVM.AddDebugInfo("DetectAudioShoe", result);
             }
             catch (Exception e)
             {
-                debugVM.AddDebugInfo("DetectAudioShue :", e.Message);
+                debugVM.AddDebugInfo("DetectAudioShoe :", e.Message);
                 return;
             }
         }
