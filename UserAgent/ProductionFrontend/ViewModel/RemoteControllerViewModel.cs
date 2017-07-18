@@ -391,7 +391,7 @@ namespace TestMachineFrontend1.ViewModel
 
                 debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
 
-                String result = await RaspberryPiInstance.GetAvailableHI(1);
+                String result = await RaspberryPiInstance.GetAvailableHI();
 
                 getAvailableHI(result);
 
