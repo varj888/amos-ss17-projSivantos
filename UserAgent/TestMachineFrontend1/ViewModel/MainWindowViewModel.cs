@@ -8,7 +8,6 @@ using System.Windows.Input;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
 using TestMachineFrontend1.Commands;
-using TestmachineFrontend;
 
 namespace TestMachineFrontend1.ViewModel
 {

@@ -105,8 +105,7 @@
     <Compile Include="Model\RaspberryPiItem.cs" />
     <Compile Include="Model\TabControlModel.cs" />
     <Compile Include="Model\UserControlsModel.cs" />
-    <Compile Include="RaspberryPi.cs" />
-    <Compile Include="UpdateMehods.cs" />
+    <Compile Include="Api\RaspberryPi.cs" />
     <Compile Include="ViewModel\DebugViewModel.cs" />
     <Compile Include="ViewModel\DetectViewModel.cs" />
     <Compile Include="ViewModel\DisconnectedViewModel.cs" />
