@@ -198,11 +198,6 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        public async Task SetARDVoltageAsync()
-        {
-            await RaspberryPiInstance.SetARDVoltage(_selectedReceiverItem);
-        }
-
         private int _selectedReceiverItemIndex;
         public int SelectedReceiverItemIndex
         {
@@ -351,7 +346,7 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        private double _currentPowerVoltage = 0.0;
+        private double _currentPowerVoltage = 1.0;
         public double CurrentPowerVoltage
         {
             get { return _currentPowerVoltage; }
@@ -550,40 +545,6 @@ namespace TestMachineFrontend1.ViewModel
         //        IsPiConnected = false;
         //    }
         //}
-
-        public async Task setHI()
-        {
-            ComboBoxItem ci;
-            try
-            {
-                ci = SelectedHI;
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                debugVM.AddDebugInfo("setHI_Click", "No valid model selected.");
-                return;
-            }
-
-            string model = ci.Content.ToString();
-            string family = ci.Name;
-
-            //Request request = new Request("SetHI", new Object[] { family, model });
-
-            //sendRequest(request);
-            //getResult(request);
-
-            String result = "";
-            try
-            {
-
-                result = await RaspberryPiInstance.SetHI(family, model);
-                debugVM.AddDebugInfo("SetHI", result);
-            }
-            catch (Exception e)
-            {
-
-            }
-        }
 
         //TODO: Result ???
         public void getAvailableHI(string result)

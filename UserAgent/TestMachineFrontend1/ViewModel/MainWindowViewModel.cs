@@ -32,6 +32,7 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand EndlessVcUpCommand { get; private set; }
         public static ICommand EndlessVcDownCommand { get; private set; }
         public static ICommand GetRaspiConfigCommand { get; private set; }
+        public static ICommand SetReceiverCommand { get; private set; }
 
         #endregion
 
@@ -99,6 +100,7 @@ namespace TestMachineFrontend1.ViewModel
             EndlessVcUpCommand = new EndlessVcUpCommand();
             EndlessVcDownCommand = new EndlessVcDownCommand();
             GetRaspiConfigCommand = new GetRaspiConfigCommand();
+            SetReceiverCommand = new SetReceiverCommand();
         }
 
         public static List<TabControlModel> GetAllTabItems()

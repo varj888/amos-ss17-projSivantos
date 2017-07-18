@@ -8,12 +8,12 @@ using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class SetHICommand : ICommand
+    public class SetReceiverCommand : ICommand
     {
         RemoteControllerViewModel remoteVM;
         DebugViewModel debugVM;
 
-        public SetHICommand()
+        public SetReceiverCommand()
         {
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
@@ -28,24 +28,16 @@ namespace TestMachineFrontend1.Commands
 
         public async void Execute(object parameter)
         {
-
-            string model = remoteVM.SelectedHI.Content.ToString();
-            string family = remoteVM.SelectedHI.Name;
-
-            if (model == "" || family == "")
-            {
-                debugVM.AddDebugInfo("SetHICommand", "selected item is not valid.");
-            }
+            string receiverDevice = remoteVM.SelectedReceiverItem.Content.ToString();
 
             try
             {
-
-                await remoteVM.RaspberryPiInstance.SetHI(family, model);
-                debugVM.AddDebugInfo("SetHICommand", family +","+model);
+                await remoteVM.RaspberryPiInstance.SetARDVoltage(receiverDevice);
+                debugVM.AddDebugInfo("SetReceiverCommand", receiverDevice);
             }
             catch (Exception e)
             {
-                debugVM.AddDebugInfo("SetHICommand", "Failed");
+                debugVM.AddDebugInfo("SetReceiverCommand", "Failed");
             }
         }
     }

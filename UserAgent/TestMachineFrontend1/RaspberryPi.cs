@@ -143,9 +143,9 @@ namespace TestmachineFrontend1
             return (string)await sendRequest(new Request("ResetMux", v));
         }
 
-        public async Task<string> SetARDVoltage(ContentControl content)
+        public async Task<string> SetARDVoltage(string device)
         {
-            return (string)await sendRequest(new Request("SetARDVoltage", content.Content));
+            return (string)await sendRequest(new Request("SetARDVoltage", device));
         }
 
         public async Task<string> SetHI(string family, string model)

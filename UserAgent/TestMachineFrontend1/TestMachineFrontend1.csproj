@@ -93,6 +93,7 @@
     <Compile Include="Commands\PressRockerSwitchUpCommand.cs" />
     <Compile Include="Commands\SendRequestCommand.cs" />
     <Compile Include="Commands\SetHICommand.cs" />
+    <Compile Include="Commands\SetReceiverCommand.cs" />
     <Compile Include="Commands\UndetectAudioShueCommand.cs" />
     <Compile Include="Commands\UndetectTCoilCommand.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
