@@ -12,11 +12,86 @@ namespace RaspberryBackend
 {
     public partial class Operation
     {
-
-        private int batterySymbolPosition = 32;
         private CancellationTokenSource _cts;
-        private Task writingOnLcd;
+        private Task _writingOnLcd;
 
+        /// <summary>
+        /// Method to wrap updating the LCD with fixed information.
+        /// </summary>
+        public void updateLCD()
+        {
+            if (RasPi.isTestMode()) return;
+
+            cancelWriteOnLcd();
+
+            CheckTurnOnBacklight();
+
+            List<string> line1 = prepairLine1();
+            prepairSymbols();
+
+            _writingOnLcd = Task.Run(() => printOnLcd(line1), _cts.Token);
+        }
+
+        #region Helpers
+
+        private List<string> prepairLine1()
+        {
+            string ip = GetIpAddressAsync();
+            string hi = StorageCfgs.Hi.Model;
+            string currentReceiver = StorageCfgs.Hi.CurrentReceiver;
+
+            return new List<string> { ip, hi, currentReceiver };
+        }
+
+        private void printOnLcd(List<string> line1)
+        {
+            while (!_cts.IsCancellationRequested)
+            {
+                foreach (var content in line1)
+                {
+                    LCD.prints(content);
+                    LCD.gotoSecondLine();
+                    printLine2();
+
+                    try
+                    {
+                        Task.Delay(3500).Wait(_cts.Token);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.Message);
+                    }
+
+                    LCD.clrscr();
+                }
+            }
+        }
+
+        private void printLine2()
+        {
+            LCD.prints("<Akt>");
+            LCD.prints(" ");
+            this.LCD.printSymbol(SymbolConfig.batterySymbolAddress);
+            LCD.prints(" ");
+            this.LCD.printSymbol(SymbolConfig.initSymbolAddress);
+            LCD.prints(" ");
+            LCD.prints("<Vol>");
+        }
+        private void cancelWriteOnLcd()
+        {
+            _cts?.Cancel();
+            waitForCancelation();
+            _cts = new CancellationTokenSource();
+        }
+        private void waitForCancelation()
+        {
+            Debug.Write("**** Cancel Task");
+            while (_writingOnLcd != null && !_writingOnLcd.IsCanceled && !_writingOnLcd.IsCompleted)
+            {
+                Debug.Write(".");
+            }
+            Debug.WriteLine(" ****");
+        }
         /// <summary>
         /// Set state for background in LCD. Will want to switch to toggle
         /// </summary>
@@ -51,6 +126,13 @@ namespace RaspberryBackend
             return ipAsString;
         }
 
+
+        private void prepairSymbols()
+        {
+            this.LCD.createSymbol(this.getBatterySymbol(), SymbolConfig.batterySymbolAddress);
+            this.LCD.createSymbol(this.getInitSymbol(RasPi.isInitialized()), SymbolConfig.initSymbolAddress);
+        }
+
         private byte[] getBatterySymbol()
         {
             double batstatus = this.ADConverter.CurrentDACVoltage1 / this.ADConverter.getMaxVoltage();
@@ -75,74 +157,14 @@ namespace RaspberryBackend
             return (isInit) ? SymbolConfig.isInitSymbol : SymbolConfig.notInitSymbol;
         }
 
-        /// <summary>
-        /// Method to wrap updating the LCD with fixed information.
-        /// </summary>
-        public void updateLCD()
+        private void CheckTurnOnBacklight()
         {
-            if (RasPi.isTestMode()) return;
-
-            _cts?.Cancel();
-
-            Debug.Write("**** Cancel Task");
-            while (writingOnLcd != null && !writingOnLcd.IsCanceled && !writingOnLcd.IsCompleted)
+            if (LCD.backLight != 0x01)
             {
-                Debug.Write(".");
-            }
-            Debug.WriteLine(" ****");
-
-            LCD.resetLCD();
-            this.setLCDBackgroundState(0x01);
-
-            string ip = GetIpAddressAsync();
-
-            string hi = StorageCfgs.Hi.Model;
-            string currentReceiver = StorageCfgs.Hi.CurrentReceiver;
-            //string print = ip + " " + currentReceiver + " " + hi;
-
-            List<string> line1 = new List<string> { ip, hi, currentReceiver };
-
-
-            this.LCD.createSymbol(this.getBatterySymbol(), SymbolConfig.batterySymbolAddress);
-            this.LCD.createSymbol(this.getInitSymbol(RasPi.isInitialized()), SymbolConfig.initSymbolAddress);
-
-            _cts = new CancellationTokenSource();
-
-            writingOnLcd = Task.Run(() => printOnLcd(line1), _cts.Token);
-
-
-        }
-
-        private void printOnLcd(List<string> line1)
-        {
-
-            while (!_cts.IsCancellationRequested)
-            {
-                foreach (var content in line1)
-                {
-                    LCD.prints(content);
-                    LCD.gotoSecondLine();
-                    LCD.prints("<Akt>");
-                    LCD.prints(" ");
-                    this.LCD.printSymbol(SymbolConfig.batterySymbolAddress);
-                    LCD.prints(" ");
-                    this.LCD.printSymbol(SymbolConfig.initSymbolAddress);
-                    LCD.prints(" ");
-                    LCD.prints("<Vol>");
-
-                    try
-                    {
-                        Task.Delay(3500).Wait(_cts.Token);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.Message);
-                    }
-
-                    LCD.clrscr();
-                }
+                this.setLCDBackgroundState(0x01);
             }
         }
+        #endregion
 
     }
 }
