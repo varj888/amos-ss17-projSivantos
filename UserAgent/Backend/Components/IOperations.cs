@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace CommonFiles.RPCInterface
+namespace RaspberryBackend
 {
-    interface IRaspberryPiOperations
+    interface IOperations
     {
         string ConnectPins(int x, int y);
         string EnableAudioShoe(int value);
@@ -15,7 +15,6 @@ namespace CommonFiles.RPCInterface
         int EndlessVCUp(int ticks);
         string getAudioShoeStatus();
         string GetAvailableHI(int y);
-        XDocument getStatusXML();
         string getTeleCoilStatus();
         string LightLED(Int32 requestedParameter);
         string ToggleLED(int[] param);

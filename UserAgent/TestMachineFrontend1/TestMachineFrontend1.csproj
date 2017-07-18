@@ -73,9 +73,6 @@
     <Compile Include="..\CommonFiles\Networking\Transfer.cs">
       <Link>CommonFiles\Networking\Transfer.cs</Link>
     </Compile>
-    <Compile Include="..\CommonFiles\RPCInterface\IRaspberryPiOperations.cs">
-      <Link>CommonFiles\RPCInterface\IRaspberryPiOperations.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Request.cs">
       <Link>CommonFiles\TrasferObjects\Request.cs</Link>
     </Compile>

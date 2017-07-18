@@ -5,14 +5,13 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
 using Windows.UI.Xaml.Controls;
-using CommonFiles.RPCInterface;
 
 namespace RaspberryBackend
 {
     /// <summary>
     /// Super class for each Operation. Will be initialized by RaspberryPi
     /// </summary>
-    public partial class Operation : IRaspberryPiOperations
+    public partial class Operation : IOperations
     {
         /// <summary>
         /// For now this is needed because some operation check the Initialization state of the RasPi.

@@ -6,7 +6,6 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using CommonFiles.RPCInterface;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -18,7 +17,7 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
         RaspberryPi raspberryPi = null;
-        IRaspberryPiOperations operations = null;
+        IOperations operations = null;
         BackChannel backChannel;
 
         public MainPage()

@@ -128,11 +128,6 @@ namespace TestmachineFrontend1
             return (bool)await sendRequest(new Request("CheckLEDStatus", 0));
         }
 
-        public async Task<string> LightLED(int value)
-        {
-            return (string)await sendRequest(new Request("LightLED", value));
-        }
-
         public async Task<string> ConnectPins(int valueX, int valueY)
         {
             return (string)await sendRequest(new Request("ConnectPins", new object[] { valueX, valueY }));

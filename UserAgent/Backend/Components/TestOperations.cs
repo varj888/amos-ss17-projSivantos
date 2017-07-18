@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using CommonFiles.RPCInterface;
 
 namespace RaspberryBackend
 {
-    class TestOperations : IRaspberryPiOperations
+    class TestOperations : IOperations
     {
         public string ConnectPins(int x, int y)
         {
