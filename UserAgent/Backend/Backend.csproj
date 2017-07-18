@@ -145,7 +145,7 @@
     <Compile Include="OperationPartClasses\SetHI.cs" />
     <Compile Include="OperationPartClasses\GetStatus.cs" />
     <Compile Include="OperationPartClasses\ToggleBacklight_LCD.cs" />
-    <Compile Include="OperationPartClasses\TurnHIOn.cs" />
+    <Compile Include="OperationPartClasses\ChangePowerVoltage.cs" />
     <Compile Include="OperationPartClasses\SetAnalogVolume.cs" />
     <Compile Include="OperationPartClasses\WritePin.cs" />
     <Compile Include="Components\Gpio.cs" />

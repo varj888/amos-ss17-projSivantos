@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace RaspberryBackend
 {
@@ -18,7 +19,7 @@ namespace RaspberryBackend
             }
 
             Potentiometer.write(requestedVolumeLevel);
-
+            Debug.WriteLine("SetAnalogVolume::: set Volume (Potentiometer) to: " + requestedVolumeLevel);
             return requestedVolumeLevel.ToString();
         }
     }

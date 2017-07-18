@@ -29,15 +29,26 @@ namespace TestMachineFrontend1.Commands
 
         public async void Execute(object par)
         {
-            String result;
+            int ticks = 0;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.EndlessVCDown();
-                debugViewModel.AddDebugInfo("Endless_VC_Down", "-1");
+                ticks = Convert.ToInt32((string) par);
+                if (ticks < 0) throw new ArgumentException();
+            }
+            catch (Exception)
+            {
+                debugViewModel.AddDebugInfo("Endless_VC_Down", "Given ticks input is not valid.");
+                return;
+            }
+            
+            try
+            {
+                await remoteVM.RaspberryPiInstance.EndlessVCDown(ticks);
+                debugViewModel.AddDebugInfo("Endless_VC_Down", ticks +" times");
             }
             catch
             {
-                debugViewModel.AddDebugInfo("Unknown command", "");
+                debugViewModel.AddDebugInfo("Endless_VC_Down", "Failed");
             }
         }
     }

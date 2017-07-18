@@ -20,7 +20,6 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand AddDebugInfoCommand { get; private set; }
         public static ICommand SendRequestCommand { get; private set; }
         public static ICommand PressPushButtonCommand { get; private set; }
-        public static ICommand EndlessVcCommand { get; private set; }
         public static ICommand PressRockerSwitchCommand { get; private set; }
         public static ICommand SetHICommand { get; private set; }
         public static ICommand PressRockerSwitchUpCommand { get; private set; }
@@ -88,7 +87,6 @@ namespace TestMachineFrontend1.ViewModel
             SendRequestCommand = new SendRequestCommand();
             GetDurationCommand = new GetDurationCommand();
             PressPushButtonCommand = new PressPushButtonCommand();
-            EndlessVcCommand = new EndlessVcUpCommand();
             PressRockerSwitchCommand = new PressRockerSwitchUpCommand();
             SetHICommand = new SetHICommand();
             PressRockerSwitchUpCommand = new PressRockerSwitchUpCommand();

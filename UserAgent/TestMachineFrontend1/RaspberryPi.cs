@@ -198,14 +198,14 @@ namespace TestmachineFrontend1
             return (string)await sendRequest(new Request("DetectAudioShoe", 0));
         }
 
-        public async Task<string> EndlessVCUp(/*int ticks*/)
+        public async Task<int> EndlessVCUp(int ticks)
         {
-            return (string)await sendRequest(new Request("EndlessVCUp", new int[] { }));
+            return (int)await sendRequest(new Request("EndlessVCUp", ticks));
         }
 
-        public async Task<string> EndlessVCDown(/*int ticks*/)
+        public async Task<int> EndlessVCDown(int ticks)
         {
-            return (string)await sendRequest(new Request("EndlessVCDown", new int[] { }));
+            return (int)await sendRequest(new Request("EndlessVCDown", ticks));
         }
 
         public async Task<string> SetAnalogVolume(byte requestedVolumeLevel)

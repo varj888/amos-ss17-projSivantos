@@ -362,6 +362,18 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        private string _endlessVcTicks = "";
+        public string EndlessVcTicks
+        {
+            get { return _endlessVcTicks; }
+            set
+            {
+                _endlessVcTicks = value;
+                OnPropertyChanged("EndlessVcTicks");
+            }
+        } 
+
+
         public async void connectIP()
         {
             try
