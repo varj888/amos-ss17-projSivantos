@@ -185,12 +185,12 @@ namespace TestmachineFrontend1
 
         public async Task<string> DetectAudioShoe()
         {
-            return (string)await sendRequest(new Request("DetectAudioShoe", 1));    
+            return (string)await sendRequest(new Request("EnableAudioShoe", 1));    
         }
 
         public async Task<string> UndetectAudioShoe()
         {
-            return (string)await sendRequest(new Request("DetectAudioShoe", 0));
+            return (string)await sendRequest(new Request("EnableAudioShoe", 0));
         }
 
         public async Task<int> EndlessVCUp(int ticks)
