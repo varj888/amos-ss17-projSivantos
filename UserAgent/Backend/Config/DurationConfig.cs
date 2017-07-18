@@ -5,9 +5,9 @@
     /// </summary>
     public static class DurationConfig
     {
-        public static short ShortPush = 50;
-        public static short MediumPush = 500;
-        public static short LongPush = 3000;
+        public static short ShortPush => 200;
+        public static short MediumPush => 1500;
+        public static short LongPush => 3000;
 
         public static int getDuration(string durationCategorie)
         {
