@@ -598,7 +598,7 @@
                                     <Label  Content="0" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                     <Slider  VerticalAlignment="Center" Name="SetVolume_Slider" Maximum="127" Minimum="0" 
                                              TickPlacement="TopLeft" IsSnapToTickEnabled="True" TickFrequency="1" 
-                                             Width="175" Height="25"
+                                             Width="120" Height="25"
                                              Value="{Binding Path=CurrentViewModelRemoteController.CurrentVolumeLevel}"
                                              ValueChanged="SetVolume_Slider_OnValueChanged"/>
                                     <Label  Content="127" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
@@ -650,7 +650,7 @@
                                          IsSnapToTickEnabled="True"
                                          TickFrequency="0.1"
                                          Value="{Binding Path=CurrentViewModelRemoteController.CurrentPowerVoltage}"
-                                         ValueChanged="Power_Slider_OnValueChanged" Width="150" Height="25" />
+                                         ValueChanged="Power_Slider_OnValueChanged" Width="100" Height="25" />
                                 <Label  Content="1,5 V" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                 <Border Margin="10,0" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
                                 <StackPanel Orientation="Horizontal" Width="59">
