@@ -37,18 +37,18 @@ namespace TestMachineFrontend1.Commands
             }
             catch (Exception)
             {
-                debugViewModel.AddDebugInfo("Endless_VC_Down", "Given ticks input is not valid.");
+                debugViewModel.AddDebugInfo("EndlessVcDown", "Given ticks input is not valid.");
                 return;
             }
             
             try
             {
                 await remoteVM.RaspberryPiInstance.EndlessVCDown(ticks);
-                debugViewModel.AddDebugInfo("Endless_VC_Down", ticks +" times");
+                debugViewModel.AddDebugInfo("EndlessVcDown", ticks +" times");
             }
             catch
             {
-                debugViewModel.AddDebugInfo("Endless_VC_Down", "Failed");
+                debugViewModel.AddDebugInfo("EndlessVcDown", "Failed");
             }
         }
     }

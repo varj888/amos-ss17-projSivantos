@@ -43,10 +43,6 @@ namespace TestMachineFrontend1.ViewModel
         #region ViewModels
         public static MainWindowViewModel Instance { get; private set; }
         public static DebugViewModel CurrentViewModelDebug { get; private set; }
-        public static DetectTabViewModel CurrentViewModelDetectTab { get; private set; }
-        public static LCDControlsViewModel CurrentViewModelLCDControls { get; private set; }
-        public static UserControlsViewModel CurrentViewModelUserControls { get; private set; }
-        public static MultiplexerViewModel CurrentViewModelMultiplexer { get; private set; }
         public static MainTabViewModel CurrentViewModelMainTab { get; private set; }
         public static DetectViewModel CurrentViewModelDetect { get; private set; }
         public static RPIListViewModel CurrentViewModelRPIList { get; private set; }
@@ -62,17 +58,12 @@ namespace TestMachineFrontend1.ViewModel
         {
             InitAllViewModels();
             InitAllCommands();
-            TabItems = GetAllTabItems();
         }
 
         public static void InitAllViewModels()
         {
             Instance = new MainWindowViewModel();
             CurrentViewModelDebug = new DebugViewModel();
-            CurrentViewModelDetectTab = new DetectTabViewModel();
-            CurrentViewModelLCDControls = new LCDControlsViewModel();
-            CurrentViewModelUserControls = new UserControlsViewModel();
-            CurrentViewModelMultiplexer = new MultiplexerViewModel();
             CurrentViewModelMainTab = new MainTabViewModel();
             CurrentViewModelDetect = new DetectViewModel();
             CurrentViewModelRPIList = new RPIListViewModel();
@@ -84,16 +75,13 @@ namespace TestMachineFrontend1.ViewModel
         public static void InitAllCommands()
         {
             ConnectIPCommand = new ConnectIPCommand();
-            AddDebugInfoCommand = new AddDebugInfoCommand();
-            SendRequestCommand = new SendRequestCommand();
-            GetDurationCommand = new GetDurationCommand();
             PressPushButtonCommand = new PressPushButtonCommand();
             PressRockerSwitchCommand = new PressRockerSwitchUpCommand();
             SetHICommand = new SetHICommand();
             PressRockerSwitchUpCommand = new PressRockerSwitchUpCommand();
             PressRockerSwitchDownCommand = new PressRockerSwitchDownCommand();
             CheckLEDStatusCommand = new CheckLEDStatusCommand();
-            DetectAudioShueCommand = new DetectAudioShueCommand();
+            DetectAudioShueCommand = new DetectAudioShoeCommand();
             UndetectAudioShueCommand = new UndetectAudioShueCommand();
             DetectTCoilCommand = new DetectTCoilCommand();
             UndetectTCoilCommand = new UndetectTCoilCommand();
@@ -101,33 +89,6 @@ namespace TestMachineFrontend1.ViewModel
             EndlessVcDownCommand = new EndlessVcDownCommand();
             GetRaspiConfigCommand = new GetRaspiConfigCommand();
             SetReceiverCommand = new SetReceiverCommand();
-        }
-
-        public static List<TabControlModel> GetAllTabItems()
-        {
-            return new List<TabControlModel>
-            {
-                new TabControlModel()
-                {
-                    Header = "Detect",
-                    CurrentTabContentViewModel = CurrentViewModelDetectTab
-                },
-                new TabControlModel()
-                {
-                    Header = "User Controls",
-                    CurrentTabContentViewModel = CurrentViewModelUserControls
-                },
-                new TabControlModel()
-                {
-                    Header = "LCD Controls",
-                    CurrentTabContentViewModel = CurrentViewModelLCDControls
-                },
-                new TabControlModel()
-                {
-                    Header = "Mux55",
-                    CurrentTabContentViewModel = CurrentViewModelMultiplexer
-                }
-            };
         }
     }
 }

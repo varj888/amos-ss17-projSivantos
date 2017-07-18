@@ -13,8 +13,6 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <DataTemplate DataType="{x:Type vm:UserControlsViewModel}">
-            </DataTemplate>
             <DataTemplate DataType="{x:Type vm:DebugViewModel}">
             </DataTemplate>
             <Style x:Key="AnimatedSwitch" TargetType="{x:Type ToggleButton}">

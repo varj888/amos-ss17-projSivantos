@@ -79,19 +79,16 @@
     <Compile Include="..\CommonFiles\TransferObjects\Result.cs">
       <Link>CommonFiles\TrasferObjects\Result.cs</Link>
     </Compile>
-    <Compile Include="Commands\AddDebugInfoCommand.cs" />
     <Compile Include="Commands\CheckLEDStatusCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
-    <Compile Include="Commands\DetectAudioShueCommand.cs" />
+    <Compile Include="Commands\DetectAudioShoeCommand.cs" />
     <Compile Include="Commands\DetectTCoilCommand.cs" />
     <Compile Include="Commands\EndlessVcDownCommand.cs" />
     <Compile Include="Commands\EndlessVcUpCommand.cs" />
-    <Compile Include="Commands\GetDurationCommand.cs" />
     <Compile Include="Commands\GetRaspiConfigCommand.cs" />
     <Compile Include="Commands\PressPushButtonCommand.cs" />
     <Compile Include="Commands\PressRockerSwitchDownCommand.cs" />
     <Compile Include="Commands\PressRockerSwitchUpCommand.cs" />
-    <Compile Include="Commands\SendRequestCommand.cs" />
     <Compile Include="Commands\SetHICommand.cs" />
     <Compile Include="Commands\SetReceiverCommand.cs" />
     <Compile Include="Commands\UndetectAudioShueCommand.cs" />
@@ -111,20 +108,13 @@
     <Compile Include="RaspberryPi.cs" />
     <Compile Include="UpdateMehods.cs" />
     <Compile Include="ViewModel\DebugViewModel.cs" />
-    <Compile Include="ViewModel\DetectTabViewModel.cs" />
     <Compile Include="ViewModel\DetectViewModel.cs" />
     <Compile Include="ViewModel\DisconnectedViewModel.cs" />
-    <Compile Include="ViewModel\LCDControlsViewModel.cs" />
     <Compile Include="ViewModel\MainTabViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="ViewModel\MultiplexerViewModel.cs" />
     <Compile Include="ViewModel\RemoteControllerTitleBarViewModel.cs" />
     <Compile Include="ViewModel\RemoteControllerViewModel.cs" />
     <Compile Include="ViewModel\RPIListViewModel.cs" />
-    <Compile Include="ViewModel\UserControlsViewModel.cs" />
-    <Compile Include="View\DetectTabView.xaml.cs">
-      <DependentUpon>DetectTabView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DetectView.xaml.cs">
       <DependentUpon>DetectView.xaml</DependentUpon>
     </Compile>
@@ -137,12 +127,6 @@
     <Compile Include="View\DebugView.xaml.cs">
       <DependentUpon>DebugView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\LCDControlsView.xaml.cs">
-      <DependentUpon>LCDControlsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\MultiplexerView.xaml.cs">
-      <DependentUpon>MultiplexerView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\RemoteControllerTitleBarView.xaml.cs">
       <DependentUpon>RemoteControllerTitleBarView.xaml</DependentUpon>
     </Compile>
@@ -151,9 +135,6 @@
     </Compile>
     <Compile Include="View\RPIListView.xaml.cs">
       <DependentUpon>RPIListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControlsView.xaml.cs">
-      <DependentUpon>UserControlsView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -167,10 +148,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\DetectTabView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="View\DetectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -187,14 +164,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\LCDControlsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MultiplexerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\RemoteControllerTitleBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -204,10 +173,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RPIListView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\UserControlsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

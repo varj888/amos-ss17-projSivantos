@@ -11,8 +11,6 @@
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:DetectViewModel}">
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:DetectTabViewModel}">
-        </DataTemplate>
     </UserControl.Resources>
 
     <UserControl.DataContext>

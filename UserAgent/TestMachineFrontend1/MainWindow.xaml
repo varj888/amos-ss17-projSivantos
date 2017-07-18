@@ -43,38 +43,6 @@
 
         <DataTemplate
 
-            DataType="{x:Type vm:DetectTabViewModel}">
-
-            <v:DetectTabView />
-
-        </DataTemplate>
-
-        <DataTemplate
-
-            DataType="{x:Type vm:LCDControlsViewModel}">
-
-            <v:LCDControlsView />
-
-        </DataTemplate>
-
-        <DataTemplate
-
-            DataType="{x:Type vm:MultiplexerViewModel}">
-
-            <v:MultiplexerView />
-
-        </DataTemplate>
-
-        <DataTemplate
-
-            DataType="{x:Type vm:UserControlsViewModel}">
-
-            <v:UserControlsView />
-
-        </DataTemplate>
-
-        <DataTemplate
-
             DataType="{x:Type vm:RPIListViewModel}">
 
             <v:RPIListView />
@@ -149,8 +117,8 @@
 
             </Grid.RowDefinitions>
 
-            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
-            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"></ContentControl>
+            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
+            <!--<ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"></ContentControl>-->
             <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" Grid.Row="0"></ContentControl>
 
 
