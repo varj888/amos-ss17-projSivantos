@@ -14,10 +14,12 @@ namespace RaspberryBackend
         /// Executes the Command PressPushButton. For this the respective Pushbutton is activated and deactivated after
         /// a user-provided duration using the raspberry-class methods.
         /// </summary>
-        /// <param name="parameter">UInt16 Duration</param>
+        /// <param name="parameter">string DurationCategorie <see cref="DurationConfig"/></param>
         /// <returns>The provided duration as string.</returns>
-        public string PressPushButton(int duration)
+        public string PressPushButton(string durationCategorie)
         {
+            int duration = DurationConfig.getDuration(durationCategorie);
+
             GPIOinterface.activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
             GPIOinterface.deactivatePin(pushButton_Pin);

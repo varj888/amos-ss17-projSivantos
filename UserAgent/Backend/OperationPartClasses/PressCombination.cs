@@ -12,33 +12,34 @@ namespace RaspberryBackend
         /// <summary>
         /// Activate multiple pins at the same time. Currently we use 3 buttons: rockerswitch_down, rockerswitch_up and pushbutton.
         /// </summary>
-        /// <param name="parameter">Int 1 for press, duration any int: [rockerswitch_0, rockerswitch_1, pushbutton, duration]</param>
+        /// <param name="parameter"> string[]={ pushbutton_0, rockerswitch_1, rockerswitch_2, durationCategorie_3 } <see cref="DurationConfig"</param>
         /// <returns>The provided duration.</returns>
-        public string PressCombination(int[] param)
+        public string PressCombination(string[] param)
         {
-            int duration = param[param.Length - 1];
+            int duration = DurationConfig.getDuration(param[param.Length - 1]);
             if (param.Length != 4)
             {
                 throw new Exception("Invalid parameterlist received");
             }
 
-            if (param[1] == 1 & param[0] == 1)
+            if (param[1] == "RSD" & param[2] == "RSU")
             {
                 throw new Exception("Tester tried to press both rockerswitches in combination");
             }
 
-            if (param[2] == 1)
-            {
-                GPIOinterface.activatePin(GpioMap.pushButton_Pin);
-            }
-            if (param[1] == 1 & param[0] == 0)
-            {
-                GPIOinterface.activatePin(GpioMap.rockerSwitchUpPin);
-            }
-            if (param[0] == 1 & param[1] == 0)
+            if (param[2] == "RSD")
             {
                 GPIOinterface.activatePin(GpioMap.rockerSwitchDownPin);
             }
+            if (param[1] == "RSU" & param[0] == null)
+            {
+                GPIOinterface.activatePin(GpioMap.rockerSwitchUpPin);
+            }
+            if (param[0] == "PB" & param[1] == null)
+            {
+                GPIOinterface.activatePin(GpioMap.pushButton_Pin);
+            }
+
             Task.Delay(duration).Wait();
             GPIOinterface.deactivatePin(GpioMap.pushButton_Pin);
             GPIOinterface.deactivatePin(GpioMap.rockerSwitchDownPin);

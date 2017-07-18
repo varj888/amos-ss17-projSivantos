@@ -12,9 +12,9 @@ namespace RaspberryBackend
         /// <summary>
         /// Execute presssing one rockerswitch
         /// </summary>
-        /// <param name="parameter">Expects an int-Array containing id = [0|1] and duration</param>
+        /// <param name="parameter">Expects an string-Array containing id = ["up"|"down"] and Duration-Categorie <see cref="DurationConfig"</param>
         /// <returns>The provided parameterlist represented as string</returns>
-        public string PressRockerSwitch(int[] param)
+        public string PressRockerSwitch(string[] param)
         {
 
             if (param.Length != 2)
@@ -22,17 +22,17 @@ namespace RaspberryBackend
                 throw new Exception("Received invalid paremeterlist");
             }
 
-            int rsw = param[0];
-            int duration = param[1];
+            string rsw = param[0];
+            int duration = DurationConfig.getDuration(param[1]);
 
-            if (rsw < 0 | rsw > 1)
+            if (rsw != "up" | rsw != "down")
             {
                 throw new Exception("Invalid Rockerswitch submitted");
             }
 
             UInt16 pushButton_Pin;
 
-            if (rsw == 0)
+            if (rsw == "down")
             {
                 pushButton_Pin = GpioMap.rockerSwitchDownPin;
             }

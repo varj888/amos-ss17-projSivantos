@@ -3,18 +3,13 @@ using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 
 namespace TestmachineFrontend1
 {
-   
+
     /// <summary>
     /// Allows to remotely call operations of the raspberry Pi.
     /// Runs a ReceiveLoop in an own Task for receiving TOs
@@ -121,17 +116,17 @@ namespace TestmachineFrontend1
         /// <returns>Returns the specified voltage.</returns>
         public async Task<double> ChangePowerVoltage(double voltage)
         {
-            return (double) await sendRequest(new Request("ChangePowerVoltage", voltage));
+            return (double)await sendRequest(new Request("ChangePowerVoltage", voltage));
         }
 
         /// <summary>
-        /// Async method that gets the active 
+        /// Async method that gets the active
         /// RaspberryPi configuration.
         /// </summary>
         /// <returns>String: Returns the RaspberryPi Configuration .</returns>
         public async Task<string> GetRaspiConfig()
         {
-            return (string) await sendRequest(new Request("GetRaspiConfig", 0));
+            return (string)await sendRequest(new Request("GetRaspiConfig", 0));
         }
 
         /// <summary>
@@ -164,7 +159,7 @@ namespace TestmachineFrontend1
         }
 
         /// <summary>
-        /// Async method that sets the receiver voltage for a 
+        /// Async method that sets the receiver voltage for a
         /// specific receiver.
         /// </summary>
         /// <param name="device">Specifies the receiver as string</param>
@@ -175,7 +170,7 @@ namespace TestmachineFrontend1
         }
 
         /// <summary>
-        /// Async method that sets the multiplexer configuration for a 
+        /// Async method that sets the multiplexer configuration for a
         /// specific HI model.
         /// </summary>
         /// <param name="family">Specifies the family</param>
@@ -183,7 +178,7 @@ namespace TestmachineFrontend1
         /// <returns>String: Returns the specified HI model.</returns>
         public async Task<string> SetHI(string family, string model)
         {
-            return (string)await sendRequest(new Request("SetHI", new object[] { family, model }));  
+            return (string)await sendRequest(new Request("SetHI", new object[] { family, model }));
         }
 
         /// <summary>
@@ -198,31 +193,31 @@ namespace TestmachineFrontend1
         /// <summary>
         /// Async method that presses the pushbutton of the connected HI.
         /// </summary>
-        /// <param name="duration">Specifies the duration the pushbutton should be pushed.</param>
+        /// <param name="durationCategorie">Specifies the duration the pushbutton should be pushed.</param>
         /// <returns>String: Returns the duration.</returns>
-        public async Task<string> PressPushButton(int duration)
+        public async Task<string> PressPushButton(string durationCategorie)
         {
-            return (string)await sendRequest(new Request("PressPushButton", duration));
+            return (string)await sendRequest(new Request("PressPushButton", durationCategorie));
         }
 
         /// <summary>
         /// Async method that presses the rocker switch up button of the connected HI.
         /// </summary>
-        /// <param name="duration">Specifies the duration the rocker switch up button should be pushed.</param>
+        /// <param name="durationCategorie">Specifies the duration the rocker switch up button should be pushed.</param>
         /// <returns>String: Returns the duration.</returns>
-        public async Task<string> PressRockerSwitchDown(int duration)
+        public async Task<string> PressRockerSwitchDown(string durationCategorie)
         {
-            return (string)await sendRequest(new Request("PressRockerSwitch", new int[] { 0, duration }));
+            return (string)await sendRequest(new Request("PressRockerSwitch", new string[] { "down", durationCategorie }));
         }
 
         /// <summary>
         /// Async method that presses the rocker switch down button of the connected HI.
         /// </summary>
-        /// <param name="duration">Specifies the duration the rocker switch down button should be pushed.</param>
+        /// <param name="durationCategorie">Specifies the duration the rocker switch down button should be pushed.</param>
         /// <returns>String: Returns the duration.</returns>
-        public async Task<string> PressRockerSwitchUp(int duration)
+        public async Task<string> PressRockerSwitchUp(string durationCategorie)
         {
-            return (string)await sendRequest(new Request("PressRockerSwitch", new int[] { 1, duration }));
+            return (string)await sendRequest(new Request("PressRockerSwitch", new string[] { "up", durationCategorie }));
         }
 
         /// <summary>
@@ -230,7 +225,7 @@ namespace TestmachineFrontend1
         /// </summary>
         /// <param name="param">Int 1 for press, duration any int: [rockerswitch_0, rockerswitch_1, pushbutton, duration]</param>
         /// <returns>String: Returns the duration.</returns>
-        public async Task<string> PressCombination(int[] param)
+        public async Task<string> PressCombination(string[] param)
         {
             return (string)await sendRequest(new Request("PressCombination", param));
         }
@@ -259,7 +254,7 @@ namespace TestmachineFrontend1
         /// <returns>String: "High" </returns>
         public async Task<string> DetectAudioShoe()
         {
-            return (string)await sendRequest(new Request("EnableAudioShoe", 1));    
+            return (string)await sendRequest(new Request("EnableAudioShoe", 1));
         }
 
         /// <summary>
