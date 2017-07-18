@@ -13,7 +13,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using TestmachineFrontend;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
@@ -392,19 +391,11 @@ namespace TestMachineFrontend1.ViewModel
 
                 debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
 
-                //sendRequest(GetAvailableHI);
-
-                //Result result = getResult(GetAvailableHI);
                 String result = await RaspberryPiInstance.GetAvailableHI(1);
 
                 getAvailableHI(result);
 
-                //getAvailableHI(result.ToString());
-
                 SynchronizationContext uiContext = SynchronizationContext.Current;
-
-                await Task.Run(() => ReceiveResultLoop(uiContext));
-
             }
 
             catch (FormatException fx)
@@ -413,12 +404,9 @@ namespace TestMachineFrontend1.ViewModel
 
                 debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
 
-
-
                 //TODO check
 
                 IsPiConnected = false;
-
             }
 
             catch (SocketException sx)
@@ -430,9 +418,6 @@ namespace TestMachineFrontend1.ViewModel
                 //TODO check
 
                 IsPiConnected = false;
-
-
-
             }
 
             catch (Exception any)
@@ -444,109 +429,10 @@ namespace TestMachineFrontend1.ViewModel
                 //TODO check
 
                 IsPiConnected = false;
-
             }
 
         }
 
-        private async Task ReceiveResultLoop(SynchronizationContext uiContext)
-
-        {
-
-            while (true)
-
-            {
-
-                //Object result = raspberryPi.getNotification();
-
-
-
-                //if (result.exceptionMessage == null)
-
-                //{
-
-                //    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), "sucess"), null);
-
-
-
-                //if ((result.obj.Equals(CurrentViewModelUserControls.DetectTCol.command))
-
-                //    && result.value.ToString() == "High")
-
-                //{
-
-                //    CurrentViewModelUserControls.TCoilDetected = true;
-
-                //    CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
-
-
-
-                //}
-
-                //else if (result.obj.Equals(CurrentViewModelUserControls.UndetectTCol.command)
-
-                //    && result.value.ToString() == "Low")
-
-                //{
-
-                //    CurrentViewModelUserControls.TCoilDetected = false;
-
-                //    CurrentViewModelDebug.AddDebugInfo("Update", "ToggleTeleCoil completed");
-
-                //}
-
-                //}
-
-                //else
-
-                //{
-
-                //    uiContext.Send((object state) => CurrentViewModelDebug.AddDebugInfo(result.value.ToString(), result.exceptionMessage), null);
-
-                //}
-
-            }
-
-        }
-
-        //public async void connectIP()
-        //{
-        //    try
-        //    {
-        //        var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
-        //        IsPiConnected = true;
-        //        raspberryPis.Add(IPAdressConnect, pi1);
-        //        RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
-        //        backendList.Add(raspiItem);
-        //        SelectedRaspiItem = raspiItem;
-        //        debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
-        //        sendRequest(GetAvailableHI);
-        //        Result result = getResult(GetAvailableHI);
-        //        MainWindowViewModel.CurrentViewModelMultiplexer.getAvailableHI(result);
-        //    }
-        //    catch (FormatException fx)
-        //    {
-        //        debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
-
-        //        //TODO check
-        //        IsPiConnected = false;
-        //    }
-        //    catch (SocketException sx)
-        //    {
-        //        debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
-        //        //TODO check
-        //        IsPiConnected = false;
-
-        //    }
-        //    catch (Exception any)
-        //    {
-        //        debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
-        //        //TODO check
-        //        IsPiConnected = false;
-        //    }
-        //}
-
-        //TODO: Result ???
         public void getAvailableHI(string result)
         {
             availableHI = helperXML.buildDictionary(result);
@@ -561,7 +447,6 @@ namespace TestMachineFrontend1.ViewModel
                 }
             }
             OnPropertyChanged("HIListItems");
-            //debugVM.AddDebugInfo(result.ToString(), "Updated List");
         }
 
         private void initDurationComboBox()
@@ -618,10 +503,6 @@ namespace TestMachineFrontend1.ViewModel
             SelectedReceiverItem = ReceiverItems.First();
         }
 
-        public void initToggleLED()
-        {
-            ToggleLEDButton = Visibility.Hidden;
-        }
         public int getDuration()
         {
             if (SelectedDurationIndex < 0)
@@ -646,59 +527,6 @@ namespace TestMachineFrontend1.ViewModel
             }
             return duration;
         }
-
-        public void sendRequest(Request request)
-        {
-            //if (this.SelectedRaspiItem == null)
-            //{
-            //    debugVM.AddDebugInfo("Debug", "No raspi selected");
-            //    return;
-            //}
-
-            //try
-            //{
-            //    getClientconnection().sendObject(request);
-            //}
-            //catch (Exception ex)
-            //{
-            //    debugVM.AddDebugInfo(request.command, "Request could not be sent: " + ex.Message);
-            //    return;
-            //}
-        }
-
-        public Result getResult(Request request)
-        {
-            Result result = null;
-
-            //try
-            //{
-            //    result = getClientconnection().receiveObject();
-            //}
-            //catch (Exception e)
-            //{
-            //    debugVM.AddDebugInfo(request.command, "Result could not be received: " + e.Message);
-            //}
-
-            //if (result.exceptionMessage == null)
-            //{
-            //    debugVM.AddDebugInfo(request.command, "sucess");
-            //}
-            //else
-            //{
-            //    debugVM.AddDebugInfo(request.command, result.exceptionMessage);
-            //}
-            return result;
-        }
-
-        //public ClientConn<Result, Request> getClientconnection()
-        //{
-        //    if (this.SelectedRaspiItem == null && this.BackendList.Count > 0)
-        //    {
-        //        this.SelectedRaspiItem = this.BackendList.ElementAt(0);
-        //    }
-        //    var c = (RaspberryPiItem)this.SelectedRaspiItem;
-        //    return c.raspi.clientConnection;
-        //}
         #endregion
     }
 }
