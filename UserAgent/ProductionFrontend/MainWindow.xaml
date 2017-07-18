@@ -117,8 +117,8 @@
 
             </Grid.RowDefinitions>
 
-            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
-            <!--<ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"></ContentControl>-->
+            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
+            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"></ContentControl>
             <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" Grid.Row="0"></ContentControl>
 
 
