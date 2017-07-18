@@ -14,11 +14,11 @@ namespace CommonFiles.Networking
     /// <summary>
     /// Allows to Listen for Connections and accepting them
     /// </summary>
-    public class TCPServer: IDisposable
+    /// <typeparam name="inType">Type of the Objects, which will be received from the client</typeparam>
+    /// /// <typeparam name="outType">Type of the Objects, which will be received from the client</typeparam>
+    public class TCPServer<inType, outType>: IDisposable
     {
         private TcpListener listener;
-
-        public EventHandler<TcpClient> connectionAccepted;
 
         /// <summary>
         /// creates a Server wich will listen on a port for TCP Connections
@@ -33,36 +33,25 @@ namespace CommonFiles.Networking
             listener.Start();
         }
 
-        public async Task runServerLoop()
+        /// <summary>
+        /// Accepts a TCP Connection to a Client
+        /// </summary>
+        /// <returns>An Object representing the Connection</returns>
+        public async Task<ObjConn<inType, outType>> acceptConnectionAsync()
         {
-            while (true)
-            {
-                TcpClient socket;
-                try
-                {
-                    socket = await listener.AcceptTcpClientAsync();
-                }catch(Exception e)
-                {
-                    Debug.WriteLine("Error Accepting Connection: " + e.Message);
-                    continue;
-                }
-                onConnectionAccepted(socket);
-            }
+            // Accept Requests
+            TcpClient client = await listener.AcceptTcpClientAsync();
+
+            // Get a stream object for reading and writing
+            NetworkStream stream = client.GetStream();
+
+            return new ObjConn<inType, outType>(stream);
         }
 
         // Disposes the server
         public void Dispose()
         {
             listener.Stop();
-        }
-
-        private void onConnectionAccepted(TcpClient socket)
-        {
-            EventHandler<TcpClient> handler = connectionAccepted;
-            if (connectionAccepted != null)
-            {
-                handler(this, socket);
-            }
         }
     }
 

@@ -8,6 +8,7 @@ namespace RaspberryBackend
     public partial class Operation
     {
 
+
         /// <summary>
         /// This method sets the voltage for output 1 on the ADCDAC Pi Zero. The formula for setting the voltage was provided
         /// by our partners: Vx = [ Vbat / ( 14 + Rx ) ] * Rx whereas Rx is being provided from a set list of receivers in
@@ -18,27 +19,34 @@ namespace RaspberryBackend
         /// <returns>The provided device.</returns>
         public string SetARDVoltage(string device)
         {
+            updateARDVoltage(device);
+            saveARDVoltage(device);
+
+            return device;
+        }
+
+        private void updateARDVoltage(string device)
+        {
             if (!ReceiverConfig.DeviceResistanceMap.ContainsKey(device))
             {
                 Debug.Write("Invalid device provided!");
-                return device;
             }
 
             double resistance = ReceiverConfig.DeviceResistanceMap[device];
-            double voltage = (ADConverter.getDACVoltage1() / (14.00 + resistance)) * resistance;
+            double voltage = (ADConverter.CurrentDACVoltage1 / (14.00 + resistance)) * resistance;
             Debug.WriteLine("Setting ARD for Device " + device + " to " + voltage.ToString());
 
             if (!RasPi.isTestMode())
             {
                 ADConverter.setDACVoltage2(voltage);
             }
+            this.updateLCD();
+        }
 
+        private void saveARDVoltage(string device)
+        {
             StorageCfgs.Hi.CurrentReceiver = device;
             StorageHandler<Hi>.Save(StorageCfgs.FileName_HiCfg, StorageCfgs.Hi).Wait(10000);
-
-            this.updateLCD();
-
-            return device;
         }
     }
 }

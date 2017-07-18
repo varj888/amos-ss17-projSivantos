@@ -91,14 +91,8 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
-      <Link>CommonFiles\Networking\ClientConn.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
-    </Compile>
-    <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
-      <Link>CommonFiles\Networking\TCPServer.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\Networking\Transfer.cs">
       <Link>CommonFiles\Networking\Transfer.cs</Link>
@@ -115,11 +109,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\BackChannel.cs" />
-    <Compile Include="Components\IRaspberryPiOperations.cs" />
-    <Compile Include="Components\RequestHandler.cs" />
+    <Compile Include="Components\Backchannel.cs" />
+    <Compile Include="Components\IOperations.cs" />
     <Compile Include="Components\RaspberryPi.cs" />
     <Compile Include="Components\Operations.cs" />
+    <Compile Include="Components\RequestHandler.cs" />
     <Compile Include="Components\TestOperations.cs" />
     <Compile Include="Config\GpioMap.cs" />
     <Compile Include="Config\parser\HiXmlParser.cs" />
@@ -130,10 +124,12 @@
     <Compile Include="Config\SymbolConfig.cs" />
     <Compile Include="Config\XPinConfig.cs" />
     <Compile Include="Config\YPinConfig.cs" />
+    <Compile Include="OperationPartClasses\CheckLEDStatus.cs" />
     <Compile Include="OperationPartClasses\EnableAudioShoe.cs" />
     <Compile Include="OperationPartClasses\ConnectPins.cs" />
     <Compile Include="OperationPartClasses\EnableTeleCoil.cs" />
     <Compile Include="OperationPartClasses\EndlessVC.cs" />
+    <Compile Include="OperationPartClasses\GetRaspiConfiguration.cs" />
     <Compile Include="OperationPartClasses\GetTeleCoilStatus.cs" />
     <Compile Include="OperationPartClasses\GetAvailableHI.cs" />
     <Compile Include="OperationPartClasses\PressCombination.cs" />
@@ -149,7 +145,7 @@
     <Compile Include="OperationPartClasses\SetHI.cs" />
     <Compile Include="OperationPartClasses\GetStatus.cs" />
     <Compile Include="OperationPartClasses\ToggleBacklight_LCD.cs" />
-    <Compile Include="OperationPartClasses\TurnHIOn.cs" />
+    <Compile Include="OperationPartClasses\ChangePowerVoltage.cs" />
     <Compile Include="OperationPartClasses\SetAnalogVolume.cs" />
     <Compile Include="OperationPartClasses\WritePin.cs" />
     <Compile Include="Components\Gpio.cs" />

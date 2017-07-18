@@ -3,18 +3,18 @@ using System.IO;
 using System.Runtime.Serialization;
 
 /// <summary>
-/// helper class to serialize and deserialize
-/// it uses strings as the result of serialization
+/// Helper class to serialize and deserialize.
+/// It uses strings as the result of serialization.
 /// </summary>
 namespace CommonFiles.Networking
 {
     public class Serializer
     {
         /// <summary>
-        /// serializes a object into a string
+        /// Serializes an object into a string.
         /// </summary>
-        /// <param name="obj">the object to serialize</param>
-        /// <returns>the serialized objekt</returns>
+        /// <param name="obj">The object to serialize.</param>
+        /// <returns>The serialized object.</returns>
         public static string Serialize(object obj)
         {
             using (MemoryStream memoryStream = new MemoryStream())
@@ -28,11 +28,11 @@ namespace CommonFiles.Networking
         }
 
         /// <summary>
-        /// deserializes a an object from a string
+        /// Deserializes an object from a string.
         /// </summary>
-        /// <param name="xml">the string to deserialize</param>
-        /// <param name="toType">the type of the object, that you want to get as a result by deserialization</param>
-        /// <returns>the deserialized string</returns>
+        /// <param name="xml">The string to deserialize.</param>
+        /// <param name="toType">The type of the object, that you want to get as a result by deserialization.</param>
+        /// <returns>The deserialized string.</returns>
         public static object Deserialize(string xml, Type toType)
         {
             using (Stream stream = new MemoryStream())

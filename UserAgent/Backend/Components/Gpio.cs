@@ -37,6 +37,9 @@ namespace RaspberryBackend
             pin_ids["PIN_27"] = 27;  //PullDown
         }
 
+        /// <summary>
+        /// Initiate GPIO pins by opening them.
+        /// </summary>
         public override void initiate()
         {
             if (_initialized) return;
@@ -50,7 +53,7 @@ namespace RaspberryBackend
         }
 
         //<summary>
-        //Get a list of available pin ids
+        //Get a list of available pin ids.
         //</summary>
         public Dictionary<string, UInt16> getPinIds()
         {
@@ -58,17 +61,16 @@ namespace RaspberryBackend
         }
 
         //<summary>
-        //Get a pin by ID
+        //Get a pin by ID.
         //</summary>
         public GpioPin getPin(UInt16 id)
         {
             //if (!pins.ContainsKey(id)) throw new ArgumentException("The requested pin is not available");
-
             return pins[id];
         }
 
         //<summary>
-        //Register an eventhandler for a pin
+        //Register an eventhandler for a pin.
         //</summary>
         public void registerEventHandler(UInt16 id, TypedEventHandler<GpioPin, GpioPinValueChangedEventArgs> f)
         {
@@ -76,7 +78,7 @@ namespace RaspberryBackend
         }
 
         //<summary>
-        //Set inputmode according to whether pin is supposed to be PullUp/ Down
+        //Set inputmode according to whether pin is supposed to be PullUp/ Down.
         //</summary>
         public void setToInput(UInt16 id)
         {
@@ -91,7 +93,7 @@ namespace RaspberryBackend
         }
 
         //<summary>
-        //Set a pin to output
+        //Set a pin to output.
         //</summary>
         public void setToOutput(UInt16 id)
         {
@@ -100,25 +102,26 @@ namespace RaspberryBackend
         }
 
         //<summary>
-        //Write to a pin 0 for low-value, 1 for high-value
+        //Write to a pin 0 for low-value, 1 for high-value to a pin identified by its ID.
         //</summary>
         public void writePin(UInt16 id, uint v)
         {
             getPin(id).Write((v == 0) ? PIN_LOW : PIN_HIGH);
         }
 
-        //<summary>
-        //Read from a pin (will read last input if pin is configured as input
-        //</summary>
+        ///<summary>
+        ///Read from a pin (will read last input if pin is configured as input).
+        ///</summary>
+        ///<return>Returns the pins current logic value.</return>
         public string readPin(UInt16 id)
         {
             return getPin(id).Read().ToString();
         }
 
         /// <summary>
-        /// Set GPIO pin to 1
+        /// Set GPIO pin to 1.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Identifier.</param>
         public void activatePin(UInt16 id)
         {
             setToOutput(id);
@@ -126,9 +129,9 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Reset GPIO pin by settting to 0
+        /// Reset GPIO pin by settting to 0.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Identifier.</param>
         public void deactivatePin(UInt16 id)
         {
             setToOutput(id);

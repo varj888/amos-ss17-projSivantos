@@ -1,8 +1,6 @@
 ﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
 using RaspberryBackend.Components;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
@@ -19,8 +17,7 @@ namespace RaspberryBackend
     public sealed partial class MainPage : Page
     {
         RaspberryPi raspberryPi = null;
-        TCPServer server;
-        TestOperations testOperations = null;
+        IOperations operations = null;
         BackChannel backChannel;
 
         public MainPage()
@@ -28,25 +25,26 @@ namespace RaspberryBackend
             // set up the RaspberryPi
             raspberryPi = RaspberryPi.Instance;
 
+            // try catch, because i have exception in function pulseEnable
             try
             {
                 // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components)
                 raspberryPi.initialize();
+                //operations = new TestOperations();
+                operations = raspberryPi.Control;
             }
             catch (Exception e)
             {
                 Debug.WriteLine("Something went wrong during the initialization process of the RasPi : " + e.Message);
-                testOperations = new TestOperations();
             }
 
             backChannel = new BackChannel();
-            raspberryPi.setBackChannel(backChannel);
-            runServerLoop();
+            serverLoop();
 
             this.InitializeComponent();
         }
 
-        private async Task runServerLoop()
+        private async Task serverLoop()
         {
             TcpListener listener = new TcpListener(IPAddress.Any, 54321);
             while (true)
@@ -55,7 +53,7 @@ namespace RaspberryBackend
 
                 try
                 {
-                    await register("available");
+                    //await register("available");
                 }
                 catch (Exception e)
                 {
@@ -77,7 +75,7 @@ namespace RaspberryBackend
 
                 try
                 {
-                    await register("connected");
+                    //await register("connected");
                 }
                 catch (Exception e)
                 {
@@ -86,14 +84,14 @@ namespace RaspberryBackend
 
                 backChannel.setClient(clientSocket);
 
-                //if the raspberry pi could not be created, testOperations will be used
-                if (testOperations == null)
+                //if the raspberry pi could not be created, operations will be used
+                if (operations == null)
                 {
                     RequestHandler.runRequestHandlerLoop(raspberryPi.Control, backChannel, clientSocket);
                 }
                 else
                 {
-                    RequestHandler.runRequestHandlerLoop(testOperations, backChannel, clientSocket);
+                    RequestHandler.runRequestHandlerLoop(operations, backChannel, clientSocket);
                 }
 
                 clientSocket.Dispose();
@@ -102,11 +100,11 @@ namespace RaspberryBackend
 
         async Task register(string status)
         {
-            TcpClient registryServerSocket = new TcpClient();
-            await registryServerSocket.ConnectAsync("MarcoPC", 54320);
-            Request request = new Request("register", new object[] { "MarcoPC", status });
-            Transfer.sendObject(registryServerSocket.GetStream(), request);
-            registryServerSocket.Dispose();
+            //TcpClient registryServerSocket = new TcpClient();
+            //await registryServerSocket.ConnectAsync("MarcoPC", 54320);
+            //Request request = new Request("register", new object[] { "MarcoPC", status });
+            //Transfer.sendObject(registryServerSocket.GetStream(), request);
+            //registryServerSocket.Dispose();
         }
     }
 }

@@ -9,20 +9,30 @@ using System.Reflection;
 namespace CommonFiles.TransferObjects
 {
     /// <summary>
-    /// Objects of this type will be send from the Testmachine to the Raspberry pi to control it
-    /// parameters have to be known Types
+    /// Objects of this type will be send from the testmachine to the raspberry pi to control it.
+    /// Parameters have to be known types.
     /// </summary>
     [DataContract]
     [KnownType(typeof(int[]))]
     [KnownType(typeof(string[]))]
     public class Request
     {
+        /// <summary>
+        /// Constructor for a request.
+        /// </summary>
+        /// <param name="command">The command this request carries.</param>
+        /// <param name="parameter">The respective parameters associated with the command.</param>
         public Request(string command, object parameter)
         {
             this.command = command;
             parameters = new object[] { parameter };
         }
 
+        /// <summary>
+        /// Alternative constructor for a request.
+        /// </summary>
+        /// <param name="command">The command this request carries.</param>
+        /// <param name="parameters">A list of parameters associated with this command.</param>
         public Request(string command, Object[] parameters)
         {
             this.command = command;
@@ -36,12 +46,12 @@ namespace CommonFiles.TransferObjects
         public Object[] parameters;
 
         /// <summary>
-        /// Handles a Request by invoking the appropriate Method of callee
+        /// Handles a request by invoking the appropriate method of callee.
         /// </summary>
-        /// <param name="callee">Objekt, which method will be called</param>
-        /// <param name="request">This parameter is used by handleRequest to determine the called method and their parameters</param>
+        /// <param name="callee">Object, which method will be called</param>
+        /// <param name="request">This parameter is used by handleRequest to determine the called method and their parameters.</param>
         /// <returns>Returns the result of the called Method</returns>
-        public static Result handleRequest(Object callee, Request request)
+        public static Object handleRequest(Object callee, Request request)
         {
             MethodInfo m;
 
@@ -52,27 +62,27 @@ namespace CommonFiles.TransferObjects
             }
             catch (Exception e)
             {
-                return new Result(e.Message);
+                return new ExceptionResult(e.Message);
             }
 
             if (m == null)
             {
-                return new Result("Command not found");
+                return new ExceptionResult("Command not found");
             }
 
             // calling the method
             try
             {
                 object value = m.Invoke(callee, request.parameters);
-                return new Result(true, request.command, value);
+                return new SuccessResult(value);
             }
             catch (TargetInvocationException e)
             {
-                return new Result(e.GetBaseException().Message);
+                return new ExceptionResult(e.GetBaseException().Message);
             }
             catch (Exception e)
             {
-                return new Result(e.Message);
+                return new ExceptionResult(e.Message);
             }
         }
     }

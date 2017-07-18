@@ -14,10 +14,7 @@
         /// <returns>The current state of the deactivated pin represented as string. Should evaluate to "Low".</returns>
         public string ResetMux(int a)
         {
-            string family = "TestFamily";
-            string model = "TestModel";
             Multiplexer.resetAll();
-            setMultiplexerConfiguration(family, model);
             return "";
         }
     }

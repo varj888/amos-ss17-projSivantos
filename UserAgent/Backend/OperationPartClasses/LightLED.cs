@@ -9,7 +9,7 @@ namespace RaspberryBackend
     public partial class Operation
     {
         public string lastStateOnRequest;
-        public string currentState;
+        public string currentState = "Low";
         private const UInt16 GPIO_PIN_ID = 24;
 
         /// <summary>
@@ -41,6 +41,19 @@ namespace RaspberryBackend
             return requestedParameter.ToString();
         }
 
+        public string ToggleLED(int[] param)
+        {
+            if (currentState == "Low")
+            {
+                currentState = switch_LED_ToState(1);
+            }
+            else
+            {
+                currentState = switch_LED_ToState(0);
+            }
+            return currentState;
+
+        }
 
 
         /// <summary>
@@ -62,6 +75,8 @@ namespace RaspberryBackend
             }
             return GPIOinterface.readPin(GPIO_PIN_ID);
         }
+
+
 
     }
 }

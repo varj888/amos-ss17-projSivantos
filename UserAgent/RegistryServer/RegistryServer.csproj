@@ -55,18 +55,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\CommonFiles\Networking\Transfer.cs">
-      <Link>CommonFiles\Networking\Transfer.cs</Link>
+    <Compile Include="..\CommonFiles\Networking\ServerSkeleton.cs">
+      <Link>CommonFiles\Networking\ServerSkeleton.cs</Link>
     </Compile>
-    <Compile Include="BackChannel.cs" />
+    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
+      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
+    </Compile>
     <Compile Include="RegistryService.cs" />
-    <Compile Include="RequestHandler.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
       <Link>CommonFiles\Networking\ClientConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\DataConn.cs">
+      <Link>CommonFiles\Networking\DataConn.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
+      <Link>CommonFiles\Networking\ObjConn.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
@@ -114,9 +121,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CommonFiles\RPCInterfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

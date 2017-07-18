@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.DisconnectedView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             mc:Ignorable="d" 
+             >
+    <Grid Name="DisconnectedGrid" >
+        <Label Content="RASPBERRY DISCONNECTED" Margin="0,70,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center" Foreground="#FF323C46" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+        <Label Content="Please reconnect this Pi to access controls." Margin="0,110,0,0" HorizontalAlignment="Center"  VerticalAlignment="Center" Foreground="#FF323C46" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Regular"/>
+        <Image HorizontalAlignment="Center" Height="100"  VerticalAlignment="Center" Width="100" Source="..\img\disconnected.png" Margin="0,0,0,50"/>
+        <Button Name="ReconnectButton" Content="Reconnect ↺" HorizontalAlignment="Center" VerticalAlignment="Bottom" Foreground="#FFFF0080" FontFamily="Segoe UI Semibold" Background="{x:Null}" BorderBrush="{x:Null}"  Click="Add_Connection_Button_Click" FontSize="12" Visibility="Visible"/>
+    </Grid>
+</UserControl>

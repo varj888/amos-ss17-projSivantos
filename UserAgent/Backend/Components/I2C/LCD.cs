@@ -46,12 +46,20 @@ namespace RaspberryBackend
          * e.g. by an error such as a physical bitshift.
          * -> Use actual hardware read-back in future. */
         public StringBuilder CurrentText { get; private set; } = new StringBuilder();
+        public string CurrentTextPlainString { get; internal set; }
 
+        /// <summary>
+        /// Getter for LCD_MAX_LENGTH
+        /// </summary>
+        /// <returns>LCD_MAX_LENGTH</returns>
         public int getMaxLength()
         {
             return this.LCD_MAX_LENGTH;
         }
 
+        /// <summary>
+        /// Method to wrap up initiation of the LCD display. Connect to the device and get its address.
+        /// </summary>
         public override void initiate()
         {
             try
@@ -68,9 +76,14 @@ namespace RaspberryBackend
             initiateLCD();
         }
 
-        /**
-        * Initialization
-        **/
+        /// <summary>
+        /// Initiate the LCD display.
+        /// </summary>
+        /// <param name="turnOnDisplay">Flag to control whether the display shall light up.</param>
+        /// <param name="turnOnCursor">Flag to control display of the cursor.</param>
+        /// <param name="blinkCursor">Flag to control whether cursor shall be represented by an underscore or a blinking box.</param>
+        /// <param name="cursorDirection">Flag to control the cursor-direction.</param>
+        /// <param name="textShift">Control whether text with exceeding length shifts the display.</param>
         public void initiateLCD(bool turnOnDisplay = true, bool turnOnCursor = false, bool blinkCursor = false, bool cursorDirection = true, bool textShift = false)
         {
             Task.Delay(100).Wait();
@@ -102,9 +115,10 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
-        /**
-       * Create falling edge of "enable" pin to write data/inctruction to display
-       */
+        /// <summary>
+        /// Create falling edge of "enable" pin to write data/inctruction to display. This method is only used during initialization.
+        /// </summary>
+        /// <param name="data">Data to write.</param>
         private void pulseEnable(byte data)
         {
             // Enable bit HIGH
@@ -114,9 +128,9 @@ namespace RaspberryBackend
             //Task.Delay(100).Wait(); //In case of problem with displaying wrong characters uncomment this part
         }
 
-        /**
-        * Clear display and set cursor at start of the first line
-        **/
+        /// <summary>
+        /// Clear display and set cursor at start of the first line
+        /// </summary
         public void clrscr()
         {
             pulseEnable(0);
@@ -126,10 +140,10 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// sends information to the LCD either data or commands
+        /// Sends information to the LCD either data or commands.
         /// </summary>
-        /// <param name="data">information which is to be sent on LCD</param>
-        /// <param name="Rs">Rs=0 for Command or Rs = 1 for Data</param>
+        /// <param name="data">Information which is to be sent on LCD.</param>
+        /// <param name="Rs">Rs=0 for Command or Rs = 1 for Data.</param>
         public void write(byte data, byte Rs)
         {
             pulseEnable(Convert.ToByte((data & 0xf0) | (Rs << RS)));
@@ -139,7 +153,7 @@ namespace RaspberryBackend
 
 
         /// <summary>
-        /// skip to second line
+        /// Skip to second line
         /// </summary>
         public void gotoSecondLine()
         {
@@ -147,10 +161,10 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// prints text in two lines
+        /// Prints text in two lines
         /// </summary>
-        /// <param name="text">text which shall be displayed</param>
-        /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
+        /// <param name="text">Text which shall be displayed.</param>
+        /// <param name="charsMaxInLine">Determines the maximum chars on a line.</param>
         public void printInTwoLines(string text, int charsMaxInLine = 16)
         {
             string line1 = "", line2 = "";
@@ -161,14 +175,14 @@ namespace RaspberryBackend
             gotoSecondLine();
             CurrentText.AppendLine();
             prints(line2);
+            CurrentTextPlainString = text;
         }
 
-
         /// <summary>
-        /// prints text in two lines
+        /// Prints text in two lines
         /// </summary>
-        /// <param name="text">text which shall be displayed</param>
-        /// <param name="charsMaxInLine">determines the maximum chars on a line</param>
+        /// <param name="text">Text which shall be displayed.</param>
+        /// <param name="charsMaxInLine">Determines the maximum chars on a line.</param>
         public void printInTwoLines(string textLine1, string textLine2)
         {
             prints(textLine1);
@@ -178,6 +192,10 @@ namespace RaspberryBackend
 
 
 
+        /// <summary>
+        /// Method wrapper for manual text-scrolling.
+        /// </summary>
+        /// <param name="text">Text to use for scrolling.</param>
         private void scrollText(string text)
         {
             int maxChars = 16;
@@ -196,9 +214,9 @@ namespace RaspberryBackend
             }
         }
         /// <summary>
-        /// Print string to LCD display
+        /// Print string to LCD display. Clears display before.
         /// </summary>
-        /// <param name="s"></param>
+        /// <param name="s">String to print.</param>
         public void writeToLCD(string s)
         {
             clrscr();
@@ -206,9 +224,9 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Prints a string onto display
+        /// Prints a string onto display. Uses printc.
         /// </summary>
-        /// <param name="text">text which shall be displayed</param>
+        /// <param name="text">Text which shall be displayed.</param>
         public void prints(string text)
         {
             foreach (char c in text)
@@ -219,9 +237,9 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Prints a character onto display
+        /// Prints a character onto display.
         /// </summary>
-        /// <param name="letter">character which shall be displayed</param>
+        /// <param name="letter">Character which shall be displayed.</param>
         private void printc(char letter)
         {
             try
@@ -235,7 +253,7 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// goto X and Y
+        /// Goto X and Y.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
@@ -245,19 +263,18 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Reset the LCD (clear it's screen)
+        /// Reset the LCD (clear its screen).
         /// </summary>
         public void resetLCD()
         {
             initiateLCD();
-
         }
 
         /// <summary>
-        /// Save custom symbol to CGRAM
+        /// Save custom symbol to CGRAM.
         /// </summary>
-        /// <param name="data"></param>
-        /// <param name="address"></param>
+        /// <param name="data">Data to store.</param>
+        /// <param name="address">Address to store at.</param>
         public void createSymbol(byte[] data, byte address)
         {
             write(Convert.ToByte(0x40 | (address << 3)), Command_sendMode);
@@ -270,29 +287,33 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Print custom symbol
+        /// Print custom symbol.
         /// </summary>
-        /// <param name="address"></param>
+        /// <param name="address">The address where the symbol is located at.</param>
         public void printSymbol(byte address)
         {
             write(address, Data_sendMode);
         }
 
+        /// <summary>
+        /// Shift the display to the right.
+        /// </summary>
         public void shiftDisplayRight()
         {
             write(Convert.ToByte(0x18), Command_sendMode);
         }
 
+        /// <summary>
+        /// Shift the display to the left.
+        /// </summary>
         public void shiftDisplayLeft()
         {
             write(Convert.ToByte(0x1C), Command_sendMode);
         }
 
-
-        //===========================================
-        //================ SHIFTING ================
-
-
+        /// <summary>
+        /// Method wrapper for automated shifting. Stops once a canellation request is perceived.
+        /// </summary>
         public void autoShift()
         {
             int counter = 0;
@@ -321,6 +342,9 @@ namespace RaspberryBackend
             }
         }
 
+        /// <summary>
+        /// Method to cancel shifting by sending a cancellation request. Resets the cursor.
+        /// </summary>
         public void cancelShifting()
         {
             if (this.isShifting())
@@ -332,16 +356,26 @@ namespace RaspberryBackend
             }
         }
 
+        /// <summary>
+        /// Reset the cursor and display-shift by resetting the DDRAM.
+        /// </summary>
         public void resetCursor()
         {
             write(0x1, Command_sendMode);
         }
 
+        /// <summary>
+        /// Getter for status of shifting.
+        /// </summary>
+        /// <returns>Flag to signal shifting.</returns>
         public bool isShifting()
         {
             return this.shifting;
         }
 
+        /// <summary>
+        /// Wrapper to start a threaded shifting.
+        /// </summary>
         public void startShifting()
         {
             cancelShifting();

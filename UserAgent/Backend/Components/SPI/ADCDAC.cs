@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace RaspberryBackend
 {
     /// <summary>
-    /// Software representation of the A/D Converter
+    /// Software representation of the A/D Converter. Offers two channels to output (i.e. set voltage) to and two channels to read voltage from.
     /// (MCP3202)
     /// </summary>
     public class ADConverter : HWComponent
@@ -19,9 +19,15 @@ namespace RaspberryBackend
         private readonly double MAX_VOLTAGE = 1.5;
         private readonly double STANDARD_VOLTAGE = 1.0;
 
-        private double currentDACVoltage1 = -1;
-        private double currentDACVoltage2 = -1;
+        public double CurrentDACVoltage1 { get; private set; } = -1;
+        public double CurrentDACVoltage2 { get; private set; } = -1;
 
+        public double CurrentADCVoltage1 { get; } = -1;
+        public double CurrentADCVoltage2 { get; private set; } = -1;
+
+        /// <summary>
+        /// Method to connect to the ADCDAC.
+        /// </summary>
         public override void initiate()
         {
             connect();
@@ -32,13 +38,17 @@ namespace RaspberryBackend
             _initialized = true;
         }
 
+        /// <summary>
+        /// Return the maximum voltage.
+        /// </summary>
+        /// <returns>MAX_VOLTAGE</returns>
         public double getMaxVoltage()
         {
             return this.MAX_VOLTAGE;
         }
 
         /// <summary>
-        /// connect to device
+        /// Connect to the device.
         /// </summary>
         private void connect()
         {
@@ -59,15 +69,19 @@ namespace RaspberryBackend
             }
         }
 
+        /// <summary>
+        /// Return whether the ADCDAC is connected.
+        /// </summary>
+        /// <returns></returns>
         public bool isConnected()
         {
             return _adConvert.IsConnected;
         }
 
         /// <summary>
-        /// method to set the DAC voltage on the ADCDAC Channel 1
+        /// Method to set the DAC voltage on the ADCDAC Channel 1.
         /// </summary>
-        /// <param name="voltage">can be between 0 and 2.047 volts</param>
+        /// <param name="voltage">Can be between 0 and 2.047 volts.</param>
         public void setDACVoltage(double voltage, byte channel)
         {
             if (voltage > MAX_VOLTAGE)
@@ -82,26 +96,17 @@ namespace RaspberryBackend
             //happens only if ADCDAC is actually connected
             if (_adConvert.IsConnected)
             {
-                Debug.WriteLine(channel + "   " + voltage);
+                Debug.WriteLine(this.GetType() + "::: Setting Voltage. Channel: " + channel +", Voltage: " + voltage);
                 _adConvert.SetDACVoltage(channel, voltage);
                 if (channel == CHANNEL_1)
                 {
-                    currentDACVoltage1 = voltage;
+                    CurrentDACVoltage1 = voltage;
                 }
                 else if (channel == CHANNEL_2)
                 {
-                    currentDACVoltage2 = voltage;
+                    CurrentDACVoltage2 = voltage;
                 }
             }
-        }
-
-        public double getDACVoltage1()
-        {
-            return currentDACVoltage1;
-        }
-        public double getDACVoltage2()
-        {
-            return currentDACVoltage2;
         }
 
         internal void setADCRefVoltage(double v)
@@ -109,35 +114,64 @@ namespace RaspberryBackend
             _adConvert.SetADCrefVoltage(v);
         }
 
- 
+
 
         /// <summary>
-        /// Wrapper around setDACVoltage so set channels without knowing their addresss
+        /// Wrapper around setDACVoltage so set channel 1 without knowing their address.
         /// </summary>
-        /// <param name="voltage"></param>
+        /// <param name="voltage">The voltage to set the channel to.</param>
         public void setDACVoltage1(double voltage)
         {
             this.setDACVoltage(voltage, this.CHANNEL_1);
         }
 
         /// <summary>
-        /// Wrapper around setDACVoltage so set channels without knowing their addresss
+        /// Wrapper around setDACVoltage so set channel 2 without knowing their address.
         /// </summary>
-        /// <param name="voltage"></param>
+        /// <param name="voltage">The voltage to set the channel to.</param>
         public void setDACVoltage2(double voltage)
         {
             this.setDACVoltage(voltage, this.CHANNEL_2);
         }
 
-        public void readADCVoltage(int times, byte channel)
+        /// <summary>
+        /// Method to read from input channel 1
+        /// </summary>
+        /// <returns>The current voltage.</returns>
+        public double readADCVoltage1()
         {
-            if (channel < 1 || channel > 2) return;
+            return _adConvert.ReadADCVoltage(this.CHANNEL_1);
+        }
 
+        /// <summary>
+        /// Method to read from input channel 1.
+        /// </summary>
+        /// <returns>The current voltage.</returns>
+        public double readADCVoltage2()
+        {
+            return _adConvert.ReadADCVoltage(this.CHANNEL_2);
+        }
+
+        /// <summary>
+        /// Get the average voltage of channel 2 over a given amount of time.
+        /// </summary>
+        /// <param name="times">Counter times 250ms to control duration for capture.</param>
+        /// <returns></returns>
+        public double updateCurrentADCVoltage2Average(int times)
+        {
+            double sum = 0.0;
             for (int i = 0; i < times; i++)
             {
-                Debug.WriteLine("ADC In1 Voltage is: {0}", _adConvert.ReadADCVoltage(channel));
-                Task.Delay(1000).Wait();
+                Debug.WriteLine("ADC In2 Voltage is: {0}", readADCVoltage2());
+                sum += readADCVoltage2();
+
+                Task.Delay(250).Wait();
             }
+
+            double average = sum / times;
+
+            CurrentADCVoltage2 = average;
+            return average;
         }
     }
 }

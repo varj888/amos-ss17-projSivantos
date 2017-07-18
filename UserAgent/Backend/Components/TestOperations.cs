@@ -8,11 +8,14 @@ using System.Xml.Linq;
 
 namespace RaspberryBackend
 {
-    class TestOperations : IRaspberryPiOperations
+    class TestOperations : IOperations
     {
         public string ConnectPins(int x, int y)
         {
-            throw new NotImplementedException();
+            Debug.WriteLine("ConnectPins");
+            Debug.WriteLine(x);
+            Debug.WriteLine(y);
+            return null;
         }
 
         public string EnableAudioShoe(int value)
@@ -55,6 +58,12 @@ namespace RaspberryBackend
             Debug.WriteLine("LightLED");
             Debug.WriteLine(requestedParameter);
             return requestedParameter.ToString();
+            //throw new NotImplementedException();
+        }
+
+        public string ToggleLED(int[] param)
+        {
+            throw new NotImplementedException();
         }
 
         public string PressCombination(int[] param)
@@ -113,6 +122,11 @@ namespace RaspberryBackend
         }
 
         public string ToggleBacklight_LCD(int requestedParameter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double ChangePowerVoltage(double voltage)
         {
             throw new NotImplementedException();
         }
