@@ -8,14 +8,14 @@ using Windows.Devices.I2c;
 namespace RaspberryBackend
 {
     /// <summary>
-    /// represents the physical multiplexer (currently using ADG2128)
-    /// and implements the core functionality of the device
-    /// ADG2128 is an analog cross point switch with an array size of 8 x 12
+    /// Represents the physical multiplexer (currently using ADG2128)
+    /// and implements the core functionality of the device.
+    /// ADG2128 is an analog cross point switch with an array size of 8 x 12.
     /// </summary>
     public class Multiplexer : HWComponent
     {
         /// <summary>
-        /// total ammount of available switches (8 x 12 --> 96)
+        /// Total ammount of available switches (8 x 12 --> 96)
         /// </summary>
         private readonly int switches = 96;
 
@@ -28,6 +28,9 @@ namespace RaspberryBackend
         //private Dictionary<int, Tuple<int, string>> current_multiplexer_state = new Dictionary<int, Tuple<int, string>>();
         public Dictionary<int, Tuple<int, string>> current_multiplexer_state { get; private set; } = new Dictionary<int, Tuple<int, string>>();
 
+        /// <summary>
+        /// Method to initiate the muxer. Connects the device and gets its address.
+        /// </summary>
         public override void initiate()
         {
             try
@@ -46,12 +49,12 @@ namespace RaspberryBackend
 
 
         /// <summary>
-        /// Gets the Y pin currently connected to the X Pin
+        /// Gets the Y pin currently connected to the X Pin.
         /// </summary>
-        /// <param name="xi">specified X Pin on the multiplexer</param>
+        /// <param name="xi">specified X Pin on the multiplexer.</param>
         /// <returns>
-        /// Returns the Y pin currenctly connected to the X Pin
-        /// Returns -1 if key is not found
+        /// Returns the Y pin currenctly connected to the X Pin.
+        /// Returns -1 if key is not found.
         /// </returns>
         public int get_Y_conntected_to_X(int xi)
         {
@@ -64,12 +67,12 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Gets the Value pin currently connected to the X Pin
+        /// Gets the Value pin currently connected to the X Pin.
         /// </summary>
-        /// <param name="xi">specified X Pin on the multiplexer</param>
+        /// <param name="xi">Specified X Pin on the multiplexer.</param>
         /// <returns>
-        /// Returns the Value currenctly connected to the X Pin, e.g.: "RockerSW"
-        /// Returns an empty string if key is not found
+        /// Returns the Value currenctly connected to the X Pin, e.g.: "RockerSW".
+        /// Returns an empty string if key is not found.
         /// </returns>
         public string get_Value_conntected_to_X(int xi)
         {
@@ -84,24 +87,16 @@ namespace RaspberryBackend
         /// <summary>
         /// Sets the reset Pin of the Multiplexer and powers it on.
         /// </summary>
-        /// <param name="reset">gpioPin ID which will be used to reset the Multiplexer</param>
+        /// <param name="reset">GPIOPin ID which will be used to reset the Multiplexer.</param>
         public void setResetPin(GpioPin reset)
         {
             _reset = reset;
             this.powerON();
         }
-        /// <summary>
-        /// simultaneously updates all switches
-        /// using the LDSW command
-        /// </summary>
-        public void updateAllSwitches()
-        {
-
-        }
 
         /// <summary>
-        /// resets (switch off) all of the
-        /// switch channels
+        /// Reset all of the
+        /// switch channels by pulling down the reset-pin.
         /// </summary>
         public void resetAll()
         {
@@ -117,7 +112,7 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// switch on all the channells (switches)
+        /// Switch on all the channels (switches)
         /// </summary>
         public void powerON()
         {
@@ -126,9 +121,9 @@ namespace RaspberryBackend
         }
 
         /// <summary>
-        /// Write to Mux
+        /// Write to Mux. 
         /// </summary>
-        /// <param name="dataBuffer"></param>
+        /// <param name="dataBuffer">Byte-array containing the bytes to send.</param>
         private void write(byte[] dataBuffer)
         {
             Debug.WriteLine("dataBuffer.Length : " + dataBuffer.Length);
@@ -136,7 +131,6 @@ namespace RaspberryBackend
             {
                 Debug.WriteLine("write(databuffer) : " + item.ToString());
             }
-
             multiplexer.Write(dataBuffer);
         }
 
@@ -157,7 +151,7 @@ namespace RaspberryBackend
 
         /// <summary>
         /// Disconnect pins. We don't need to set _DB15 to 0, as leftshifting an int < 15
-        /// will effectifely set the MSB to 0, thus opening the switches in the mux
+        /// will effectifely set the MSB to 0, thus opening the switches in the mux.
         /// </summary>
         /// <param name="xi"></param>
         /// <param name="yi"></param>

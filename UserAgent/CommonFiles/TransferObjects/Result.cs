@@ -5,14 +5,14 @@ using System.Runtime.Serialization;
 namespace CommonFiles.TransferObjects
 {
     /// <summary>
-    /// Objects of this type will be received by the Testmachines as Responses to sucessfully executed Requests
+    /// Objects of this type will be received by testmachines as responses to sucessfully executed requests.
     /// </summary>
     [DataContract]
     [KnownType(typeof(Dictionary<string, string>))]
     public class SuccessResult
     {
         /// <summary>
-        /// Result of a Request
+        /// Result of a Request.
         /// </summary>
         [DataMember]
         public object result;
@@ -21,12 +21,6 @@ namespace CommonFiles.TransferObjects
         {
             this.result = result;
         }
-    }
-
-    //Todo: Delete this class later. It is just for merge
-    public class Result
-    {
-
     }
 
     [DataContract]

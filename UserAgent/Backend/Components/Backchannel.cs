@@ -12,25 +12,25 @@ using System.Threading.Tasks;
 namespace RaspberryBackend.Components
 {
     /// <summary>
-    /// Socket, which can be used by multiple threads for sending
+    /// Socket, which can be used by multiple threads for sending.
     /// </summary>
     class BackChannel
     {
         private TcpClient socket;
 
         /// <summary>
-        /// Sets the socket
+        /// Sets the socket.
         /// </summary>
-        /// <param name="socket">Socket, which will be used for sending</param>
+        /// <param name="socket">Socket, which will be used for sending.</param>
         public void setClient(TcpClient socket)
         {
             this.socket = socket;
         }
 
         /// <summary>
-        /// Sends an Objecto over the socket
+        /// Sends an Object over the socket.
         /// </summary>
-        /// <param name="obj">Object which will be send</param>
+        /// <param name="obj">Object which will be sent.</param>
         public void sendObject(Object obj)
         {
             lock (this)
