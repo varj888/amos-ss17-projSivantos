@@ -71,15 +71,18 @@ namespace TestMachineFrontend1.View
 
         private async void Power_Slider_OnValueChanged(object sender, RoutedEventArgs e)
         {
-            Slider slide = sender as Slider;
-            try
+            if (remoteVM != null)
             {
-                await remoteVM.RaspberryPiInstance.ChangePowerVoltage(slide.Value);
-                vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
-            }
-            catch (Exception ex)
-            {
-                vmDebug.AddDebugInfo("ChangePowerVoltage", "Failed");
+                Slider slide = sender as Slider;
+                try
+                {
+                    await remoteVM.RaspberryPiInstance.ChangePowerVoltage(slide.Value);
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
+                }
+                catch (Exception ex)
+                {
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", "Failed");
+                }
             }
         }
 
@@ -95,15 +98,18 @@ namespace TestMachineFrontend1.View
 
         private async void SetVolume_Slider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            Slider slide = sender as Slider;
-            try
+            if (remoteVM != null)
             {
-                await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte) slide.Value);
-                vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
-            }
-            catch (Exception ex)
-            {
-                vmDebug.AddDebugInfo("SetAnalogVolume", "Failed");
+                Slider slide = sender as Slider;
+                try
+                {
+                    await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte) slide.Value);
+                    vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
+                }
+                catch (Exception ex)
+                {
+                    vmDebug.AddDebugInfo("SetAnalogVolume", "Failed");
+                }
             }
         }
     }
