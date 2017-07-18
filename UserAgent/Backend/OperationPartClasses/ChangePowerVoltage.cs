@@ -12,7 +12,7 @@
         /// <param name="parameter">Represents the ADCVoltage to be set, will be clipped to min 0 and
         /// max 2.074 volts</param>
         /// <returns>The provided target voltage.</returns>
-        public double TurnHIOn(double voltage)
+        public double ChangePowerVoltage(double voltage)
         {
             ADConverter.setDACVoltage1(voltage);
             this.updateLCD();
