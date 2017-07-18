@@ -61,6 +61,7 @@ namespace RaspberryBackend
 
             setMulitplexerStartUpConfig();
 
+            setReceiverStartUpConfig();
             //Task.Delay(1500).Wait(); //Uncomment if LCD does not update on startup
             Control.updateLCD();
         }
@@ -75,6 +76,11 @@ namespace RaspberryBackend
             {
                 Control.setMultiplexerConfiguration("TestFamily", "TestModel");
             }
+        }
+
+        private void setReceiverStartUpConfig()
+        {
+            Control.SetARDVoltage("NoReceiver");
         }
 
         /// <summary>
