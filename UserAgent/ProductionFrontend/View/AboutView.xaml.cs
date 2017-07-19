@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace TestMachineFrontend1.View
 {
     /// <summary>
-    /// Interaction logic for MainTabView.xaml
+    /// Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class MainTabView : UserControl
+    public partial class AboutView : Window
     {
-        public MainTabView()
+        public AboutView()
         {
             InitializeComponent();
         }
