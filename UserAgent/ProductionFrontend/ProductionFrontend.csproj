@@ -98,7 +98,6 @@
     <Compile Include="Helpers\ListItemSelected.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\PercentageConverter.cs" />
-    <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Model\DebugModel.cs" />
     <Compile Include="Model\LCDControlsModel.cs" />
     <Compile Include="Model\MultiplexerModel.cs" />
