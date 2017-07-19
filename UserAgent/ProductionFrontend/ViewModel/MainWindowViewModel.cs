@@ -42,7 +42,6 @@ namespace TestMachineFrontend1.ViewModel
         #region ViewModels
         public static MainWindowViewModel Instance { get; private set; }
         public static DebugViewModel CurrentViewModelDebug { get; private set; }
-        public static MainTabViewModel CurrentViewModelMainTab { get; private set; }
         public static DetectViewModel CurrentViewModelDetect { get; private set; }
         public static RPIListViewModel CurrentViewModelRPIList { get; private set; }
         public static DisconnectedViewModel CurrentViewModelDisconnected { get; private set; }
@@ -63,7 +62,6 @@ namespace TestMachineFrontend1.ViewModel
         {
             Instance = new MainWindowViewModel();
             CurrentViewModelDebug = new DebugViewModel();
-            CurrentViewModelMainTab = new MainTabViewModel();
             CurrentViewModelDetect = new DetectViewModel();
             CurrentViewModelRPIList = new RPIListViewModel();
             CurrentViewModelDisconnected = new DisconnectedViewModel();
