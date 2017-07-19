@@ -7,6 +7,7 @@ using System.Windows.Input;
 using CommonFiles.TransferObjects;
 using TestMachineFrontend1.ViewModel;
 using System.Diagnostics;
+using System.Windows;
 
 namespace TestMachineFrontend1.Commands
 {
@@ -34,8 +35,7 @@ namespace TestMachineFrontend1.Commands
             try
             {
                 result = await remoteVM.RaspberryPiInstance.DetectAudioShoe();
-                //TODO Property for color-binding
-                //remoteVM.TCoilDetected = false;
+                remoteVM.AudioShueUpdate = Visibility.Visible;
                 debugVM.AddDebugInfo("DetectAudioShoe", result);
             }
             catch (Exception e)

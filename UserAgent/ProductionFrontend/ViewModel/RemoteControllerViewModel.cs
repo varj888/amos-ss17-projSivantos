@@ -153,6 +153,30 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        public Visibility _tcoilUpdate = Visibility.Hidden;
+
+        public Visibility TcoilUpdate
+        {
+            get { return _tcoilUpdate; }
+            set
+            {
+                _tcoilUpdate = value;
+                OnPropertyChanged("TcoilUpdate");
+            }
+        }
+
+        public Visibility _audioShueUpdate = Visibility.Hidden;
+
+        public Visibility AudioShueUpdate
+        {
+            get { return _audioShueUpdate; }
+            set
+            {
+                _audioShueUpdate = value;
+                OnPropertyChanged("AudioShueUpdate");
+            }
+        }
+
         public Visibility _toggleLEDButton = Visibility.Hidden;
 
         public Visibility ToggleLEDButton

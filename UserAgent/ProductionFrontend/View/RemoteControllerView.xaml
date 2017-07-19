@@ -387,6 +387,9 @@
                             <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="TCOIL" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" MaxHeight="200px" HorizontalAlignment="Center" Source="..\img\telecoil_512_off.png"></Image>
+                            <Image Margin="10" Grid.Row="1" MaxHeight="200px" HorizontalAlignment="Center" 
+                                   Source="..\img\telecoil_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.TcoilUpdate}"/>
 
                             <!--<Ellipse Grid.Row="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center" Width="40">
                                             <Ellipse.Fill>
@@ -440,6 +443,10 @@
                             <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="AUDIO SHOE" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="200px" Source="..\img\audio_shoe_512_off.png"></Image>
+                            <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="200px" 
+                                   Source="..\img\audio_shoe_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.AudioShueUpdate}"/>
+
                             <!--  <Ellipse Grid.Row="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center" Width="40">
                                             <Ellipse.Fill>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">

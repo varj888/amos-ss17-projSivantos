@@ -7,6 +7,7 @@ using System.Windows.Input;
 using CommonFiles.TransferObjects;
 using TestMachineFrontend1.ViewModel;
 using System.Diagnostics;
+using System.Windows;
 
 namespace TestMachineFrontend1.Commands
 {
@@ -34,7 +35,7 @@ namespace TestMachineFrontend1.Commands
             try
             {
                 result = await remoteVM.RaspberryPiInstance.DetectTeleCoil();
-                remoteVM.TCoilDetected = true;
+                remoteVM.TcoilUpdate = Visibility.Visible;
                 debugVM.AddDebugInfo("DetectTeleCoil", result);
             }
             catch (Exception e)
