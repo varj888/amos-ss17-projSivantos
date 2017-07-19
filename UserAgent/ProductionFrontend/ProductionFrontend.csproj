@@ -108,6 +108,7 @@
     <Compile Include="Model\TabControlModel.cs" />
     <Compile Include="Model\UserControlsModel.cs" />
     <Compile Include="Api\RaspberryPi.cs" />
+    <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\DebugViewModel.cs" />
     <Compile Include="ViewModel\DetectViewModel.cs" />
     <Compile Include="ViewModel\DisconnectedViewModel.cs" />
@@ -115,6 +116,9 @@
     <Compile Include="ViewModel\RemoteControllerTitleBarViewModel.cs" />
     <Compile Include="ViewModel\RemoteControllerViewModel.cs" />
     <Compile Include="ViewModel\RPIListViewModel.cs" />
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DetectView.xaml.cs">
       <DependentUpon>DetectView.xaml</DependentUpon>
     </Compile>
@@ -145,6 +149,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\DetectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
