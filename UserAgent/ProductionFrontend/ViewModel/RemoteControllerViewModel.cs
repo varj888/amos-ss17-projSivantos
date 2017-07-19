@@ -468,27 +468,25 @@ namespace TestMachineFrontend1.ViewModel
         {
             ReceiverItems = new ObservableCollection<ComboBoxItem>();
             ComboBoxItem item1 = new ComboBoxItem();
-            item1.Content = "Short";
+            item1.Content = "Small Right";
             ComboBoxItem item2 = new ComboBoxItem();
-            item2.Content = "Small Right";
+            item2.Content = "Small Left";
             ComboBoxItem item3 = new ComboBoxItem();
-            item3.Content = "Small Left";
+            item3.Content = "Medium Right";
             ComboBoxItem item4 = new ComboBoxItem();
-            item4.Content = "Medium Right";
+            item4.Content = "Medium Left";
             ComboBoxItem item5 = new ComboBoxItem();
-            item5.Content = "Medium Left";
+            item5.Content = "Power Right";
             ComboBoxItem item6 = new ComboBoxItem();
-            item6.Content = "Power Right";
+            item6.Content = "Power Left";
             ComboBoxItem item7 = new ComboBoxItem();
-            item7.Content = "Power Left";
+            item7.Content = "High Power Right";
             ComboBoxItem item8 = new ComboBoxItem();
-            item8.Content = "High Power Right";
+            item8.Content = "High Power Left";
             ComboBoxItem item9 = new ComboBoxItem();
-            item9.Content = "High Power Left";
+            item9.Content = "Defective";
             ComboBoxItem item10 = new ComboBoxItem();
-            item10.Content = "Defective";
-            ComboBoxItem item11 = new ComboBoxItem();
-            item11.Content = "No Receiver";
+            item10.Content = "No Receiver";
             ReceiverItems.Add(item1);
             ReceiverItems.Add(item2);
             ReceiverItems.Add(item3);
@@ -499,7 +497,6 @@ namespace TestMachineFrontend1.ViewModel
             ReceiverItems.Add(item8);
             ReceiverItems.Add(item9);
             ReceiverItems.Add(item10);
-            ReceiverItems.Add(item11);
             SelectedReceiverItem = ReceiverItems.First();
         }
 
