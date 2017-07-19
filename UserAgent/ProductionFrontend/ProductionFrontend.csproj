@@ -83,6 +83,7 @@
       <Link>CommonFiles\TrasferObjects\Result.cs</Link>
     </Compile>
     <Compile Include="Commands\CheckLEDStatusCommand.cs" />
+    <Compile Include="Commands\ToggleRPIListViewCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\DetectAudioShoeCommand.cs" />
     <Compile Include="Commands\DetectTCoilCommand.cs" />
@@ -94,7 +95,7 @@
     <Compile Include="Commands\PressRockerSwitchUpCommand.cs" />
     <Compile Include="Commands\SetHICommand.cs" />
     <Compile Include="Commands\SetReceiverCommand.cs" />
-    <Compile Include="Commands\UndetectAudioShueCommand.cs" />
+    <Compile Include="Commands\UndetectAudioShoeCommand.cs" />
     <Compile Include="Commands\UndetectTCoilCommand.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\HelperXML.cs" />

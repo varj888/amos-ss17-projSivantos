@@ -13,7 +13,7 @@
     <UserControl.DataContext>
         <vm:MainWindowViewModel/>
     </UserControl.DataContext>
-    <Grid  Name="LeftGrid">
+    <Grid  Name="LeftGrid" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30px"/>
             <RowDefinition Height="1*"/>
@@ -44,7 +44,7 @@
                 <Button Name="Refresh_Button" Content="↺" HorizontalAlignment="Right" 
                             VerticalAlignment="Center" Foreground="#FF323C46" FontFamily="Segoe UI Semibold" 
                             Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,10,0"
-                            FontSize="14" Visibility="Visible"/>
+                            FontSize="14" Visibility="Hidden"/>
             </DockPanel>
         </Border>
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Margin="-2,0,0,0" 

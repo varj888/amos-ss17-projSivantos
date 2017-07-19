@@ -95,7 +95,7 @@
 
                   Width="1" Background="#FFB9C3CF"/>
 
-        <ContentControl Content="{Binding Path=CurrentViewModelRPIList}" Grid.Column="0"></ContentControl>
+        <ContentControl Content="{Binding Path=CurrentViewModelRPIList}" Grid.Column="0" Visibility="{Binding Path=RPIListVisible}"></ContentControl>
 
         <Grid Name="RemoteControllerGrid" Grid.Column="2">
 

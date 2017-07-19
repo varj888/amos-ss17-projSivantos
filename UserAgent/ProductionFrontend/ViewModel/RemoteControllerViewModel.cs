@@ -165,15 +165,15 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        public Visibility _audioShueUpdate = Visibility.Hidden;
+        public Visibility _AudioShoeUpdate = Visibility.Hidden;
 
-        public Visibility AudioShueUpdate
+        public Visibility AudioShoeUpdate
         {
-            get { return _audioShueUpdate; }
+            get { return _AudioShoeUpdate; }
             set
             {
-                _audioShueUpdate = value;
-                OnPropertyChanged("AudioShueUpdate");
+                _AudioShoeUpdate = value;
+                OnPropertyChanged("AudioShoeUpdate");
             }
         }
 

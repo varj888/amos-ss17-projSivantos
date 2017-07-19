@@ -25,9 +25,6 @@ namespace TestMachineFrontend1.View
             InitializeComponent();
         }
 
-        private void ToggleMenuButton_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
     }
 }

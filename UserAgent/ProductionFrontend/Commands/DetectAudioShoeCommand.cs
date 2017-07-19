@@ -35,7 +35,7 @@ namespace TestMachineFrontend1.Commands
             try
             {
                 result = await remoteVM.RaspberryPiInstance.DetectAudioShoe();
-                remoteVM.AudioShueUpdate = Visibility.Visible;
+                remoteVM.AudioShoeUpdate = Visibility.Visible;
                 debugVM.AddDebugInfo("DetectAudioShoe", result);
             }
             catch (Exception e)
