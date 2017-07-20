@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace RaspberryBackend
@@ -12,23 +13,18 @@ namespace RaspberryBackend
         /// <summary>
         /// Execute presssing one rockerswitch
         /// </summary>
-        /// <param name="parameter">Expects an string-Array containing id = ["up"|"down"] and Duration-Categorie <see cref="DurationConfig"</param>
-        /// <returns>The provided parameterlist represented as string</returns>
-        public string PressRockerSwitch(string[] param)
+        /// <param name="rsw">expected "up" ord "down"</param>
+        /// <param name="durationCategorie">expected string defined in <see cref="DurationConfig"/></param>
+        /// <returns>content of rsw+(duration) </returns>
+        public string PressRockerSwitch(string rsw, string durationCategorie)
         {
-
-            if (param.Length != 2)
+            if (rsw == null || durationCategorie == null)
             {
                 throw new Exception("Received invalid paremeterlist");
             }
 
-            string rsw = param[0];
-            int duration = DurationConfig.getDuration(param[1]);
-
-            if (rsw != "up" | rsw != "down")
-            {
-                throw new Exception("Invalid Rockerswitch submitted");
-            }
+            int duration = DurationConfig.getDuration(durationCategorie);
+            Debug.WriteLine("\n Execute {0} with Parameter {3} duration {1}({2}) \n", this.GetType().Name, durationCategorie, duration, rsw);
 
             UInt16 pushButton_Pin;
 
@@ -36,16 +32,20 @@ namespace RaspberryBackend
             {
                 pushButton_Pin = GpioMap.rockerSwitchDownPin;
             }
-            else
+            else if (rsw == "up")
             {
                 pushButton_Pin = GpioMap.rockerSwitchUpPin;
+            }
+            else
+            {
+                throw new Exception("Invalid Rockerswitch submitted");
             }
 
             GPIOinterface.activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
             GPIOinterface.deactivatePin(pushButton_Pin);
 
-            return param.ToString();
+            return rsw + "(" + duration + ")";
         }
     }
 }

@@ -13,9 +13,9 @@ namespace RaspberryBackend
         string getTeleCoilStatus();
         string LightLED(Int32 requestedParameter);
         string ToggleLED(int[] param);
-        string PressCombination(string[] param);
+        string PressCombination(string pb, string rsd, string rsu, string durationCategorie);
         string PressPushButton(string durationCategorie);
-        string PressRockerSwitch(string[] param);
+        string PressRockerSwitch(string rsw, string durationCategorie);
         string ReadPin(UInt16 id);
         string ResetMux(int a);
         string ResetPin(UInt16 id);
