@@ -1,5 +1,4 @@
-﻿using RaspberryBackend.Config;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -22,7 +21,7 @@ namespace RaspberryBackend
         {
             if (RasPi.isTestMode()) return;
 
-            cancelWriteOnLcd();
+            cancelWritingWait();
 
             CheckTurnOnBacklight();
 
@@ -51,6 +50,7 @@ namespace RaspberryBackend
                 {
                     LCD.prints(content);
                     LCD.gotoSecondLine();
+
                     printLine2();
 
                     try
@@ -59,7 +59,7 @@ namespace RaspberryBackend
                     }
                     catch (Exception e)
                     {
-                        Debug.WriteLine(e.Message);
+                        Debug.WriteLine("cancel LCD-Writing Task");
                     }
 
                     LCD.clrscr();
@@ -69,38 +69,32 @@ namespace RaspberryBackend
 
         private void printLine2()
         {
-            LCD.prints("<Akt>");
             LCD.prints(" ");
+            this.LCD.printSymbol(SymbolConfig.busySymbolAddress);
+            LCD.prints("   ");
             this.LCD.printSymbol(SymbolConfig.batterySymbolAddress);
-            LCD.prints(" ");
+            LCD.prints("   ");
             this.LCD.printSymbol(SymbolConfig.initSymbolAddress);
+            LCD.prints("   ");
+            this.LCD.printSymbol(SymbolConfig.volumeSymbolAddress);
             LCD.prints(" ");
-            LCD.prints("<Vol>");
+
         }
-        private void cancelWriteOnLcd()
+
+        private void cancelWritingWait()
         {
             _cts?.Cancel();
-            waitForCancelation();
-            _cts = new CancellationTokenSource();
-        }
-        private void waitForCancelation()
-        {
-            Debug.Write("**** Cancel Task");
+
+            Debug.Write("\n**** Wait for LCD-Writing Task ****\n");
             while (_writingOnLcd != null && !_writingOnLcd.IsCanceled && !_writingOnLcd.IsCompleted)
             {
-                Debug.Write(".");
+
             }
-            Debug.WriteLine(" ****");
+            Debug.Write("\n**** LCD-Writing Task finished ****\n");
+
+            _cts = new CancellationTokenSource();
         }
-        /// <summary>
-        /// Set state for background in LCD. Will want to switch to toggle
-        /// </summary>
-        /// <param name="targetState"></param>
-        private void setLCDBackgroundState(byte targetState)
-        {
-            LCD.backLight = targetState;
-            LCD.write(targetState, 0);
-        }
+
 
         private string GetIpAddressAsync()
         {
@@ -129,39 +123,18 @@ namespace RaspberryBackend
 
         private void prepairSymbols()
         {
-            this.LCD.createSymbol(this.getBatterySymbol(), SymbolConfig.batterySymbolAddress);
-            this.LCD.createSymbol(this.getInitSymbol(RasPi.isInitialized()), SymbolConfig.initSymbolAddress);
+            this.LCD.createSymbol(SymbolConfig.getBatterySymbol(), SymbolConfig.batterySymbolAddress);
+            this.LCD.createSymbol(SymbolConfig.getInitSymbol(RasPi.isInitialized()), SymbolConfig.initSymbolAddress);
+            this.LCD.createSymbol(SymbolConfig.getBusySymbol(), SymbolConfig.busySymbolAddress);
+            this.LCD.createSymbol(SymbolConfig.getVolumeSymbol(), SymbolConfig.volumeSymbolAddress);
         }
 
-        private byte[] getBatterySymbol()
-        {
-            double batstatus = this.ADConverter.CurrentDACVoltage1 / this.ADConverter.getMaxVoltage();
-            byte[] data = (byte[])SymbolConfig.batterySymbol.Clone();
-
-            for (int i = 1; i <= 6; i++)
-            {
-                int counter = 6;
-                double frac = (double)i / 6.0;
-                if (batstatus < frac)
-                {
-                    data[counter - i] = 0b00010001;
-                }
-                counter--;
-            }
-
-            return data;
-        }
-
-        private byte[] getInitSymbol(bool isInit)
-        {
-            return (isInit) ? SymbolConfig.isInitSymbol : SymbolConfig.notInitSymbol;
-        }
 
         private void CheckTurnOnBacklight()
         {
             if (LCD.backLight != 0x01)
             {
-                this.setLCDBackgroundState(0x01);
+                this.LCD.switchBacklightTo(0x01);
             }
         }
         #endregion

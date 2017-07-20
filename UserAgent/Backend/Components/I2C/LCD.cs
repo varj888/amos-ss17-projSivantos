@@ -392,5 +392,17 @@ namespace RaspberryBackend
             }
             this.shifting = true;
         }
+
+        /// <summary>
+        /// Switches the Backlight of the LCD to the wished target state
+        /// </summary>
+        /// <param name="targetState">0x01 for ON state and 0x00 for OFF state</param>
+        public void switchBacklightTo(byte targetState)
+        {
+            if (!(targetState == 0x01 || targetState == 0x00)) throw new ArgumentException("Backlight State can only be 0x01 or 0x00");
+
+            backLight = targetState;
+            write(targetState, 0);
+        }
     }
 }
