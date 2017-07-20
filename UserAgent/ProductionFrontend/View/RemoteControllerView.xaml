@@ -387,6 +387,9 @@
                             <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="TCOIL" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" MaxHeight="200px" HorizontalAlignment="Center" Source="..\img\telecoil_512_off.png"></Image>
+                            <Image Margin="10" Grid.Row="1" MaxHeight="200px" HorizontalAlignment="Center" 
+                                   Source="..\img\telecoil_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.TcoilUpdate}"/>
 
                             <!--<Ellipse Grid.Row="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center" Width="40">
                                             <Ellipse.Fill>
@@ -440,6 +443,10 @@
                             <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="AUDIO SHOE" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="200px" Source="..\img\audio_shoe_512_off.png"></Image>
+                            <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="200px" 
+                                   Source="..\img\audio_shoe_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.AudioShoeUpdate}"/>
+
                             <!--  <Ellipse Grid.Row="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center" Width="40">
                                             <Ellipse.Fill>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -457,14 +464,14 @@
                                             </Ellipse.Fill>
                                         </Ellipse>-->
                             <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
-                                    Height="20px" Width="50px" Command="{Binding DetectAudioShueCommand}">
+                                    Height="20px" Width="50px" Command="{Binding DetectAudioShoeCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectAudioShoe}"-->
                                 <StackPanel>
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
                             <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
-                                    Height="20px" Width="50px" Command="{Binding UndetectAudioShueCommand}">
+                                    Height="20px" Width="50px" Command="{Binding UndetectAudioShoeCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectAudioShoe}"-->
                                 <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>

@@ -7,8 +7,11 @@ using TestMachineFrontend1.Helpers;
 
 namespace TestMachineFrontend1.ViewModel
 {
-    public class MainTabViewModel : ObservableObject
+    class AboutViewModel : ObservableObject
     {
-
+        public string Version
+        {
+            get { return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(); }
+        }
     }
 }
