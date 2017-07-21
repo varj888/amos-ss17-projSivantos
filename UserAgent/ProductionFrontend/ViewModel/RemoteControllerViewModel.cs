@@ -1,21 +1,18 @@
-﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
+﻿using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
+using static RaspberryBackend.ReceiverConfig;
 
 namespace TestMachineFrontend1.ViewModel
 {
@@ -178,7 +175,7 @@ namespace TestMachineFrontend1.ViewModel
 
         //TODO: find the way to run this async!
         //option: button on the right side of receiverListBox
-        private ComboBoxItem  _selectedReceiverItem;
+        private ComboBoxItem _selectedReceiverItem;
         public ComboBoxItem SelectedReceiverItem
         {
             get { return _selectedReceiverItem; }
@@ -336,8 +333,9 @@ namespace TestMachineFrontend1.ViewModel
         }
 
         private string _raspiConfigString;
-        public string RaspiConfigString {
-            get { return _raspiConfigString;  }
+        public string RaspiConfigString
+        {
+            get { return _raspiConfigString; }
             set
             {
                 _raspiConfigString = value;
@@ -365,7 +363,7 @@ namespace TestMachineFrontend1.ViewModel
                 _endlessVcTicks = value;
                 OnPropertyChanged("EndlessVcTicks");
             }
-        } 
+        }
 
 
         public async void connectIP()
@@ -467,29 +465,26 @@ namespace TestMachineFrontend1.ViewModel
         private void initReceiverComboBox()
         {
             ReceiverItems = new ObservableCollection<ComboBoxItem>();
-            ComboBoxItem item1 = new ComboBoxItem();
-            item1.Content = "Short";
             ComboBoxItem item2 = new ComboBoxItem();
-            item2.Content = "Small Right";
+            item2.Content = SmallRight;
             ComboBoxItem item3 = new ComboBoxItem();
-            item3.Content = "Small Left";
+            item3.Content = SmallLeft;
             ComboBoxItem item4 = new ComboBoxItem();
-            item4.Content = "Medium Right";
+            item4.Content = MediumRight;
             ComboBoxItem item5 = new ComboBoxItem();
-            item5.Content = "Medium Left";
+            item5.Content = MediumLeft;
             ComboBoxItem item6 = new ComboBoxItem();
-            item6.Content = "Power Right";
+            item6.Content = PowerRight;
             ComboBoxItem item7 = new ComboBoxItem();
-            item7.Content = "Power Left";
+            item7.Content = PowerLeft;
             ComboBoxItem item8 = new ComboBoxItem();
-            item8.Content = "High Power Right";
+            item8.Content = HighPowerRight;
             ComboBoxItem item9 = new ComboBoxItem();
-            item9.Content = "High Power Left";
+            item9.Content = HighPowerLeft;
             ComboBoxItem item10 = new ComboBoxItem();
-            item10.Content = "Defective";
+            item10.Content = Defective;
             ComboBoxItem item11 = new ComboBoxItem();
-            item11.Content = "No Receiver";
-            ReceiverItems.Add(item1);
+            item11.Content = NoReceiver;
             ReceiverItems.Add(item2);
             ReceiverItems.Add(item3);
             ReceiverItems.Add(item4);
