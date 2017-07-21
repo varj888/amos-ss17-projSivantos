@@ -24,7 +24,7 @@ namespace RaspberryBackend
             cancelWritingWait();
             CheckTurnOnBacklight();
 
-            _writingOnLcd = Task.Run(() => printOnLcd(), _cts.Token);
+            _writingOnLcd = Task.Run(async () => await printOnLcd(), _cts.Token);
         }
 
         #region Helpers
@@ -38,7 +38,7 @@ namespace RaspberryBackend
             return new List<string> { ip, hi, currentReceiver };
         }
 
-        private void printOnLcd()
+        private Task printOnLcd()
         {
             while (!_cts.IsCancellationRequested)
             {
@@ -60,11 +60,14 @@ namespace RaspberryBackend
                     catch (Exception e)
                     {
                         Debug.WriteLine("cancel LCD-Writing Task");
+                        return Task.CompletedTask;
                     }
 
                     LCD.clrscr();
                 }
             }
+
+            return Task.CompletedTask;
         }
 
         private void printLine2()

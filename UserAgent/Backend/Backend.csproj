@@ -132,6 +132,7 @@
     <Compile Include="OperationPartClasses\GetRaspiConfiguration.cs" />
     <Compile Include="OperationPartClasses\GetTeleCoilStatus.cs" />
     <Compile Include="OperationPartClasses\GetAvailableHI.cs" />
+    <Compile Include="OperationPartClasses\SaveHiConfig.cs" />
     <Compile Include="OperationPartClasses\PressCombination.cs" />
     <Compile Include="OperationPartClasses\PressPushButton.cs" />
     <Compile Include="OperationPartClasses\PressRockerSwitch.cs" />
