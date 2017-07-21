@@ -7,15 +7,16 @@ using System.Windows.Input;
 using CommonFiles.TransferObjects;
 using TestMachineFrontend1.ViewModel;
 using System.Diagnostics;
+using System.Windows;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class UndetectAudioShueCommand : ICommand
+    public class UndetectAudioShoeCommand : ICommand
     {
         private RemoteControllerViewModel remoteVM;
         private DebugViewModel debugVM;
 
-        public UndetectAudioShueCommand()
+        public UndetectAudioShoeCommand()
         {
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
@@ -34,13 +35,12 @@ namespace TestMachineFrontend1.Commands
             try
             {
                 result = await remoteVM.RaspberryPiInstance.UndetectAudioShoe();
-                //TODO Property for color-binding
-                //remoteVM.TCoilDetected = false;
-                debugVM.AddDebugInfo("UndetectAudioShue", result);
+                remoteVM.AudioShoeUpdate = Visibility.Hidden;
+                debugVM.AddDebugInfo("UndetectAudioShoe", result);
             }
             catch (Exception e)
             {
-                debugVM.AddDebugInfo("UndetectAudioShue :", e.Message);
+                debugVM.AddDebugInfo("UndetectAudioShoe :", e.Message);
                 return;
             }
         }

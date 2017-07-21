@@ -150,6 +150,30 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        public Visibility _tcoilUpdate = Visibility.Hidden;
+
+        public Visibility TcoilUpdate
+        {
+            get { return _tcoilUpdate; }
+            set
+            {
+                _tcoilUpdate = value;
+                OnPropertyChanged("TcoilUpdate");
+            }
+        }
+
+        public Visibility _AudioShoeUpdate = Visibility.Hidden;
+
+        public Visibility AudioShoeUpdate
+        {
+            get { return _AudioShoeUpdate; }
+            set
+            {
+                _AudioShoeUpdate = value;
+                OnPropertyChanged("AudioShoeUpdate");
+            }
+        }
+
         public Visibility _toggleLEDButton = Visibility.Hidden;
 
         public Visibility ToggleLEDButton
@@ -494,7 +518,6 @@ namespace TestMachineFrontend1.ViewModel
             ReceiverItems.Add(item8);
             ReceiverItems.Add(item9);
             ReceiverItems.Add(item10);
-            ReceiverItems.Add(item11);
             SelectedReceiverItem = ReceiverItems.First();
         }
 

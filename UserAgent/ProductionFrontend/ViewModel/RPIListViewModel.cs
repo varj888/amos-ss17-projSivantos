@@ -9,6 +9,5 @@ namespace TestMachineFrontend1.ViewModel
 {
     public class RPIListViewModel : ObservableObject
     {
-        
     }
 }
