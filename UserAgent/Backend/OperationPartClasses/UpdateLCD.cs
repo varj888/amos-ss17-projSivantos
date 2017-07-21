@@ -26,7 +26,7 @@ namespace RaspberryBackend
             CheckTurnOnBacklight();
 
             List<string> line1 = prepairLine1();
-            prepairSymbols();
+            SymbolConfig.initilizeSymbols();
 
             _writingOnLcd = Task.Run(() => printOnLcd(line1), _cts.Token);
         }
@@ -95,7 +95,6 @@ namespace RaspberryBackend
             _cts = new CancellationTokenSource();
         }
 
-
         private string GetIpAddressAsync()
         {
             var ipAsString = "Not Found";
@@ -119,16 +118,6 @@ namespace RaspberryBackend
             }
             return ipAsString;
         }
-
-
-        private void prepairSymbols()
-        {
-            this.LCD.createSymbol(SymbolConfig.getBatterySymbol(), SymbolConfig.batterySymbolAddress);
-            this.LCD.createSymbol(SymbolConfig.getInitSymbol(RasPi.isInitialized()), SymbolConfig.initSymbolAddress);
-            this.LCD.createSymbol(SymbolConfig.getBusySymbol(), SymbolConfig.busySymbolAddress);
-            this.LCD.createSymbol(SymbolConfig.getVolumeSymbol(), SymbolConfig.volumeSymbolAddress);
-        }
-
 
         private void CheckTurnOnBacklight()
         {

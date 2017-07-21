@@ -40,6 +40,7 @@ namespace RaspberryBackend
             {
                 ADConverter.setDACVoltage2(voltage);
             }
+
             this.updateLCD();
         }
 
