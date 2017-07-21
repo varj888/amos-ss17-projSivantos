@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace RaspberryBackend
@@ -66,17 +62,17 @@ namespace RaspberryBackend
             throw new NotImplementedException();
         }
 
-        public string PressCombination(int[] param)
+        public string PressCombination(string pb, string rsd, string rsu, string durationCategorie)
         {
             throw new NotImplementedException();
         }
 
-        public string PressPushButton(int duration)
+        public string PressPushButton(string duration)
         {
             throw new NotImplementedException();
         }
 
-        public string PressRockerSwitch(int[] param)
+        public string PressRockerSwitch(string rsw, string durationCategorie)
         {
             throw new NotImplementedException();
         }

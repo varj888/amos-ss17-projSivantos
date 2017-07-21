@@ -55,9 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\CommonFiles\Networking\ServerSkeleton.cs">
-      <Link>CommonFiles\Networking\ServerSkeleton.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
       <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>

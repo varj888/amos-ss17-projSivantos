@@ -118,6 +118,7 @@
     <Compile Include="Components\Operations.cs" />
     <Compile Include="Components\RequestHandler.cs" />
     <Compile Include="Components\TestOperations.cs" />
+    <Compile Include="Config\DurationConfig.cs" />
     <Compile Include="Config\GpioMap.cs" />
     <Compile Include="Config\parser\HiXmlParser.cs" />
     <Compile Include="Config\MultiplexerConfig.cs" />

@@ -298,7 +298,7 @@ namespace TestMachineFrontend1.ViewModel
         #region Requests
         public Request PressPushButton
         {
-            get { return new Request("PressPushButton", getDuration()); }
+            get { return new Request("PressPushButton", MainWindowViewModel.CurrentViewModelRemoteController.SelectedDuration.Content.ToString()); }
         }
 
         public Request DetectTCol
@@ -521,30 +521,6 @@ namespace TestMachineFrontend1.ViewModel
             SelectedReceiverItem = ReceiverItems.First();
         }
 
-        public int getDuration()
-        {
-            if (SelectedDurationIndex < 0)
-            {
-                return -1;
-            }
-            var a = SelectedDuration;
-            UInt16 duration;
-            switch (a.Content)
-            {
-                case "Short":
-                    duration = 50;
-                    break;
-                case "Medium":
-                    duration = 500;
-                    break;
-                case "Long":
-                    duration = 3000;
-                    break;
-                default:
-                    return -1;
-            }
-            return duration;
-        }
         #endregion
     }
 }
