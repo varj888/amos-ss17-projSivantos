@@ -1,19 +1,6 @@
-﻿using CommonFiles.TransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.View
@@ -32,30 +19,31 @@ namespace TestMachineFrontend1.View
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
 
-        //TODO
         private async void press_Combination(object sender, RoutedEventArgs e)
         {
-            if (remoteVM.getDuration() != -1)
+            object selectedDurationCategorie = MainWindowViewModel.CurrentViewModelRemoteController.SelectedDuration.Content;
+
+            if (selectedDurationCategorie != null)
             {
-                int[] param = new int[4];
+                string[] param = new string[4];
                 for (int i = 0; i < param.Length; i++)
                 {
-                    param[i] = 0;
+                    param[i] = null;
                 }
-                param[param.Length - 1] = remoteVM.getDuration();
 
-                int duration = remoteVM.getDuration();
+                param[param.Length - 1] = selectedDurationCategorie.ToString();
+
                 if (Push_Checkbox.IsChecked == true)
                 {
-                    param[0] = 1;
+                    param[0] = "PB";
                 }
                 if (RockerSwitchUp_Checkbox.IsChecked == true)
                 {
-                    param[1] = 1;
+                    param[1] = "RSU";
                 }
                 if (RockerSwitchDown_Checkbox.IsChecked == true)
                 {
-                    param[2] = 1;
+                    param[2] = "RSD";
                 }
                 await remoteVM.RaspberryPiInstance.PressCombination(param);
                 vmDebug.AddDebugInfo("PressCombination", "success");
@@ -103,7 +91,7 @@ namespace TestMachineFrontend1.View
                 Slider slide = sender as Slider;
                 try
                 {
-                    await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte) slide.Value);
+                    await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte)slide.Value);
                     vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
                 }
                 catch (Exception ex)

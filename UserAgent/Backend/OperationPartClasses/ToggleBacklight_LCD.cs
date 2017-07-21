@@ -1,6 +1,4 @@
-﻿using CommonFiles.TransferObjects;
-
-namespace RaspberryBackend
+﻿namespace RaspberryBackend
 {
 
     /// <summary>
@@ -21,19 +19,15 @@ namespace RaspberryBackend
 
             if (requestedParameter.Equals(1))
             {
-                switchToState(ON);
+                LCD.switchBacklightTo(ON);
             }
             else if (requestedParameter.Equals(0))
             {
-                switchToState(OFF);
+                LCD.switchBacklightTo(OFF);
             }
 
             return requestedParameter.ToString();
         }
 
-        private void switchToState(byte targetState)
-        {
-            setLCDBackgroundState(targetState);
-        }
     }
 }

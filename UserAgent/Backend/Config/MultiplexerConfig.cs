@@ -55,12 +55,12 @@ namespace RaspberryBackend
 
             Debug.WriteLine("====================================\n ");
 
-            saveHiConfig();
+            saveConfig();
         }
 
-        private async void saveHiConfig()
+        private async void saveConfig()
         {
-            await StorageHandler<Hi>.Save(StorageCfgs.FileName_HiCfg, StorageCfgs.Hi);
+            await RaspberryPi.Instance.Control.saveHiConfig();
         }
 
         public Dictionary<int, int> getX_to_Y_Mapping()

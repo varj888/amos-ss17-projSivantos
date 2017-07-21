@@ -21,7 +21,7 @@ namespace RaspberryBackend
         public static Tuple<string, double> HighPowerLeft = new Tuple<string, double>("High Power Left", 11.000);
 
         public static Tuple<string, double> Defective = new Tuple<string, double>("Defective", 133.700);
-        public static Tuple<string, double> NoReceiver = new Tuple<string, double>("NoReceiver", 200.0);
+        public static Tuple<string, double> NoReceiver = new Tuple<string, double>("No Receiver", 200.0);
 
 
         /// <summary>

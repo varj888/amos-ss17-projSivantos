@@ -31,8 +31,6 @@ namespace RaspberryBackend
             MultiplexerConfig muxConfig = new MultiplexerConfig(family, model_name);
             Dictionary<int, int> xToYMapping = muxConfig.getX_to_Y_Mapping();
 
-            
-
             if (!RasPi.isTestMode())
             {
                 Multiplexer.resetAll();

@@ -1,21 +1,18 @@
-﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
+﻿using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
+using static RaspberryBackend.ReceiverConfig;
 
 namespace TestMachineFrontend1.ViewModel
 {
@@ -202,7 +199,7 @@ namespace TestMachineFrontend1.ViewModel
 
         //TODO: find the way to run this async!
         //option: button on the right side of receiverListBox
-        private ComboBoxItem  _selectedReceiverItem;
+        private ComboBoxItem _selectedReceiverItem;
         public ComboBoxItem SelectedReceiverItem
         {
             get { return _selectedReceiverItem; }
@@ -301,7 +298,7 @@ namespace TestMachineFrontend1.ViewModel
         #region Requests
         public Request PressPushButton
         {
-            get { return new Request("PressPushButton", getDuration()); }
+            get { return new Request("PressPushButton", MainWindowViewModel.CurrentViewModelRemoteController.SelectedDuration.Content.ToString()); }
         }
 
         public Request DetectTCol
@@ -360,8 +357,9 @@ namespace TestMachineFrontend1.ViewModel
         }
 
         private string _raspiConfigString;
-        public string RaspiConfigString {
-            get { return _raspiConfigString;  }
+        public string RaspiConfigString
+        {
+            get { return _raspiConfigString; }
             set
             {
                 _raspiConfigString = value;
@@ -389,7 +387,7 @@ namespace TestMachineFrontend1.ViewModel
                 _endlessVcTicks = value;
                 OnPropertyChanged("EndlessVcTicks");
             }
-        } 
+        }
 
 
         public async void connectIP()
@@ -491,27 +489,26 @@ namespace TestMachineFrontend1.ViewModel
         private void initReceiverComboBox()
         {
             ReceiverItems = new ObservableCollection<ComboBoxItem>();
-            ComboBoxItem item1 = new ComboBoxItem();
-            item1.Content = "Small Right";
             ComboBoxItem item2 = new ComboBoxItem();
-            item2.Content = "Small Left";
+            item2.Content = SmallRight.Item1;
             ComboBoxItem item3 = new ComboBoxItem();
-            item3.Content = "Medium Right";
+            item3.Content = SmallLeft.Item1;
             ComboBoxItem item4 = new ComboBoxItem();
-            item4.Content = "Medium Left";
+            item4.Content = MediumRight.Item1;
             ComboBoxItem item5 = new ComboBoxItem();
-            item5.Content = "Power Right";
+            item5.Content = MediumLeft.Item1;
             ComboBoxItem item6 = new ComboBoxItem();
-            item6.Content = "Power Left";
+            item6.Content = PowerRight.Item1;
             ComboBoxItem item7 = new ComboBoxItem();
-            item7.Content = "High Power Right";
+            item7.Content = PowerLeft.Item1;
             ComboBoxItem item8 = new ComboBoxItem();
-            item8.Content = "High Power Left";
+            item8.Content = HighPowerRight.Item1;
             ComboBoxItem item9 = new ComboBoxItem();
-            item9.Content = "Defective";
+            item9.Content = HighPowerLeft.Item1;
             ComboBoxItem item10 = new ComboBoxItem();
-            item10.Content = "No Receiver";
-            ReceiverItems.Add(item1);
+            item10.Content = Defective.Item1;
+            ComboBoxItem item11 = new ComboBoxItem();
+            item11.Content = NoReceiver.Item1;
             ReceiverItems.Add(item2);
             ReceiverItems.Add(item3);
             ReceiverItems.Add(item4);
@@ -524,30 +521,6 @@ namespace TestMachineFrontend1.ViewModel
             SelectedReceiverItem = ReceiverItems.First();
         }
 
-        public int getDuration()
-        {
-            if (SelectedDurationIndex < 0)
-            {
-                return -1;
-            }
-            var a = SelectedDuration;
-            UInt16 duration;
-            switch (a.Content)
-            {
-                case "Short":
-                    duration = 50;
-                    break;
-                case "Medium":
-                    duration = 500;
-                    break;
-                case "Long":
-                    duration = 3000;
-                    break;
-                default:
-                    return -1;
-            }
-            return duration;
-        }
         #endregion
     }
 }

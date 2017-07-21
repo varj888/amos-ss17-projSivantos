@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Windows.Storage;
-using System.Diagnostics;
 
 namespace RaspberryBackend
 {
@@ -23,7 +23,7 @@ namespace RaspberryBackend
         /// <param name="FileName">The name of the File which shall be saved. For generic names use <see cref="StorageCfgs"/> </param>
         /// <param name="_Data"> The serializable Object whish shall be the content of the Fole. <see cref="Hi"/></param>
         /// <returns>The Task which can be used for waiting to be finisched </returns>
-        public static async Task Save(string FileName, T _Data)
+        public static async Task<bool> Save(string FileName, T _Data)
         {
             MemoryStream _MemoryStream = new MemoryStream();
             DataContractSerializer Serializer = new DataContractSerializer(typeof(T));
@@ -41,8 +41,8 @@ namespace RaspberryBackend
                 Debug.WriteLine(folderExists ? "\n ...Storage Folder initialized \n" : "\n ...Storage Folder initialization FAILED \n");
             }
 
-            Debug.WriteLine("\n Saving File {0} , in {1} : ", FileName, folderExists ? storageFolder.Path : " NOWHERE! ");
-            Debug.WriteLine("\n Data Content to be saved: \n " + _Data.ToString());
+            Debug.WriteLine("\n Saving File {0} , in {1} :", FileName, folderExists ? storageFolder.Path : " NOWHERE! ");
+
 
 
             StorageFile _File = await storageFolder.CreateFileAsync(FileName, CreationCollisionOption.ReplaceExisting);
@@ -54,7 +54,8 @@ namespace RaspberryBackend
                 await fileStream.FlushAsync();
                 fileStream.Dispose();
 
-                Debug.WriteLine("\n ...Data Content saved! \n ");
+                Debug.WriteLine("\n Data Content saved: \n " + _Data.ToString());
+                return true;
             }
         }
 
