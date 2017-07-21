@@ -1,10 +1,8 @@
-﻿using CommonFiles.Networking;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using Windows.Devices.Gpio;
 
 
 namespace RaspberryBackend
@@ -80,7 +78,14 @@ namespace RaspberryBackend
 
         private void setReceiverStartUpConfig()
         {
-            Control.SetARDVoltage("NoReceiver");
+            if (HiInfo?.CurrentReceiver != null && HiInfo?.CurrentReceiver != "None")
+            {
+                Control.SetARDVoltage(HiInfo?.CurrentReceiver);
+            }
+            else
+            {
+                Control.SetARDVoltage("No Receiver");
+            }
         }
 
         /// <summary>
