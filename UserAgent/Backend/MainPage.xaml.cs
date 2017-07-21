@@ -1,4 +1,5 @@
 ﻿using CommonFiles.Networking;
+using CommonFiles.TransferObjects;
 using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
@@ -19,6 +20,7 @@ namespace RaspberryBackend
         RaspberryPi raspberryPi = null;
         IOperations operations = null;
         BackChannel backChannel;
+        string status;
 
         public MainPage()
         {
@@ -36,9 +38,11 @@ namespace RaspberryBackend
             catch (Exception e)
             {
                 Debug.WriteLine("Something went wrong during the initialization process of the RasPi : " + e.Message);
+                operations = new TestOperations();
             }
 
             backChannel = new BackChannel();
+            Task.Run(() => registerLoop());
             serverLoop();
 
             this.InitializeComponent();
@@ -49,16 +53,8 @@ namespace RaspberryBackend
             TcpListener listener = new TcpListener(IPAddress.Any, 54321);
             while (true)
             {
+                status = "available";
                 listener.Start(1);
-
-                try
-                {
-                    //await register("available");
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error registering at the registryServer :" + e.Message);
-                }
 
                 TcpClient clientSocket;
                 try
@@ -72,39 +68,32 @@ namespace RaspberryBackend
                 }
                
                 listener.Stop();
-
-                try
-                {
-                    //await register("connected");
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Error registering at the registryServer :" + e.Message);
-                }
+                status = "connected";
 
                 backChannel.setClient(clientSocket);
-
-                //if the raspberry pi could not be created, operations will be used
-                if (operations == null)
-                {
-                    RequestHandler.runRequestHandlerLoop(raspberryPi.Control, backChannel, clientSocket);
-                }
-                else
-                {
-                    RequestHandler.runRequestHandlerLoop(operations, backChannel, clientSocket);
-                }
-
+                RequestHandler.runRequestHandlerLoop(operations, backChannel, clientSocket);
                 clientSocket.Dispose();
             }
         }
 
-        async Task register(string status)
+        private async Task registerLoop()
         {
-            //TcpClient registryServerSocket = new TcpClient();
-            //await registryServerSocket.ConnectAsync("MarcoPC", 54320);
-            //Request request = new Request("register", new object[] { "MarcoPC", status });
-            //Transfer.sendObject(registryServerSocket.GetStream(), request);
-            //registryServerSocket.Dispose();
+            while (true)
+            {
+                TcpClient registryServerSocket = new TcpClient();
+                try
+                {
+                    Request request = new Request("register", status);
+                    await registryServerSocket.ConnectAsync("MarcoPC", 54320);
+                    Transfer.sendObject(registryServerSocket.GetStream(), request);
+                }
+                catch(Exception e)
+                {
+                    Debug.WriteLine("Error registering at the registryServer: " + e.Message);
+                }
+                registryServerSocket.Dispose();
+                await Task.Delay(1000);
+            }
         }
     }
 }

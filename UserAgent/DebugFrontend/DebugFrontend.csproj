@@ -60,26 +60,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="..\CommonFiles\Networking\ClientConn.cs">
-      <Link>CommonFiles\Networking\ClientConn.cs</Link>
-    </Compile>
-    <Compile Include="..\CommonFiles\Networking\ClientSkeleton.cs">
-      <Link>CommonFiles\Networking\ClientSkeleton.cs</Link>
-    </Compile>
-    <Compile Include="..\CommonFiles\Networking\DataConn.cs">
-      <Link>CommonFiles\Networking\DataConn.cs</Link>
-    </Compile>
-    <Compile Include="..\CommonFiles\Networking\ObjConn.cs">
-      <Link>CommonFiles\Networking\ObjConn.cs</Link>
-    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\Networking\TCPServer.cs">
       <Link>CommonFiles\Networking\TCPServer.cs</Link>
-    </Compile>
-    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
-      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
     </Compile>
     <Compile Include="..\CommonFiles\TransferObjects\Hi.cs">
       <Link>CommonFiles\TransferObjects\Hi.cs</Link>

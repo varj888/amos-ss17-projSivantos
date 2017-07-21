@@ -274,48 +274,6 @@ namespace TestMachineFrontend1.ViewModel
         public ICommand ItemSelected { get; private set; }
         #endregion
 
-        #region Requests
-        public Request PressPushButton
-        {
-            get { return new Request("PressPushButton", getDuration()); }
-        }
-
-        public Request DetectTCol
-        {
-            get { return new Request("EnableTeleCoil", 1); }
-        }
-
-        public Request UndetectTCol
-        {
-            get { return new Request("EnableTeleCoil", 0); }
-        }
-
-        public Request DetectAudioShoe
-        {
-            get { return new Request("EnableAudioShoe", 1); }
-        }
-
-        public Request UndetectAudioShoe
-        {
-            get { return new Request("EnableAudioShoe", 0); }
-        }
-
-        public Request Endless_VC_Up
-        {
-            get { return new Request("EndlessVCUp", new int[] { }); }
-        }
-
-        public Request Endless_VC_Down
-        {
-            get { return new Request("EndlessVCDown", new int[] { }); }
-        }
-
-        public Request GetAvailableHI
-        {
-            get { return new Request("GetAvailableHI", 0); }
-        }
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -391,7 +349,7 @@ namespace TestMachineFrontend1.ViewModel
 
                 debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
 
-                String result = await RaspberryPiInstance.GetAvailableHI(1);
+                String result = await RaspberryPiInstance.GetAvailableHI();
 
                 getAvailableHI(result);
 
