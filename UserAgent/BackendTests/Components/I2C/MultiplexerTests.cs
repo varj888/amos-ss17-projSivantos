@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RaspberryBackend;
+using System.Threading.Tasks;
 
 namespace RaspberryBackendTests
 {
@@ -33,7 +34,7 @@ namespace RaspberryBackendTests
         {
 
             muxCfg = ops.setMultiplexerConfiguration();
-
+            Task.Delay(8000).Wait();
             Assert.AreEqual(mux.get_Value_conntected_to_X(0), "");
             Assert.AreEqual(mux.get_Value_conntected_to_X(1), "RockerSW");
             Assert.AreEqual(mux.get_Value_conntected_to_X(2), "Ground");
@@ -62,7 +63,7 @@ namespace RaspberryBackendTests
         {
 
             muxCfg = ops.setMultiplexerConfiguration("D9_RIC13", "702 S (DN)");
-
+            Task.Delay(8000).Wait();
             Assert.AreEqual(mux.get_Value_conntected_to_X(0), "Ground");
             Assert.AreEqual(mux.get_Value_conntected_to_X(1), "Ground");
             Assert.AreEqual(mux.get_Value_conntected_to_X(2), "");

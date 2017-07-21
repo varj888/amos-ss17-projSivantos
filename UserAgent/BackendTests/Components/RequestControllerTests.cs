@@ -3,7 +3,7 @@ using RaspberryBackend;
 
 namespace RaspberryBackendTests
 {
-    [TestClass]
+    //[TestClass]
     public class RequestControllerTests
     {
 
