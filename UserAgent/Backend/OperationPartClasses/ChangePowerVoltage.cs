@@ -16,7 +16,6 @@
         {
             ADConverter.setDACVoltage1(voltage);
             updateARDVoltage(StorageCfgs.Hi.CurrentReceiver);
-            this.updateLCD();
             return voltage;
         }
     }

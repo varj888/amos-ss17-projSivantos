@@ -22,13 +22,9 @@ namespace RaspberryBackend
             if (RasPi.isTestMode()) return;
 
             cancelWritingWait();
-
             CheckTurnOnBacklight();
 
-            List<string> line1 = prepairLine1();
-            SymbolConfig.initilizeSymbols();
-
-            _writingOnLcd = Task.Run(() => printOnLcd(line1), _cts.Token);
+            _writingOnLcd = Task.Run(() => printOnLcd(), _cts.Token);
         }
 
         #region Helpers
@@ -42,12 +38,16 @@ namespace RaspberryBackend
             return new List<string> { ip, hi, currentReceiver };
         }
 
-        private void printOnLcd(List<string> line1)
+        private void printOnLcd()
         {
             while (!_cts.IsCancellationRequested)
             {
+                List<string> line1 = prepairLine1();
+
                 foreach (var content in line1)
                 {
+                    SymbolConfig.initilizeSymbols();
+
                     LCD.prints(content);
                     LCD.gotoSecondLine();
 
@@ -90,7 +90,7 @@ namespace RaspberryBackend
             {
 
             }
-            Debug.Write("\n**** LCD-Writing Task finished ****\n");
+            Debug.Write("**** LCD-Writing Task finished ****\n");
 
             _cts = new CancellationTokenSource();
         }

@@ -1,5 +1,4 @@
-﻿using CommonFiles.Networking;
-using RaspberryBackend.Components;
+﻿using RaspberryBackend.Components;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -19,6 +18,7 @@ namespace RaspberryBackend
         RaspberryPi raspberryPi = null;
         IOperations operations = null;
         BackChannel backChannel;
+        public static TcpClient clientSocket { get; private set; }
 
         public MainPage()
         {
@@ -60,17 +60,18 @@ namespace RaspberryBackend
                     Debug.WriteLine("Error registering at the registryServer :" + e.Message);
                 }
 
-                TcpClient clientSocket;
+                clientSocket = null;
                 try
                 {
-                     clientSocket = await listener.AcceptTcpClientAsync();
-                }catch(Exception e)
+                    clientSocket = await listener.AcceptTcpClientAsync();
+                }
+                catch (Exception e)
                 {
                     Debug.WriteLine("Error Accepting Connection " + e.Message);
                     listener.Stop();
                     continue;
                 }
-               
+
                 listener.Stop();
 
                 try

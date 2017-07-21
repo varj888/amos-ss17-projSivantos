@@ -6,7 +6,7 @@
     public partial class Operation
     {
         /// <summary>
-        /// Execute the command SetHI
+        /// Execute the command SetHI and updates the LCD <see cref="updateLCD"/>
         /// </summary>
         /// <param name="param">List of HiFamily and HiModel in this order.</param>
         /// <returns>The HiModel when successfully updated config.</returns>

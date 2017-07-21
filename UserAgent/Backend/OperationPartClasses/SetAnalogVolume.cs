@@ -19,7 +19,6 @@ namespace RaspberryBackend
             }
 
             Potentiometer.write(requestedVolumeLevel);
-            updateLCD();
             Debug.WriteLine("SetAnalogVolume::: set Volume (Potentiometer) to: " + requestedVolumeLevel);
             return requestedVolumeLevel.ToString();
         }
