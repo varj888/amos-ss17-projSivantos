@@ -20,6 +20,7 @@ namespace RaspberryBackend
         public void updateLCD()
         {
             if (RasPi.isTestMode()) return;
+            LCD.initiateLCD();
 
             cancelWritingWait();
             CheckTurnOnBacklight();
