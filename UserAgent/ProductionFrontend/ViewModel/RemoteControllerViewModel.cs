@@ -56,6 +56,30 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        //TODO: get last config Model
+        private string model /*= StorageCfgs.Hi.Model*/;
+        public string Model
+        {
+            get { return model; }
+            set
+            {
+                model = value;
+                OnPropertyChanged("Model");
+            }
+        }
+
+        //TODO: get last config family
+        private string family /*= StorageCfgs.Hi.Family*/;
+        public string Family
+        {
+            get { return family; }
+            set
+            {
+                family = value;
+                OnPropertyChanged("Family");
+            }
+        }
+
         private ObservableCollection<ComboBoxItem> _hiListItems;
 
         public ObservableCollection<ComboBoxItem> HIListItems

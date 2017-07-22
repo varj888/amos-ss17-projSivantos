@@ -123,9 +123,6 @@
     <Compile Include="View\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\DetectView.xaml.cs">
-      <DependentUpon>DetectView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\DisconnectedView.xaml.cs">
       <DependentUpon>DisconnectedView.xaml</DependentUpon>
     </Compile>
@@ -154,10 +151,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\AboutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DetectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
