@@ -705,6 +705,9 @@
                     </Grid>
                 </Border>
             </TabItem>
+            <TabItem Header="Debug Tab">
+                
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
