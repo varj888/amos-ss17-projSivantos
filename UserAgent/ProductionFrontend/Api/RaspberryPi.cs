@@ -178,9 +178,9 @@ namespace TestmachineFrontend1
         /// After reset nothing is routed through the multiplexer.
         /// </summary>
         /// <returns>Bool: Retuns true if the operation succeeded, false if not.
-        public async Task<bool> ResetMux()
+        public async Task<string> ResetMux()
         {
-            return (bool)await sendRequest(new Request("ResetMux", 0));
+            return (string)await sendRequest(new Request("ResetMux", 0));
         }
 
         /// <summary>

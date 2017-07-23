@@ -28,11 +28,11 @@ namespace TestMachineFrontend1.Commands
 
         public async void Execute(object parameter)
         {
-            bool result;
+            String result;
             try
             {
                 result = await remoteVM.RaspberryPiInstance.ResetMux();
-                debugVM.AddDebugInfo("Multiplexer is resetted: ", result.ToString());
+                debugVM.AddDebugInfo("Multiplexer is resetted: ", result);
             }
             catch (Exception exc)
             {

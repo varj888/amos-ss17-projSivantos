@@ -15,7 +15,7 @@
         public string ResetMux(int a)
         {
             Multiplexer.resetAll();
-            return "";
+            return "reseted = true";
         }
     }
 }
