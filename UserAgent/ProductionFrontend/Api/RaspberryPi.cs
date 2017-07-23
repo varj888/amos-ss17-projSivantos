@@ -148,6 +148,21 @@ namespace TestmachineFrontend1
             return (string)await sendRequest(new Request("ConnectPins", new object[] { valueX, valueY }));
         }
 
+        public async Task<string> ReadPin(UInt16 pinID)
+        {
+            return (string)await sendRequest(new Request("ReadPin", pinID));
+        }
+
+        public async Task<string> WritePin(UInt16 pinID)
+        {
+            return (string)await sendRequest(new Request("WritePin", pinID));
+        }
+
+        public async Task<string> ResetPin(UInt16 pinID)
+        {
+            return (string)await sendRequest(new Request("ResetPin", pinID));
+        }
+
         /// <summary>
         /// Async method that resets the multiplexer.
         /// After reset nothing is routed through the multiplexer.

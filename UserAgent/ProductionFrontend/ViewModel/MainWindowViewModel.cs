@@ -34,6 +34,12 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand GetRaspiConfigCommand { get; private set; }
         public static ICommand SetReceiverCommand { get; private set; }
         public static ICommand ToggleRPIListViewCommand { get; private set; }
+        public static ICommand ConnectPinsCommand { get; private set; }
+        public static ICommand ResetMuxCommand { get; private set; }
+        public static ICommand ReadPinCommand { get; private set; }
+        public static ICommand WritePinCommand { get; private set; }
+        public static ICommand ResetPinCommand { get; private set; }
+
         #endregion
 
         #region Properties
@@ -62,7 +68,7 @@ namespace TestMachineFrontend1.ViewModel
         public static DisconnectedViewModel CurrentViewModelDisconnected { get; private set; }
         public static RemoteControllerViewModel CurrentViewModelRemoteController { get; private set; }
         public static RemoteControllerTitleBarViewModel CurrentViewModelRemoteControllerTitleBar { get; private set; }
-
+        public static TestDebugTabViewModel CurrentTestDebugTab { get; private set; }
 
 
         #endregion
@@ -82,6 +88,7 @@ namespace TestMachineFrontend1.ViewModel
             CurrentViewModelDisconnected = new DisconnectedViewModel();
             CurrentViewModelRemoteController = new RemoteControllerViewModel();
             CurrentViewModelRemoteControllerTitleBar = new RemoteControllerTitleBarViewModel();
+            CurrentTestDebugTab = new TestDebugTabViewModel();
         }
 
         public static void InitAllCommands()
@@ -102,6 +109,11 @@ namespace TestMachineFrontend1.ViewModel
             GetRaspiConfigCommand = new GetRaspiConfigCommand();
             SetReceiverCommand = new SetReceiverCommand();
             ToggleRPIListViewCommand = new ToggleRPIListViewCommand();
+            ConnectPinsCommand = new ConnectPinsCommand();
+            ResetMuxCommand = new ResetMuxCommand();
+            ReadPinCommand = new ReadPinCommand();
+            WritePinCommand = new WritePinCommand();
+            ResetPinCommand = new ResetPinCommand();
         }
     }
 }

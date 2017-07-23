@@ -86,6 +86,10 @@
       <Link>CommonFiles\TrasferObjects\Result.cs</Link>
     </Compile>
     <Compile Include="Commands\CheckLEDStatusCommand.cs" />
+    <Compile Include="Commands\ConnectPinsCommand.cs" />
+    <Compile Include="Commands\ReadPinCommand.cs" />
+    <Compile Include="Commands\ResetMuxCommand.cs" />
+    <Compile Include="Commands\ResetPinCommand.cs" />
     <Compile Include="Commands\ToggleRPIListViewCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\DetectAudioShoeCommand.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="Commands\SetReceiverCommand.cs" />
     <Compile Include="Commands\UndetectAudioShoeCommand.cs" />
     <Compile Include="Commands\UndetectTCoilCommand.cs" />
+    <Compile Include="Commands\WritePinCommand.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\HelperXML.cs" />
     <Compile Include="Helpers\ListItemSelected.cs" />
@@ -120,6 +125,7 @@
     <Compile Include="ViewModel\RemoteControllerTitleBarViewModel.cs" />
     <Compile Include="ViewModel\RemoteControllerViewModel.cs" />
     <Compile Include="ViewModel\RPIListViewModel.cs" />
+    <Compile Include="ViewModel\TestDebugTabViewModel.cs" />
     <Compile Include="View\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>

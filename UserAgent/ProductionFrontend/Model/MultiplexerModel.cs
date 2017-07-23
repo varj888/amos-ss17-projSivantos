@@ -35,5 +35,16 @@ namespace TestMachineFrontend1.Model
                 OnPropertyChanged("ValueY");
             }
         }
+
+        private UInt16 pinID;
+        public UInt16 PinID
+        {
+            get { return pinID; }
+            set
+            {
+                pinID = value;
+                OnPropertyChanged("PinID");
+            }
+        }
     }
 }

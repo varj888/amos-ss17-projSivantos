@@ -39,6 +39,11 @@
             DataType="{x:Type vm:RemoteControllerTitleBarViewModel}">
             <v:RemoteControllerTitleBarView />
         </DataTemplate>
+
+        <DataTemplate
+            DataType="{x:Type vm:TestDebugTabViewModel}">
+            <v:RemoteControllerView />
+        </DataTemplate>
     </Window.Resources>
 
     <Grid Name="MainGrid" HorizontalAlignment="Stretch" Width="Auto">
