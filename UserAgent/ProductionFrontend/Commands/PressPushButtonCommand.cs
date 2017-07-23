@@ -33,7 +33,7 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.PressPushButton(remoteVM.getDuration());
+                result = await remoteVM.SelectedRaspiItem.raspi.PressPushButton(remoteVM.getDuration());
                 debugVM.AddDebugInfo("PressPushButton", result);
             }
             catch (Exception e)

@@ -3,6 +3,7 @@ using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -59,8 +60,42 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        private ObservableCollection<ComboBoxItem> _hiListItems;
+        private ObservableCollection<RaspberryPiItem> backendList;
+        public ObservableCollection<RaspberryPiItem> BackendList
+        {
+            get { return backendList; }
+            set
+            {
+                backendList = value;
+                OnPropertyChanged("BackendList");
+            }
+        }
 
+        private int _selectedRaspberryPiIndex;
+        public int SelectedRaspberryPiIndex
+        {
+            get { return _selectedRaspberryPiIndex; }
+            set
+            {
+                _selectedRaspberryPiIndex = value;
+                OnPropertyChanged("SelectedRaspberryPiIndex");
+                Debug.WriteLine("test");
+            }
+        }
+
+        public RaspberryPiItem SelectedRaspiItem
+        {
+            get
+            { return this.detectModel; }
+
+            set
+            {
+                this.detectModel = value;
+                OnPropertyChanged("SelectedRaspiItem");
+            }
+        }
+
+        private ObservableCollection<ComboBoxItem> _hiListItems;
         public ObservableCollection<ComboBoxItem> HIListItems
         {
             get { return _hiListItems; }
@@ -96,7 +131,6 @@ namespace TestMachineFrontend1.ViewModel
         }
 
         private ObservableCollection<ComboBoxItem> _receiverItems;
-
         public ObservableCollection<ComboBoxItem> ReceiverItems
         {
             get { return _receiverItems; }
@@ -104,29 +138,6 @@ namespace TestMachineFrontend1.ViewModel
             {
                 _receiverItems = value;
                 OnPropertyChanged("ReceiverItems");
-            }
-        }
-
-        public RaspberryPiItem SelectedRaspiItem
-        {
-            get
-            { return this.detectModel; }
-
-            set
-            {
-                this.detectModel = value;
-                OnPropertyChanged("SelectedRaspiItem");
-            }
-        }
-
-        private ObservableCollection<RaspberryPiItem> backendList;
-        public ObservableCollection<RaspberryPiItem> BackendList
-        {
-            get { return backendList; }
-            set
-            {
-                backendList = value;
-                OnPropertyChanged("BackendList");
             }
         }
 
@@ -219,18 +230,18 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        public Dictionary<String, RaspberryPi> RaspberryPis
-        {
-            get { return raspberryPis; }
-            set
-            {
-                if (value != this.raspberryPis)
-                {
-                    this.raspberryPis = value;
-                    OnPropertyChanged("RaspberryPis");
-                }
-            }
-        }
+        //public Dictionary<String, RaspberryPi> RaspberryPis
+        //{
+        //    get { return raspberryPis; }
+        //    set
+        //    {
+        //        if (value != this.raspberryPis)
+        //        {
+        //            this.raspberryPis = value;
+        //            OnPropertyChanged("RaspberryPis");
+        //        }
+        //    }
+        //}
 
         private bool isPiConnected;
         public bool IsPiConnected
@@ -276,23 +287,6 @@ namespace TestMachineFrontend1.ViewModel
 
         #region Methods
 
-        /// <summary>
-
-        /// todo: use the raspberry Pi dictionary or something like that
-
-        /// </summary>
-
-        public static RaspberryPi raspberryPi;
-        public RaspberryPi RaspberryPiInstance
-        {
-            get { return raspberryPi; }
-            set
-            {
-                raspberryPi = value;
-                //OnPropertyChanged("RaspberryPiInstance");
-            }
-        }
-
         private string _raspiConfigString;
         public string RaspiConfigString {
             get { return _raspiConfigString;  }
@@ -323,72 +317,55 @@ namespace TestMachineFrontend1.ViewModel
                 _endlessVcTicks = value;
                 OnPropertyChanged("EndlessVcTicks");
             }
-        } 
+        }
+        
+        public void addRaspberryPi()
+        {
+            //IsPiConnected = false;
+            IPAddress address;
+            try
+            {
+                address = IPAddress.Parse(IPAdressConnect);
+            }catch(FormatException fx)
+            {
+                debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
+                return;
+            }
+            IPEndPoint endpoint = new IPEndPoint(address, 54321);
+            RaspberryPi raspi = new RaspberryPi();
+            RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint ,  Status = "?", raspi = raspi };
+            BackendList.Add(raspiItem);
+            SelectedRaspiItem = raspiItem;
+            
+        }
 
-
-        public async void connectIP()
+        public async Task connect()
         {
             try
-
             {
+                await SelectedRaspiItem.raspi.ConnectAsync(SelectedRaspiItem.endpoint);
+            }
+            catch(Exception e)
+            {
+                debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + e.Message);
+                return;
+            }
+            debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
 
-                var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
+            SelectedRaspiItem.Status = "Connected with this UI";
+            IsPiConnectedStatus = Visibility.Visible;
+            IsPiDisconnected = Visibility.Hidden;
+            //raspberryPis.Add(IPAdressConnect, SelectedRaspiItem.raspi);
+            //IsPiConnected = true;
 
-                raspberryPi = pi1;
-                IsPiConnected = true;
-                IsPiConnectedStatus = Visibility.Visible;
-                IsPiDisconnected = Visibility.Hidden;
-
-                raspberryPis.Add(IPAdressConnect, pi1);
-
-                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
-
-                BackendList.Add(raspiItem);
-
-                SelectedRaspiItem = raspiItem;
-
-                debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
-
-                String result = await RaspberryPiInstance.GetAvailableHI();
-
+            try
+            {
+                String result = await SelectedRaspiItem.raspi.GetAvailableHI();
                 getAvailableHI(result);
-
-                SynchronizationContext uiContext = SynchronizationContext.Current;
-            }
-
-            catch (FormatException fx)
-
+            }catch(Exception e)
             {
-
-                debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
-
-                //TODO check
-
-                IsPiConnected = false;
+                debugVM.AddDebugInfo("[ERROR]", "Error getting available HI: " + e.Message);
             }
-
-            catch (SocketException sx)
-
-            {
-
-                debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
-
-                //TODO check
-
-                IsPiConnected = false;
-            }
-
-            catch (Exception any)
-
-            {
-
-                debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
-
-                //TODO check
-
-                IsPiConnected = false;
-            }
-
         }
 
         public void getAvailableHI(string result)

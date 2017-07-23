@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class ConnectIPCommand : ICommand
+    class AddRPCommand : ICommand
     {
         private RemoteControllerViewModel remoteVM;
 
-        public ConnectIPCommand()
+        public AddRPCommand()
         {
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
@@ -25,9 +24,9 @@ namespace TestMachineFrontend1.Commands
             return true;
         }
 
-        public async void Execute(object parameter)
+        public void Execute(object parameter)
         {
-            await remoteVM.connect();
+            remoteVM.addRaspberryPi();
         }
     }
 }

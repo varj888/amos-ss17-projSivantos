@@ -31,7 +31,7 @@ namespace TestMachineFrontend1.Commands
         {
             if (remoteVM.getDuration() != -1)
             {
-                await remoteVM.RaspberryPiInstance.PressRockerSwitchDown(remoteVM.getDuration());
+                await remoteVM.SelectedRaspiItem.raspi.PressRockerSwitchDown(remoteVM.getDuration());
                 debugViewModel.AddDebugInfo("PressRockerSwitchDown", "success");
             }
             else

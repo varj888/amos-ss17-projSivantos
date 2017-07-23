@@ -57,7 +57,7 @@ namespace TestMachineFrontend1.View
                 {
                     param[2] = 1;
                 }
-                await remoteVM.RaspberryPiInstance.PressCombination(param);
+                await remoteVM.SelectedRaspiItem.raspi.PressCombination(param);
                 vmDebug.AddDebugInfo("PressCombination", "success");
                 //Request request = new Request("PressCombination", param);
                 //remoteVM.sendRequest(request);
@@ -76,7 +76,7 @@ namespace TestMachineFrontend1.View
                 Slider slide = sender as Slider;
                 try
                 {
-                    await remoteVM.RaspberryPiInstance.ChangePowerVoltage(slide.Value);
+                    await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(slide.Value);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
                 }
                 catch (Exception ex)
@@ -103,7 +103,7 @@ namespace TestMachineFrontend1.View
                 Slider slide = sender as Slider;
                 try
                 {
-                    await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte) slide.Value);
+                    await remoteVM.SelectedRaspiItem.raspi.SetAnalogVolume((byte) slide.Value);
                     vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
                 }
                 catch (Exception ex)

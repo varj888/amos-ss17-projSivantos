@@ -33,7 +33,7 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.UndetectTeleCoil();
+                result = await remoteVM.SelectedRaspiItem.raspi.UndetectTeleCoil();
                 remoteVM.TCoilDetected = false;
                 debugVM.AddDebugInfo("UndetectTeleCoil", result);
             }

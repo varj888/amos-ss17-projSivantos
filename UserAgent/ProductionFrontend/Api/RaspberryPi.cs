@@ -26,15 +26,24 @@ namespace TestmachineFrontend1
         private ConcurrentQueue<TaskCompletionSource<SuccessResult>> _answers;
 
         /// <summary>
-        /// Creates and connects to the RaspberryPi
+        /// Creates the Class, without connecting it
+        /// </summary>
+        /// <param name="socket"></param>
+        public RaspberryPi()
+        {
+            _socket = new TcpClient();
+            initTOHandlerMap();
+            _answers = new ConcurrentQueue<TaskCompletionSource<SuccessResult>>();
+        }
+
+        /// <summary>
+        /// Connects to the RaspberryPi
         /// </summary>
         /// <param name="endpoint">Contains the IP-Address and Port for connection</param>
-        /// <returns>The created Raspberry Pi Class</returns>
-        public static async Task<RaspberryPi> CreateAsync(IPEndPoint endpoint)
+        public async Task ConnectAsync(IPEndPoint endpoint)
         {
-            TcpClient socket = new TcpClient();
-            await socket.ConnectAsync(endpoint.Address, endpoint.Port);
-            return new RaspberryPi(socket);
+            await _socket.ConnectAsync(endpoint.Address, endpoint.Port);
+            Task.Run(() => ReceiveLoop());
         }
 
         /// <summary>
@@ -55,15 +64,7 @@ namespace TestmachineFrontend1
             }
         }
 
-        private RaspberryPi(TcpClient socket)
-        {
-            _socket = socket;
-            initToMap();
-            _answers = new ConcurrentQueue<TaskCompletionSource<SuccessResult>>();
-            Task.Run(() => ReceiveLoop());
-        }
-
-        private void initToMap()
+        private void initTOHandlerMap()
         {
             _TOHandlerMap = new Dictionary<Type, Action<Object>>();
             registerActionForTO<SuccessResult>(onSuccessResult);

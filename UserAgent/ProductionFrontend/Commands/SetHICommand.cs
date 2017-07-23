@@ -36,7 +36,7 @@ namespace TestMachineFrontend1.Commands
             try
             {
 
-                await remoteVM.RaspberryPiInstance.SetHI(family, model);
+                await remoteVM.SelectedRaspiItem.raspi.SetHI(family, model);
                 debugVM.AddDebugInfo("SetHICommand", family +","+model);
             }
             catch (Exception e)

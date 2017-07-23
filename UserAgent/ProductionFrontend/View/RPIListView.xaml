@@ -32,7 +32,7 @@
                     <Button Name="Add_Connection_Button" Content="Add" HorizontalAlignment="Left" 
                             VerticalAlignment="Center" Foreground="#FF323C46" FontFamily="Segoe UI Semibold" 
                             Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,10,0"
-                            Command="{Binding ConnectIPCommand}"
+                            Command="{Binding AddRPCommand}"
                             FontSize="12" Visibility="Visible"/>
                     <Image Name="LoadingIndicator" gif:ImageBehavior.AnimatedSource="..\img\loading.gif" 
                            Height="18" Visibility="Hidden" VerticalAlignment="Center" 
@@ -44,26 +44,27 @@
                 <Button Name="Refresh_Button" Content="↺" HorizontalAlignment="Right" 
                             VerticalAlignment="Center" Foreground="#FF323C46" FontFamily="Segoe UI Semibold" 
                             Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,10,0"
-                            FontSize="14" Visibility="Visible"/>
+                            FontSize="14" Visibility="Visible" Command="{Binding RefreshRPListCommand}"/>
             </DockPanel>
         </Border>
-        <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Margin="-2,0,0,0" 
-                  Background="Transparent" BorderThickness="0" Name="RPIList" Grid.Column="0" 
-                  Grid.Row="1" SelectionMode="Single" Foreground="{x:Null}" BorderBrush="{x:Null}" 
-                  IsEnabled="False"
+        <ListView Margin="-2,0,0,0" 
+                  Background="Transparent"  Name="RPIList"
+                  Grid.Row="1" SelectionMode="Single" 
                   ItemsSource="{Binding CurrentViewModelRemoteController.BackendList}"
                   SelectedItem="{Binding CurrentViewModelRemoteController.SelectedRaspiItem}">
             <ListView.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Connect"  />
+                    <MenuItem Header="Connect"
+                        Command="{Binding ConnectIPCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"
+                    />
                     <MenuItem Header="Disconnect"  />
                     <MenuItem Header="Delete"  />
                 </ContextMenu>
             </ListView.ContextMenu>
             <ListView.View>
                 <GridView AllowsColumnReorder="False" >
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="120" />
-                    <GridViewColumn Header="IP Address" DisplayMemberBinding="{Binding Id}" Width="100" />
+                    <GridViewColumn Header="Address" DisplayMemberBinding="{Binding endpoint}" Width="120" />
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="60"/>
                 </GridView>
             </ListView.View>

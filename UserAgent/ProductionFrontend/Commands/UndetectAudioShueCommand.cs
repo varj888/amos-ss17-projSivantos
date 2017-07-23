@@ -33,7 +33,7 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.UndetectAudioShoe();
+                result = await remoteVM.SelectedRaspiItem.raspi.UndetectAudioShoe();
                 //TODO Property for color-binding
                 //remoteVM.TCoilDetected = false;
                 debugVM.AddDebugInfo("UndetectAudioShue", result);
