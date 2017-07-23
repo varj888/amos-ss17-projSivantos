@@ -129,6 +129,16 @@ namespace TestmachineFrontend1
             return (string)await sendRequest(new Request("GetRaspiConfig", 0));
         }
 
+        public async Task<string> GetRaspiFamily()
+        {
+            return (string)await sendRequest(new Request("GetRaspiFamily", 0));
+        }
+
+        public async Task<string> GetRaspiModel()
+        {
+            return (string)await sendRequest(new Request("GetRaspiModel", 0));
+        }
+
         /// <summary>
         /// Async method that checks the current status of a connected LED.
         /// </summary>

@@ -41,5 +41,15 @@ namespace RaspberryBackend
 
             return sb.ToString();
         }
+
+        public string GetRaspiFamily(int i)
+        {
+            return StorageCfgs.Hi.Family;
+        }
+
+        public string GetRaspiModel(int i)
+        {
+            return StorageCfgs.Hi.Model;
+        }
     }
 }
