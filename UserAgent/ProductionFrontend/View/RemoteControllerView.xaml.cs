@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.View
@@ -12,6 +14,9 @@ namespace TestMachineFrontend1.View
     {
         DebugViewModel vmDebug;
         RemoteControllerViewModel remoteVM;
+
+        private readonly double _POWER_OFF = 0.0;
+        private readonly double _POWER_ON = 1.3;
         public RemoteControllerView()
         {
             InitializeComponent();
@@ -57,11 +62,11 @@ namespace TestMachineFrontend1.View
             }
         }
 
-        private async void Power_Slider_OnValueChanged(object sender, RoutedEventArgs e)
+        private async void Power_Slider_DragCompleted(object sender, DragCompletedEventArgs e)
         {
+            Slider slide = sender as Slider;
             if (remoteVM != null)
             {
-                Slider slide = sender as Slider;
                 try
                 {
                     await remoteVM.RaspberryPiInstance.ChangePowerVoltage(slide.Value);
@@ -74,21 +79,47 @@ namespace TestMachineFrontend1.View
             }
         }
 
-        private void Button_Power_On_OnClick(object sender, RoutedEventArgs e)
+        private async void Button_Power_On_OnClick(object sender, RoutedEventArgs e)
         {
-            remoteVM.CurrentPowerVoltage = 1.3;
-        }
-
-        private void Button_Power_OFF_OnClick(object sender, RoutedEventArgs e)
-        {
-            remoteVM.CurrentPowerVoltage = 0.0;
-        }
-
-        private async void SetVolume_Slider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
+            Slider slide = sender as Slider;
             if (remoteVM != null)
             {
-                Slider slide = sender as Slider;
+                try
+                {
+                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(_POWER_ON);
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
+                    remoteVM.CurrentPowerVoltage = value;
+                }
+                catch (Exception ex)
+                {
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", "Failed");
+                }
+            }
+        }
+
+        private async void Button_Power_OFF_OnClick(object sender, RoutedEventArgs e)
+        {
+            Slider slide = sender as Slider;
+            if (remoteVM != null)
+            {
+                try
+                {
+                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(0.0);
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
+                    remoteVM.CurrentPowerVoltage = value;
+                }
+                catch (Exception ex)
+                {
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", "Failed");
+                }
+            }
+        }
+
+        private async void SetVolume_Slider_DragCompleted(object sender, DragCompletedEventArgs dragCompletedEventArgs)
+        {
+            Slider slide = sender as Slider;
+            if (remoteVM != null)
+            {
                 try
                 {
                     await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte)slide.Value);
@@ -100,5 +131,7 @@ namespace TestMachineFrontend1.View
                 }
             }
         }
+
+       
     }
 }
