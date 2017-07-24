@@ -71,18 +71,6 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        private int _selectedRaspberryPiIndex;
-        public int SelectedRaspberryPiIndex
-        {
-            get { return _selectedRaspberryPiIndex; }
-            set
-            {
-                _selectedRaspberryPiIndex = value;
-                OnPropertyChanged("SelectedRaspberryPiIndex");
-                Debug.WriteLine("test");
-            }
-        }
-
         public RaspberryPiItem SelectedRaspiItem
         {
             get
@@ -333,7 +321,7 @@ namespace TestMachineFrontend1.ViewModel
             }
             IPEndPoint endpoint = new IPEndPoint(address, 54321);
             RaspberryPi raspi = new RaspberryPi();
-            RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint ,  Status = "?", raspi = raspi };
+            RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint ,  Status = "?", raspi = raspi, Connected = false };
             BackendList.Add(raspiItem);
             SelectedRaspiItem = raspiItem;
             
@@ -353,6 +341,7 @@ namespace TestMachineFrontend1.ViewModel
             debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
 
             SelectedRaspiItem.Status = "Connected with this UI";
+            SelectedRaspiItem.Connected = true;
             IsPiConnectedStatus = Visibility.Visible;
             IsPiDisconnected = Visibility.Hidden;
             //raspberryPis.Add(IPAdressConnect, SelectedRaspiItem.raspi);

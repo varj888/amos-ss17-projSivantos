@@ -2,6 +2,7 @@
 using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -65,12 +66,14 @@ namespace TestMachineFrontend1.Commands
 
             if(result.GetType() == typeof(SuccessResult))
             {
-                //todo: dont clear the connected Raspberry Pi Items
-                remoteVM.BackendList.Clear();
+                remoteVM.BackendList = new ObservableCollection<RaspberryPiItem>(remoteVM.BackendList.Where(item => item.Connected));
+                Dictionary<IPEndPoint, RaspberryPiItem> backendListDictionary = remoteVM.BackendList.ToDictionary(item => item.endpoint, item => item);
+  
 
                 SuccessResult successResult = (SuccessResult)result;
                 Dictionary<string, string> dictionary = (Dictionary<string, string>)successResult.result;
-                foreach(var entry in dictionary)
+
+                foreach (var entry in dictionary)
                 {
                     IPAddress address;
                     try
@@ -80,13 +83,14 @@ namespace TestMachineFrontend1.Commands
                     catch (FormatException fx)
                     {
                         vmDebug.AddDebugInfo("[ERROR]", "Invalid IP Address Format from the RegistryServer: " + fx.Message);
-                        return;
+                        continue;
                     }
                     IPEndPoint endpoint = new IPEndPoint(address, 54321);
-                    RaspberryPi raspi = new RaspberryPi();
-                    RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint, Status = entry.Value, raspi = raspi };
-                    remoteVM.BackendList.Add(raspiItem);
-                    remoteVM.SelectedRaspiItem = raspiItem;
+                    if (!backendListDictionary.ContainsKey(endpoint)){
+                        RaspberryPi raspi = new RaspberryPi();
+                        RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint, Status = entry.Value, raspi = raspi };
+                        remoteVM.BackendList.Add(raspiItem);
+                    }
                 }
             }else if(result.GetType() == typeof(ExceptionResult))
             {

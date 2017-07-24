@@ -15,5 +15,15 @@ namespace TestMachineFrontend1.Model
         public IPEndPoint endpoint { get; set; }
         public string Status { get; set; }
         public RaspberryPi raspi { get; set; }
+        private bool _connected;
+        public bool Connected
+        {
+            get { return _connected; }
+            set
+            {
+                _connected = value;
+                OnPropertyChanged("Connected");
+            }
+        }
     }
-}
+ }
