@@ -87,7 +87,7 @@ namespace TestMachineFrontend1.View
                 try
                 {
                     double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(_POWER_ON);
-                    vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
                 catch (Exception ex)
@@ -105,7 +105,7 @@ namespace TestMachineFrontend1.View
                 try
                 {
                     double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(0.0);
-                    vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
+                    vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
                 catch (Exception ex)
