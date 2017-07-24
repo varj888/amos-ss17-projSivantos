@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -28,7 +29,6 @@ namespace TestMachineFrontend1.ViewModel
 
         public RemoteControllerViewModel()
         {
-            //this.debugVM = debugVM;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
             availableHI = new Dictionary<string, List<string>>();
             HIListItems = new ObservableCollection<ComboBoxItem>();
@@ -53,6 +53,38 @@ namespace TestMachineFrontend1.ViewModel
             {
                 ipAdressConnect = value;
                 OnPropertyChanged("IPAdressConnect");
+            }
+        }
+
+        private async Task<string> getRaspiModel()
+        {
+            return await raspberryPi.GetRaspiModel();
+        }
+
+        private async Task<string> getRaspiFamily()
+        {
+            return await raspberryPi.GetRaspiFamily();
+        }
+
+        private string model;
+        public string Model
+        {
+            get { return model; }
+            set
+            {
+                model = value;
+                OnPropertyChanged("Model");
+            }
+        }
+
+        private string family;
+        public string Family
+        {
+            get { return family; }
+            set
+            {
+                family = value;
+                OnPropertyChanged("Family");
             }
         }
 
@@ -418,6 +450,9 @@ namespace TestMachineFrontend1.ViewModel
                 getAvailableHI(result);
 
                 SynchronizationContext uiContext = SynchronizationContext.Current;
+
+                Model = await getRaspiModel();
+                Family = await getRaspiFamily();
             }
 
             catch (FormatException fx)
@@ -425,9 +460,6 @@ namespace TestMachineFrontend1.ViewModel
             {
 
                 debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
-
-                //TODO check
-
                 IsPiConnected = false;
             }
 

@@ -25,10 +25,10 @@ namespace TestMachineFrontend1.Commands
         public async void Execute(object parameter)
         {
 
-            string model = remoteVM.SelectedHI.Content.ToString();
-            string family = remoteVM.SelectedHI.Name;
+            remoteVM.Model = remoteVM.SelectedHI.Content.ToString();
+            remoteVM.Family = remoteVM.SelectedHI.Name;
 
-            if (model == "" || family == "")
+            if (remoteVM.Model == "" || remoteVM.Family == "")
             {
                 debugVM.AddDebugInfo("SetHICommand", "selected item is not valid.");
             }
@@ -36,8 +36,8 @@ namespace TestMachineFrontend1.Commands
             try
             {
 
-                await remoteVM.RaspberryPiInstance.SetHI(family, model);
-                debugVM.AddDebugInfo("SetHICommand", family +","+model);
+                await remoteVM.RaspberryPiInstance.SetHI(remoteVM.Family, remoteVM.Model);
+                debugVM.AddDebugInfo("SetHICommand", remoteVM.Family + ", " + remoteVM.Model);
             }
             catch (Exception e)
             {

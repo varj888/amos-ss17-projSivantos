@@ -129,6 +129,16 @@ namespace TestmachineFrontend1
             return (string)await sendRequest(new Request("GetRaspiConfig", 0));
         }
 
+        public async Task<string> GetRaspiFamily()
+        {
+            return (string)await sendRequest(new Request("GetRaspiFamily", 0));
+        }
+
+        public async Task<string> GetRaspiModel()
+        {
+            return (string)await sendRequest(new Request("GetRaspiModel", 0));
+        }
+
         /// <summary>
         /// Async method that checks the current status of a connected LED.
         /// </summary>
@@ -148,14 +158,29 @@ namespace TestmachineFrontend1
             return (string)await sendRequest(new Request("ConnectPins", new object[] { valueX, valueY }));
         }
 
+        public async Task<string> ReadPin(UInt16 pinID)
+        {
+            return (string)await sendRequest(new Request("ReadPin", pinID));
+        }
+
+        public async Task<string> WritePin(UInt16 pinID)
+        {
+            return (string)await sendRequest(new Request("WritePin", pinID));
+        }
+
+        public async Task<string> ResetPin(UInt16 pinID)
+        {
+            return (string)await sendRequest(new Request("ResetPin", pinID));
+        }
+
         /// <summary>
         /// Async method that resets the multiplexer.
         /// After reset nothing is routed through the multiplexer.
         /// </summary>
         /// <returns>Bool: Retuns true if the operation succeeded, false if not.
-        public async Task<bool> ResetMux()
+        public async Task<string> ResetMux()
         {
-            return (bool)await sendRequest(new Request("ResetMux", 0));
+            return (string)await sendRequest(new Request("ResetMux", 0));
         }
 
         /// <summary>

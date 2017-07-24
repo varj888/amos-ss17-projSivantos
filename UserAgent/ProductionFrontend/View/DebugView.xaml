@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:TestMachineFrontend1.View"
              xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
              xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
-             mc:Ignorable="d" 
-             Height="600" Width="320" MaxWidth="500">
+             mc:Ignorable="d" Height="600" Width="320">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:DebugViewModel}">
         </DataTemplate>
