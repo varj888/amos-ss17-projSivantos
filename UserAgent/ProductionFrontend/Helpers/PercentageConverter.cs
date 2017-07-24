@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Markup;
 
-namespace TestMachineFrontend1.Helpers
+namespace Frontend.Helpers
 {
     public class PercentageConverter : MarkupExtension, IValueConverter
     {

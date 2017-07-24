@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using TestMachineFrontend1.ViewModel;
+using Frontend.ViewModel;
 
-namespace TestMachineFrontend1.View
+namespace Frontend.View
 {
     /// <summary>
     /// Interaction logic for RemoteControllerView.xaml

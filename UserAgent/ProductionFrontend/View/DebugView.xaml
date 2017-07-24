@@ -1,11 +1,11 @@
-﻿<UserControl x:Class="TestMachineFrontend1.View.DebugView"
+﻿<UserControl x:Class="Frontend.View.DebugView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:TestMachineFrontend1.View"
-             xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
-             xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
+             xmlns:local="clr-namespace:Frontend.View"
+             xmlns:vm="clr-namespace:Frontend.ViewModel"
+             xmlns:convert="clr-namespace:Frontend.Helpers"
              mc:Ignorable="d" 
              Height="600" Width="320" MaxWidth="500">
     <UserControl.Resources>

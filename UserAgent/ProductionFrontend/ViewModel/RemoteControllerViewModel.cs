@@ -9,12 +9,12 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using TestmachineFrontend1;
-using TestMachineFrontend1.Helpers;
-using TestMachineFrontend1.Model;
+using Frontend;
+using Frontend.Helpers;
+using Frontend.Model;
 using static RaspberryBackend.ReceiverConfig;
 
-namespace TestMachineFrontend1.ViewModel
+namespace Frontend.ViewModel
 {
     public class RemoteControllerViewModel : ObservableObject
     {

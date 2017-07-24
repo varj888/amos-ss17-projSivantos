@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TestMachineFrontend1.Helpers;
-using TestMachineFrontend1.ViewModel;
+using Frontend.Helpers;
+using Frontend.ViewModel;
 
-namespace TestMachineFrontend1.Commands
+namespace Frontend.Commands
 {
     public class ConnectIPCommand : ICommand
     {

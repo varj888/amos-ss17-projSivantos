@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using TestmachineFrontend1;
-using TestMachineFrontend1.Helpers;
-using TestMachineFrontend1.Model;
+using Frontend;
+using Frontend.Helpers;
+using Frontend.Model;
 
-namespace TestMachineFrontend1.ViewModel
+namespace Frontend.ViewModel
 {
     public class DebugViewModel : ObservableObject
     {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 //Quelle: Prism Bibliothek
-namespace TestMachineFrontend1.Helpers
+namespace Frontend.Helpers
 {
     public class DelegateCommand : ICommand
     {

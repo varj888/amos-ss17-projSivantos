@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TestMachineFrontend1.Model
+namespace Frontend.Model
 {
     public class DebugModel
     {

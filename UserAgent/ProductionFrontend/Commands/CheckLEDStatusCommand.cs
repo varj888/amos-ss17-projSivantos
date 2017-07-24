@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using CommonFiles.TransferObjects;
-using TestMachineFrontend1.ViewModel;
+using Frontend.ViewModel;
 
-namespace TestMachineFrontend1.Commands
+namespace Frontend.Commands
 {
     public class CheckLEDStatusCommand : ICommand
     {

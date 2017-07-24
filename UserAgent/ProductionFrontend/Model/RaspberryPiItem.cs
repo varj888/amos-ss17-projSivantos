@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestmachineFrontend1;
-using TestMachineFrontend1.Helpers;
+using Frontend;
+using Frontend.Helpers;
 
-namespace TestMachineFrontend1.Model
+namespace Frontend.Model
 
 {
     public class RaspberryPiItem : ObservableObject

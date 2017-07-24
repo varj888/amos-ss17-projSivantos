@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestMachineFrontend1.Helpers;
+using Frontend.Helpers;
 
-namespace TestMachineFrontend1.ViewModel
+namespace Frontend.ViewModel
 {
     public class DisconnectedViewModel : ObservableObject
     {

@@ -14,10 +14,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using CommonFiles.Networking;
 using CommonFiles.TransferObjects;
-using TestMachineFrontend1.Model;
-using TestmachineFrontend1;
+using Frontend.Model;
+using Frontend;
 
-namespace TestMachineFrontend1.View
+namespace Frontend.View
 {
     /// <summary>
     /// Interaction logic for DebugView.xaml

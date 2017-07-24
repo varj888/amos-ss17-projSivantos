@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using TestMachineFrontend1.ViewModel;
+using Frontend.ViewModel;
 
-namespace TestMachineFrontend1.Commands
+namespace Frontend.Commands
 {
     public class PressPushButtonCommand : ICommand
     {

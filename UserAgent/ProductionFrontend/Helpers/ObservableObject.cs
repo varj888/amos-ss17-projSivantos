@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using TestMachineFrontend1.ViewModel;
+using Frontend.ViewModel;
 
-namespace TestMachineFrontend1.Helpers
+namespace Frontend.Helpers
 {
     /// <summary>
     /// class implementing INotifyPropertyChanged

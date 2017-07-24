@@ -5,9 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using TestMachineFrontend1.ViewModel;
+using Frontend.ViewModel;
 
-namespace TestMachineFrontend1
+namespace Frontend
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -17,7 +17,7 @@ namespace TestMachineFrontend1
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            TestMachineFrontend1.MainWindow.Instance.Show();
+            Frontend.MainWindow.Instance.Show();
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace TestMachineFrontend1.Helpers
+namespace Frontend.Helpers
 {
     /// <summary>
     /// detect selected item(s) in the Frontend-List

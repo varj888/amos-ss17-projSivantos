@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using CommonFiles.TransferObjects;
-using TestMachineFrontend1.ViewModel;
+using Frontend.ViewModel;
 using System.Diagnostics;
 using System.Windows;
 
-namespace TestMachineFrontend1.Commands
+namespace Frontend.Commands
 {
     public class DetectTCoilCommand : ICommand
     {

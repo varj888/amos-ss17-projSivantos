@@ -1,12 +1,12 @@
-﻿<Window x:Class="TestMachineFrontend1.MainWindow"
+﻿<Window x:Class="Frontend.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TestMachineFrontend1"
-        xmlns:v="clr-namespace:TestMachineFrontend1.View"
-        xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
-        xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
+        xmlns:local="clr-namespace:Frontend"
+        xmlns:v="clr-namespace:Frontend.View"
+        xmlns:vm="clr-namespace:Frontend.ViewModel"
+        xmlns:convert="clr-namespace:Frontend.Helpers"
         mc:Ignorable="d"
         Title="RPI User Agent" Height="500" Width="1050" MinHeight="500" MinWidth="850">
 
@@ -112,8 +112,6 @@
             <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
             <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"></ContentControl>
             <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" Grid.Row="0"></ContentControl>
-
-
 
         </Grid>
 

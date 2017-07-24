@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace TestMachineFrontend1.View
+namespace Frontend.View
 {
     /// <summary>
     /// Interaction logic for AboutView.xaml

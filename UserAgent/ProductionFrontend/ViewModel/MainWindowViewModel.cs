@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TestMachineFrontend1.Helpers;
-using TestMachineFrontend1.Model;
-using TestMachineFrontend1.Commands;
+using Frontend.Helpers;
+using Frontend.Model;
+using Frontend.Commands;
 using System.Windows;
 
-namespace TestMachineFrontend1.ViewModel
+namespace Frontend.ViewModel
 {
     public class MainWindowViewModel : ObservableObject
     {

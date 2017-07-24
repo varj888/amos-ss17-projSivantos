@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading.Tasks;
 
-namespace TestmachineFrontend1
+namespace Frontend
 {
 
     /// <summary>

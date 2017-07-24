@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace TestMachineFrontend1.Helpers
+namespace Frontend.Helpers
 {
     public class HelperXML
     {
