@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -52,7 +51,7 @@ namespace TestMachineFrontend1.View
                 }
                 try
                 {
-                    await remoteVM.RaspberryPiInstance.PressCombination(param);
+                    await remoteVM.SelectedRaspiItem.raspi.PressCombination(param);
                     vmDebug.AddDebugInfo("PressCombination", "success");
                 }
                 catch (Exception ex)
@@ -129,7 +128,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    await remoteVM.SelectedRaspiItem.raspi.SetAnalogVolume((byte) slide.Value);
+                    await remoteVM.SelectedRaspiItem.raspi.SetAnalogVolume((byte)slide.Value);
                     vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
                 }
                 catch (Exception ex)
