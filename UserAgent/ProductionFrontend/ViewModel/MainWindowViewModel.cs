@@ -34,6 +34,7 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand SetReceiverCommand { get; private set; }
         public static ICommand RefreshRPListCommand { get; private set; }
         public static ICommand AddRPCommand { get; private set; }
+        public static ICommand DisconnectCommand { get; private set; }
 
         #endregion
 
@@ -92,6 +93,7 @@ namespace TestMachineFrontend1.ViewModel
             SetReceiverCommand = new SetReceiverCommand();
             RefreshRPListCommand = new RefreshRPListCommand();
             AddRPCommand = new AddRPCommand();
+            DisconnectCommand = new DisconnectCommand();
         }
     }
 }

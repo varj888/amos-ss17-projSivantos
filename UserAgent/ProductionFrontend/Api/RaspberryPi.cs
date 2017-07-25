@@ -14,7 +14,6 @@ using System.Windows.Controls;
 
 namespace TestmachineFrontend1
 {
-   
     /// <summary>
     /// Allows to remotely call operations of the raspberry Pi.
     /// Runs a ReceiveLoop in an own Task for receiving TOs
@@ -24,6 +23,12 @@ namespace TestmachineFrontend1
         private TcpClient _socket;
         private Dictionary<Type, Action<object>> _TOHandlerMap;
         private ConcurrentQueue<TaskCompletionSource<SuccessResult>> _answers;
+        private Task _receiveTask;
+
+        /// <summary>
+        /// Thrown by the receive loop, if it was quit
+        /// </summary>
+        public event EventHandler<Exception> ConnectionClosed;
 
         /// <summary>
         /// Creates the Class, without connecting it
@@ -31,9 +36,9 @@ namespace TestmachineFrontend1
         /// <param name="socket"></param>
         public RaspberryPi()
         {
-            _socket = new TcpClient();
             initTOHandlerMap();
             _answers = new ConcurrentQueue<TaskCompletionSource<SuccessResult>>();
+            _socket = new TcpClient();
         }
 
         /// <summary>
@@ -43,7 +48,19 @@ namespace TestmachineFrontend1
         public async Task ConnectAsync(IPEndPoint endpoint)
         {
             await _socket.ConnectAsync(endpoint.Address, endpoint.Port);
-            Task.Run(() => ReceiveLoop());
+            _receiveTask = Task.Run(() => ReceiveLoop());
+        }
+
+        /// <summary>
+        /// Closes the connection. The receive loop quits the loop and throws a disconnected Event
+        /// </summary>
+        /// <returns></returns>
+        public async Task Disconnect()
+        {
+            _socket.Close();
+            clearAnswers();
+            await _receiveTask;
+            _socket = new TcpClient();
         }
 
         /// <summary>
@@ -64,6 +81,15 @@ namespace TestmachineFrontend1
             }
         }
 
+        private void clearAnswers()
+        {
+            TaskCompletionSource<SuccessResult> item;
+            while (_answers.TryDequeue(out item))
+            {
+                // do nothing
+            }
+        }
+
         private void initTOHandlerMap()
         {
             _TOHandlerMap = new Dictionary<Type, Action<Object>>();
@@ -76,15 +102,28 @@ namespace TestmachineFrontend1
             TaskCompletionSource<SuccessResult> answer = new TaskCompletionSource<SuccessResult>();
             _answers.Enqueue(answer);
             Transfer.sendObject(_socket.GetStream(), request);
+            int timeout = 5000;
+            if (await Task.WhenAny(answer.Task, Task.Run(() => Task.Delay(timeout))) != answer.Task)
+            {
+                throw new TimeoutException("The operation has timed out.");
+            }
             return (await answer.Task).result;
         }
 
         private async Task ReceiveLoop()
         {
-            while (true)
+            try
             {
-                Object transferObject = await Transfer.receiveObjectAsync(_socket.GetStream());
-                _TOHandlerMap[transferObject.GetType()].Invoke(transferObject);
+                while (true)
+                {
+                    Object transferObject = await Transfer.receiveObjectAsync(_socket.GetStream());
+                    _TOHandlerMap[transferObject.GetType()].Invoke(transferObject);
+                }
+            }
+            catch(Exception e)
+            {
+                _socket.Close();
+                onConnectionClosed(e);
             }
         }
 
@@ -111,6 +150,15 @@ namespace TestmachineFrontend1
             else
             {
                 throw new Exception("Result without Request");
+            }
+        }
+
+        private void onConnectionClosed(Exception e)
+        {
+            EventHandler<Exception> handler = ConnectionClosed;
+            if (ConnectionClosed != null)
+            {
+                handler(this, e);
             }
         }
 

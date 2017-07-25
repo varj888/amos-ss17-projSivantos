@@ -66,31 +66,19 @@ namespace TestMachineFrontend1.Commands
 
             if(result.GetType() == typeof(SuccessResult))
             {
-                remoteVM.BackendList = new ObservableCollection<RaspberryPiItem>(remoteVM.BackendList.Where(item => item.Connected));
-                Dictionary<IPEndPoint, RaspberryPiItem> backendListDictionary = remoteVM.BackendList.ToDictionary(item => item.endpoint, item => item);
-  
+                List<RaspberryPiItem> connectedList = remoteVM.BackendList.Where(item => item.Connected).ToList();
+                remoteVM.BackendList.Clear();
+                foreach(var entry in connectedList)
+                {
+                    remoteVM.BackendList.Add(entry);
+                }
 
                 SuccessResult successResult = (SuccessResult)result;
                 Dictionary<string, string> dictionary = (Dictionary<string, string>)successResult.result;
 
                 foreach (var entry in dictionary)
                 {
-                    IPAddress address;
-                    try
-                    {
-                        address = IPAddress.Parse(entry.Key);
-                    }
-                    catch (FormatException fx)
-                    {
-                        vmDebug.AddDebugInfo("[ERROR]", "Invalid IP Address Format from the RegistryServer: " + fx.Message);
-                        continue;
-                    }
-                    IPEndPoint endpoint = new IPEndPoint(address, 54321);
-                    if (!backendListDictionary.ContainsKey(endpoint)){
-                        RaspberryPi raspi = new RaspberryPi();
-                        RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint, Status = entry.Value, raspi = raspi };
-                        remoteVM.BackendList.Add(raspiItem);
-                    }
+                    remoteVM.addRaspberryPi(entry.Key, entry.Value);
                 }
             }else if(result.GetType() == typeof(ExceptionResult))
             {

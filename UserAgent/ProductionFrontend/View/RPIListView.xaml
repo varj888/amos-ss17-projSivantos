@@ -58,7 +58,10 @@
                         Command="{Binding ConnectIPCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"
                     />
-                    <MenuItem Header="Disconnect"  />
+                    <MenuItem Header="Disconnect"
+                        Command="{Binding DisconnectCommand}"
+                        CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}" 
+                    />
                     <MenuItem Header="Delete"  />
                 </ContextMenu>
             </ListView.ContextMenu>

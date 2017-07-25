@@ -6,15 +6,16 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace CommonFiles.Networking
 {
     /// <summary>
     /// Contains Methods to send byte-Arrays and objects over a Networkstream.
     /// </summary>
-    class Transfer
+    static class Transfer
     {
-      
+
         /// <summary>
         /// Sends a byte array over a Networkstream.
         /// </summary>

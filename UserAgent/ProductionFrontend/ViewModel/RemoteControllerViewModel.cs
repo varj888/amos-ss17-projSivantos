@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
@@ -309,22 +310,52 @@ namespace TestMachineFrontend1.ViewModel
         
         public void addRaspberryPi()
         {
+            addRaspberryPi(IPAdressConnect, "?");
+        }
+
+        public void addRaspberryPi(string Address, string status)
+        {
             //IsPiConnected = false;
             IPAddress address;
             try
             {
-                address = IPAddress.Parse(IPAdressConnect);
-            }catch(FormatException fx)
+                address = IPAddress.Parse(Address);
+            }
+            catch (FormatException fx)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
                 return;
             }
             IPEndPoint endpoint = new IPEndPoint(address, 54321);
+            foreach(var entry in BackendList)
+            {
+                if (entry.endpoint.Equals(endpoint))
+                {
+                    debugVM.AddDebugInfo("addRaspberryPi", "Already in the List");
+                    return;
+                }
+            }
+
             RaspberryPi raspi = new RaspberryPi();
-            RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint ,  Status = "?", raspi = raspi, Connected = false };
+            SynchronizationContext uiContext = SynchronizationContext.Current;
+            raspi.ConnectionClosed += (object sender, Exception e) => OnConnectionClosed(sender, e, uiContext);
+            RaspberryPiItem raspiItem = new RaspberryPiItem() { endpoint = endpoint, Status = status, raspi = raspi, Connected = false };
             BackendList.Add(raspiItem);
             SelectedRaspiItem = raspiItem;
-            
+            CollectionViewSource.GetDefaultView(BackendList).Refresh();
+        }
+
+        private void OnConnectionClosed(object sender, Exception e, SynchronizationContext context)
+        {
+            context.Send((object state) => 
+            {
+                List<RaspberryPiItem> disconnectedList = BackendList.Where(item => item.raspi == (RaspberryPi)sender).ToList();
+                RaspberryPiItem piItem = disconnectedList.FirstOrDefault();
+                piItem.Status = "available";
+                piItem.Connected = false;
+                CollectionViewSource.GetDefaultView(BackendList).Refresh();
+                debugVM.AddDebugInfo(piItem.endpoint.ToString(), "ConnectionClosed: " + e.Message);
+            }, null);
         }
 
         public async Task connect()
@@ -344,6 +375,7 @@ namespace TestMachineFrontend1.ViewModel
             SelectedRaspiItem.Connected = true;
             IsPiConnectedStatus = Visibility.Visible;
             IsPiDisconnected = Visibility.Hidden;
+            CollectionViewSource.GetDefaultView(BackendList).Refresh();
             //raspberryPis.Add(IPAdressConnect, SelectedRaspiItem.raspi);
             //IsPiConnected = true;
 

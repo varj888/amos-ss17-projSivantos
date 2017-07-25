@@ -84,6 +84,7 @@
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\DetectAudioShoeCommand.cs" />
     <Compile Include="Commands\DetectTCoilCommand.cs" />
+    <Compile Include="Commands\DisconnectCommand.cs" />
     <Compile Include="Commands\EndlessVcDownCommand.cs" />
     <Compile Include="Commands\EndlessVcUpCommand.cs" />
     <Compile Include="Commands\GetRaspiConfigCommand.cs" />
