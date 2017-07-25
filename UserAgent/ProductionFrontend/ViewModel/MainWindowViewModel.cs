@@ -12,6 +12,10 @@ using System.Windows;
 
 namespace TestMachineFrontend1.ViewModel
 {
+    /// <summary>
+    /// Main ViewModel, central regulation module of
+    /// the Frontend functionality
+    /// </summary>
     public class MainWindowViewModel : ObservableObject
     {
         #region Commands

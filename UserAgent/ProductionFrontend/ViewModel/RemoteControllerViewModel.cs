@@ -17,6 +17,11 @@ using static RaspberryBackend.ReceiverConfig;
 
 namespace TestMachineFrontend1.ViewModel
 {
+    /// <summary>
+    /// ViewModel corresponding to the RemoteControllerView
+    /// = main functional part of the GUI. Contains big amount of
+    /// elements (properties) for updating the GUI
+    /// </summary>
     public class RemoteControllerViewModel : ObservableObject
     {
         #region VarDefinitions

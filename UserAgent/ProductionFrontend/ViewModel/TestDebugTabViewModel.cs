@@ -8,6 +8,11 @@ using TestMachineFrontend1.Model;
 
 namespace TestMachineFrontend1.ViewModel
 {
+    /// <summary>
+    /// ViewModel corresponding to DebugTabView
+    /// Contains functionality for testing
+    /// Multiplexer and Pin-Connections
+    /// </summary>
     public class TestDebugTabViewModel
     {
         private MultiplexerModel muxModel;
@@ -24,6 +29,10 @@ namespace TestMachineFrontend1.ViewModel
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
         }
 
+        /// <summary>
+        /// Connect two pins
+        /// </summary>
+        /// <returns></returns>
         public async Task ConnectPins()
         {
             String result = await remoteVM.RaspberryPiInstance.ConnectPins
@@ -31,6 +40,10 @@ namespace TestMachineFrontend1.ViewModel
             debugVM.AddDebugInfo("Connecting pins: ", result);
         }
 
+        /// <summary>
+        /// Read the value of current pin
+        /// </summary>
+        /// <returns></returns>
         public async Task ReadPin()
         {
             String result;
@@ -45,6 +58,10 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        /// <summary>
+        /// Write to current pin
+        /// </summary>
+        /// <returns></returns>
         public async Task WritePin()
         {
             String result;
@@ -60,6 +77,10 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        /// <summary>
+        /// Resets the current pin
+        /// </summary>
+        /// <returns></returns>
         public async Task ResetPin()
         {
             String result;

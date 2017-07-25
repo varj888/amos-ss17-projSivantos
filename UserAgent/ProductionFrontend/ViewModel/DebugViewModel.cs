@@ -13,6 +13,11 @@ using TestMachineFrontend1.Model;
 
 namespace TestMachineFrontend1.ViewModel
 {
+    /// <summary>
+    /// ViewModel which main puropose is to display
+    /// debug information in GUI which corresponds
+    /// to executeed events or errors
+    /// </summary>
     public class DebugViewModel : ObservableObject
     {
         private DebugModel debugModel;
@@ -23,6 +28,9 @@ namespace TestMachineFrontend1.ViewModel
             debugList = new ObservableCollection<DebugModel>();
         }
 
+        /// <summary>
+        /// List in GUI which contains debug messages
+        /// </summary>
         public ObservableCollection<DebugModel> DebugList
         {
             get { return debugList; }
@@ -38,6 +46,11 @@ namespace TestMachineFrontend1.ViewModel
             return debugList;
         }
 
+        /// <summary>
+        /// Add new message to debug list
+        /// </summary>
+        /// <param name="origin">source of the message</param>
+        /// <param name="msg">message itself</param>
         public void AddDebugInfo(string origin, string msg)
         {
             if (ReferenceEquals(debugModel, null))
