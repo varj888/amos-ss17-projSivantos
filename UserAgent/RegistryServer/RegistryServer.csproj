@@ -55,16 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-<<<<<<< HEAD
     <Compile Include="..\CommonFiles\Networking\Transfer.cs">
       <Link>CommonFiles\Networking\Transfer.cs</Link>
     </Compile>
-=======
-    <Compile Include="..\CommonFiles\RPCInterfaces\IEventReceiver.cs">
-      <Link>CommonFiles\RPCInterfaces\IEventReceiver.cs</Link>
-    </Compile>
-    <Compile Include="RegistryService.cs" />
->>>>>>> master
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

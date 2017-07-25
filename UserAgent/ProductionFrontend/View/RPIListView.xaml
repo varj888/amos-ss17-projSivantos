@@ -44,11 +44,7 @@
                 <Button Name="Refresh_Button" Content="↺" HorizontalAlignment="Right" 
                             VerticalAlignment="Center" Foreground="#FF323C46" FontFamily="Segoe UI Semibold" 
                             Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,10,0"
-<<<<<<< HEAD
                             FontSize="14" Visibility="Visible" Command="{Binding RefreshRPListCommand}"/>
-=======
-                            FontSize="14" Visibility="Hidden"/>
->>>>>>> master
             </DockPanel>
         </Border>
         <ListView Margin="-2,0,0,0" 

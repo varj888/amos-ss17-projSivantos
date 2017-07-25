@@ -30,12 +30,8 @@ namespace TestMachineFrontend1.Commands
 
             try
             {
-<<<<<<< HEAD
-                result = await remoteVM.SelectedRaspiItem.raspi.PressPushButton(remoteVM.getDuration());
-=======
                 Debug.WriteLine("The selected Duration for {0} is: {1}", this.GetType().Name, selectedDuration.ToString());
-                result = await remoteVM.RaspberryPiInstance.PressPushButton(selectedDuration.ToString());
->>>>>>> master
+                result = await remoteVM.SelectedRaspiItem.raspi.PressPushButton(selectedDuration.ToString());
                 debugVM.AddDebugInfo("PressPushButton", result);
             }
             catch (Exception e)

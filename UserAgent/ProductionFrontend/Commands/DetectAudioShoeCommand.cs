@@ -34,14 +34,8 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-<<<<<<< HEAD
                 result = await remoteVM.SelectedRaspiItem.raspi.DetectAudioShoe();
-                //TODO Property for color-binding
-                //remoteVM.TCoilDetected = false;
-=======
-                result = await remoteVM.RaspberryPiInstance.DetectAudioShoe();
                 remoteVM.AudioShoeUpdate = Visibility.Visible;
->>>>>>> master
                 debugVM.AddDebugInfo("DetectAudioShoe", result);
             }
             catch (Exception e)

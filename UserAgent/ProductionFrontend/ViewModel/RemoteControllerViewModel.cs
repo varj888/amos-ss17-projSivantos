@@ -10,11 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-<<<<<<< HEAD
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-=======
->>>>>>> master
 using System.Windows.Input;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
@@ -62,7 +59,7 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-<<<<<<< HEAD
+
         private ObservableCollection<RaspberryPiItem> backendList;
         public ObservableCollection<RaspberryPiItem> BackendList
         {
@@ -78,15 +75,21 @@ namespace TestMachineFrontend1.ViewModel
         {
             get
             { return this.detectModel; }
-=======
+            set
+            {
+                this.detectModel = value;
+                OnPropertyChanged("SelectedRaspiItem");
+            }
+        }
+
         private async Task<string> getRaspiModel()
         {
-            return await raspberryPi.GetRaspiModel();
+            return await SelectedRaspiItem.raspi.GetRaspiModel();
         }
 
         private async Task<string> getRaspiFamily()
         {
-            return await raspberryPi.GetRaspiFamily();
+            return await SelectedRaspiItem.raspi.GetRaspiFamily();
         }
 
         private string model;
@@ -108,16 +111,6 @@ namespace TestMachineFrontend1.ViewModel
             {
                 family = value;
                 OnPropertyChanged("Family");
-            }
-        }
-
-        private ObservableCollection<ComboBoxItem> _hiListItems;
->>>>>>> master
-
-            set
-            {
-                this.detectModel = value;
-                OnPropertyChanged("SelectedRaspiItem");
             }
         }
 
@@ -335,51 +328,6 @@ namespace TestMachineFrontend1.ViewModel
         public ICommand ItemSelected { get; private set; }
         #endregion
 
-<<<<<<< HEAD
-=======
-        #region Requests
-        public Request PressPushButton
-        {
-            get { return new Request("PressPushButton", MainWindowViewModel.CurrentViewModelRemoteController.SelectedDuration.Content.ToString()); }
-        }
-
-        public Request DetectTCol
-        {
-            get { return new Request("EnableTeleCoil", 1); }
-        }
-
-        public Request UndetectTCol
-        {
-            get { return new Request("EnableTeleCoil", 0); }
-        }
-
-        public Request DetectAudioShoe
-        {
-            get { return new Request("EnableAudioShoe", 1); }
-        }
-
-        public Request UndetectAudioShoe
-        {
-            get { return new Request("EnableAudioShoe", 0); }
-        }
-
-        public Request Endless_VC_Up
-        {
-            get { return new Request("EndlessVCUp", new int[] { }); }
-        }
-
-        public Request Endless_VC_Down
-        {
-            get { return new Request("EndlessVCDown", new int[] { }); }
-        }
-
-        public Request GetAvailableHI
-        {
-            get { return new Request("GetAvailableHI", 0); }
-        }
-        #endregion
-
->>>>>>> master
         #region Methods
 
         private string _raspiConfigString;
@@ -414,15 +362,10 @@ namespace TestMachineFrontend1.ViewModel
                 OnPropertyChanged("EndlessVcTicks");
             }
         }
-<<<<<<< HEAD
-        
         public void addRaspberryPi()
         {
             addRaspberryPi(IPAdressConnect, "?");
         }
-=======
-
->>>>>>> master
 
         public void addRaspberryPi(string Address, string status)
         {
@@ -430,45 +373,12 @@ namespace TestMachineFrontend1.ViewModel
             IPAddress address;
             try
             {
-<<<<<<< HEAD
                 address = IPAddress.Parse(Address);
-=======
-
-                var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
-
-                raspberryPi = pi1;
-                IsPiConnected = true;
-                IsPiConnectedStatus = Visibility.Visible;
-                IsPiDisconnected = Visibility.Hidden;
-
-                raspberryPis.Add(IPAdressConnect, pi1);
-
-                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
-
-                BackendList.Add(raspiItem);
-
-                SelectedRaspiItem = raspiItem;
-
-                debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
-
-                String result = await RaspberryPiInstance.GetAvailableHI();
-
-                getAvailableHI(result);
-
-                SynchronizationContext uiContext = SynchronizationContext.Current;
-
-                Model = await getRaspiModel();
-                Family = await getRaspiFamily();
->>>>>>> master
             }
             catch (FormatException fx)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
-<<<<<<< HEAD
                 return;
-=======
-                IsPiConnected = false;
->>>>>>> master
             }
             IPEndPoint endpoint = new IPEndPoint(address, 54321);
             foreach(var entry in BackendList)
@@ -530,6 +440,22 @@ namespace TestMachineFrontend1.ViewModel
             }catch(Exception e)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Error getting available HI: " + e.Message);
+            }
+
+            try
+            {
+                Model = await getRaspiModel();
+            }catch(Exception e)
+            {
+                debugVM.AddDebugInfo("[ERROR]", "Error getting Raspi Model: " + e.Message);
+            }
+
+            try
+            {
+                Family = await getRaspiFamily();
+            }catch(Exception e)
+            {
+                debugVM.AddDebugInfo("[ERROR]", "Error getting Raspi Famili: " + e.Message);
             }
         }
 

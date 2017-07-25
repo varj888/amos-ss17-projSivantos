@@ -33,18 +33,15 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand EndlessVcDownCommand { get; private set; }
         public static ICommand GetRaspiConfigCommand { get; private set; }
         public static ICommand SetReceiverCommand { get; private set; }
-<<<<<<< HEAD
-        public static ICommand RefreshRPListCommand { get; private set; }
-        public static ICommand AddRPCommand { get; private set; }
-        public static ICommand DisconnectCommand { get; private set; }
-=======
         public static ICommand ToggleRPIListViewCommand { get; private set; }
         public static ICommand ConnectPinsCommand { get; private set; }
         public static ICommand ResetMuxCommand { get; private set; }
         public static ICommand ReadPinCommand { get; private set; }
         public static ICommand WritePinCommand { get; private set; }
         public static ICommand ResetPinCommand { get; private set; }
->>>>>>> master
+        public static ICommand AddRPCommand { get; private set; }
+        public static ICommand RefreshRPListCommand { get; private set; }
+        public static ICommand DisconnectCommand { get; private set; }
 
         #endregion
 
@@ -114,18 +111,15 @@ namespace TestMachineFrontend1.ViewModel
             EndlessVcDownCommand = new EndlessVcDownCommand();
             GetRaspiConfigCommand = new GetRaspiConfigCommand();
             SetReceiverCommand = new SetReceiverCommand();
-<<<<<<< HEAD
-            RefreshRPListCommand = new RefreshRPListCommand();
-            AddRPCommand = new AddRPCommand();
-            DisconnectCommand = new DisconnectCommand();
-=======
             ToggleRPIListViewCommand = new ToggleRPIListViewCommand();
             ConnectPinsCommand = new ConnectPinsCommand();
             ResetMuxCommand = new ResetMuxCommand();
             ReadPinCommand = new ReadPinCommand();
             WritePinCommand = new WritePinCommand();
             ResetPinCommand = new ResetPinCommand();
->>>>>>> master
+            AddRPCommand = new AddRPCommand();
+            RefreshRPListCommand = new RefreshRPListCommand();
+            DisconnectCommand = new DisconnectCommand();
         }
     }
 }

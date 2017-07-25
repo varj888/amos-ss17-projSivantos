@@ -34,16 +34,9 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-<<<<<<< HEAD:UserAgent/ProductionFrontend/Commands/UndetectAudioShueCommand.cs
                 result = await remoteVM.SelectedRaspiItem.raspi.UndetectAudioShoe();
-                //TODO Property for color-binding
-                //remoteVM.TCoilDetected = false;
-                debugVM.AddDebugInfo("UndetectAudioShue", result);
-=======
-                result = await remoteVM.RaspberryPiInstance.UndetectAudioShoe();
                 remoteVM.AudioShoeUpdate = Visibility.Hidden;
                 debugVM.AddDebugInfo("UndetectAudioShoe", result);
->>>>>>> master:UserAgent/ProductionFrontend/Commands/UndetectAudioShoeCommand.cs
             }
             catch (Exception e)
             {

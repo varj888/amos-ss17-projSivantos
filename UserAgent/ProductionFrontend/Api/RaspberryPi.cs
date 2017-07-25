@@ -9,10 +9,7 @@ using System.Threading.Tasks;
 
 namespace TestmachineFrontend1
 {
-<<<<<<< HEAD
-=======
 
->>>>>>> master
     /// <summary>
     /// Allows to remotely call operations of the raspberry Pi.
     /// Runs a ReceiveLoop in an own Task for receiving TOs

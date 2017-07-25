@@ -29,12 +29,8 @@ namespace TestMachineFrontend1.Commands
 
             if (selectedDuration != null)
             {
-<<<<<<< HEAD
-                await remoteVM.SelectedRaspiItem.raspi.PressRockerSwitchDown(remoteVM.getDuration());
-=======
                 Debug.WriteLine("The selected Duration for {0} is: {1}", this.GetType().Name, selectedDuration.ToString());
-                await remoteVM.RaspberryPiInstance.PressRockerSwitchDown(selectedDuration.ToString());
->>>>>>> master
+                await remoteVM.SelectedRaspiItem.raspi.PressRockerSwitchDown(selectedDuration.ToString());
                 debugViewModel.AddDebugInfo("PressRockerSwitchDown", "success");
             }
             else

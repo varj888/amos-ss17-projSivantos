@@ -86,7 +86,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(_POWER_ON);
+                    double value = await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(_POWER_ON);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
@@ -104,7 +104,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(0.0);
+                    double value = await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(0.0);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
@@ -122,11 +122,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-<<<<<<< HEAD
                     await remoteVM.SelectedRaspiItem.raspi.SetAnalogVolume((byte) slide.Value);
-=======
-                    await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte)slide.Value);
->>>>>>> master
                     vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
                 }
                 catch (Exception ex)
