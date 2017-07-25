@@ -38,10 +38,13 @@ namespace TestMachineFrontend1.Commands
             {
                 rcVM.RPIListVisible = Visibility.Collapsed;
                 WindowWidth = Application.Current.MainWindow.Width;
-                Application.Current.MainWindow.MinWidth = 520;
-                Application.Current.MainWindow.Width = Application.Current.MainWindow.Width - 520;
+                Application.Current.MainWindow.MinWidth = 260;
+                Application.Current.MainWindow.Width = 260;
+                Application.Current.MainWindow.ResizeMode = ResizeMode.NoResize;
                 rctbVM.ToggleMenuButton_Off_Visibility = Visibility.Hidden;
                 rctbVM.ToggleMenuButton_On_Visibility = Visibility.Visible;
+                rcVM.MinimalViewVis = Visibility.Hidden;
+                rcVM.MinimalViewGrids = new GridLength(0, GridUnitType.Auto);
             }
             else
             {
@@ -50,6 +53,9 @@ namespace TestMachineFrontend1.Commands
                 Application.Current.MainWindow.Width = WindowWidth;
                 rctbVM.ToggleMenuButton_Off_Visibility = Visibility.Visible;
                 rctbVM.ToggleMenuButton_On_Visibility = Visibility.Hidden;
+                Application.Current.MainWindow.ResizeMode = ResizeMode.CanResize;
+                rcVM.MinimalViewVis = Visibility.Visible;
+                rcVM.MinimalViewGrids = new GridLength(1, GridUnitType.Auto);
             }
         }
     }

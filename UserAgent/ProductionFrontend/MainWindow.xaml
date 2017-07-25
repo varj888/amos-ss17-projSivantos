@@ -58,7 +58,7 @@
             <ColumnDefinition Name="DebugColumn" Width="Auto"/>
         </Grid.ColumnDefinitions>
         <ContentControl Content="{Binding Path=CurrentViewModelRPIList}" Grid.Column="0" Visibility="{Binding Path=CurrentViewModelRemoteController.RPIListVisible}" MinWidth="280" />
-           
+
         <Border HorizontalAlignment="Right" 
                   VerticalAlignment="Stretch" 
                   Grid.Column="1" 
@@ -72,19 +72,18 @@
                 <RowDefinition Height="30px"></RowDefinition>
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-
-            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" 
-                            Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"/>
+            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  
+                            Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1" />
             <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" 
-                            Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"/>
-            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" 
-                            Grid.Row="0"/>
+                            Content="{Binding Path=CurrentViewModelDisconnected}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="115,20,113,10.5" Grid.RowSpan="2"/>
+            <ContentControl  Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" HorizontalAlignment="Stretch"
+                            Grid.Row="0" />
         </Grid>
         <ContentControl Visibility="Hidden" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Column="2"/>
         <Grid Grid.Column="4" Background="#FFF9F9F9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
             <ContentControl  Content="{Binding Path=CurrentViewModelDebug}" Margin="-2"
-                               Visibility="{Binding Path=CurrentViewModelRemoteController.DebugVisible}" MinWidth="200" />
+                               Visibility="{Binding Path=CurrentViewModelRemoteController.DebugVisible}" Width="200" />
         </Grid>
     </Grid>
 </Window>

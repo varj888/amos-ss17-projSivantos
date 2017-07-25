@@ -282,22 +282,17 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Name="UserControlsGrid" Grid.Column="0" Grid.Row="0" Background="#FFF9F9F9">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="95*"/>
-            <ColumnDefinition Width="449*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" MinHeight="300px"/>
         </Grid.RowDefinitions>
-
-        <TabControl Grid.ColumnSpan="2" Margin="0,0,0.5,0">
+        <TabControl Margin="0,0,0.5,0"  Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
             <TabItem Header="User Controls">
-                <Grid>
+                <Grid MaxWidth="510">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1.5*" MaxHeight="150px"/>
@@ -305,10 +300,23 @@
                         <RowDefinition Height="1*" MaxHeight="100px"/>
                     </Grid.RowDefinitions>
 
-                    <Border  Margin="10,5,10,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="4">
+                    <Border  Margin="10,5,10,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" >
                         <Border.Effect>
                             <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
                         </Border.Effect>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Grid.ColumnSpan"
+              Value="4" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentViewModelRemoteController.MinimalViewVis}"
+                      Value="Hidden">
+                                        <Setter Property="Grid.ColumnSpan"
+                  Value="2" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
@@ -321,56 +329,109 @@
                                 <RowDefinition Height="30px" />
                                 <RowDefinition Height="1*"/>
                             </Grid.RowDefinitions>
-                            <Label Margin="10,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="BUTTONS" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Label Margin="5,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="BUTTONS" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE" Grid.ColumnSpan="4"/>
 
-                            <Button Name="Push_Button" MaxHeight="30px" HorizontalAlignment="Center" Margin="10,15" 
+                            <Button Name="Push_Button" Height="25px" HorizontalAlignment="Center" Margin="10,15" 
                                     Grid.Row="1" Style="{StaticResource RedButtonFilled}" Width="100px" 
                                     Command="{Binding PressPushButtonCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressPushButton}"-->
                                 <StackPanel>
-                                    <TextBlock Text="Push Button" FontFamily="Arial" FontSize="10"/>
+                                    <TextBlock FontFamily="Arial">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="FontSize" Value="10" />
+                                                <Setter Property="Text" Value="Push Button" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CurrentViewModelRemoteController.MinimalViewVis}" Value="Hidden">
+                                                        <Setter Property="FontSize" Value="7" />
+                                                        <Setter Property="Text" Value="PB" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="Push_Checkbox" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
                                  IsChecked="{Binding IsPushButtonUp}" IsEnabled="True" Height="14" Width="15"/>
-                            <Button Name="RockerSwitchUp_Button" MaxHeight="30px"   HorizontalAlignment="Center" 
+                            <Button Name="RockerSwitchUp_Button" Height="25px"   HorizontalAlignment="Center" 
                                     Margin="10,15"  Grid.Row="1" Grid.Column="1" Style="{StaticResource RedButtonFilled}"  
                                     Width="100px" Command="{Binding PressRockerSwitchUpCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchUp}"-->
                                 <StackPanel>
-                                    <TextBlock Text="Rocker ▲" FontFamily="Arial" FontSize="10"/>
+                                    <TextBlock FontFamily="Arial">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="FontSize" Value="10" />
+                                                <Setter Property="Text" Value="Rocker ▲" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CurrentViewModelRemoteController.MinimalViewVis}" Value="Hidden">
+                                                        <Setter Property="FontSize" Value="7" />
+                                                        <Setter Property="Text" Value="RSU" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="RockerSwitchUp_Checkbox" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
                                  IsChecked="{Binding IsRockerSwitchUp}" IsEnabled="True" Height="14" Width="15"/>
-                            <Button Name="RockerSwitchDown_Button" MaxHeight="30px"  HorizontalAlignment="Center" Margin="10,15"  
+                            <Button Name="RockerSwitchDown_Button" Height="25px"  HorizontalAlignment="Center" Margin="10,15"  
                                     Grid.Row="1" Grid.Column="2" Style="{StaticResource RedButtonFilled}"  Width="100px"
                                     Command="{Binding PressRockerSwitchDownCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchDown}"-->
                                 <StackPanel>
-                                    <TextBlock Text="Rocker ▼" FontFamily="Arial" FontSize="10"/>
+                                    <TextBlock FontFamily="Arial">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="FontSize" Value="10" />
+                                                <Setter Property="Text" Value="Rocker ▼" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CurrentViewModelRemoteController.MinimalViewVis}" Value="Hidden">
+                                                        <Setter Property="FontSize" Value="7" />
+                                                        <Setter Property="Text" Value="RSD" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </StackPanel>
                             </Button>
                             <CheckBox x:Name="RockerSwitchDown_Checkbox" Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
                                  IsChecked="{Binding IsRockerSwitchDown}" IsEnabled="True" Height="14" Width="15"/>
-                            <Button MaxHeight="30px" HorizontalAlignment="Center" Margin="15,15"  
+                            <Button MaxHeight="30px" HorizontalAlignment="Center"   Height="25px"
                                     Grid.Row="1" Grid.Column="3" Style="{StaticResource RedButtonFilled}"  
                                     Width="100px" Click="press_Combination">
                                 <StackPanel>
-                                    <TextBlock Text="Combination" FontFamily="Arial" FontSize="10"/>
+                                    <TextBlock FontFamily="Arial">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Setter Property="FontSize" Value="10" />
+                                                <Setter Property="Text" Value="Combine" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding CurrentViewModelRemoteController.MinimalViewVis}" Value="Hidden">
+                                                        <Setter Property="FontSize" Value="7" />
+                                                        <Setter Property="Text" Value="Combi" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </StackPanel>
                             </Button>
-                            <ComboBox Grid.Row="0" Grid.Column="3" Name="durationBox" FontSize="10" Padding="5,2,5,0"
-                  HorizontalAlignment="Center" 
+                            <Label VerticalAlignment="Center" Grid.Row="0" Grid.Column="2" Content="Duration" FontSize="10" Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI" Visibility="{Binding Path=CurrentViewModelRemoteController.MinimalViewVis}"/>
+
+                            <ComboBox Grid.Row="0" Grid.Column="2" Name="durationBox" FontSize="10" Padding="5,2,5,0"
+                  HorizontalAlignment="Center" Grid.ColumnSpan="2"
                   VerticalAlignment="Center" Width="100" Height="18" 
                   ItemsSource="{Binding Path=CurrentViewModelRemoteController.DurationItems}" 
                   SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedDuration}"
                   IsSynchronizedWithCurrentItem="True"></ComboBox>
-                            <TextBlock  Grid.Row="0" Grid.Column="2"   HorizontalAlignment="Right" VerticalAlignment="Center"  Text="Duration"/>
                         </Grid>
                     </Border>
                     <Border Name="TCoilBorder"  Margin="10,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1">
@@ -388,7 +449,7 @@
                                 <RowDefinition Height="1*"/>
 
                             </Grid.RowDefinitions>
-                            <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="TCOIL" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Label Margin="5,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="TCOIL" HorizontalAlignment="Left"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" MaxHeight="100px" HorizontalAlignment="Center" Source="..\img\telecoil_512_off.png"></Image>
                             <Image Margin="10" Grid.Row="1" MaxHeight="100px" HorizontalAlignment="Center" 
@@ -444,7 +505,7 @@
                                 <RowDefinition Height="1*"/>
 
                             </Grid.RowDefinitions>
-                            <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="AUDIO SHOE" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Label Margin="5,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="AUDIO SHOE" HorizontalAlignment="Left"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="100px" Source="..\img\audio_shoe_512_off.png"></Image>
                             <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="100px" 
@@ -488,7 +549,7 @@
                         </Grid.RowDefinitions>
 
                     </Grid>
-                    <Border Name="LEDBorder"  Margin="5,5,10,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="2" Grid.RowSpan="1" Grid.ColumnSpan="1">
+                    <Border Visibility="{Binding Path=CurrentViewModelRemoteController.MinimalViewVis}" Name="LEDBorder"  Margin="5,5,10,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="2" Grid.RowSpan="1" Grid.ColumnSpan="1">
                         <Border.Effect>
                             <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
                         </Border.Effect>
@@ -503,7 +564,7 @@
 
 
                             </Grid.RowDefinitions>
-                            <Label Margin="10,0" Grid.Row="0" Grid.RowSpan="2" Content="LED" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Label Margin="5,0" Grid.Row="0" Grid.RowSpan="2" Content="LED" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
                             <Image MaxHeight="100px" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" 
@@ -520,7 +581,7 @@
 
                         </Grid>
                     </Border>
-                    <Grid Grid.Row="1" Grid.Column="3">
+                    <Grid Grid.Row="1" Grid.Column="3"  Visibility="{Binding Path=CurrentViewModelRemoteController.MinimalViewVis}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*"></RowDefinition>
                             <RowDefinition Height="1*"></RowDefinition>
@@ -538,7 +599,7 @@
                                     <RowDefinition Height="2*"/>
 
                                 </Grid.RowDefinitions>
-                                <Label Margin="10,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Content="RECEIVER ID" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                                <Label Margin="5,0,0,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Content="RECEIVER ID" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                                 <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <ComboBox Name="receiverBox" HorizontalAlignment="Center" Padding="5,2,0,0" FontSize="11"
@@ -603,7 +664,7 @@
                                 <RowDefinition Height="30px"/>
                                 <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
-                            <Label Margin="10,0" Grid.Row="0" Grid.RowSpan="2" Content="VOLUME CONTROL" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Label Margin="5,0" Grid.Row="0" Grid.RowSpan="2" Content="VOLUME CONTROL" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
                             <StackPanel HorizontalAlignment="Left" Grid.Row="1" Orientation="Vertical" Margin="10,0">
@@ -613,7 +674,7 @@
                                     <Label  Content="0" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                     <Slider  VerticalAlignment="Center" Name="SetVolume_Slider" Maximum="127" Minimum="0" 
                                              TickPlacement="TopLeft" IsSnapToTickEnabled="True" TickFrequency="1" 
-                                             Width="120" Height="25"
+                                             Width="90" Height="25" 
                                              Value="{Binding Path=CurrentViewModelRemoteController.CurrentVolumeLevel}"
                                              Thumb.DragCompleted="SetVolume_Slider_DragCompleted"/>
                                     <Label  Content="127" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
@@ -640,9 +701,7 @@
                             </StackPanel>
                         </Grid>
                     </Border>
-
-
-                    <Border Margin="5,5,10,5" Name="PowerControlBorder" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="2" Grid.Column="2" Grid.RowSpan="1" Grid.ColumnSpan="2">
+                    <Border  Visibility="{Binding Path=CurrentViewModelRemoteController.MinimalViewVis}" Margin="5,5,10,5" Name="PowerControlBorder" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="2" Grid.Column="2" Grid.RowSpan="1" Grid.ColumnSpan="2">
                         <Border.Effect>
                             <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
                         </Border.Effect>
@@ -654,7 +713,7 @@
                                 <RowDefinition Height="30px"/>
                                 <RowDefinition Height="1*" />
                             </Grid.RowDefinitions>
-                            <Label Margin="10,0" Grid.Row="0" Grid.RowSpan="2" Content="POWER" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Label Margin="5,0" Grid.Row="0" Grid.RowSpan="2" Content="POWER" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
                             <DockPanel Grid.Row="1"  HorizontalAlignment="Center">
@@ -686,8 +745,8 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Debug">
-                <Grid>
+            <TabItem Header="Debug" Visibility="{Binding Path=CurrentViewModelRemoteController.MinimalViewVis}">
+                <Grid MaxWidth="510">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
@@ -776,8 +835,8 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Information" x:Name="InformationTab">
-                <Border Name="XMLStatus"  Margin="10,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1">
+            <TabItem Header="Information" Visibility="{Binding Path=CurrentViewModelRemoteController.MinimalViewVis}" x:Name="InformationTab">
+                <Border MaxWidth="510" Name="XMLStatus"  Margin="10,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1">
                     <Border.Effect>
                         <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
                     </Border.Effect>
@@ -794,7 +853,7 @@
                         <Label Margin="19,0" Grid.Column="0" Grid.Row="0" Content="DEVICE STATUS" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black" Height="26" Width="103"/>
                         <Border Margin="2,0,2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                         <TextBox Name="RaspiConfig" Text="{Binding Path=CurrentViewModelRemoteController.RaspiConfigString}" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,3"/>
-                        <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" Width="121"
+                        <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" Width="121" MaxHeight="25px"
                                 Command="{Binding GetRaspiConfigCommand}" Margin="10,4,10,9"  ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <TextBlock Text="Get Current Configuration" FontFamily="Arial" FontSize="8"/>

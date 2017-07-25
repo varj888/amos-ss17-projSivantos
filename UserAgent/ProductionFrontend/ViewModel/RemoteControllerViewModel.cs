@@ -317,6 +317,26 @@ namespace TestMachineFrontend1.ViewModel
                 OnPropertyChanged("RPIListVisible");
             }
         }
+        private Visibility _MinimalViewVis = Visibility.Visible;
+        public Visibility MinimalViewVis
+        {
+            get { return _MinimalViewVis; }
+            set
+            {
+                _MinimalViewVis = value;
+                OnPropertyChanged("MinimalViewVis");
+            }
+        }
+        private GridLength _MinimalViewGrids = new GridLength(1, GridUnitType.Auto);
+        public GridLength MinimalViewGrids
+        {
+            get { return _MinimalViewGrids; }
+            set
+            {
+                _MinimalViewGrids = value;
+                OnPropertyChanged("MinimalViewGrids");
+            }
+        }
         private Visibility isPiDisconnected = Visibility.Visible;
         public Visibility IsPiDisconnected
         {

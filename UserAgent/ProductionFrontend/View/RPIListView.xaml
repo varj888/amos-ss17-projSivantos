@@ -62,8 +62,8 @@
             </ListView.ContextMenu>-->
             <ListView.View>
                 <GridView AllowsColumnReorder="False" >
-                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="120" />
-                    <GridViewColumn Header="IP Address" DisplayMemberBinding="{Binding Id}" Width="100" />
+                    <GridViewColumn Header="Address" DisplayMemberBinding="{Binding Name}" Width="120" />
+                    <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="100" />
                     <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="60"/>
                 </GridView>
             </ListView.View>
