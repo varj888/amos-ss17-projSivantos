@@ -328,6 +328,17 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        private Visibility _DebugVisible = Visibility.Collapsed;
+        public Visibility DebugVisible
+        {
+            get { return _DebugVisible; }
+            set
+            {
+                _DebugVisible = value;
+                OnPropertyChanged("DebugVisible");
+            }
+        }
+
         public bool IsRockerSwitchUp { get; set; }
         public bool IsRockerSwitchDown { get; set; }
         public bool IsPushButtonUp { get; set; }
@@ -444,6 +455,7 @@ namespace TestMachineFrontend1.ViewModel
                 IsPiConnected = true;
                 IsPiConnectedStatus = Visibility.Visible;
                 IsPiDisconnected = Visibility.Hidden;
+                DebugVisible = Visibility.Visible;
 
                 raspberryPis.Add(IPAdressConnect, pi1);
 
@@ -468,7 +480,7 @@ namespace TestMachineFrontend1.ViewModel
             catch (FormatException fx)
 
             {
-
+                MessageBox.Show("Invalid IP Address Format", "ERROR");
                 debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
                 IsPiConnected = false;
             }
@@ -476,22 +488,18 @@ namespace TestMachineFrontend1.ViewModel
             catch (SocketException sx)
 
             {
-
+                MessageBox.Show("Couldn't establish connection", "ERROR");
                 debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
-
                 //TODO check
-
                 IsPiConnected = false;
             }
 
             catch (Exception any)
 
             {
-
+                MessageBox.Show("Unknown Error", "ERROR");
                 debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
-
                 //TODO check
-
                 IsPiConnected = false;
             }
 

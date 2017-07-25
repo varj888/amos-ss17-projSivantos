@@ -20,7 +20,7 @@
             <RowDefinition Height="30px"/>
         </Grid.RowDefinitions>
         <Border Name="LeftHeaderBorderControl" BorderBrush="#FFB9C3CF" BorderThickness="0,0,0,1" 
-                Grid.Column="0" Grid.Row="0" Background="#FFF9F9F9">
+                Grid.Column="0" Grid.Row="0"  Background="#FFF9F9F9">
             <DockPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=LeftHeaderBorderControl}">
                 <TextBox  Name="RPI_IP_Entry" Text="{Binding CurrentViewModelRemoteController.IPAdressConnect}" PreviewTextInput="NumberValidationTextBox"
                           Grid.Column="0" Margin="10 2 2 2" 
@@ -28,7 +28,7 @@
                          ToolTip="Enter IP Address" VerticalContentAlignment="Center" FontSize="12" 
                          Foreground="#FF323C46" Width="150" HorizontalContentAlignment="Stretch" 
                          HorizontalAlignment="Left" Background="White" />
-                <Grid Name="AddingConnectionGrid" Grid.Column="1">
+                <Grid Name="AddingConnectionGrid" HorizontalAlignment="Right">
                     <Button Name="Add_Connection_Button" Content="Add" HorizontalAlignment="Left" 
                             VerticalAlignment="Center" Foreground="#FF323C46" FontFamily="Segoe UI Semibold" 
                             Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,10,0"
@@ -53,13 +53,13 @@
                   IsEnabled="False"
                   ItemsSource="{Binding CurrentViewModelRemoteController.BackendList}"
                   SelectedItem="{Binding CurrentViewModelRemoteController.SelectedRaspiItem}">
-            <ListView.ContextMenu>
+            <!--<ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Connect"  />
                     <MenuItem Header="Disconnect"  />
                     <MenuItem Header="Delete"  />
                 </ContextMenu>
-            </ListView.ContextMenu>
+            </ListView.ContextMenu>-->
             <ListView.View>
                 <GridView AllowsColumnReorder="False" >
                     <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="120" />
