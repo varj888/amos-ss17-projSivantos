@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -67,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\CommonFiles\Configs\ReceiverConfig.cs">
+      <Link>CommonFiles\Configs\ReceiverConfig.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
@@ -81,6 +87,11 @@
     </Compile>
     <Compile Include="Commands\AddRPCommand.cs" />
     <Compile Include="Commands\CheckLEDStatusCommand.cs" />
+    <Compile Include="Commands\ConnectPinsCommand.cs" />
+    <Compile Include="Commands\ReadPinCommand.cs" />
+    <Compile Include="Commands\ResetMuxCommand.cs" />
+    <Compile Include="Commands\ResetPinCommand.cs" />
+    <Compile Include="Commands\ToggleRPIListViewCommand.cs" />
     <Compile Include="Commands\ConnectIPCommand.cs" />
     <Compile Include="Commands\DetectAudioShoeCommand.cs" />
     <Compile Include="Commands\DetectTCoilCommand.cs" />
@@ -94,14 +105,14 @@
     <Compile Include="Commands\RefreshRPListCommand.cs" />
     <Compile Include="Commands\SetHICommand.cs" />
     <Compile Include="Commands\SetReceiverCommand.cs" />
-    <Compile Include="Commands\UndetectAudioShueCommand.cs" />
+    <Compile Include="Commands\UndetectAudioShoeCommand.cs" />
     <Compile Include="Commands\UndetectTCoilCommand.cs" />
+    <Compile Include="Commands\WritePinCommand.cs" />
     <Compile Include="Helpers\DelegateCommand.cs" />
     <Compile Include="Helpers\HelperXML.cs" />
     <Compile Include="Helpers\ListItemSelected.cs" />
     <Compile Include="Helpers\ObservableObject.cs" />
     <Compile Include="Helpers\PercentageConverter.cs" />
-    <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Model\DebugModel.cs" />
     <Compile Include="Model\LCDControlsModel.cs" />
     <Compile Include="Model\MultiplexerModel.cs" />
@@ -109,22 +120,20 @@
     <Compile Include="Model\TabControlModel.cs" />
     <Compile Include="Model\UserControlsModel.cs" />
     <Compile Include="Api\RaspberryPi.cs" />
+    <Compile Include="ViewModel\AboutViewModel.cs" />
     <Compile Include="ViewModel\DebugViewModel.cs" />
     <Compile Include="ViewModel\DetectViewModel.cs" />
     <Compile Include="ViewModel\DisconnectedViewModel.cs" />
-    <Compile Include="ViewModel\MainTabViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\RemoteControllerTitleBarViewModel.cs" />
     <Compile Include="ViewModel\RemoteControllerViewModel.cs" />
     <Compile Include="ViewModel\RPIListViewModel.cs" />
-    <Compile Include="View\DetectView.xaml.cs">
-      <DependentUpon>DetectView.xaml</DependentUpon>
+    <Compile Include="ViewModel\TestDebugTabViewModel.cs" />
+    <Compile Include="View\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DisconnectedView.xaml.cs">
       <DependentUpon>DisconnectedView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\MainTabView.xaml.cs">
-      <DependentUpon>MainTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DebugView.xaml.cs">
       <DependentUpon>DebugView.xaml</DependentUpon>
@@ -150,15 +159,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\DetectView.xaml">
+    <Page Include="View\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DisconnectedView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -230,6 +235,9 @@
     <Resource Include="img\telecoil_512_on_left_gradient.png" />
     <Resource Include="img\telecoil_512_on_right_gradient.png" />
     <Resource Include="img\telecoil_512_right_on.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

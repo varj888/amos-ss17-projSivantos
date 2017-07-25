@@ -1,9 +1,5 @@
-﻿using CommonFiles.TransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
 using TestMachineFrontend1.ViewModel;
 
@@ -29,9 +25,16 @@ namespace TestMachineFrontend1.Commands
 
         public async void Execute(object parameter)
         {
-            if (remoteVM.getDuration() != -1)
+            object selectedDuration = MainWindowViewModel.CurrentViewModelRemoteController.SelectedDuration.Content;
+
+            if (selectedDuration != null)
             {
+<<<<<<< HEAD
                 await remoteVM.SelectedRaspiItem.raspi.PressRockerSwitchDown(remoteVM.getDuration());
+=======
+                Debug.WriteLine("The selected Duration for {0} is: {1}", this.GetType().Name, selectedDuration.ToString());
+                await remoteVM.RaspberryPiInstance.PressRockerSwitchDown(selectedDuration.ToString());
+>>>>>>> master
                 debugViewModel.AddDebugInfo("PressRockerSwitchDown", "success");
             }
             else

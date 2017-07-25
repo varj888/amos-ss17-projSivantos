@@ -1,5 +1,4 @@
-﻿using CommonFiles.Networking;
-using CommonFiles.TransferObjects;
+﻿using CommonFiles.TransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,17 +6,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+<<<<<<< HEAD
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+=======
+>>>>>>> master
 using System.Windows.Input;
 using TestmachineFrontend1;
 using TestMachineFrontend1.Helpers;
 using TestMachineFrontend1.Model;
+using static RaspberryBackend.ReceiverConfig;
 
 namespace TestMachineFrontend1.ViewModel
 {
@@ -33,7 +35,6 @@ namespace TestMachineFrontend1.ViewModel
 
         public RemoteControllerViewModel()
         {
-            //this.debugVM = debugVM;
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
             availableHI = new Dictionary<string, List<string>>();
             HIListItems = new ObservableCollection<ComboBoxItem>();
@@ -61,6 +62,7 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+<<<<<<< HEAD
         private ObservableCollection<RaspberryPiItem> backendList;
         public ObservableCollection<RaspberryPiItem> BackendList
         {
@@ -76,6 +78,41 @@ namespace TestMachineFrontend1.ViewModel
         {
             get
             { return this.detectModel; }
+=======
+        private async Task<string> getRaspiModel()
+        {
+            return await raspberryPi.GetRaspiModel();
+        }
+
+        private async Task<string> getRaspiFamily()
+        {
+            return await raspberryPi.GetRaspiFamily();
+        }
+
+        private string model;
+        public string Model
+        {
+            get { return model; }
+            set
+            {
+                model = value;
+                OnPropertyChanged("Model");
+            }
+        }
+
+        private string family;
+        public string Family
+        {
+            get { return family; }
+            set
+            {
+                family = value;
+                OnPropertyChanged("Family");
+            }
+        }
+
+        private ObservableCollection<ComboBoxItem> _hiListItems;
+>>>>>>> master
 
             set
             {
@@ -153,6 +190,30 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        public Visibility _tcoilUpdate = Visibility.Hidden;
+
+        public Visibility TcoilUpdate
+        {
+            get { return _tcoilUpdate; }
+            set
+            {
+                _tcoilUpdate = value;
+                OnPropertyChanged("TcoilUpdate");
+            }
+        }
+
+        public Visibility _AudioShoeUpdate = Visibility.Hidden;
+
+        public Visibility AudioShoeUpdate
+        {
+            get { return _AudioShoeUpdate; }
+            set
+            {
+                _AudioShoeUpdate = value;
+                OnPropertyChanged("AudioShoeUpdate");
+            }
+        }
+
         public Visibility _toggleLEDButton = Visibility.Hidden;
 
         public Visibility ToggleLEDButton
@@ -178,7 +239,7 @@ namespace TestMachineFrontend1.ViewModel
 
         //TODO: find the way to run this async!
         //option: button on the right side of receiverListBox
-        private ComboBoxItem  _selectedReceiverItem;
+        private ComboBoxItem _selectedReceiverItem;
         public ComboBoxItem SelectedReceiverItem
         {
             get { return _selectedReceiverItem; }
@@ -274,11 +335,57 @@ namespace TestMachineFrontend1.ViewModel
         public ICommand ItemSelected { get; private set; }
         #endregion
 
+<<<<<<< HEAD
+=======
+        #region Requests
+        public Request PressPushButton
+        {
+            get { return new Request("PressPushButton", MainWindowViewModel.CurrentViewModelRemoteController.SelectedDuration.Content.ToString()); }
+        }
+
+        public Request DetectTCol
+        {
+            get { return new Request("EnableTeleCoil", 1); }
+        }
+
+        public Request UndetectTCol
+        {
+            get { return new Request("EnableTeleCoil", 0); }
+        }
+
+        public Request DetectAudioShoe
+        {
+            get { return new Request("EnableAudioShoe", 1); }
+        }
+
+        public Request UndetectAudioShoe
+        {
+            get { return new Request("EnableAudioShoe", 0); }
+        }
+
+        public Request Endless_VC_Up
+        {
+            get { return new Request("EndlessVCUp", new int[] { }); }
+        }
+
+        public Request Endless_VC_Down
+        {
+            get { return new Request("EndlessVCDown", new int[] { }); }
+        }
+
+        public Request GetAvailableHI
+        {
+            get { return new Request("GetAvailableHI", 0); }
+        }
+        #endregion
+
+>>>>>>> master
         #region Methods
 
         private string _raspiConfigString;
-        public string RaspiConfigString {
-            get { return _raspiConfigString;  }
+        public string RaspiConfigString
+        {
+            get { return _raspiConfigString; }
             set
             {
                 _raspiConfigString = value;
@@ -307,11 +414,15 @@ namespace TestMachineFrontend1.ViewModel
                 OnPropertyChanged("EndlessVcTicks");
             }
         }
+<<<<<<< HEAD
         
         public void addRaspberryPi()
         {
             addRaspberryPi(IPAdressConnect, "?");
         }
+=======
+
+>>>>>>> master
 
         public void addRaspberryPi(string Address, string status)
         {
@@ -319,12 +430,45 @@ namespace TestMachineFrontend1.ViewModel
             IPAddress address;
             try
             {
+<<<<<<< HEAD
                 address = IPAddress.Parse(Address);
+=======
+
+                var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
+
+                raspberryPi = pi1;
+                IsPiConnected = true;
+                IsPiConnectedStatus = Visibility.Visible;
+                IsPiDisconnected = Visibility.Hidden;
+
+                raspberryPis.Add(IPAdressConnect, pi1);
+
+                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
+
+                BackendList.Add(raspiItem);
+
+                SelectedRaspiItem = raspiItem;
+
+                debugVM.AddDebugInfo("[SUCCESS]", "Connection established");
+
+                String result = await RaspberryPiInstance.GetAvailableHI();
+
+                getAvailableHI(result);
+
+                SynchronizationContext uiContext = SynchronizationContext.Current;
+
+                Model = await getRaspiModel();
+                Family = await getRaspiFamily();
+>>>>>>> master
             }
             catch (FormatException fx)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
+<<<<<<< HEAD
                 return;
+=======
+                IsPiConnected = false;
+>>>>>>> master
             }
             IPEndPoint endpoint = new IPEndPoint(address, 54321);
             foreach(var entry in BackendList)
@@ -423,29 +567,26 @@ namespace TestMachineFrontend1.ViewModel
         private void initReceiverComboBox()
         {
             ReceiverItems = new ObservableCollection<ComboBoxItem>();
-            ComboBoxItem item1 = new ComboBoxItem();
-            item1.Content = "Short";
             ComboBoxItem item2 = new ComboBoxItem();
-            item2.Content = "Small Right";
+            item2.Content = SmallRight.Item1;
             ComboBoxItem item3 = new ComboBoxItem();
-            item3.Content = "Small Left";
+            item3.Content = SmallLeft.Item1;
             ComboBoxItem item4 = new ComboBoxItem();
-            item4.Content = "Medium Right";
+            item4.Content = MediumRight.Item1;
             ComboBoxItem item5 = new ComboBoxItem();
-            item5.Content = "Medium Left";
+            item5.Content = MediumLeft.Item1;
             ComboBoxItem item6 = new ComboBoxItem();
-            item6.Content = "Power Right";
+            item6.Content = PowerRight.Item1;
             ComboBoxItem item7 = new ComboBoxItem();
-            item7.Content = "Power Left";
+            item7.Content = PowerLeft.Item1;
             ComboBoxItem item8 = new ComboBoxItem();
-            item8.Content = "High Power Right";
+            item8.Content = HighPowerRight.Item1;
             ComboBoxItem item9 = new ComboBoxItem();
-            item9.Content = "High Power Left";
+            item9.Content = HighPowerLeft.Item1;
             ComboBoxItem item10 = new ComboBoxItem();
-            item10.Content = "Defective";
+            item10.Content = Defective.Item1;
             ComboBoxItem item11 = new ComboBoxItem();
-            item11.Content = "No Receiver";
-            ReceiverItems.Add(item1);
+            item11.Content = NoReceiver.Item1;
             ReceiverItems.Add(item2);
             ReceiverItems.Add(item3);
             ReceiverItems.Add(item4);
@@ -455,34 +596,9 @@ namespace TestMachineFrontend1.ViewModel
             ReceiverItems.Add(item8);
             ReceiverItems.Add(item9);
             ReceiverItems.Add(item10);
-            ReceiverItems.Add(item11);
             SelectedReceiverItem = ReceiverItems.First();
         }
 
-        public int getDuration()
-        {
-            if (SelectedDurationIndex < 0)
-            {
-                return -1;
-            }
-            var a = SelectedDuration;
-            UInt16 duration;
-            switch (a.Content)
-            {
-                case "Short":
-                    duration = 50;
-                    break;
-                case "Medium":
-                    duration = 500;
-                    break;
-                case "Long":
-                    duration = 3000;
-                    break;
-                default:
-                    return -1;
-            }
-            return duration;
-        }
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace RaspberryBackend
@@ -12,40 +13,39 @@ namespace RaspberryBackend
         /// <summary>
         /// Execute presssing one rockerswitch
         /// </summary>
-        /// <param name="parameter">Expects an int-Array containing id = [0|1] and duration</param>
-        /// <returns>The provided parameterlist represented as string</returns>
-        public string PressRockerSwitch(int[] param)
+        /// <param name="rsw">expected "up" ord "down"</param>
+        /// <param name="durationCategorie">expected string defined in <see cref="DurationConfig"/></param>
+        /// <returns>content of rsw+(duration) </returns>
+        public string PressRockerSwitch(string rsw, string durationCategorie)
         {
-
-            if (param.Length != 2)
+            if (rsw == null || durationCategorie == null)
             {
                 throw new Exception("Received invalid paremeterlist");
             }
 
-            int rsw = param[0];
-            int duration = param[1];
-
-            if (rsw < 0 | rsw > 1)
-            {
-                throw new Exception("Invalid Rockerswitch submitted");
-            }
+            int duration = DurationConfig.getDuration(durationCategorie);
+            Debug.WriteLine("\n Execute {0} with Parameter {3} duration {1}({2}) \n", this.GetType().Name, durationCategorie, duration, rsw);
 
             UInt16 pushButton_Pin;
 
-            if (rsw == 0)
+            if (rsw == "down")
             {
                 pushButton_Pin = GpioMap.rockerSwitchDownPin;
             }
-            else
+            else if (rsw == "up")
             {
                 pushButton_Pin = GpioMap.rockerSwitchUpPin;
+            }
+            else
+            {
+                throw new Exception("Invalid Rockerswitch submitted");
             }
 
             GPIOinterface.activatePin(pushButton_Pin);
             Task.Delay(duration).Wait();
             GPIOinterface.deactivatePin(pushButton_Pin);
 
-            return param.ToString();
+            return rsw + "(" + duration + ")";
         }
     }
 }

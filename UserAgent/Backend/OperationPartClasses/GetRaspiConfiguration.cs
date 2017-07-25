@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace RaspberryBackend
 {
     public partial class Operation
     {
         /// <summary>
-        /// Reads the current configuration of the Raspberry
+        /// Reads the current configuration of the Raspberry and updates the LCD status information <see cref="updateLCD"/>
         /// </summary>
         /// <param name="i">not used</param>
         /// <returns>The current configuration as human readable string</returns>
@@ -41,8 +37,19 @@ namespace RaspberryBackend
             sb.Append("\t Audio Shoe detected: " + getAudioShoeStatus() + "\n");
             sb.Append("\t LED is On: " + CheckLEDStatus(0) + "\n");
 
+            this.updateLCD();
 
             return sb.ToString();
+        }
+
+        public string GetRaspiFamily(int i)
+        {
+            return StorageCfgs.Hi.Family;
+        }
+
+        public string GetRaspiModel(int i)
+        {
+            return StorageCfgs.Hi.Model;
         }
     }
 }

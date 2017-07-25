@@ -91,6 +91,9 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\CommonFiles\Configs\ReceiverConfig.cs">
+      <Link>Config\ReceiverConfig.cs</Link>
+    </Compile>
     <Compile Include="..\CommonFiles\Networking\Serializer.cs">
       <Link>CommonFiles\Networking\Serializer.cs</Link>
     </Compile>
@@ -115,10 +118,10 @@
     <Compile Include="Components\Operations.cs" />
     <Compile Include="Components\RequestHandler.cs" />
     <Compile Include="Components\TestOperations.cs" />
+    <Compile Include="Config\DurationConfig.cs" />
     <Compile Include="Config\GpioMap.cs" />
     <Compile Include="Config\parser\HiXmlParser.cs" />
     <Compile Include="Config\MultiplexerConfig.cs" />
-    <Compile Include="Config\ReceiverConfig.cs" />
     <Compile Include="Config\storage\StorageCfgs.cs" />
     <Compile Include="Config\storage\StorageHandler.cs" />
     <Compile Include="Config\SymbolConfig.cs" />
@@ -132,6 +135,7 @@
     <Compile Include="OperationPartClasses\GetRaspiConfiguration.cs" />
     <Compile Include="OperationPartClasses\GetTeleCoilStatus.cs" />
     <Compile Include="OperationPartClasses\GetAvailableHI.cs" />
+    <Compile Include="OperationPartClasses\SaveHiConfig.cs" />
     <Compile Include="OperationPartClasses\PressCombination.cs" />
     <Compile Include="OperationPartClasses\PressPushButton.cs" />
     <Compile Include="OperationPartClasses\PressRockerSwitch.cs" />

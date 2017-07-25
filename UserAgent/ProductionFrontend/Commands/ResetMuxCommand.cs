@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CommonFiles.TransferObjects;
 using TestMachineFrontend1.ViewModel;
-using System.Diagnostics;
-using System.Windows;
 
 namespace TestMachineFrontend1.Commands
 {
-    public class UndetectTCoilCommand : ICommand
+    public class ResetMuxCommand : ICommand
     {
         private RemoteControllerViewModel remoteVM;
         private DebugViewModel debugVM;
 
-        public UndetectTCoilCommand()
+        public ResetMuxCommand()
         {
-            debugVM = MainWindowViewModel.CurrentViewModelDebug;
             remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
+            debugVM = MainWindowViewModel.CurrentViewModelDebug;
         }
-
         public event EventHandler CanExecuteChanged;
 
         public bool CanExecute(object parameter)
@@ -34,21 +31,14 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-<<<<<<< HEAD
-                result = await remoteVM.SelectedRaspiItem.raspi.UndetectTeleCoil();
-                remoteVM.TCoilDetected = false;
-=======
-                result = await remoteVM.RaspberryPiInstance.UndetectTeleCoil();
-                remoteVM.TcoilUpdate = Visibility.Hidden;
->>>>>>> master
-                debugVM.AddDebugInfo("UndetectTeleCoil", result);
+                result = await remoteVM.RaspberryPiInstance.ResetMux();
+                debugVM.AddDebugInfo("Multiplexer is resetted: ", result);
             }
-            catch (Exception e)
+            catch (Exception exc)
             {
-                debugVM.AddDebugInfo("UndetectTeleCoil :", e.Message);
-                return;
+                debugVM.AddDebugInfo("Reset Mux failed. ", exc.Message);
+                Debug.WriteLine("Reset Mux failed. " + exc.Message + " " + exc.Source);
             }
         }
     }
 }
-

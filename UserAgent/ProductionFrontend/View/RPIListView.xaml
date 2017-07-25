@@ -13,7 +13,7 @@
     <UserControl.DataContext>
         <vm:MainWindowViewModel/>
     </UserControl.DataContext>
-    <Grid  Name="LeftGrid">
+    <Grid  Name="LeftGrid" >
         <Grid.RowDefinitions>
             <RowDefinition Height="30px"/>
             <RowDefinition Height="1*"/>
@@ -22,7 +22,7 @@
         <Border Name="LeftHeaderBorderControl" BorderBrush="#FFB9C3CF" BorderThickness="0,0,0,1" 
                 Grid.Column="0" Grid.Row="0" Background="#FFF9F9F9">
             <DockPanel HorizontalAlignment="Center" Width="{Binding ActualWidth, ElementName=LeftHeaderBorderControl}">
-                <TextBox  Name="RPI_IP_Entry" Text="{Binding CurrentViewModelRemoteController.IPAdressConnect}"
+                <TextBox  Name="RPI_IP_Entry" Text="{Binding CurrentViewModelRemoteController.IPAdressConnect}" PreviewTextInput="NumberValidationTextBox"
                           Grid.Column="0" Margin="10 2 2 2" 
                          VerticalAlignment="Stretch" Height="22"  TextWrapping="Wrap" 
                          ToolTip="Enter IP Address" VerticalContentAlignment="Center" FontSize="12" 
@@ -44,7 +44,11 @@
                 <Button Name="Refresh_Button" Content="↺" HorizontalAlignment="Right" 
                             VerticalAlignment="Center" Foreground="#FF323C46" FontFamily="Segoe UI Semibold" 
                             Background="{x:Null}" BorderBrush="{x:Null}" Margin="10,0,10,0"
+<<<<<<< HEAD
                             FontSize="14" Visibility="Visible" Command="{Binding RefreshRPListCommand}"/>
+=======
+                            FontSize="14" Visibility="Hidden"/>
+>>>>>>> master
             </DockPanel>
         </Border>
         <ListView Margin="-2,0,0,0" 
@@ -81,7 +85,7 @@
                 <Label Content="AMOS Team 1 (2017)" Grid.Column="0" HorizontalAlignment="Left" Margin="10,0" VerticalAlignment="Center" Foreground="#FF323C46"  FontFamily="Segoe UI"></Label>
                 <Button Content="?" Name="HelpButton" Grid.Column="1" Width="20" 
                         HorizontalAlignment="Right" VerticalAlignment="Center" 
-                        Margin="10,0" Foreground="#FF323C46" FontFamily="Segoe UI Bold" Background="{x:Null}" 
+                        Margin="10,0" Foreground="#FF323C46" FontFamily="Segoe UI Bold" Background="{x:Null}" Click="HelpButton_Click"
                         BorderBrush="{x:Null}" FontSize="12" />
             </Grid>
         </Border>

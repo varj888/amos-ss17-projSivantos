@@ -40,13 +40,12 @@ namespace RaspberryBackend
             {
                 ADConverter.setDACVoltage2(voltage);
             }
-            this.updateLCD();
         }
 
-        private void saveARDVoltage(string device)
+        private async void saveARDVoltage(string device)
         {
             StorageCfgs.Hi.CurrentReceiver = device;
-            StorageHandler<Hi>.Save(StorageCfgs.FileName_HiCfg, StorageCfgs.Hi).Wait(10000);
+            await saveHiConfig();
         }
     }
 }

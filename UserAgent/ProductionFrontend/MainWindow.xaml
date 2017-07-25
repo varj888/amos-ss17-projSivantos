@@ -16,125 +16,69 @@
 
     <Window.Resources>
         <DataTemplate
-
             DataType="{x:Type vm:DebugViewModel}">
-
             <v:DebugView />
-
-        </DataTemplate>
-
-        <!--<v:DetectTabView />-->
-
-        <DataTemplate
-
-            DataType="{x:Type vm:MainTabViewModel}">
-
-            <v:MainTabView />
-
         </DataTemplate>
 
         <DataTemplate
-
-            DataType="{x:Type vm:DetectViewModel}">
-
-            <v:DetectView />
-
-        </DataTemplate>
-
-        <DataTemplate
-
             DataType="{x:Type vm:RPIListViewModel}">
-
             <v:RPIListView />
-
         </DataTemplate>
 
         <DataTemplate
-
             DataType="{x:Type vm:DisconnectedViewModel}">
-
             <v:DisconnectedView />
-
         </DataTemplate>
 
         <DataTemplate
-
             DataType="{x:Type vm:RemoteControllerViewModel}">
-
             <v:RemoteControllerView />
-
         </DataTemplate>
 
         <DataTemplate
-
             DataType="{x:Type vm:RemoteControllerTitleBarViewModel}">
-
             <v:RemoteControllerTitleBarView />
-
         </DataTemplate>
 
+        <DataTemplate
+            DataType="{x:Type vm:TestDebugTabViewModel}">
+            <v:RemoteControllerView />
+        </DataTemplate>
     </Window.Resources>
 
-
-
     <Grid Name="MainGrid" HorizontalAlignment="Stretch" Width="Auto">
-
         <Grid.ColumnDefinitions>
-
             <ColumnDefinition Name="ListColumn" Width="1*" MinWidth="280"/>
-
             <ColumnDefinition xmlns:comment="Aligning grid splitter in its own auto-sized column to prevent overlapping to adjacent cells."
-
                               Width="Auto"/>
-
             <ColumnDefinition Name="CoreColumn" Width="2*" MinWidth="560"/>
-
             <ColumnDefinition Name="DebugColumn" Width="1*" MinWidth="200"/>
-
-
-
         </Grid.ColumnDefinitions>
 
         <GridSplitter HorizontalAlignment="Right" 
-
                   VerticalAlignment="Stretch" 
-
                   Grid.Column="1" ResizeBehavior="PreviousAndNext"
-
                   Width="1" Background="#FFB9C3CF"/>
-
-        <ContentControl Content="{Binding Path=CurrentViewModelRPIList}" Grid.Column="0"></ContentControl>
+        <ContentControl Content="{Binding Path=CurrentViewModelRPIList}" Grid.Column="0" Visibility="{Binding Path=RPIListVisible}"/>
 
         <Grid Name="RemoteControllerGrid" Grid.Column="2">
-
             <Grid.RowDefinitions>
-
                 <RowDefinition Height="30px"></RowDefinition>
-
                 <RowDefinition Height="1*"></RowDefinition>
-
-
-
             </Grid.RowDefinitions>
 
-            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"></ContentControl>
-            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"></ContentControl>
-            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" Grid.Row="0"></ContentControl>
-
-
-
+            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" 
+                            Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"/>
+            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" 
+                            Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"/>
+            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" 
+                            Grid.Row="0"/>
         </Grid>
-
-        <ContentControl Visibility="Hidden" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Column="2"></ContentControl>
-
+        <ContentControl Visibility="Hidden" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Column="2"/>
         <Grid Grid.Column="3" Background="#FFF9F9F9">
 
-            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelDebug}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ></ContentControl>
-
+            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelDebug}" 
+                            VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
         </Grid>
-
     </Grid>
-
-
-
 </Window>

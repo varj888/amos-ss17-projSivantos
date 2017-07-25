@@ -387,6 +387,9 @@
                             <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="TCOIL" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" MaxHeight="200px" HorizontalAlignment="Center" Source="..\img\telecoil_512_off.png"></Image>
+                            <Image Margin="10" Grid.Row="1" MaxHeight="200px" HorizontalAlignment="Center" 
+                                   Source="..\img\telecoil_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.TcoilUpdate}"/>
 
                             <!--<Ellipse Grid.Row="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center" Width="40">
                                             <Ellipse.Fill>
@@ -440,6 +443,10 @@
                             <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="AUDIO SHOE" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="200px" Source="..\img\audio_shoe_512_off.png"></Image>
+                            <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="200px" 
+                                   Source="..\img\audio_shoe_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.AudioShoeUpdate}"/>
+
                             <!--  <Ellipse Grid.Row="1" HorizontalAlignment="Center" Height="40" VerticalAlignment="Center" Width="40">
                                             <Ellipse.Fill>
                                                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -457,16 +464,14 @@
                                             </Ellipse.Fill>
                                         </Ellipse>-->
                             <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
-                                    Height="20px" Width="50px" Command="{Binding DetectAudioShueCommand}">
-                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectAudioShoe}"-->
+                                    Height="20px" Width="50px" Command="{Binding DetectAudioShoeCommand}">
                                 <StackPanel>
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
                             <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
-                                    Height="20px" Width="50px" Command="{Binding UndetectAudioShueCommand}">
-                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectAudioShoe}"-->
-                                <StackPanel>
+                                    Height="20px" Width="50px" Command="{Binding UndetectAudioShoeCommand}">
+                               <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
@@ -598,7 +603,7 @@
                                              TickPlacement="TopLeft" IsSnapToTickEnabled="True" TickFrequency="1" 
                                              Width="120" Height="25"
                                              Value="{Binding Path=CurrentViewModelRemoteController.CurrentVolumeLevel}"
-                                             ValueChanged="SetVolume_Slider_OnValueChanged"/>
+                                             Thumb.DragCompleted="SetVolume_Slider_DragCompleted"/>
                                     <Label  Content="127" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                 </StackPanel>
 
@@ -648,7 +653,7 @@
                                          IsSnapToTickEnabled="True"
                                          TickFrequency="0.1"
                                          Value="{Binding Path=CurrentViewModelRemoteController.CurrentPowerVoltage}"
-                                         ValueChanged="Power_Slider_OnValueChanged" Width="100" Height="25" />
+                                         Thumb.DragCompleted="Power_Slider_DragCompleted"  Width="100" Height="25" />
                                 <Label  Content="1,5 V" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                 <Border Margin="10,0" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
                                 <StackPanel Orientation="Horizontal" Width="59">
@@ -689,7 +694,6 @@
                         <TextBox Name="RaspiConfig" Text="{Binding Path=CurrentViewModelRemoteController.RaspiConfigString}" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,3"/>
                         <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" Width="121"
                                 Command="{Binding GetRaspiConfigCommand}" Margin="10,4,10,9"  ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectTCol}"-->
                             <StackPanel>
                                 <TextBlock Text="Get Raspi Config" FontFamily="Arial" FontSize="8"/>
                             </StackPanel>
@@ -697,6 +701,38 @@
 
                     </Grid>
                 </Border>
+            </TabItem>
+            <TabItem Header="Debug Tab">
+                <Grid Background="WhiteSmoke">
+                    <Label Content="x: " HorizontalAlignment="Left" Margin="88,48,0,0" VerticalAlignment="Top"/>
+                    <Label Content="y: " HorizontalAlignment="Left" Margin="219,48,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="valueX" HorizontalAlignment="Left" Height="26"
+                             Margin="125,52,0,0" TextWrapping="Wrap" Text="{Binding Path=CurrentTestDebugTab.MuxModel.ValueX}" 
+                             VerticalAlignment="Top" Width="59"/>
+                    <TextBox x:Name="valueY" HorizontalAlignment="Left" Height="26"
+                             Margin="259,52,0,0" TextWrapping="Wrap" Text="{Binding Path=CurrentTestDebugTab.MuxModel.ValueY}" 
+                             VerticalAlignment="Top" Width="59"/>
+
+                    <Button Name="setPinsButton" Content="Set pins" HorizontalAlignment="Left" 
+                Margin="103,103,0,0" VerticalAlignment="Top" Width="85" Height="28"
+               Command="{Binding ConnectPinsCommand}"/>
+                    
+                    <Button x:Name="resetMux" Content="Reset multiplexer" HorizontalAlignment="Left" 
+                Margin="263,103,0,0" VerticalAlignment="Top" Width="85" Height="28"
+              Command="{Binding ResetMuxCommand}" />
+
+                    <TextBox Margin="86,191,370.5,197" TextAlignment="Center" 
+                 Text="{Binding Path=CurrentTestDebugTab.MuxModel.PinID}" />
+
+                    <Button x:Name="readPin_button" Margin="151,191,284.5,197" Content="Read pin" 
+                Command="{Binding ReadPinCommand}" />
+
+                    <Button x:Name="writePin_button" Margin="233,191,206.5,197" Content="Write pin" 
+                Command="{Binding WritePinCommand}" />
+
+                    <Button x:Name="reset_button" Margin="309,191,132.5,197" Content="Reset" 
+                Command="{Binding ResetPinCommand}" />
+                </Grid>
             </TabItem>
         </TabControl>
     </Grid>

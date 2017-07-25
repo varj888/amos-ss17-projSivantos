@@ -23,11 +23,13 @@ namespace RaspberryBackendTests
         public void TestLoadHiCfg()
         {
             rasPi.Control.setMultiplexerConfiguration();
+            Task.Delay(8000).Wait();
             hiFromFile = getFile().Result;
 
             Assert.AreEqual("Pure", hiFromFile.Family);
 
             rasPi.Control.setMultiplexerConfiguration("TestFamily", "TestModel");
+            Task.Delay(8000).Wait();
             hiFromFile = getFile().Result;
 
             Assert.AreEqual("TestFamily", hiFromFile.Family);
@@ -41,6 +43,7 @@ namespace RaspberryBackendTests
 
             rasPi.Control.setMultiplexerConfiguration();
             rasPi.Control.SetARDVoltage(ReceiverConfig.HighPowerLeft.Item1);
+            Task.Delay(8000).Wait();
 
             hiFromFile = getFile().Result;
 
@@ -53,7 +56,6 @@ namespace RaspberryBackendTests
         private async Task<Hi> getFile()
         {
             return await StorageHandler<Hi>.Load(StorageCfgs.FileName_HiCfg);
-
         }
 
         [TestCleanup]

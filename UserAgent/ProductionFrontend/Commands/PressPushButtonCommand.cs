@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using CommonFiles.TransferObjects;
-using TestMachineFrontend1.ViewModel;
 using System.Diagnostics;
+using System.Windows.Input;
+using TestMachineFrontend1.ViewModel;
 
 namespace TestMachineFrontend1.Commands
 {
@@ -31,9 +26,16 @@ namespace TestMachineFrontend1.Commands
         public async void Execute(object parameter)
         {
             String result;
+            object selectedDuration = MainWindowViewModel.CurrentViewModelRemoteController.SelectedDuration.Content;
+
             try
             {
+<<<<<<< HEAD
                 result = await remoteVM.SelectedRaspiItem.raspi.PressPushButton(remoteVM.getDuration());
+=======
+                Debug.WriteLine("The selected Duration for {0} is: {1}", this.GetType().Name, selectedDuration.ToString());
+                result = await remoteVM.RaspberryPiInstance.PressPushButton(selectedDuration.ToString());
+>>>>>>> master
                 debugVM.AddDebugInfo("PressPushButton", result);
             }
             catch (Exception e)
