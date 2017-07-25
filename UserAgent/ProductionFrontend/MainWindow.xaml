@@ -82,8 +82,11 @@
         <ContentControl Visibility="Hidden" Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Column="2"/>
         <Grid Grid.Column="4" Background="#FFF9F9F9" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 
+            <!-- UNCOMMENT TO BIND VISIBILITY TO PROPERTY -->
+            <!--<ContentControl  Content="{Binding Path=CurrentViewModelDebug}" Margin="-2"
+                               Visibility="{Binding Path=CurrentViewModelRemoteController.DebugVisible}" Width="200" />-->
             <ContentControl  Content="{Binding Path=CurrentViewModelDebug}" Margin="-2"
-                               Visibility="{Binding Path=CurrentViewModelRemoteController.DebugVisible}" Width="200" />
+                             Visibility="Visible" Width="200" />
         </Grid>
     </Grid>
 </Window>
