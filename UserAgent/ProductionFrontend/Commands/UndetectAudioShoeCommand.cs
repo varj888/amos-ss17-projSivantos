@@ -34,7 +34,7 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.UndetectAudioShoe();
+                result = await remoteVM.SelectedRaspiItem.raspi.UndetectAudioShoe();
                 remoteVM.AudioShoeUpdate = Visibility.Hidden;
                 debugVM.AddDebugInfo("UndetectAudioShoe", result);
             }

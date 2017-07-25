@@ -39,6 +39,9 @@ namespace TestMachineFrontend1.ViewModel
         public static ICommand ReadPinCommand { get; private set; }
         public static ICommand WritePinCommand { get; private set; }
         public static ICommand ResetPinCommand { get; private set; }
+        public static ICommand AddRPCommand { get; private set; }
+        public static ICommand RefreshRPListCommand { get; private set; }
+        public static ICommand DisconnectCommand { get; private set; }
 
         #endregion
 
@@ -123,6 +126,9 @@ namespace TestMachineFrontend1.ViewModel
             ReadPinCommand = new ReadPinCommand();
             WritePinCommand = new WritePinCommand();
             ResetPinCommand = new ResetPinCommand();
+            AddRPCommand = new AddRPCommand();
+            RefreshRPListCommand = new RefreshRPListCommand();
+            DisconnectCommand = new DisconnectCommand();
         }
     }
 }

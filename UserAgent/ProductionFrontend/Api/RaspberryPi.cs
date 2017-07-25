@@ -19,17 +19,44 @@ namespace TestmachineFrontend1
         private TcpClient _socket;
         private Dictionary<Type, Action<object>> _TOHandlerMap;
         private ConcurrentQueue<TaskCompletionSource<SuccessResult>> _answers;
+        private Task _receiveTask;
 
         /// <summary>
-        /// Creates and connects to the RaspberryPi
+        /// Thrown by the receive loop, if it was quit
+        /// </summary>
+        public event EventHandler<Exception> ConnectionClosed;
+
+        /// <summary>
+        /// Creates the Class, without connecting it
+        /// </summary>
+        /// <param name="socket"></param>
+        public RaspberryPi()
+        {
+            initTOHandlerMap();
+            _answers = new ConcurrentQueue<TaskCompletionSource<SuccessResult>>();
+            _socket = new TcpClient();
+        }
+
+        /// <summary>
+        /// Connects to the RaspberryPi
         /// </summary>
         /// <param name="endpoint">Contains the IP-Address and Port for connection</param>
-        /// <returns>The created Raspberry Pi Class</returns>
-        public static async Task<RaspberryPi> CreateAsync(IPEndPoint endpoint)
+        public async Task ConnectAsync(IPEndPoint endpoint)
         {
-            TcpClient socket = new TcpClient();
-            await socket.ConnectAsync(endpoint.Address, endpoint.Port);
-            return new RaspberryPi(socket);
+            await _socket.ConnectAsync(endpoint.Address, endpoint.Port);
+            _receiveTask = Task.Run(() => ReceiveLoop());
+        }
+
+        /// <summary>
+        /// Closes the connection. The receive loop quits the loop and throws a disconnected Event
+        /// </summary>
+        /// <returns></returns>
+        public async Task Disconnect()
+        {
+            _socket.Close();
+            clearAnswers();
+            await _receiveTask;
+            _socket = new TcpClient();
         }
 
         /// <summary>
@@ -50,15 +77,16 @@ namespace TestmachineFrontend1
             }
         }
 
-        private RaspberryPi(TcpClient socket)
+        private void clearAnswers()
         {
-            _socket = socket;
-            initToMap();
-            _answers = new ConcurrentQueue<TaskCompletionSource<SuccessResult>>();
-            Task.Run(() => ReceiveLoop());
+            TaskCompletionSource<SuccessResult> item;
+            while (_answers.TryDequeue(out item))
+            {
+                // do nothing
+            }
         }
 
-        private void initToMap()
+        private void initTOHandlerMap()
         {
             _TOHandlerMap = new Dictionary<Type, Action<Object>>();
             registerActionForTO<SuccessResult>(onSuccessResult);
@@ -70,15 +98,28 @@ namespace TestmachineFrontend1
             TaskCompletionSource<SuccessResult> answer = new TaskCompletionSource<SuccessResult>();
             _answers.Enqueue(answer);
             Transfer.sendObject(_socket.GetStream(), request);
+            int timeout = 5000;
+            if (await Task.WhenAny(answer.Task, Task.Run(() => Task.Delay(timeout))) != answer.Task)
+            {
+                throw new TimeoutException("The operation has timed out.");
+            }
             return (await answer.Task).result;
         }
 
         private async Task ReceiveLoop()
         {
-            while (true)
+            try
             {
-                Object transferObject = await Transfer.receiveObjectAsync(_socket.GetStream());
-                _TOHandlerMap[transferObject.GetType()].Invoke(transferObject);
+                while (true)
+                {
+                    Object transferObject = await Transfer.receiveObjectAsync(_socket.GetStream());
+                    _TOHandlerMap[transferObject.GetType()].Invoke(transferObject);
+                }
+            }
+            catch(Exception e)
+            {
+                _socket.Close();
+                onConnectionClosed(e);
             }
         }
 
@@ -105,6 +146,15 @@ namespace TestmachineFrontend1
             else
             {
                 throw new Exception("Result without Request");
+            }
+        }
+
+        private void onConnectionClosed(Exception e)
+        {
+            EventHandler<Exception> handler = ConnectionClosed;
+            if (ConnectionClosed != null)
+            {
+                handler(this, e);
             }
         }
 

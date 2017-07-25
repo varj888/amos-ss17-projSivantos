@@ -34,7 +34,8 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.DetectTeleCoil();
+                result = await remoteVM.SelectedRaspiItem.raspi.DetectTeleCoil();
+                remoteVM.TCoilDetected = true;
                 remoteVM.TcoilUpdate = Visibility.Visible;
                 debugVM.AddDebugInfo("DetectTeleCoil", result);
             }

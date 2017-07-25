@@ -43,7 +43,7 @@ namespace TestMachineFrontend1.Commands
 
             try
             {
-                await remoteVM.RaspberryPiInstance.EndlessVCUp(ticks);
+                await remoteVM.SelectedRaspiItem.raspi.EndlessVCUp(ticks);
                 debugViewModel.AddDebugInfo("EndlessVcUp", ticks + " times");
             }
             catch

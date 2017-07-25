@@ -50,7 +50,7 @@ namespace TestMachineFrontend1.View
                 {
                     param[2] = "RSD";
                 }
-                await remoteVM.RaspberryPiInstance.PressCombination(param);
+                await remoteVM.SelectedRaspiItem.raspi.PressCombination(param);
                 vmDebug.AddDebugInfo("PressCombination", "success");
                 //Request request = new Request("PressCombination", param);
                 //remoteVM.sendRequest(request);
@@ -69,7 +69,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    await remoteVM.RaspberryPiInstance.ChangePowerVoltage(slide.Value);
+                    await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(slide.Value);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
                 }
                 catch (Exception ex)
@@ -86,7 +86,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(_POWER_ON);
+                    double value = await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(_POWER_ON);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
@@ -104,7 +104,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(0.0);
+                    double value = await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(0.0);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
@@ -122,7 +122,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte)slide.Value);
+                    await remoteVM.SelectedRaspiItem.raspi.SetAnalogVolume((byte) slide.Value);
                     vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
                 }
                 catch (Exception ex)

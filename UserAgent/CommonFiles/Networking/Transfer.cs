@@ -6,15 +6,16 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Threading;
 
 namespace CommonFiles.Networking
 {
     /// <summary>
     /// Contains Methods to send byte-Arrays and objects over a Networkstream.
     /// </summary>
-    class Transfer
+    static class Transfer
     {
-      
+
         /// <summary>
         /// Sends a byte array over a Networkstream.
         /// </summary>
@@ -82,10 +83,10 @@ namespace CommonFiles.Networking
         }
 
         /// <summary>
-        /// Read a byte array from a networkstream.
+        /// Read a number of bytes from a networkstream.
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
-        /// <param name="count">The number of bits to read.</param>
+        /// <param name="count">The number of bytes to read.</param>
         /// <returns>The bytes read.</returns>
         private static byte[] read(NetworkStream stream, int count)
         {
@@ -105,11 +106,11 @@ namespace CommonFiles.Networking
         }
 
         /// <summary>
-        /// Asynchronous method to read bytes from a networkstream.
+        /// Read a number of bytes asynchronously from a networkstream.
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
-        /// <param name="count">The number of bites to read.</param>
-        /// <returns>The read bytes.</returns>
+        /// <param name="count">The number of bytes to read.</param>
+        /// <returns>The bytes read.</returns>
         private static async Task<byte[]> readAsync(NetworkStream stream, int count)
         {
             byte[] result = new byte[count];

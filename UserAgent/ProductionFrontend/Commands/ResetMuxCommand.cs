@@ -31,7 +31,7 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.ResetMux();
+                result = await remoteVM.SelectedRaspiItem.raspi.ResetMux();
                 debugVM.AddDebugInfo("Multiplexer is resetted: ", result);
             }
             catch (Exception exc)
