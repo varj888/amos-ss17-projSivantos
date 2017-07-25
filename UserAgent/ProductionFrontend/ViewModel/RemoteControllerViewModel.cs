@@ -120,7 +120,6 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedHI = value;
                 _selectedHIIndex = HIListItems.IndexOf(_selectedHI);
                 OnPropertyChanged("SelectedHI");
-                //setHI();
             }
         }
 
@@ -371,12 +370,6 @@ namespace TestMachineFrontend1.ViewModel
 
         #region Methods
 
-        /// <summary>
-
-        /// todo: use the raspberry Pi dictionary or something like that
-
-        /// </summary>
-
         public static RaspberryPi raspberryPi;
         public RaspberryPi RaspberryPiInstance
         {
@@ -384,7 +377,6 @@ namespace TestMachineFrontend1.ViewModel
             set
             {
                 raspberryPi = value;
-                //OnPropertyChanged("RaspberryPiInstance");
             }
         }
 
@@ -396,6 +388,30 @@ namespace TestMachineFrontend1.ViewModel
             {
                 _raspiConfigString = value;
                 OnPropertyChanged("RaspiConfigString");
+            }
+        }
+
+        private bool isVC_enabled = true;
+
+        public bool IsVC_enabled
+        {
+            get { return isVC_enabled; }
+            set
+            {
+                isVC_enabled = value;
+                OnPropertyChanged("IsVC_enabled");
+            }
+        }
+
+        private bool isEndlessVC_enabled = false;
+
+        public bool IsEndlessVC_enabled
+        {
+            get { return isEndlessVC_enabled; }
+            set
+            {
+                isEndlessVC_enabled = value;
+                OnPropertyChanged("IsEndlessVC_enabled");
             }
         }
 
@@ -421,13 +437,14 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Connect to RaspberryPi using IP-Address
+        /// </summary>
         public async void connectIP()
         {
             try
 
             {
-
                 var pi1 = await RaspberryPi.CreateAsync(new IPEndPoint(IPAddress.Parse(IPAdressConnect), 54321));
 
                 raspberryPi = pi1;
@@ -453,12 +470,13 @@ namespace TestMachineFrontend1.ViewModel
 
                 Model = await getRaspiModel();
                 Family = await getRaspiFamily();
+
+                detectVC_type();
             }
 
             catch (FormatException fx)
 
             {
-
                 debugVM.AddDebugInfo("[ERROR]", "Invalid IP Address Format: " + fx.Message);
                 IsPiConnected = false;
             }
@@ -466,27 +484,48 @@ namespace TestMachineFrontend1.ViewModel
             catch (SocketException sx)
 
             {
-
                 debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + sx.Message);
-
-                //TODO check
-
                 IsPiConnected = false;
             }
 
             catch (Exception any)
 
             {
-
                 debugVM.AddDebugInfo("[ERROR]", "Unknown Error. " + any.Message);
-
-                //TODO check
-
                 IsPiConnected = false;
             }
-
         }
 
+        /// <summary>
+        /// Detect the type of Volume Control for current Model
+        /// and enable/disable one of two types of GUI-Volume Controls
+        /// accordingly
+        /// </summary>
+        public async void detectVC_type()
+        {
+            RaspiConfigString = await RaspberryPiInstance.GetRaspiConfig();
+
+            if (RaspiConfigString.Contains("EndlessVC"))
+            {
+                IsEndlessVC_enabled = true;
+                IsVC_enabled = false;
+            }
+            else if (RaspiConfigString.Contains("Stop-End"))
+            {
+                IsEndlessVC_enabled = false;
+                IsVC_enabled = true;
+            }
+            else
+            {
+                IsEndlessVC_enabled = false;
+                IsVC_enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Get the list of all available HIs
+        /// </summary>
+        /// <param name="result"></param>
         public void getAvailableHI(string result)
         {
             availableHI = helperXML.buildDictionary(result);

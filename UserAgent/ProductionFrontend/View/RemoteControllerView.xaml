@@ -471,7 +471,7 @@
                             </Button>
                             <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
                                     Height="20px" Width="50px" Command="{Binding UndetectAudioShoeCommand}">
-                               <StackPanel>
+                                <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
@@ -597,11 +597,13 @@
                             <StackPanel HorizontalAlignment="Left" Grid.Row="1" Orientation="Vertical" Margin="10,0">
                                 <StackPanel Orientation="Horizontal">
                                     <Label  Content="Stop-End VC" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
-                                    <TextBox Text="{Binding ElementName=SetVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="25px" Height="20px"  TextAlignment="Center" />
+                                    <TextBox Text="{Binding ElementName=SetVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" 
+                                             Width="25px" Height="20px"  TextAlignment="Center"
+                                             IsEnabled="{Binding CurrentViewModelRemoteController.IsVC_enabled}"/>
                                     <Label  Content="0" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                     <Slider  VerticalAlignment="Center" Name="SetVolume_Slider" Maximum="127" Minimum="0" 
                                              TickPlacement="TopLeft" IsSnapToTickEnabled="True" TickFrequency="1" 
-                                             Width="120" Height="25"
+                                             Width="120" Height="25" IsEnabled="{Binding CurrentViewModelRemoteController.IsVC_enabled}"
                                              Value="{Binding Path=CurrentViewModelRemoteController.CurrentVolumeLevel}"
                                              Thumb.DragCompleted="SetVolume_Slider_DragCompleted"/>
                                     <Label  Content="127" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
@@ -610,7 +612,7 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                     <Label  Content="Endless VC" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                     <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
-                                            Command="{Binding EndlessVcUpCommand}" 
+                                            Command="{Binding EndlessVcUpCommand}" IsEnabled="{Binding CurrentViewModelRemoteController.IsEndlessVC_enabled}"
                                             CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}">
                                         <StackPanel>
                                             <TextBlock Text="▲" FontFamily="Arial" FontSize="8"/>
@@ -618,12 +620,15 @@
                                     </Button>
                                     <Button Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
                                             Command="{Binding EndlessVcDownCommand}" 
-                                            CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}">
+                                            CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}"
+                                            IsEnabled="{Binding CurrentViewModelRemoteController.IsEndlessVC_enabled}">
                                         <StackPanel>
                                             <TextBlock Text="▼" FontFamily="Arial" FontSize="8"/>
                                         </StackPanel>
                                     </Button>
-                                    <TextBox Text="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="20px" Height="20px"  TextAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBox Text="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" 
+                                             Width="20px" Height="20px"  TextAlignment="Center" Margin="10,0,0,0" 
+                                             IsEnabled="{Binding CurrentViewModelRemoteController.IsEndlessVC_enabled}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -716,7 +721,7 @@
                     <Button Name="setPinsButton" Content="Set pins" HorizontalAlignment="Left" 
                 Margin="103,103,0,0" VerticalAlignment="Top" Width="85" Height="28"
                Command="{Binding ConnectPinsCommand}"/>
-                    
+
                     <Button x:Name="resetMux" Content="Reset multiplexer" HorizontalAlignment="Left" 
                 Margin="263,103,0,0" VerticalAlignment="Top" Width="85" Height="28"
               Command="{Binding ResetMuxCommand}" />
