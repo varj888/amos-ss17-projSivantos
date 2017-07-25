@@ -13,6 +13,30 @@
         <Pin number="9" value="" />
         <Pin number="10" value="Ground" />
       </model>
+      <model name="TestModelEndless">
+        <Pin number="1" value="" />
+        <Pin number="2" value="" />
+        <Pin number="3" value="" />
+        <Pin number="4" value="" />
+        <Pin number="5" value="" />
+        <Pin number="6" value="" />
+        <Pin number="7" value="" />
+        <Pin number="8" value="EndlessVC" />
+        <Pin number="9" value="" />
+        <Pin number="10" value="" />
+      </model>
+      <model name="TestModelStopEnd">
+        <Pin number="1" value="" />
+        <Pin number="2" value="" />
+        <Pin number="3" value="" />
+        <Pin number="4" value="" />
+        <Pin number="5" value="" />
+        <Pin number="6" value="" />
+        <Pin number="7" value="" />
+        <Pin number="8" value="Stop-End" />
+        <Pin number="9" value="" />
+        <Pin number="10" value="" />
+      </model>
       <model name="RIC 13 BT">
         <Pin number="1" value="" />
         <Pin number="2" value="" />

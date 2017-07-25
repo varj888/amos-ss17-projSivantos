@@ -1,7 +1,7 @@
 ﻿<UserControl x:Class="TestMachineFrontend1.View.RemoteControllerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
              xmlns:local="clr-namespace:TestMachineFrontend1.View"
@@ -332,8 +332,8 @@
                             <Label Margin="5,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="BUTTONS" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE" Grid.ColumnSpan="4"/>
 
-                            <Button Name="Push_Button" Height="25px" HorizontalAlignment="Center" Margin="10,15" 
-                                    Grid.Row="1" Style="{StaticResource RedButtonFilled}" Width="100px" 
+                            <Button Name="Push_Button" Height="25px" HorizontalAlignment="Center" Margin="10,15"
+                                    Grid.Row="1" Style="{StaticResource RedButtonFilled}" Width="100px"
                                     Command="{Binding PressPushButtonCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressPushButton}"-->
                                 <StackPanel>
@@ -356,8 +356,8 @@
                             <CheckBox x:Name="Push_Checkbox" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
                                  IsChecked="{Binding IsPushButtonUp}" IsEnabled="True" Height="14" Width="15"/>
-                            <Button Name="RockerSwitchUp_Button" Height="25px"   HorizontalAlignment="Center" 
-                                    Margin="10,15"  Grid.Row="1" Grid.Column="1" Style="{StaticResource RedButtonFilled}"  
+                            <Button Name="RockerSwitchUp_Button" Height="25px"   HorizontalAlignment="Center"
+                                    Margin="10,15"  Grid.Row="1" Grid.Column="1" Style="{StaticResource RedButtonFilled}"
                                     Width="100px" Command="{Binding PressRockerSwitchUpCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchUp}"-->
                                 <StackPanel>
@@ -380,7 +380,7 @@
                             <CheckBox x:Name="RockerSwitchUp_Checkbox" Checked="RockerSwitchUp_Checkbox_Checked" Unchecked="RockerSwitchUp_Checkbox_Checked" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
                                  IsChecked="{Binding IsRockerSwitchUp}" IsEnabled="True" Height="14" Width="15"/>
-                            <Button Name="RockerSwitchDown_Button" Height="25px"  HorizontalAlignment="Center" Margin="10,15"  
+                            <Button Name="RockerSwitchDown_Button" Height="25px"  HorizontalAlignment="Center" Margin="10,15"
                                     Grid.Row="1" Grid.Column="2" Style="{StaticResource RedButtonFilled}"  Width="100px"
                                     Command="{Binding PressRockerSwitchDownCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchDown}"-->
@@ -405,7 +405,7 @@
                                 VerticalAlignment="Bottom" Margin="15,0"
                                  IsChecked="{Binding IsRockerSwitchDown}" IsEnabled="True" Checked="RockerSwitchDown_Checkbox_Checked" Unchecked="RockerSwitchDown_Checkbox_Checked" Height="14" Width="15"/>
                             <Button MaxHeight="30px" HorizontalAlignment="Center"   Height="25px"
-                                    Grid.Row="1" Grid.Column="3" Style="{StaticResource RedButtonFilled}"  
+                                    Grid.Row="1" Grid.Column="3" Style="{StaticResource RedButtonFilled}"
                                     Width="100px" Click="press_Combination">
                                 <StackPanel>
                                     <TextBlock FontFamily="Arial">
@@ -428,8 +428,8 @@
 
                             <ComboBox Grid.Row="0" Grid.Column="2" Name="durationBox" FontSize="10" Padding="5,2,5,0"
                   HorizontalAlignment="Center" Grid.ColumnSpan="2"
-                  VerticalAlignment="Center" Width="100" Height="18" 
-                  ItemsSource="{Binding Path=CurrentViewModelRemoteController.DurationItems}" 
+                  VerticalAlignment="Center" Width="100" Height="18"
+                  ItemsSource="{Binding Path=CurrentViewModelRemoteController.DurationItems}"
                   SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedDuration}"
                   IsSynchronizedWithCurrentItem="True"></ComboBox>
                         </Grid>
@@ -452,7 +452,7 @@
                             <Label Margin="5,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="TCOIL" HorizontalAlignment="Left"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" MaxHeight="100px" HorizontalAlignment="Center" Source="..\img\telecoil_512_off.png"></Image>
-                            <Image Margin="10" Grid.Row="1" MaxHeight="100px" HorizontalAlignment="Center" 
+                            <Image Margin="10" Grid.Row="1" MaxHeight="100px" HorizontalAlignment="Center"
                                    Source="..\img\telecoil_512_on_right_gradient.png"
                                    Visibility="{Binding CurrentViewModelRemoteController.TcoilUpdate}"/>
 
@@ -472,7 +472,7 @@
                                                 </LinearGradientBrush>
                                             </Ellipse.Fill>
                                         </Ellipse>-->
-                            <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                            <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}"
                                     Height="20px" Width="50px"
                                     Command="{Binding DetectTCoilCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectTCol}"-->
@@ -480,7 +480,7 @@
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
-                            <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                            <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}"
                                     Height="20px" Width="50px"
                                     Command="{Binding UndetectTCoilCommand}">
                                 <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectTCol}"-->
@@ -508,7 +508,7 @@
                             <Label Margin="5,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="AUDIO SHOE" HorizontalAlignment="Left"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="100px" Source="..\img\audio_shoe_512_off.png"></Image>
-                            <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="100px" 
+                            <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" MaxHeight="100px"
                                    Source="..\img\audio_shoe_512_on_right_gradient.png"
                                    Visibility="{Binding CurrentViewModelRemoteController.AudioShoeUpdate}"/>
 
@@ -528,13 +528,13 @@
                                                 </LinearGradientBrush>
                                             </Ellipse.Fill>
                                         </Ellipse>-->
-                            <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                            <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}"
                                     Height="20px" Width="50px" Command="{Binding DetectAudioShoeCommand}">
                                 <StackPanel>
                                     <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
                                 </StackPanel>
                             </Button>
-                            <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                            <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}"
                                     Height="20px" Width="50px" Command="{Binding UndetectAudioShoeCommand}">
                                 <StackPanel>
                                     <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
@@ -567,11 +567,11 @@
                             <Label Margin="5,0" Grid.Row="0" Grid.RowSpan="2" Content="LED" HorizontalAlignment="Left"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
-                            <Image MaxHeight="100px" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" 
+                            <Image MaxHeight="100px" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1"
                                    Source="..\img\led_512_off.png"></Image>
-                            <Image MaxHeight="100px" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1" 
+                            <Image MaxHeight="100px" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1"
                                    Source="..\img\led_512_on_right_gradient.png" Visibility="{Binding Path=CurrentViewModelRemoteController.ToggleLEDButton}"></Image>
-                            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1,10,3" 
+                            <Button HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1,10,3"
                                           Grid.Row="2" Style="{StaticResource RedButtonFilled}"  Width="100" Height="16"
                                           Command="{Binding CheckLEDStatusCommand}" >
                                 <StackPanel>
@@ -603,11 +603,11 @@
                                 <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <ComboBox Name="receiverBox" HorizontalAlignment="Center" Padding="5,2,0,0" FontSize="11"
-                                              VerticalAlignment="Center" Width="90" Height="20" Grid.Row="2" 
-                                              ItemsSource="{Binding Path=CurrentViewModelRemoteController.ReceiverItems}" 
+                                              VerticalAlignment="Center" Width="90" Height="20" Grid.Row="2"
+                                              ItemsSource="{Binding Path=CurrentViewModelRemoteController.ReceiverItems}"
                                               SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedReceiverItem}"
                                               IsSynchronizedWithCurrentItem="True"/>
-                                    <Button  VerticalAlignment="Center" Margin="2,0" Style="{StaticResource RedButtonFilled}" 
+                                    <Button  VerticalAlignment="Center" Margin="2,0" Style="{StaticResource RedButtonFilled}"
                                              Height="20px" Width="15px"
                                              IsEnabled="True" Command="{Binding SetReceiverCommand}">
                                         <StackPanel>
@@ -638,7 +638,7 @@
                                               ItemsSource="{Binding Path=CurrentViewModelRemoteController.HIListItems}"
                                               SelectedItem="{Binding Path=CurrentViewModelRemoteController.SelectedHI}"
                                               IsSynchronizedWithCurrentItem="True"/>
-                                    <Button  VerticalAlignment="Center" Margin="2,0" Style="{StaticResource RedButtonFilled}" 
+                                    <Button  VerticalAlignment="Center" Margin="2,0" Style="{StaticResource RedButtonFilled}"
                                              Height="20px" Width="15px"
                                              IsEnabled="True" Command="{Binding SetHICommand}">
                                         <StackPanel>
@@ -670,11 +670,13 @@
                             <StackPanel HorizontalAlignment="Left" Grid.Row="1" Orientation="Vertical" Margin="10,0">
                                 <StackPanel Orientation="Horizontal">
                                     <Label  Content="Stop-End VC" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
-                                    <TextBox Text="{Binding ElementName=SetVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="25px" Height="20px"  TextAlignment="Center" />
+                                    <TextBox Text="{Binding ElementName=SetVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                                             Width="25px" Height="20px"  TextAlignment="Center"
+                                             IsEnabled="{Binding CurrentViewModelRemoteController.IsVC_enabled}"/>
                                     <Label  Content="0" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
-                                    <Slider  VerticalAlignment="Center" Name="SetVolume_Slider" Maximum="127" Minimum="0" 
-                                             TickPlacement="TopLeft" IsSnapToTickEnabled="True" TickFrequency="1" 
-                                             Width="90" Height="25" 
+                                    <Slider  VerticalAlignment="Center" Name="SetVolume_Slider" Maximum="127" Minimum="0"
+                                             TickPlacement="TopLeft" IsSnapToTickEnabled="True" TickFrequency="1"
+                                             Width="120" Height="25" IsEnabled="{Binding CurrentViewModelRemoteController.IsVC_enabled}"
                                              Value="{Binding Path=CurrentViewModelRemoteController.CurrentVolumeLevel}"
                                              Thumb.DragCompleted="SetVolume_Slider_DragCompleted"/>
                                     <Label  Content="127" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
@@ -683,20 +685,23 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                                     <Label  Content="Endless VC" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
                                     <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
-                                            Command="{Binding EndlessVcUpCommand}" 
+                                            Command="{Binding EndlessVcUpCommand}" IsEnabled="{Binding CurrentViewModelRemoteController.IsEndlessVC_enabled}"
                                             CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}">
                                         <StackPanel>
                                             <TextBlock Text="▲" FontFamily="Arial" FontSize="8"/>
                                         </StackPanel>
                                     </Button>
                                     <Button Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
-                                            Command="{Binding EndlessVcDownCommand}" 
-                                            CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}">
+                                            Command="{Binding EndlessVcDownCommand}"
+                                            CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}"
+                                            IsEnabled="{Binding CurrentViewModelRemoteController.IsEndlessVC_enabled}">
                                         <StackPanel>
                                             <TextBlock Text="▼" FontFamily="Arial" FontSize="8"/>
                                         </StackPanel>
                                     </Button>
-                                    <TextBox Text="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="20px" Height="20px"  TextAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBox Text="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                             Width="20px" Height="20px"  TextAlignment="Center" Margin="10,0,0,0"
+                                             IsEnabled="{Binding CurrentViewModelRemoteController.IsEndlessVC_enabled}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -719,7 +724,7 @@
                             <DockPanel Grid.Row="1"  HorizontalAlignment="Center">
                                 <TextBox Text="{Binding ElementName=Power_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="20px" Height="20px" TextAlignment="Center"  />
                                 <Label  Content="0 V" VerticalAlignment="Top"   FontSize="8" FontWeight="Bold" Foreground="#FF323C46" Margin="0,0,-20,0"  />
-                                <Slider  VerticalAlignment="Center" Name="Power_Slider" 
+                                <Slider  VerticalAlignment="Center" Name="Power_Slider"
                                          Maximum="1.5"
                                          Minimum="0.0"
                                          TickPlacement="TopLeft"
@@ -774,21 +779,21 @@
                             <StackPanel Grid.Row="1"  Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Label Margin="0" Content="X: " HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                 <TextBox  x:Name="valueX" HorizontalAlignment="Left" Height="26"
-                              TextWrapping="Wrap" Text="{Binding Path=CurrentTestDebugTab.MuxModel.ValueX}" 
+                              TextWrapping="Wrap" Text="{Binding Path=CurrentTestDebugTab.MuxModel.ValueX}"
                              VerticalAlignment="Top" Width="59" Margin="10,0"/>
                                 <Label  Content="Y: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0"/>
 
                                 <TextBox x:Name="valueY" HorizontalAlignment="Left" Height="26"
-                             TextWrapping="Wrap" Text="{Binding Path=CurrentTestDebugTab.MuxModel.ValueY}" Margin="10,0" 
+                             TextWrapping="Wrap" Text="{Binding Path=CurrentTestDebugTab.MuxModel.ValueY}" Margin="10,0"
                              VerticalAlignment="Top" Width="59"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-                                <Button  Grid.Row="2" Name="setPinsButton" Content="Set pins"  Style="{StaticResource RedButtonFilled}" 
+                                <Button  Grid.Row="2" Name="setPinsButton" Content="Set pins"  Style="{StaticResource RedButtonFilled}"
                 Width="90" Height="24" FontSize="10"
                Command="{Binding ConnectPinsCommand}"/>
 
-                                <Button  Grid.Row="2" x:Name="resetMux" Content="Reset multiplexer"  Style="{StaticResource RedButtonFilled}" 
+                                <Button  Grid.Row="2" x:Name="resetMux" Content="Reset multiplexer"  Style="{StaticResource RedButtonFilled}"
                  Width="90" Height="24" FontSize="10" Margin="5"
               Command="{Binding ResetMuxCommand}" />
                             </StackPanel>
@@ -812,13 +817,13 @@
                             <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="PINS" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                             <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
                             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" MaxHeight="20px">
-                                <TextBox  TextAlignment="Center" 
+                                <TextBox  TextAlignment="Center"
                  Text="{Binding Path=CurrentTestDebugTab.MuxModel.PinID}"  Margin="5,0"/>
-                                <Button x:Name="readPin_button" FontSize="10" Width="50" Content="Read pin" Margin="5,0" Style="{StaticResource RedButtonFilled}" 
+                                <Button x:Name="readPin_button" FontSize="10" Width="50" Content="Read pin" Margin="5,0" Style="{StaticResource RedButtonFilled}"
                 Command="{Binding ReadPinCommand}" />
-                                <Button x:Name="writePin_button" FontSize="10" Width="50" Content="Write pin"  Margin="5,0" Style="{StaticResource RedButtonFilled}" 
+                                <Button x:Name="writePin_button" FontSize="10" Width="50" Content="Write pin"  Margin="5,0" Style="{StaticResource RedButtonFilled}"
                 Command="{Binding WritePinCommand}" />
-                                <Button x:Name="reset_button" FontSize="10" Width="50" Content="Reset"  Margin="5,0" Style="{StaticResource RedButtonFilled}" 
+                                <Button x:Name="reset_button" FontSize="10" Width="50" Content="Reset"  Margin="5,0" Style="{StaticResource RedButtonFilled}"
                 Command="{Binding ResetPinCommand}" />
                             </StackPanel>
 

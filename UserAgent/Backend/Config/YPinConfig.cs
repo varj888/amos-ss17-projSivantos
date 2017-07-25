@@ -39,13 +39,16 @@ namespace RaspberryBackend
             gpio_To_YPin_Map = new Dictionary<string, int>();
 
             gpio_To_YPin_Map.Add(GROUND, Y0);
-            gpio_To_YPin_Map.Add(REC_DET, Y1);
+            gpio_To_YPin_Map.Add(ARD, Y1);
             gpio_To_YPin_Map.Add(LED, Y2);
             gpio_To_YPin_Map.Add(PUSHBUTTON_STRING, Y3);
             gpio_To_YPin_Map.Add(ROCKERSWITCH_STRING, Y4);
-            gpio_To_YPin_Map.Add(ARD, Y1);
+            gpio_To_YPin_Map.Add(ENDLESS_VC, Y4);
+            gpio_To_YPin_Map.Add(STOP_END, Y5);
             gpio_To_YPin_Map.Add(DET_TELE, Y6);
             gpio_To_YPin_Map.Add(DET_AUDIO, Y7);
+
+
             //TODO: Map Y5-Y7 as soon as we know what the strings mean...
 
         }

@@ -145,7 +145,6 @@ namespace TestMachineFrontend1.ViewModel
                 _selectedHI = value;
                 _selectedHIIndex = HIListItems.IndexOf(_selectedHI);
                 OnPropertyChanged("SelectedHI");
-                //setHI();
             }
         }
 
@@ -273,18 +272,6 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
-        //public Dictionary<String, RaspberryPi> RaspberryPis
-        //{
-        //    get { return raspberryPis; }
-        //    set
-        //    {
-        //        if (value != this.raspberryPis)
-        //        {
-        //            this.raspberryPis = value;
-        //            OnPropertyChanged("RaspberryPis");
-        //        }
-        //    }
-        //}
 
         private bool isPiConnected;
         public bool IsPiConnected
@@ -379,6 +366,30 @@ namespace TestMachineFrontend1.ViewModel
             {
                 _raspiConfigString = value;
                 OnPropertyChanged("RaspiConfigString");
+            }
+        }
+
+        private bool isVC_enabled = true;
+
+        public bool IsVC_enabled
+        {
+            get { return isVC_enabled; }
+            set
+            {
+                isVC_enabled = value;
+                OnPropertyChanged("IsVC_enabled");
+            }
+        }
+
+        private bool isEndlessVC_enabled = false;
+
+        public bool IsEndlessVC_enabled
+        {
+            get { return isEndlessVC_enabled; }
+            set
+            {
+                isEndlessVC_enabled = value;
+                OnPropertyChanged("IsEndlessVC_enabled");
             }
         }
 
@@ -486,7 +497,10 @@ namespace TestMachineFrontend1.ViewModel
             try
             {
                 Model = await getRaspiModel();
-            }catch(Exception e)
+                Family = await getRaspiFamily();
+
+                detectVC_type();
+            } catch(Exception e)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Error getting Raspi Model: " + e.Message);
             }
@@ -500,6 +514,36 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        /// <summary>
+        /// Detect the type of Volume Control for current Model
+        /// and enable/disable one of two types of GUI-Volume Controls
+        /// accordingly
+        /// </summary>
+        public async void detectVC_type()
+        {
+            RaspiConfigString = await RaspberryPiInstance.GetRaspiConfig();
+
+            if (RaspiConfigString.Contains("EndlessVC"))
+            {
+                IsEndlessVC_enabled = true;
+                IsVC_enabled = false;
+            }
+            else if (RaspiConfigString.Contains("Stop-End"))
+            {
+                IsEndlessVC_enabled = false;
+                IsVC_enabled = true;
+            }
+            else
+            {
+                IsEndlessVC_enabled = false;
+                IsVC_enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Get the list of all available HIs
+        /// </summary>
+        /// <param name="result"></param>
         public void getAvailableHI(string result)
         {
             availableHI = helperXML.buildDictionary(result);

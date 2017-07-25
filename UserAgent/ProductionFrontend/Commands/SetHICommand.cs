@@ -37,6 +37,7 @@ namespace TestMachineFrontend1.Commands
             {
 
                 await remoteVM.SelectedRaspiItem.raspi.SetHI(remoteVM.Family, remoteVM.Model);
+                remoteVM.detectVC_type();
                 debugVM.AddDebugInfo("SetHICommand", remoteVM.Family + ", " + remoteVM.Model);
             }
             catch (Exception e)
