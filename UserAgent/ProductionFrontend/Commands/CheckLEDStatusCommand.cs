@@ -34,7 +34,7 @@ namespace TestMachineFrontend1.Commands
             try
             {
 
-                ledStatus = await remoteVM.RaspberryPiInstance.CheckLEDStatus();
+                ledStatus = await remoteVM.SelectedRaspiItem.raspi.CheckLEDStatus();
                 debugVM.AddDebugInfo("CheckLEDStatus", ledStatus.ToString());
             }
             catch (Exception e)

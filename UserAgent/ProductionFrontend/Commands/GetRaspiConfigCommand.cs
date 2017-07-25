@@ -34,7 +34,7 @@ namespace TestMachineFrontend1.Commands
             try
             {
 
-                raspiConfig = await remoteVM.RaspberryPiInstance.GetRaspiConfig();
+                raspiConfig = await remoteVM.SelectedRaspiItem.raspi.GetRaspiConfig();
                 debugVM.AddDebugInfo("ReadRaspiConfig", "Success");
             }
             catch (Exception e)

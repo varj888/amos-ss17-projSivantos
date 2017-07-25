@@ -1,0 +1,524 @@
+﻿<UserControl x:Class="TestMachineFrontend1.View.RemoteControllerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
+             xmlns:local="clr-namespace:TestMachineFrontend1.View"
+             mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:MainWindowViewModel/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:DebugViewModel}">
+            </DataTemplate>
+            <Style x:Key="AnimatedSwitch" TargetType="{x:Type ToggleButton}">
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Background" Value="#FAFAFB" />
+                <Setter Property="BorderBrush" Value="#EAEAEB" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Viewbox Stretch="Uniform">
+                                <Canvas Name="Layer_1" Width="20" Height="20" Canvas.Left="10" Canvas.Top="0">
+                                    <Ellipse  Canvas.Left="0" Width="20" Height="20" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="0.5"/>
+                                    <Ellipse  Canvas.Left="15" Width="20" Height="20" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="0.5"/>
+                                    <Border Canvas.Left="10" Width="15" Height="20" Name="rect416927" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0,0.5,0,0.5"/>
+                                    <Ellipse x:Name="ellipse"  Canvas.Left="0" Width="20" Height="20" Fill="White" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="0.3">
+                                        <Ellipse.RenderTransform>
+                                            <TranslateTransform X="0" Y="0" />
+                                        </Ellipse.RenderTransform>
+                                        <Ellipse.BitmapEffect>
+                                            <DropShadowBitmapEffect Softness="0.1" ShadowDepth="0.7" Direction="270" Color="#BBBBBB"/>
+                                        </Ellipse.BitmapEffect>
+                                    </Ellipse>
+                                </Canvas>
+                            </Viewbox>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True" >
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#e40060" Duration="0:0:0.2" />
+                                                <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#e40060" Duration="0:0:0.2" />
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                                    <SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.4" Value="15" KeySpline="0, 1, 0.6, 1"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetProperty="Background.Color" To="#FAFAFB" Duration="0:0:0.2" />
+                                                <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" To="#EAEAEB" Duration="0:0:0.2" />
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(Ellipse.RenderTransform).(TranslateTransform.X)" Storyboard.TargetName="ellipse">
+                                                    <SplineDoubleKeyFrame KeyTime="0" Value="15"/>
+                                                    <SplineDoubleKeyFrame KeyTime="0:0:0.3" Value="0" KeySpline="0, 0.5, 0.5, 1"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="RedButtonFilled" TargetType="{x:Type Button}">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFFF00B9"/>
+                            <GradientStop Color="#FFFF006B" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Border
+                                x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#aa0048"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+
+                                <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#d20098"/>
+                                                <GradientStop Color="#aa0048" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <!--<Setter Property="Background" Value="DimGray"/>-->
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="#ADADAD"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="RedButtonStroke" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="#FFFF006B"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Border
+                                x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#FFFF006B"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+
+                                <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#d20098"/>
+                                                <GradientStop Color="#aa0048" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <!--<Setter Property="Background" Value="DimGray"/>-->
+                                    <Setter Property="Foreground" Value="#FFFF006B"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="#ADADAD"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="BlueButtonFilled" TargetType="{x:Type Button}">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#07c6ff"/>
+                            <GradientStop Color="#2283ff" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Border
+                                x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#0048a5"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+
+                                <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#008db7"/>
+                                                <GradientStop Color="#0048a5" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <!--<Setter Property="Background" Value="DimGray"/>-->
+                                    <Setter Property="Foreground" Value="White"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="#ADADAD"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="BlueButtonStroke" TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Foreground" Value="#2283ff"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid>
+                                <Border
+                                x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="#2283ff"
+                                BorderThickness="{TemplateBinding BorderThickness}" />
+
+                                <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                Margin="{TemplateBinding Padding}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True" />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background">
+                                        <Setter.Value>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="#07c6ff"/>
+                                                <GradientStop Color="#2283ff" Offset="1"/>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <!--<Setter Property="Background" Value="DimGray"/>-->
+                                    <Setter Property="Foreground" Value="#2283ff"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Foreground" Value="#ADADAD"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200px" />
+                        <ColumnDefinition Width="200px"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*" MaxHeight="150px"/>
+                        <RowDefinition Height="2*" MaxHeight="200px"/>
+                        <RowDefinition Height="1*" MaxHeight="100px"/>
+                    </Grid.RowDefinitions>
+
+                    <Border  Margin="10,5,10,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2">
+                        <Border.Effect>
+                            <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30px" />
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Label Margin="10,0" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2" Content="BUTTONS" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE" Grid.ColumnSpan="4"/>
+
+                            <Button Name="Push_Button" MaxHeight="30px" HorizontalAlignment="Center" Margin="10,15" 
+                                    Grid.Row="1" Style="{StaticResource RedButtonFilled}" Width="100px" 
+                                    Command="{Binding PressPushButtonCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressPushButton}"-->
+                                <StackPanel>
+                                    <TextBlock Text="Push Button" FontFamily="Arial" FontSize="10"/>
+                                </StackPanel>
+                            </Button>
+                            <CheckBox x:Name="Push_Checkbox" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom" Margin="15,0"
+                                 IsChecked="{Binding IsPushButtonUp}" IsEnabled="True" Height="14" Width="15"/>
+                            <Button Name="RockerSwitchUp_Button" MaxHeight="30px"   HorizontalAlignment="Center" 
+                                    Margin="10,15"  Grid.Row="1" Grid.Column="1" Style="{StaticResource RedButtonFilled}"  
+                                    Width="100px" Command="{Binding PressRockerSwitchUpCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchUp}"-->
+                                <StackPanel>
+                                    <TextBlock Text="Rocker ▲" FontFamily="Arial" FontSize="10"/>
+                                </StackPanel>
+                            </Button>
+                            <CheckBox x:Name="RockerSwitchUp_Checkbox" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom" Margin="15,0"
+                                 IsChecked="{Binding IsRockerSwitchUp}" IsEnabled="True" Height="14" Width="15"/>
+                            <Button Name="RockerSwitchDown_Button" MaxHeight="30px"  HorizontalAlignment="Center" Margin="10,15"  
+                                    Grid.Row="1" Grid.Column="2" Style="{StaticResource RedButtonFilled}"  Width="100px"
+                                    Command="{Binding PressRockerSwitchDownCommand}">
+                                <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.PressRockerSwitchDown}"-->
+                                <StackPanel>
+                                    <TextBlock Text="Rocker ▼" FontFamily="Arial" FontSize="10"/>
+                                </StackPanel>
+                            </Button>
+                            <CheckBox x:Name="RockerSwitchDown_Checkbox" Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom" Margin="15,0"
+                                 IsChecked="{Binding IsRockerSwitchDown}" IsEnabled="True" Height="14" Width="15"/>
+                            <Button MaxHeight="30px" HorizontalAlignment="Center" Margin="15,15"  
+                                    Grid.Row="1" Grid.Column="3" Style="{StaticResource RedButtonFilled}"  
+                                    Width="100px" Click="press_Combination">
+                                <StackPanel>
+                                    <TextBlock Text="Combination" FontFamily="Arial" FontSize="10"/>
+                                </StackPanel>
+                            </Button>
+                            <ComboBox Grid.Row="0" Grid.Column="3" Name="durationBox" FontSize="10" Padding="5,2,5,0"
+                  HorizontalAlignment="Center" 
+                  VerticalAlignment="Center" Width="100" Height="18" 
+                  ItemsSource="{Binding Path=CurrentViewModelRemoteController.DurationItems}" 
+                  SelectedValue="{Binding Path=CurrentViewModelRemoteController.SelectedDuration}"
+                  IsSynchronizedWithCurrentItem="True"></ComboBox>
+                            <TextBlock  Grid.Row="0" Grid.Column="2"   HorizontalAlignment="Right" VerticalAlignment="Center"  Text="Duration"/>
+                        </Grid>
+                    </Border>
+                    <Border Name="TCoilBorder"  Height="100px" Margin="10,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1">
+                        <Border.Effect>
+                            <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30px"/>
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="TCOIL" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
+                            <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Image Margin="10" Grid.Row="1" MaxHeight="40px" HorizontalAlignment="Stretch" Source="..\img\telecoil_512_off.png"></Image>
+                    <Image Margin="10" Grid.Row="1" MaxHeight="40px" HorizontalAlignment="Stretch" 
+                                   Source="..\img\telecoil_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.TcoilUpdate}"/>
+                    <Border Margin="2,2"   Grid.Column="1" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
+
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button  HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                                    Height="20px" Width="50px" Margin="0,5"
+                                    Command="{Binding DetectTCoilCommand}">
+                            <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.DetectTCol}"-->
+                            <StackPanel>
+                                <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                                    Height="20px" Width="50px"
+                                    Command="{Binding UndetectTCoilCommand}">
+                            <!--CommandParameter="{Binding Path=CurrentViewModelRemoteController.UndetectTCol}"-->
+                            <StackPanel>
+                                <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+
+                </Grid>
+
+                           </Grid>
+                    </Border>
+                    <Border Name="AudioShoeBorder" Height="100px" Margin="5,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="1" Grid.RowSpan="1" Grid.ColumnSpan="1">
+                        <Border.Effect>
+                            <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30px"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Label Margin="10,0" Grid.Column="0" Grid.Row="0"  Grid.RowSpan="2" Content="AUDIO SHOE" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                    <Image Margin="10" Grid.Column="0" HorizontalAlignment="Center" Height="40px" Source="..\img\audio_shoe_512_off.png"></Image>
+                    <Image Margin="10" Grid.Row="1" HorizontalAlignment="Center" Height="40px" 
+                                   Source="..\img\audio_shoe_512_on_right_gradient.png"
+                                   Visibility="{Binding CurrentViewModelRemoteController.AudioShoeUpdate}"/>
+                    <Border Margin="2,2"   Grid.Column="1" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
+
+                    <StackPanel Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                                   Margin="0,5" Height="20px" Width="50px" Command="{Binding DetectAudioShoeCommand}">
+                            <StackPanel>
+                                <TextBlock Text="Detect" FontFamily="Arial" FontSize="8"/>
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="3" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" 
+                                    Height="20px" Width="50px" Command="{Binding UndetectAudioShoeCommand}">
+                            <StackPanel>
+                                <TextBlock Text="Undetect" FontFamily="Arial" FontSize="8"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+                         
+
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Column="3" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"/>
+                            <RowDefinition Height="1*"/>
+                        </Grid.RowDefinitions>
+
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.Column="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1*"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                    </Grid>
+
+                    <Border Margin="10,5,5,5" Name="VolumeControlBorder" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="2" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="2">
+                        <Border.Effect>
+                            <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30px"/>
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Label Margin="10,0" Grid.Row="0" Grid.RowSpan="2" Content="VOLUME CONTROL" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
+                            <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
+
+                            <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Vertical" Margin="10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Label  Content="Stop-End VC" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
+                                    <TextBox Text="{Binding ElementName=SetVolume_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="25px" Height="20px"  TextAlignment="Center" />
+                                    <Label  Content="0" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
+                                    <Slider  VerticalAlignment="Center" Name="SetVolume_Slider" Maximum="127" Minimum="0" 
+                                             TickPlacement="TopLeft" IsSnapToTickEnabled="True" TickFrequency="1" 
+                                             Width="120" Height="25"
+                                             Value="{Binding Path=CurrentViewModelRemoteController.CurrentVolumeLevel}"
+                                             Thumb.DragCompleted="SetVolume_Slider_DragCompleted"/>
+                                    <Label  Content="127" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                                    <Label  Content="Endless VC" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" />
+                                    <Button Margin="5,0"  Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
+                                            Command="{Binding EndlessVcUpCommand}" 
+                                            CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}">
+                                        <StackPanel>
+                                            <TextBlock Text="▲" FontFamily="Arial" FontSize="8"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"
+                                            Command="{Binding EndlessVcDownCommand}" 
+                                            CommandParameter="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks}">
+                                        <StackPanel>
+                                            <TextBlock Text="▼" FontFamily="Arial" FontSize="8"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <TextBox Text="{Binding Path=CurrentViewModelRemoteController.EndlessVcTicks, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Width="20px" Height="20px"  TextAlignment="Center" Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+</UserControl>

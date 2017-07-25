@@ -34,7 +34,7 @@ namespace TestMachineFrontend1.Commands
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.DetectAudioShoe();
+                result = await remoteVM.SelectedRaspiItem.raspi.DetectAudioShoe();
                 remoteVM.AudioShoeUpdate = Visibility.Visible;
                 debugVM.AddDebugInfo("DetectAudioShoe", result);
             }

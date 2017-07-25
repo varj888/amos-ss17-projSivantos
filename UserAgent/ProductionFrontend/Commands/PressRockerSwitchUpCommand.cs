@@ -30,7 +30,7 @@ namespace TestMachineFrontend1.Commands
             if (selectedDuration != null)
             {
                 Debug.WriteLine("The selected Duration for {0} is: {1}", this.GetType().Name, selectedDuration.ToString());
-                await remoteVM.RaspberryPiInstance.PressRockerSwitchUp(selectedDuration.ToString());
+                await remoteVM.SelectedRaspiItem.raspi.PressRockerSwitchUp(selectedDuration.ToString());
                 debugViewModel.AddDebugInfo("PressRockerSwitchUp", "success");
             }
             else

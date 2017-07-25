@@ -14,31 +14,35 @@
             BorderThickness="0,0,0,1" Background="#FFF9F9F9">
         <Grid Name="RightHeaderGrid">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding ToggleRPIListViewCommand}" Content="⍈" Name="ToggleMenuButton_Off" 
+            <Button Command="{Binding ToggleRPIListViewCommand}" Content="⍈" Name="ToggleMenuButton_Off" Visibility="{Binding Path=CurrentViewModelRemoteControllerTitleBar.ToggleMenuButton_Off_Visibility}"
                     Grid.Column="0" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center" 
                     Margin="10,-2" Foreground="#FF323C46" FontFamily="Segoe UI Bold" Background="{x:Null}" 
                     BorderBrush="{x:Null}" FontSize="20" />
-            <Button Visibility="Hidden" Content="⍇" Name="ToggleMenuButton_On" Grid.Column="0" Width="20"
+            <Button Command="{Binding ToggleRPIListViewCommand}" Visibility="{Binding Path=CurrentViewModelRemoteControllerTitleBar.ToggleMenuButton_On_Visibility}" Content="⍇" Name="ToggleMenuButton_On" Grid.Column="0" Width="20"
                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,-2" 
                     Foreground="#FF323C46" FontFamily="Segoe UI Bold" Background="{x:Null}" 
                     BorderBrush="{x:Null}" FontSize="20" />
-            <Label Name="ModelInformation" HorizontalAlignment="Center" VerticalAlignment="Center" 
+            <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <Label Name="ModelInformation" HorizontalAlignment="Left" VerticalAlignment="Center" 
                    Foreground="#FF323C46" FontFamily="Segoe UI Semibold" Background="{x:Null}" BorderBrush="{x:Null}" 
-                   Margin="10,0,10,0" FontSize="12" Visibility="Visible">
-                <Label.Content>
-                    <TextBlock>
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{} MODEL: {0} | FAMILY: {1} | IP: {2}">
-                                <Binding Path="CurrentViewModelRemoteController.Model" />
-                                <Binding Path="CurrentViewModelRemoteController.Family" />
-                                <Binding Path="CurrentViewModelRemoteController.IPAdressConnect" />
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
-                </Label.Content>
-            </Label>
+                   Margin="10,0,10,0" FontSize="12" Visibility="Visible"  Grid.Column="1">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{} MODEL: {0} | FAMILY: {1} | IP: {2}">
+                                    <Binding Path="CurrentViewModelRemoteController.Model" />
+                                    <Binding Path="CurrentViewModelRemoteController.Family" />
+                                    <Binding Path="CurrentViewModelRemoteController.IPAdressConnect" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+
+            </Grid>
         </Grid>
     </Border>
 </UserControl>

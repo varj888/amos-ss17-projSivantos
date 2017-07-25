@@ -7,7 +7,7 @@ using TestMachineFrontend1.Helpers;
 
 namespace TestMachineFrontend1.ViewModel
 {
-    class AboutViewModel : ObservableObject
+    public class AboutViewModel : ObservableObject
     {
         public string Version
         {

@@ -26,7 +26,7 @@ namespace TestMachineFrontend1.ViewModel
 
         public async Task ConnectPins()
         {
-            String result = await remoteVM.RaspberryPiInstance.ConnectPins
+            String result = await remoteVM.SelectedRaspiItem.raspi.ConnectPins
                 ((int)muxModel.ValueX, (int)muxModel.ValueY);
             debugVM.AddDebugInfo("Connecting pins: ", result);
         }
@@ -36,7 +36,7 @@ namespace TestMachineFrontend1.ViewModel
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.ReadPin(muxModel.PinID);
+                result = await remoteVM.SelectedRaspiItem.raspi.ReadPin(muxModel.PinID);
                 debugVM.AddDebugInfo("Read pin: ", result);
             }
             catch (Exception exc)
@@ -50,7 +50,7 @@ namespace TestMachineFrontend1.ViewModel
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.WritePin(muxModel.PinID);
+                result = await remoteVM.SelectedRaspiItem.raspi.WritePin(muxModel.PinID);
                 debugVM.AddDebugInfo("Write pin: ", result);
             }
             catch (Exception exc)
@@ -65,7 +65,7 @@ namespace TestMachineFrontend1.ViewModel
             String result;
             try
             {
-                result = await remoteVM.RaspberryPiInstance.ResetPin(muxModel.PinID);
+                result = await remoteVM.SelectedRaspiItem.raspi.ResetPin(muxModel.PinID);
                 debugVM.AddDebugInfo("Reset pin: ", result);
             }
             catch (Exception exc)

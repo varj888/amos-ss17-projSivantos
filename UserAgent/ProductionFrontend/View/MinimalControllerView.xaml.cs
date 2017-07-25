@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -49,15 +50,8 @@ namespace TestMachineFrontend1.View
                 {
                     param[2] = "RSD";
                 }
-                try
-                {
-                    await remoteVM.SelectedRaspiItem.raspi.PressCombination(param);
-                    vmDebug.AddDebugInfo("PressCombination", "success");
-                }
-                catch (Exception ex)
-                {
-                    vmDebug.AddDebugInfo("PressCombination", "Failed");
-                }
+                await remoteVM.RaspberryPiInstance.PressCombination(param);
+                vmDebug.AddDebugInfo("PressCombination", "success");
                 //Request request = new Request("PressCombination", param);
                 //remoteVM.sendRequest(request);
                 //remoteVM.getResult(request);
@@ -75,7 +69,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(slide.Value);
+                    await remoteVM.RaspberryPiInstance.ChangePowerVoltage(slide.Value);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", slide.Value.ToString());
                 }
                 catch (Exception ex)
@@ -92,7 +86,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    double value = await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(_POWER_ON);
+                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(_POWER_ON);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
@@ -110,7 +104,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    double value = await remoteVM.SelectedRaspiItem.raspi.ChangePowerVoltage(0.0);
+                    double value = await remoteVM.RaspberryPiInstance.ChangePowerVoltage(0.0);
                     vmDebug.AddDebugInfo("ChangePowerVoltage", value.ToString());
                     remoteVM.CurrentPowerVoltage = value;
                 }
@@ -128,7 +122,7 @@ namespace TestMachineFrontend1.View
             {
                 try
                 {
-                    await remoteVM.SelectedRaspiItem.raspi.SetAnalogVolume((byte)slide.Value);
+                    await remoteVM.RaspberryPiInstance.SetAnalogVolume((byte)slide.Value);
                     vmDebug.AddDebugInfo("SetAnalogVolume", slide.Value.ToString());
                 }
                 catch (Exception ex)
@@ -138,32 +132,6 @@ namespace TestMachineFrontend1.View
             }
         }
 
-        private void RockerSwitchDown_Checkbox_Checked(object sender, RoutedEventArgs e)
-        {
-            //Checkbox RS Down is activated
-            if (RockerSwitchDown_Checkbox.IsChecked == true)
-            {
-                RockerSwitchUp_Checkbox.IsEnabled = false;
-            }
-
-            //Checkbox RS Up was unchecked
-            if (RockerSwitchDown_Checkbox.IsChecked == false)
-            {
-                RockerSwitchUp_Checkbox.IsEnabled = true;
-            }
-        }
-
-        private void RockerSwitchUp_Checkbox_Checked(object sender, RoutedEventArgs e)
-        {
-            if (RockerSwitchUp_Checkbox.IsChecked == true)
-            {
-                RockerSwitchDown_Checkbox.IsEnabled = false;
-            }
-
-            if (RockerSwitchUp_Checkbox.IsChecked == false)
-            {
-                RockerSwitchDown_Checkbox.IsEnabled = true;
-            }
-        }
+       
     }
 }

@@ -32,7 +32,7 @@ namespace TestMachineFrontend1.Commands
 
             try
             {
-                await remoteVM.RaspberryPiInstance.SetARDVoltage(receiverDevice);
+                await remoteVM.SelectedRaspiItem.raspi.SetARDVoltage(receiverDevice);
                 debugVM.AddDebugInfo("SetReceiverCommand", receiverDevice);
             }
             catch (Exception e)
