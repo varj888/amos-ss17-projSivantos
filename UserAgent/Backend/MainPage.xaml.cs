@@ -30,8 +30,8 @@ namespace RaspberryBackend
             {
                 // initialize Pi e.g. initialize() for default or customize it for test purposes with initialize(components)
                 raspberryPi.initialize();
-                //operations = new TestOperations();
-                operations = raspberryPi.Control;
+                operations = new TestOperations();
+                //operations = raspberryPi.Control;
             }
             catch (Exception e)
             {

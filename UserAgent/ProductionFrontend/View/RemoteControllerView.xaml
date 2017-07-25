@@ -295,9 +295,9 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="1.5*"/>
-                        <RowDefinition Height="2*"/>
-                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1.5*" MaxHeight="150px"/>
+                        <RowDefinition Height="2*" MaxHeight="200px"/>
+                        <RowDefinition Height="1*" MaxHeight="100px"/>
                     </Grid.RowDefinitions>
 
                     <Border  Margin="10,5,10,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="3">
@@ -584,7 +584,7 @@
                                 <Label Margin="10,0" Grid.Row="0" Grid.RowSpan="2" Content="POWER" HorizontalAlignment="Center"  VerticalAlignment="Top"  Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black"/>
                                 <Border Margin="2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
 
-                                <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,0" HorizontalAlignment="Center">
+                                <DockPanel Grid.Row="1"  HorizontalAlignment="Center">
                                     <TextBox Text="{Binding ElementName=Power_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="20px" Height="20px" TextAlignment="Center"  />
                                     <Label  Content="0 V" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" Margin="0,-2,-20,0" />
                                     <Slider  VerticalAlignment="Center" Name="Power_Slider" 
@@ -596,56 +596,25 @@
                                          Value="{Binding Path=CurrentViewModelRemoteController.CurrentPowerVoltage}"
                                          Thumb.DragCompleted="Power_Slider_DragCompleted"  Width="100" Height="25" />
                                     <Label  Content="1,5 V" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" Margin="-20,-2,0,0" />
-                                    <Border Margin="10,0" VerticalAlignment="Stretch" Width="1px" Background="#FFE1E8EE"/>
-                                    <StackPanel Orientation="Horizontal"  Width="59">
-                                        <Button Click="Button_Power_On_OnClick"  HorizontalAlignment="Right" Margin="0,0,0,4" Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
-                                            <StackPanel>
-                                                <TextBlock Text="ON" FontFamily="Arial" FontSize="8"/>
-                                            </StackPanel>
-                                        </Button>
-                                        <Button Click="Button_Power_OFF_OnClick" Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px" Margin="4,0,35,4">
-                                            <StackPanel>
-                                                <TextBlock Text="OFF" FontFamily="Arial" FontSize="8"/>
-                                            </StackPanel>
-                                        </Button>
-                                    </StackPanel>
-
-                                </StackPanel>
+                                    <Border Margin="10,0"  Width="1px" Background="#FFE1E8EE"/>
+                                    <Button Click="Button_Power_On_OnClick"  HorizontalAlignment="Right" Margin="5,0,0,0" Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
+                                        <StackPanel>
+                                            <TextBlock Text="ON" FontFamily="Arial" FontSize="8"/>
+                                        </StackPanel>
+                                    </Button>
+                                    <Button Click="Button_Power_OFF_OnClick" Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px"  Margin="5,0" >
+                                        <StackPanel>
+                                            <TextBlock Text="OFF" FontFamily="Arial" FontSize="8"/>
+                                        </StackPanel>
+                                    </Button>
+                                </DockPanel>
                             </Grid>
                         </Border>
 
                     </Grid>
                </Grid>
             </TabItem>
-            <TabItem Header="Information" x:Name="InformationTab">
-                <Border Name="XMLStatus"  Margin="10,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1">
-                    <Border.Effect>
-                        <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
-                    </Border.Effect>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="30px"/>
-                            <RowDefinition Height="197*"/>
-                            <RowDefinition Height="35*"/>
-
-                        </Grid.RowDefinitions>
-                        <Label Margin="19,0" Grid.Column="0" Grid.Row="0" Content="DEVICE STATUS" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black" Height="26" Width="103"/>
-                        <Border Margin="2,0,2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
-                        <TextBox Name="RaspiConfig" Text="{Binding Path=CurrentViewModelRemoteController.RaspiConfigString}" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,3"/>
-                        <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" Width="121"
-                                Command="{Binding GetRaspiConfigCommand}" Margin="10,4,10,9"  ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <StackPanel>
-                                <TextBlock Text="Get Current Configuration" FontFamily="Arial" FontSize="8"/>
-                            </StackPanel>
-                        </Button>
-
-                    </Grid>
-                </Border>
-            </TabItem>
-            <TabItem Header="Debug Tab">
+            <TabItem Header="Config / Debug">
                 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -801,6 +770,35 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Information" x:Name="InformationTab">
+                <Border Name="XMLStatus"  Margin="10,5,5,5" BorderBrush="#FFF4F4F5" BorderThickness="0" CornerRadius="1" Background="WhiteSmoke" Grid.Row="1" Grid.Column="0" Grid.RowSpan="1" Grid.ColumnSpan="1">
+                    <Border.Effect>
+                        <DropShadowEffect Direction="270" Color="#FFE4E4E4" ShadowDepth="2" Opacity="0.4" RenderingBias="Quality" />
+                    </Border.Effect>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30px"/>
+                            <RowDefinition Height="197*"/>
+                            <RowDefinition Height="35*"/>
+
+                        </Grid.RowDefinitions>
+                        <Label Margin="19,0" Grid.Column="0" Grid.Row="0" Content="DEVICE STATUS" HorizontalAlignment="Center"  VerticalAlignment="Top"   Background="{x:Null}" Foreground="#FF323C46" FontFamily="Segoe UI Black" Height="26" Width="103"/>
+                        <Border Margin="2,0,2,2" VerticalAlignment="Bottom"  Grid.Row="0" HorizontalAlignment="Stretch" Height="1px" Background="#FFE1E8EE"/>
+                        <TextBox Name="RaspiConfig" Text="{Binding Path=CurrentViewModelRemoteController.RaspiConfigString}" TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10,10,10,3"/>
+                        <Button Grid.Row="2" HorizontalAlignment="Center"  Style="{StaticResource RedButtonFilled}" Width="121"
+                                Command="{Binding GetRaspiConfigCommand}" Margin="10,4,10,9"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Get Current Configuration" FontFamily="Arial" FontSize="8"/>
+                            </StackPanel>
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </TabItem>
+
         </TabControl>
     </Grid>
 </UserControl>

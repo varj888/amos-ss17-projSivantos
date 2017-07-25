@@ -459,7 +459,7 @@ namespace TestMachineFrontend1.ViewModel
 
                 raspberryPis.Add(IPAdressConnect, pi1);
 
-                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = 45, Status = "OK", raspi = pi1 };
+                RaspberryPiItem raspiItem = new RaspberryPiItem() { Name = IPAdressConnect, Id = BackendList.Count, Status = "OK", raspi = pi1 };
 
                 BackendList.Add(raspiItem);
 

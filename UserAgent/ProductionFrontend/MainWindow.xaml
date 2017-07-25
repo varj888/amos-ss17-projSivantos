@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
         xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
         mc:Ignorable="d"
-        Title="RPI User Agent" Height="400" Width="750" MinHeight="400" MinWidth="750">
+        Title="RPI User Agent" Height="400" Width="800" MinHeight="400" MinWidth="800">
 
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -52,7 +52,7 @@
             <!--<ColumnDefinition Name="ListColumn" Width="{Binding Path=ListColumnWidth,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MinWidth="{Binding Path=ListColumnMinWidth,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>-->
             <ColumnDefinition xmlns:comment="Aligning grid splitter / border in its own auto-sized column to prevent overlapping to adjacent cells."
                               Width="Auto"/>
-            <ColumnDefinition Name="CoreColumn" Width="2*" MinWidth="460"/>
+            <ColumnDefinition Name="CoreColumn" Width="2*" MinWidth="500"/>
             <ColumnDefinition xmlns:comment="Aligning grid splitter / border in its own auto-sized column to prevent overlapping to adjacent cells."
                               Width="Auto"/>
             <ColumnDefinition Name="DebugColumn" Width="Auto"/>
