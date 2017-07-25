@@ -306,7 +306,17 @@ namespace TestMachineFrontend1.ViewModel
                 OnPropertyChanged("IsPiConnectedStatus");
             }
         }
-
+        
+        public Visibility _RPIListVisible = Visibility.Visible;
+        public Visibility RPIListVisible
+        {
+            get { return _RPIListVisible; }
+            set
+            {
+                _RPIListVisible = value;
+                OnPropertyChanged("RPIListVisible");
+            }
+        }
         private Visibility isPiDisconnected = Visibility.Visible;
         public Visibility IsPiDisconnected
         {

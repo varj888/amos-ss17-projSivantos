@@ -16,11 +16,11 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding ToggleRPIListViewCommand}" Content="⍈" Name="ToggleMenuButton_Off" 
+            <Button Command="{Binding ToggleRPIListViewCommand}" Content="⍈" Name="ToggleMenuButton_Off" Visibility="{Binding Path=CurrentViewModelRemoteControllerTitleBar.ToggleMenuButton_Off_Visibility}"
                     Grid.Column="0" Width="20" HorizontalAlignment="Left" VerticalAlignment="Center" 
                     Margin="10,-2" Foreground="#FF323C46" FontFamily="Segoe UI Bold" Background="{x:Null}" 
                     BorderBrush="{x:Null}" FontSize="20" />
-            <Button Visibility="Hidden" Content="⍇" Name="ToggleMenuButton_On" Grid.Column="0" Width="20"
+            <Button Command="{Binding ToggleRPIListViewCommand}" Visibility="{Binding Path=CurrentViewModelRemoteControllerTitleBar.ToggleMenuButton_On_Visibility}" Content="⍇" Name="ToggleMenuButton_On" Grid.Column="0" Width="20"
                     HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,-2" 
                     Foreground="#FF323C46" FontFamily="Segoe UI Bold" Background="{x:Null}" 
                     BorderBrush="{x:Null}" FontSize="20" />

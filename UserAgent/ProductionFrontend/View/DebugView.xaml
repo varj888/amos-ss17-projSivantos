@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:TestMachineFrontend1.View"
              xmlns:vm="clr-namespace:TestMachineFrontend1.ViewModel"
              xmlns:convert="clr-namespace:TestMachineFrontend1.Helpers"
-             mc:Ignorable="d" Height="600" Width="320">
+             mc:Ignorable="d">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:DebugViewModel}">
         </DataTemplate>
@@ -17,15 +17,12 @@
     </UserControl.DataContext>
     <Grid>
         <ListView x:Name="debug"
-                  VerticalAlignment="Top" HorizontalAlignment="Stretch"
                    ItemsSource="{Binding Path=CurrentViewModelDebug.DebugList}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn  Header="Origin" Width="{Binding Path=ActualWidth, ElementName=debug, 
-                        Converter={convert:PercentageConverter}, ConverterParameter='0.3'}"
+                    <GridViewColumn  Header="Origin" Width="50"
                                      DisplayMemberBinding="{Binding Origin}" />
-                    <GridViewColumn Header="Text" Width="{Binding Path=ActualWidth, ElementName=debug, 
-                        Converter={convert:PercentageConverter}, ConverterParameter='0.7'}"
+                    <GridViewColumn Header="Text" Width="150"
                                     DisplayMemberBinding="{Binding Text}"/>
                 </GridView>
             </ListView.View>

@@ -44,19 +44,26 @@ namespace TestMachineFrontend1.ViewModel
 
         #region Properties
         public static List<TabControlModel> TabItems { get; set; }
-
-        private Visibility _RPIListVisible = Visibility.Visible;
-        public Visibility RPIListVisible
+        private GridLength _ListColumnWidth = new GridLength(0, GridUnitType.Auto);
+        //private GridLength _ListColumnMinWidth = new GridLength(280, GridUnitType.Pixel);
+        public GridLength ListColumnWidth
         {
-            get { return _RPIListVisible; }
+            get { return _ListColumnWidth; }
             set
             {
-                if (_RPIListVisible == value)
-                    return;
-                _RPIListVisible = value;
-                OnPropertyChanged("RPIListVisible");
+                _ListColumnWidth = value;
+                OnPropertyChanged("ListColumnWidth");
             }
         }
+        //public gridlength listcolumnminwidth
+        //{
+        //    get { return _listcolumnminwidth; }
+        //    set
+        //    {
+        //        _listcolumnminwidth = value;
+        //        onpropertychanged("listcolumnminwidth");
+        //    }
+        //}
         
         #endregion
 
@@ -69,7 +76,7 @@ namespace TestMachineFrontend1.ViewModel
         public static RemoteControllerViewModel CurrentViewModelRemoteController { get; private set; }
         public static RemoteControllerTitleBarViewModel CurrentViewModelRemoteControllerTitleBar { get; private set; }
         public static TestDebugTabViewModel CurrentTestDebugTab { get; private set; }
-
+        public static AboutViewModel CurrentAboutVM { get; private set; }
 
         #endregion
 
@@ -89,9 +96,11 @@ namespace TestMachineFrontend1.ViewModel
             CurrentViewModelRemoteController = new RemoteControllerViewModel();
             CurrentViewModelRemoteControllerTitleBar = new RemoteControllerTitleBarViewModel();
             CurrentTestDebugTab = new TestDebugTabViewModel();
-        }
+            CurrentAboutVM = new AboutViewModel();
 
-        public static void InitAllCommands()
+    }
+
+    public static void InitAllCommands()
         {
             ConnectIPCommand = new ConnectIPCommand();
             PressPushButtonCommand = new PressPushButtonCommand();
