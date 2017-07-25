@@ -73,9 +73,16 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
 
-            <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" 
+            <!--<ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiConnectedStatus}" 
                             Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"/>
             <ContentControl Visibility="{Binding Path=CurrentViewModelRemoteController.IsPiDisconnected}" 
+                            Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"/>
+            <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" 
+                            Grid.Row="0"/>-->
+
+            <ContentControl Visibility="Visible" 
+                            Content="{Binding Path=CurrentViewModelRemoteController}" Grid.Row="1"/>
+            <ContentControl Visibility="Hidden" 
                             Content="{Binding Path=CurrentViewModelDisconnected}" Grid.Row="1"/>
             <ContentControl Visibility="Visible" Content="{Binding Path=CurrentViewModelRemoteControllerTitleBar}" 
                             Grid.Row="0"/>

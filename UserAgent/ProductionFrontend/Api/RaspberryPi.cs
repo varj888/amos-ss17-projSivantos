@@ -32,6 +32,12 @@ namespace TestmachineFrontend1
             return new RaspberryPi(socket);
         }
 
+
+        public void Disconnect()
+        {
+            _socket.Close();
+        }
+
         /// <summary>
         /// Allows to register for received TOs.
         /// If a TO is received in the receive loop, the action will be called in an own thread with the TO as parameter

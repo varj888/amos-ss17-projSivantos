@@ -442,6 +442,10 @@ namespace TestMachineFrontend1.ViewModel
             }
         }
 
+        public async void addRaspberry()
+        {
+            
+        }
 
         public async void connectIP()
         {
@@ -502,6 +506,12 @@ namespace TestMachineFrontend1.ViewModel
                 //TODO check
                 IsPiConnected = false;
             }
+
+        }
+
+        public async void disconnectIP(string ip)
+        {
+            raspberryPi.Disconnect();
 
         }
 
