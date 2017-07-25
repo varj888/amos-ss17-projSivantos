@@ -21,7 +21,6 @@ namespace TestMachineFrontend1.ViewModel
         #region VarDefinitions
         private RaspberryPiItem detectModel;
         private DebugViewModel debugVM;
-        private RemoteControllerViewModel remoteVM;
         private Dictionary<string, List<string>> availableHI;
         private HelperXML helperXML;
         private Dictionary<String, RaspberryPi> raspberryPis = new Dictionary<string, RaspberryPi>();
@@ -30,7 +29,6 @@ namespace TestMachineFrontend1.ViewModel
         public RemoteControllerViewModel()
         {
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
-            remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
             availableHI = new Dictionary<string, List<string>>();
             HIListItems = new ObservableCollection<ComboBoxItem>();
             helperXML = new HelperXML();
