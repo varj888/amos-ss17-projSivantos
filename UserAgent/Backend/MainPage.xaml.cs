@@ -56,7 +56,7 @@ namespace RaspberryBackend
             {
                 status = "available";
                 listener.Start(1);
- 
+
                 clientSocket = null;
                 try
                 {
@@ -86,10 +86,10 @@ namespace RaspberryBackend
                 try
                 {
                     Request request = new Request("register", status);
-                    await registryServerSocket.ConnectAsync("MarcoPC", 54320);
+                    await registryServerSocket.ConnectAsync("192.168.178.21", 54320);
                     Transfer.sendObject(registryServerSocket.GetStream(), request);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Debug.WriteLine("Error registering at the registryServer: " + e.Message);
                 }

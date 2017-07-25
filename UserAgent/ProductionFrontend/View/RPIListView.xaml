@@ -52,7 +52,7 @@
                   Grid.Row="1" SelectionMode="Single"
                   ItemsSource="{Binding CurrentViewModelRemoteController.BackendList}"
                   SelectedItem="{Binding CurrentViewModelRemoteController.SelectedRaspiItem}">
-            <!--<ListView.ContextMenu>
+            <ListView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Connect"
                         Command="{Binding ConnectIPCommand}"
@@ -62,9 +62,8 @@
                         Command="{Binding DisconnectCommand}"
                         CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"
                     />
-                    <MenuItem Header="Delete"  />
                 </ContextMenu>
-            </ListView.ContextMenu>-->
+            </ListView.ContextMenu>
             <ListView.View>
                 <GridView AllowsColumnReorder="False" >
                     <GridViewColumn Header="Address" DisplayMemberBinding="{Binding endpoint}" Width="130" />

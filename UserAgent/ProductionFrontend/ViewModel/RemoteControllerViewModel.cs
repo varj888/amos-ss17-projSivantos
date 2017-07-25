@@ -1,16 +1,12 @@
-﻿using CommonFiles.TransferObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Input;
 using TestmachineFrontend1;
@@ -25,6 +21,7 @@ namespace TestMachineFrontend1.ViewModel
         #region VarDefinitions
         private RaspberryPiItem detectModel;
         private DebugViewModel debugVM;
+        private RemoteControllerViewModel remoteVM;
         private Dictionary<string, List<string>> availableHI;
         private HelperXML helperXML;
         private Dictionary<String, RaspberryPi> raspberryPis = new Dictionary<string, RaspberryPi>();
@@ -33,6 +30,7 @@ namespace TestMachineFrontend1.ViewModel
         public RemoteControllerViewModel()
         {
             debugVM = MainWindowViewModel.CurrentViewModelDebug;
+            remoteVM = MainWindowViewModel.CurrentViewModelRemoteController;
             availableHI = new Dictionary<string, List<string>>();
             HIListItems = new ObservableCollection<ComboBoxItem>();
             helperXML = new HelperXML();
@@ -433,7 +431,7 @@ namespace TestMachineFrontend1.ViewModel
                 return;
             }
             IPEndPoint endpoint = new IPEndPoint(address, 54321);
-            foreach(var entry in BackendList)
+            foreach (var entry in BackendList)
             {
                 if (entry.endpoint.Equals(endpoint))
                 {
@@ -470,7 +468,7 @@ namespace TestMachineFrontend1.ViewModel
             {
                 await SelectedRaspiItem.raspi.ConnectAsync(SelectedRaspiItem.endpoint);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Couldn't establish connection: " + e.Message);
                 return;
@@ -489,7 +487,8 @@ namespace TestMachineFrontend1.ViewModel
             {
                 String result = await SelectedRaspiItem.raspi.GetAvailableHI();
                 getAvailableHI(result);
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Error getting available HI: " + e.Message);
             }
@@ -500,7 +499,8 @@ namespace TestMachineFrontend1.ViewModel
                 Family = await getRaspiFamily();
 
                 detectVC_type();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Error getting Raspi Model: " + e.Message);
             }
@@ -508,7 +508,8 @@ namespace TestMachineFrontend1.ViewModel
             try
             {
                 Family = await getRaspiFamily();
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 debugVM.AddDebugInfo("[ERROR]", "Error getting Raspi Famili: " + e.Message);
             }
@@ -521,7 +522,7 @@ namespace TestMachineFrontend1.ViewModel
         /// </summary>
         public async void detectVC_type()
         {
-            RaspiConfigString = await RaspberryPiInstance.GetRaspiConfig();
+            RaspiConfigString = await MainWindowViewModel.CurrentViewModelRemoteController.SelectedRaspiItem.raspi.GetRaspiConfig();
 
             if (RaspiConfigString.Contains("EndlessVC"))
             {
