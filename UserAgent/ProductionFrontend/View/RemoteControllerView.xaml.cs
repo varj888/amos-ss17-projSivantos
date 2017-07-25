@@ -50,8 +50,15 @@ namespace TestMachineFrontend1.View
                 {
                     param[2] = "RSD";
                 }
-                await remoteVM.SelectedRaspiItem.raspi.PressCombination(param);
-                vmDebug.AddDebugInfo("PressCombination", "success");
+                try
+                {
+                    await remoteVM.RaspberryPiInstance.PressCombination(param);
+                    vmDebug.AddDebugInfo("PressCombination", "success");
+                }
+                catch (Exception ex)
+                {
+                    vmDebug.AddDebugInfo("PressCombination", "Failed");
+                }
                 //Request request = new Request("PressCombination", param);
                 //remoteVM.sendRequest(request);
                 //remoteVM.getResult(request);
@@ -132,6 +139,32 @@ namespace TestMachineFrontend1.View
             }
         }
 
+        private void RockerSwitchDown_Checkbox_Checked(object sender, RoutedEventArgs e)
+        {
+            //Checkbox RS Down is activated
+            if (RockerSwitchDown_Checkbox.IsChecked == true)
+            {
+                RockerSwitchUp_Checkbox.IsEnabled = false;
+            }
 
+            //Checkbox RS Up was unchecked
+            if (RockerSwitchDown_Checkbox.IsChecked == false)
+            {
+                RockerSwitchUp_Checkbox.IsEnabled = true;
+            }
+        }
+
+        private void RockerSwitchUp_Checkbox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (RockerSwitchUp_Checkbox.IsChecked == true)
+            {
+                RockerSwitchDown_Checkbox.IsEnabled = false;
+            }
+
+            if (RockerSwitchUp_Checkbox.IsChecked == false)
+            {
+                RockerSwitchDown_Checkbox.IsEnabled = true;
+            }
+        }
     }
 }

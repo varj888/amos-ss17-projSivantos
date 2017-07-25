@@ -377,7 +377,7 @@
                                     </TextBlock>
                                 </StackPanel>
                             </Button>
-                            <CheckBox x:Name="RockerSwitchUp_Checkbox" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center"
+                            <CheckBox x:Name="RockerSwitchUp_Checkbox" Checked="RockerSwitchUp_Checkbox_Checked" Unchecked="RockerSwitchUp_Checkbox_Checked" Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
                                  IsChecked="{Binding IsRockerSwitchUp}" IsEnabled="True" Height="14" Width="15"/>
                             <Button Name="RockerSwitchDown_Button" Height="25px"  HorizontalAlignment="Center" Margin="10,15"  
@@ -403,7 +403,7 @@
                             </Button>
                             <CheckBox x:Name="RockerSwitchDown_Checkbox" Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Center"
                                 VerticalAlignment="Bottom" Margin="15,0"
-                                 IsChecked="{Binding IsRockerSwitchDown}" IsEnabled="True" Height="14" Width="15"/>
+                                 IsChecked="{Binding IsRockerSwitchDown}" IsEnabled="True" Checked="RockerSwitchDown_Checkbox_Checked" Unchecked="RockerSwitchDown_Checkbox_Checked" Height="14" Width="15"/>
                             <Button MaxHeight="30px" HorizontalAlignment="Center"   Height="25px"
                                     Grid.Row="1" Grid.Column="3" Style="{StaticResource RedButtonFilled}"  
                                     Width="100px" Click="press_Combination">
