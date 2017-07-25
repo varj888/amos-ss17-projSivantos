@@ -586,7 +586,7 @@
 
                                 <DockPanel Grid.Row="1"  HorizontalAlignment="Center">
                                     <TextBox Text="{Binding ElementName=Power_Slider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Width="20px" Height="20px" TextAlignment="Center"  />
-                                    <Label  Content="0 V" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" Margin="0,-2,-20,0" />
+                                    <Label  Content="0 V" VerticalAlignment="Top"   FontSize="8" FontWeight="Bold" Foreground="#FF323C46" Margin="0,0,-20,0"  />
                                     <Slider  VerticalAlignment="Center" Name="Power_Slider" 
                                          Maximum="1.5"
                                          Minimum="0.0"
@@ -595,7 +595,7 @@
                                          TickFrequency="0.1"
                                          Value="{Binding Path=CurrentViewModelRemoteController.CurrentPowerVoltage}"
                                          Thumb.DragCompleted="Power_Slider_DragCompleted"  Width="100" Height="25" />
-                                    <Label  Content="1,5 V" HorizontalContentAlignment="Center" FontSize="8" FontWeight="Bold" Foreground="#FF323C46" Margin="-20,-2,0,0" />
+                                    <Label  Content="1,5 V" VerticalAlignment="Top"  FontSize="8" FontWeight="Bold" Foreground="#FF323C46" Margin="-20,0,0,0"   />
                                     <Border Margin="10,0"  Width="1px" Background="#FFE1E8EE"/>
                                     <Button Click="Button_Power_On_OnClick"  HorizontalAlignment="Right" Margin="5,0,0,0" Style="{StaticResource RedButtonFilled}" Height="20px" Width="20px">
                                         <StackPanel>

@@ -38,15 +38,15 @@ namespace TestMachineFrontend1.Commands
             {
                 rcVM.RPIListVisible = Visibility.Collapsed;
                 WindowWidth = Application.Current.MainWindow.Width;
-                Application.Current.MainWindow.MinWidth = 560;
-                Application.Current.MainWindow.Width = Application.Current.MainWindow.Width - 400;
+                Application.Current.MainWindow.MinWidth = 520;
+                Application.Current.MainWindow.Width = Application.Current.MainWindow.Width - 520;
                 rctbVM.ToggleMenuButton_Off_Visibility = Visibility.Hidden;
                 rctbVM.ToggleMenuButton_On_Visibility = Visibility.Visible;
             }
             else
             {
                 rcVM.RPIListVisible = Visibility.Visible;
-                Application.Current.MainWindow.MinWidth = 850;
+                Application.Current.MainWindow.MinWidth = 800;
                 Application.Current.MainWindow.Width = WindowWidth;
                 rctbVM.ToggleMenuButton_Off_Visibility = Visibility.Visible;
                 rctbVM.ToggleMenuButton_On_Visibility = Visibility.Hidden;
